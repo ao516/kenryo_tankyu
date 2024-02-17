@@ -12,18 +12,22 @@ class LoginPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      appBar: AppBar(),
       body: Center(
-        child: ElevatedButton.icon(
-          onPressed: () async {
-            await ref.read(loginProvider.future);
-          },
-          icon: const Icon(Icons.add),
-          label: const Text('Login with Google'),
+        child: Column(
+          children: [
+            const Text("探究アーカイブ",style: TextStyle(color: Colors.red,fontSize: 20),),
+            SizedBox(width: 200,height: 200,child: Image.asset('images/appIcon.png'),),
+            ElevatedButton.icon(
+              onPressed: () async {
+                await ref.read(loginProvider.future);
+              },
+              icon: const Icon(Icons.add),
+              label: const Text('Googleでログインする'),
+            ),
+          ],
         ),
       ),
     );
   }
-
-  //thats it's now we can login using google
-  // let's display user info
 }
