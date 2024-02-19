@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kenryo_tankyu/app/app.dart';
 import 'package:kenryo_tankyu/firebase_options.dart';
+import 'package:kenryo_tankyu/router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +13,16 @@ Future<void> main() async {
 
   runApp(const ProviderScope(child: MainApp()));
 }
+class MainApp extends ConsumerWidget {
+  const MainApp({super.key});
 
-//thats it, you have google sign setup on your flutter app
-//thanks for watching
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final routerConfig = ref.watch(routesProvider);
+
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      routerConfig: routerConfig,
+    );
+  }
+}

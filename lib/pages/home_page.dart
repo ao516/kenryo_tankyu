@@ -14,10 +14,6 @@ class HomePage extends ConsumerWidget {
     final userState = ref.watch(getCurrentUserProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
       body: userState.when(
         data: (user) {
           return Padding(
