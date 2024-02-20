@@ -5,3 +5,5 @@ export 'header/search_header.dart';
 export 'getImage.dart';
 export 'category.dart';
 export 'sub_category.dart';
+export 'search_chip_list.dart';
+export 'sidebar.dart';
