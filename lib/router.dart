@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:kenryo_tankyu/pages/pages.dart';
+import 'package:kenryo_tankyu/test_page.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
 
@@ -18,28 +19,34 @@ final routesProvider = Provider<GoRouter>((ref) {
   final redirection = authState.valueOrNull != null ? '/home' : '/login';
 
   return GoRouter(
-    initialLocation: redirection,
+    ///最初に開かれる画面の設定
+    initialLocation: redirection, ///本番用
+    // initialLocation: '/test', ///練習用
     navigatorKey: _rootNavigatorKey,
     routes: [
       GoRoute(
         path: '/login',
         builder: LoginPage.builder,
       ),
+      // GoRoute(
+      //   path: '/test',
+      //   builder: (context, state) => const TestPage(),
+      // ),
       GoRoute(
         path: '/result',
         builder: (context, state) => const ResultPage(),
       ),
       GoRoute(
         path: '/resultList',
-        builder: (context, state) => const ResultListPage(resultWord: 'tt'),
+        builder: (context, state) => ResultListPage(state.extra as String),
       ),
       GoRoute(
         path: '/subCategory',
-        builder: (context, state) => const SubCategorySelectPage(),
+        builder: (context, state) => SubCategorySelectPage(state.extra as int),
       ),
       GoRoute(
         path: '/search',
-        builder: (context, state) => const SearchPage(),
+        builder: (context, state) => SearchPage(),
       ),
 
       //ShellRoute内にBottomNavigationBarで遷移する画面を記載する

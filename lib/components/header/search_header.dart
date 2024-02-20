@@ -17,32 +17,32 @@ class _SearchHeaderState extends State<SearchHeader> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: SizedBox(
-        height: 40,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.blue),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Center(
-            child: Container(
-              width: 340,
-              margin: const EdgeInsets.symmetric(vertical: 10.0),
-              child: TextField(
-                autofocus: true,
-                controller: _controller,
-                decoration: const InputDecoration(
-                  hintText: 'キーワードを入力',
-                  prefixIcon: Icon(Icons.search),
-                  suffixIcon: Icon(Icons.clear),
-                  contentPadding: EdgeInsets.only(left: 8.0),
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  isDense: true,
+      backgroundColor: Colors.grey.shade200,
+      titleSpacing: 0,
+      title: Padding(
+        padding: const EdgeInsets.only(right: 16.0),
+        child: SizedBox(
+          height: 40,
+          child: Container(
+            padding: const EdgeInsets.only(left: 16.0),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade50,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: TextField(
+              autofocus: true,
+              controller: _controller,
+              decoration:  InputDecoration(
+                hintText: 'キーワードを入力',
+                suffixIcon: IconButton(
+                  onPressed: () => _controller.clear(), //リセット処理
+                  icon: const Icon(Icons.clear),
                 ),
-                onSubmitted: (text) => context.push('/resultList'),
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                isDense: true,
               ),
+              onSubmitted: (text) => context.push('/resultList',extra: text),
             ),
           ),
         ),

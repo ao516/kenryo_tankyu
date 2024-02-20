@@ -11,6 +11,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final userState = ref.watch(getCurrentUserProvider);
 
     return Scaffold(
@@ -18,16 +19,20 @@ class HomePage extends ConsumerWidget {
         data: (user) {
           return Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: Column(
               children: [
-                Text(user.username),
-                IconButton(
-                  icon: const Icon(Icons.exit_to_app),
-                  onPressed: () async {
-                    //logout user
-                    await ref.read(logoutProvider.future);
-                  },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(user.username),
+                    IconButton(
+                      icon: const Icon(Icons.exit_to_app),
+                      onPressed: () async {
+                        //logout user
+                        await ref.read(logoutProvider.future);
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),

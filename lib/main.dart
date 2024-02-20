@@ -23,6 +23,11 @@ class MainApp extends ConsumerWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: routerConfig,
+      theme: ThemeData(
+        colorScheme: const ColorScheme.light().copyWith(primary: const Color(0xFFc8252b)),
+      ),
     );
   }
 }
+
+//gitなんかうまくいかねー2024/02/19
