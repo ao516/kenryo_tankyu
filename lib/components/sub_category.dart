@@ -5,7 +5,7 @@ class SubCategory extends StatelessWidget {
   SubCategory(this.number, {super.key});
   int number; //何のカテゴリなのかが入ってくる  ex.) 0 --> 地域・社会
 
-  final _items = [
+  static final _items = [
     ['防災', '観光', '市政', '政治'],
     ['歴史', '言語', '地理', '心理', '哲学'],
     ['ジェンダー', '子供の権利', '貧困'],
@@ -23,24 +23,42 @@ class SubCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemBuilder: (BuildContext context, int index) {
-        return ListTile(
+    return Column(
+      children: [
+        ListTile(
+          title: const Text('すべて'),
           trailing: const Icon(Icons.navigate_next),
-          title: Text(_items[number][index]),
-          onTap: () => context.push('/resultList', extra: _items[number][index]),
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return const Padding(
+          onTap: () => context.push('/resultList',extra:  'カテゴリ名が入ります。'),
+        ),
+        const Padding(
           padding: EdgeInsets.only(left: 8.0, right: 8.0),
           child: Divider(
             height: 1,
             color: Colors.grey,
           ),
-        );
-      },
-      itemCount: _items[number].length,
+        ),
+        Expanded(
+          child: ListView.separated(
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                trailing: const Icon(Icons.navigate_next),
+                title: Text(_items[number][index]),
+                onTap: () => context.push('/resultList', extra: _items[number][index]),
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const Padding(
+                padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                child: Divider(
+                  height: 1,
+                  color: Colors.grey,
+                ),
+              );
+            },
+            itemCount: _items[number].length,
+          ),
+        ),
+      ],
     );
   }
 }

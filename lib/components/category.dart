@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CategoryList extends StatelessWidget {
-  CategoryList({super.key});
-  final _items = [
+  const CategoryList({super.key});
+  static final _items = [
     ['社会・地域','images/appIcon.png'],
     ['人文・歴史','images/appIcon.png'],
     ['人権\nジェンダー','images/appIcon.png'],
