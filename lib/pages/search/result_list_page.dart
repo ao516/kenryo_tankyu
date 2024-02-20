@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class ResultListPage extends StatelessWidget {
+  const ResultListPage(this.resultWord,{super.key});
   final String resultWord;
-  const ResultListPage({Key? key, required this.resultWord}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

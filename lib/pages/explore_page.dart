@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kenryo_tankyu/components/components.dart';
 
 class ExplorePage extends StatelessWidget {
   const ExplorePage({super.key});
@@ -7,9 +8,7 @@ class ExplorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: Center(
-        child: ElevatedButton(onPressed: ()=> context.push('/subCategory'), child: const Text('カテゴリを選ぶ')),
-      )),
+      body: CategoryList(),
     );
   }
 }

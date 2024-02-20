@@ -2,32 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class InitialHeader extends StatelessWidget implements PreferredSizeWidget {
+  //探索からカテゴリを選び、サブカテゴリ検索画面にいった時にのみ、ここに値が入っている
+  final String? categoryWord;
+
+
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-  const InitialHeader({super.key});
+  const InitialHeader({super.key, this.categoryWord});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: SizedBox(
-        height: 40,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.blue),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Center(
-            child: InkWell(
-              onTap: () => context.go('/search'),
-              child: Container(
-                width: 340,
-                margin: const EdgeInsets.symmetric(vertical: 10.0),
-                child: const Column(
-                  children: [
-                    Text('検索バー',style: TextStyle(fontSize: 13),)
-                  ],
-                ),
+      backgroundColor: Colors.grey.shade200,
+      titleSpacing: categoryWord?.isEmpty == null ? 20.0 : 0.0,
+      title: Padding(
+        padding: EdgeInsets.only(
+            right: categoryWord?.isEmpty == null ? 0.0 : 16.0),
+        child: SizedBox(
+          height: 40,
+          child: InkWell(
+            onTap: () =>
+                categoryWord?.isEmpty == null ? context.push('/search') : null,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade50,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Padding(padding: EdgeInsets.only(left: 16)),
+                  const Icon(Icons.search),
+                  const Padding(padding: EdgeInsets.only(left: 12)),
+                  Text(
+                    categoryWord ?? 'キーワードを検索',
+                    style: const TextStyle(fontSize: 16, color: Colors.black54),
+                  ),
+                ],
               ),
             ),
           ),
@@ -35,7 +46,4 @@ class InitialHeader extends StatelessWidget implements PreferredSizeWidget {
       ),
     );
   }
-
-  
 }
-

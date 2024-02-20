@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ResultHeader extends StatefulWidget implements PreferredSizeWidget{
 
@@ -17,24 +18,29 @@ class _ResultHeaderState extends State<ResultHeader> {
   @override
   Widget build(BuildContext context) {
     return  AppBar(
-      title: SizedBox(
-        height: 40,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.blue),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Center(
+      backgroundColor: Colors.grey.shade200,
+      titleSpacing: 0,
+      title: Padding(
+        padding: const EdgeInsets.only(right: 16.0),
+        child: Expanded(
+          child: SizedBox(
+            height: 40,
             child: InkWell(
-              onTap: () => Navigator.pop(context),
+              onTap: () => context.pop(),
               child: Container(
-
-                width: 340,
-                margin: const EdgeInsets.symmetric(vertical: 10.0),
-                child: Column(
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade50,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(widget.searchWord,style: const TextStyle(fontSize: 13)),
+                    const Padding(padding: EdgeInsets.only(left: 16)),
+                    const Icon(Icons.search),
+                    const Padding(padding: EdgeInsets.only(left: 12)),
+                    Text(widget.searchWord,
+                      style: const TextStyle(fontSize: 16,color: Colors.black54),
+                    ),
                   ],
                 ),
               ),
