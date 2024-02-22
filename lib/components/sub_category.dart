@@ -28,7 +28,7 @@ class SubCategory extends StatelessWidget {
         ListTile(
           title: const Text('すべて'),
           trailing: const Icon(Icons.navigate_next),
-          onTap: () => context.push('/resultList',extra:  'カテゴリ名が入ります。'),
+          onTap: () => context.pushReplacement('/resultList',extra:  'カテゴリ名が入ります。'),
         ),
         const Padding(
           padding: EdgeInsets.only(left: 8.0, right: 8.0),
@@ -43,7 +43,7 @@ class SubCategory extends StatelessWidget {
               return ListTile(
                 trailing: const Icon(Icons.navigate_next),
                 title: Text(_items[number][index]),
-                onTap: () => context.push('/resultList', extra: _items[number][index]),
+                onTap: () => context.pushReplacement('/resultList', extra: _items[number][index]),
               );
             },
             separatorBuilder: (BuildContext context, int index) {
