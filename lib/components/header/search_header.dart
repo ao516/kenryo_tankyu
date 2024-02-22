@@ -42,7 +42,7 @@ class _SearchHeaderState extends State<SearchHeader> {
                 focusedBorder: InputBorder.none,
                 isDense: true,
               ),
-              onSubmitted: (text) => context.push('/resultList',extra: text),
+              onSubmitted: (text) => context.pushReplacement('/resultList',extra: text),
             ),
           ),
         ),

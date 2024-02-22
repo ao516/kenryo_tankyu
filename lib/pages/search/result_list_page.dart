@@ -1,8 +1,12 @@
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kenryo_tankyu/providers/search.dart';
+import 'package:kenryo_tankyu/providers/search_provider.dart';
 
-class ResultListPage extends StatelessWidget {
+
+class ResultListPage extends ConsumerWidget{
   ResultListPage(this.resultWord,{super.key});
   final String resultWord;
 
@@ -11,7 +15,10 @@ class ResultListPage extends StatelessWidget {
 
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final search = ref.watch(searchProvider);  ///実際に今の値が入っているところ
+    SearchNotifier searchNotifier = ref.read(searchProvider.notifier); ///書き換えるときに使うところ
+
     return PopScope(
       canPop: false,
         onPopInvoked: (didPop) async => context.pop(),
@@ -29,6 +36,7 @@ class ResultListPage extends StatelessWidget {
                   ),
                 ),
               ),
+              ElevatedButton(onPressed: () => searchNotifier.reloadSearch('ttt'), child: Text(search.category ?? '今はなんも'))
             ],
           ),
         ),

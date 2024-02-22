@@ -42,7 +42,7 @@ class SearchPage extends StatelessWidget {
               return ListTile(
                 trailing: const Icon(Icons.navigate_next),
                 title: Text(_items[index]),
-                onTap: () => context.push('/resultList', extra: _items[index]),
+                onTap: () => context.pushReplacement('/resultList', extra: _items[index]),
               );
             },
             separatorBuilder: (BuildContext context, int index) {
