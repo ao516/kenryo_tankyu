@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/providers/search_provider.dart';
 
+
+
 class SearchDropButton extends ConsumerWidget {
-  const SearchDropButton(
-      {required this.name, required this.choices, super.key});
+  const SearchDropButton({required this.name, required this.choices, super.key});
   final String name;
   final List<String> choices;
 
