@@ -1,24 +1,24 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class CategoryList extends StatelessWidget {
   const CategoryList({super.key});
   static final _items = [
-    ['社会・地域','images/appIcon.png'],
-    ['人文・歴史','images/appIcon.png'],
-    ['人権\nジェンダー','images/appIcon.png'],
-    ['国際','images/appIcon.png'],
-    ['ビジネス\n経済','images/appIcon.png'],
-    ['一次産業','images/appIcon.png'],
-    ['スポーツ\n教育','images/appIcon.png'],
-    ['自然環境','images/appIcon.png'],
-    ['科学・数学','images/appIcon.png'],
-    ['テクノロジー\n工学','images/appIcon.png'],
-    ['健康・医療','images/appIcon.png'],
-    ['デザイン\nアート','images/appIcon.png'],
-    ['くらし','images/appIcon.png'],
-    ['プロジェクト','images/appIcon.png'],
-    ['その他','images/appIcon.png'],
+    ['社会・地域','images/category/society.png'],
+    ['人文・歴史','images/category/history.png'],
+    ['人権\nジェンダー','images/category/right.png'],
+    ['国際','images/category/global.png'],
+    ['ビジネス\n経済','images/category/business.png'],
+    ['一次産業','images/category/agriculture.png'],
+    ['スポーツ\n教育','images/category/school.png'],
+    ['自然環境','images/category/environment.png'],
+    ['科学・数学','images/category/science.png'],
+    ['テクノロジー\n工学','images/category/technology.png'],
+    ['健康・医療','images/category/health.png'],
+    ['デザイン\nアート','images/category/art.png'],
+    ['くらし','images/category/life.png'],
+    ['その他','images/category/other.png'],
   ];
 
   @override
@@ -40,10 +40,13 @@ class CategoryList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(_items[index][0],style: const TextStyle(color: Colors.black),),
-                  Image.asset(
-                    _items[index][1],
+                  Container(
                     width: 50,
                     height: 50,
+                    child: Image.asset(
+                      _items[index][1],
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ],
               ),

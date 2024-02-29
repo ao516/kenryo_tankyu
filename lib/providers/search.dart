@@ -11,6 +11,6 @@ class Search with _$Search {
     String? year,
     String? eventName,
     String? departure,
-    List<Map<String,String>>? searchWord,
+    List<String>? searchWord,
 }) = _Search;
 }

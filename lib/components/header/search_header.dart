@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kenryo_tankyu/providers/search_provider.dart';
 
-class SearchHeader extends StatefulWidget implements PreferredSizeWidget{
+class SearchHeader extends ConsumerStatefulWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
   const SearchHeader({super.key});
 
   @override
-  State<SearchHeader> createState() => _SearchHeaderState();
+  SearchHeaderState createState() => SearchHeaderState();
 }
 
-class _SearchHeaderState extends State<SearchHeader> {
-  final _controller = TextEditingController();
+class SearchHeaderState extends ConsumerState<SearchHeader> {
 
+  @override
+  void initState() {
+    super.initState();
+    ref.read(searchProvider);
+  }
+
+  final _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final notifier = ref.read(searchProvider.notifier);
     return AppBar(
       backgroundColor: Colors.grey.shade200,
       titleSpacing: 0,
@@ -32,7 +41,7 @@ class _SearchHeaderState extends State<SearchHeader> {
             child: TextField(
               autofocus: true,
               controller: _controller,
-              decoration:  InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'キーワードを入力',
                 suffixIcon: IconButton(
                   onPressed: () => _controller.clear(), //リセット処理
@@ -42,7 +51,10 @@ class _SearchHeaderState extends State<SearchHeader> {
                 focusedBorder: InputBorder.none,
                 isDense: true,
               ),
-              onSubmitted: (text) => context.pushReplacement('/resultList',extra: text),
+              onSubmitted: (text) {
+                notifier.addKeyWord(text);
+                context.pushReplacement('/resultList', extra: text);
+              },
             ),
           ),
         ),
