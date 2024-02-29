@@ -21,8 +21,7 @@ mixin _$Search {
   String? get year => throw _privateConstructorUsedError;
   String? get eventName => throw _privateConstructorUsedError;
   String? get departure => throw _privateConstructorUsedError;
-  List<Map<String, String>>? get searchWord =>
-      throw _privateConstructorUsedError;
+  List<String>? get searchWord => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SearchCopyWith<Search> get copyWith => throw _privateConstructorUsedError;
@@ -39,7 +38,7 @@ abstract class $SearchCopyWith<$Res> {
       String? year,
       String? eventName,
       String? departure,
-      List<Map<String, String>>? searchWord});
+      List<String>? searchWord});
 }
 
 /// @nodoc
@@ -86,7 +85,7 @@ class _$SearchCopyWithImpl<$Res, $Val extends Search>
       searchWord: freezed == searchWord
           ? _value.searchWord
           : searchWord // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, String>>?,
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -104,7 +103,7 @@ abstract class _$$SearchImplCopyWith<$Res> implements $SearchCopyWith<$Res> {
       String? year,
       String? eventName,
       String? departure,
-      List<Map<String, String>>? searchWord});
+      List<String>? searchWord});
 }
 
 /// @nodoc
@@ -149,7 +148,7 @@ class __$$SearchImplCopyWithImpl<$Res>
       searchWord: freezed == searchWord
           ? _value._searchWord
           : searchWord // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, String>>?,
+              as List<String>?,
     ));
   }
 }
@@ -163,7 +162,7 @@ class _$SearchImpl with DiagnosticableTreeMixin implements _Search {
       this.year,
       this.eventName,
       this.departure,
-      final List<Map<String, String>>? searchWord})
+      final List<String>? searchWord})
       : _searchWord = searchWord;
 
   @override
@@ -176,9 +175,9 @@ class _$SearchImpl with DiagnosticableTreeMixin implements _Search {
   final String? eventName;
   @override
   final String? departure;
-  final List<Map<String, String>>? _searchWord;
+  final List<String>? _searchWord;
   @override
-  List<Map<String, String>>? get searchWord {
+  List<String>? get searchWord {
     final value = _searchWord;
     if (value == null) return null;
     if (_searchWord is EqualUnmodifiableListView) return _searchWord;
@@ -240,7 +239,7 @@ abstract class _Search implements Search {
       final String? year,
       final String? eventName,
       final String? departure,
-      final List<Map<String, String>>? searchWord}) = _$SearchImpl;
+      final List<String>? searchWord}) = _$SearchImpl;
 
   @override
   String? get category;
@@ -253,7 +252,7 @@ abstract class _Search implements Search {
   @override
   String? get departure;
   @override
-  List<Map<String, String>>? get searchWord;
+  List<String>? get searchWord;
   @override
   @JsonKey(ignore: true)
   _$$SearchImplCopyWith<_$SearchImpl> get copyWith =>

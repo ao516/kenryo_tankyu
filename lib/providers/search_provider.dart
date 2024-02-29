@@ -30,4 +30,11 @@ class SearchNotifier extends StateNotifier<Search> {
   void deleteParameter(){
     state = state.copyWith(year: null,eventName: null,departure: null);
   }
+
+  void addKeyWord(String words){
+    final List<String> word = words.replaceAll("　", " ").split(" "); //検索ワードを空白で区切る
+    word.removeWhere((content) => content == ' '); //検索ワードに余分に空白が入っていた場合、消去する todo しっかり機能していないかも。
+    state = state.copyWith(searchWord: word);
+  }
+
 }
