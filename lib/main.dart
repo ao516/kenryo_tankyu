@@ -29,5 +29,3 @@ class MainApp extends ConsumerWidget {
     );
   }
 }
-
-//gitなんかうまくいかねー2024/02/19

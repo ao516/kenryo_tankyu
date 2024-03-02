@@ -34,7 +34,8 @@ class SearchChipList extends ConsumerWidget {
                             padding: EdgeInsets.zero,
                             constraints: const BoxConstraints(),
                             onPressed: () {
-                            }, //TODO on pressed
+                              notifier.deleteKeyWord(index);
+                            },
                             icon: const Icon(Icons.clear, size: 16)),
                       )
                     ],

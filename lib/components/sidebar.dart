@@ -17,6 +17,7 @@ class SideBar extends ConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 8.0, right: 16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -29,10 +30,15 @@ class SideBar extends ConsumerWidget {
                   ],
                 ),
                 const SizedBox(height: 10.0),
+                const SearchDropButton(name: 'カテゴリ', choices: departure),
+                const SizedBox(height: 15.0),
+                const Text('サブカテゴリを選択',style: TextStyle(fontSize: 16)),
+                const SubCategoryChip(),
+                const SizedBox(height: 15.0),
                 const SearchDropButton(name: '期間', choices: year),
-                const SizedBox(height: 10.0),
+                const SizedBox(height: 15.0),
                 const SearchDropButton(name: 'イベント名', choices: eventName),
-                const SizedBox(height: 10.0),
+                const SizedBox(height: 15.0),
                 const SearchDropButton(name: '学科指定', choices: departure),
                 ElevatedButton(
                     onPressed: () {}, child: const Text('再検索する')), //TODO

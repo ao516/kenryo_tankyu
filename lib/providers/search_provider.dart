@@ -37,4 +37,9 @@ class SearchNotifier extends StateNotifier<Search> {
     state = state.copyWith(searchWord: word);
   }
 
+  void deleteKeyWord(int index){
+    state = state.copyWith(
+        searchWord: [...state.searchWord?.removeAt(index) as List<String>],);
+  }
+
 }
