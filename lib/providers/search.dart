@@ -11,6 +11,6 @@ class Search with _$Search {
     String? year,
     String? eventName,
     String? departure,
-    List<String>? searchWord,
+    @Default(['初期値'])List<String> searchWord,
 }) = _Search;
 }
