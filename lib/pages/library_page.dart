@@ -47,7 +47,7 @@ class _LibraryPageState extends State<LibraryPage>
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.black,
                 tabs: [
-                  _Tab(label: 'お気に入り', icon: const Icon(Icons.favorite)),
+                  _Tab(label: '虚無虚無プリン', icon: const Icon(Icons.favorite)),
                   _Tab(label: '閲覧履歴', icon: const Icon(Icons.history)),
                 ],
               ),
