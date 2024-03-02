@@ -82,6 +82,11 @@ final routesProvider = Provider<GoRouter>((ref) {
             pageBuilder: (context, state) =>
                 NoTransitionPage(child: LibraryPage(key: state.pageKey)),
           ),
+          GoRoute(
+            path: '/test',
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: TestPage(key: state.pageKey)),
+          ),
         ],
       ),
     ],

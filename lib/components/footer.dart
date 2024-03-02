@@ -22,6 +22,7 @@ class _FooterState extends State<Footer> {
           NavigationDestination(icon: Icon(Icons.home), label: 'ホーム'),
           NavigationDestination(icon: Icon(Icons.explore), label: '探索'),
           NavigationDestination(icon: Icon(Icons.bookmarks), label: 'ライブラリ'),
+          NavigationDestination(icon: Icon(Icons.add), label: '練習用'),
         ],
         onDestinationSelected: (index) {
           switch (index) {
@@ -36,6 +37,10 @@ class _FooterState extends State<Footer> {
             case 2:
               _selectedIndex = 2;
               context.push('/library');
+              break;
+            case 3:
+              _selectedIndex = 3;
+              context.push('/test');
               break;
             default:
               _selectedIndex = 0;
