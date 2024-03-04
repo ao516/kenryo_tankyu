@@ -3,7 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/providers/search_provider.dart';
 
-class SearchHeader extends ConsumerStatefulWidget implements PreferredSizeWidget {
+class SearchHeader extends ConsumerStatefulWidget
+    implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
   const SearchHeader({super.key});
@@ -13,7 +14,6 @@ class SearchHeader extends ConsumerStatefulWidget implements PreferredSizeWidget
 }
 
 class SearchHeaderState extends ConsumerState<SearchHeader> {
-
   @override
   void initState() {
     super.initState();
@@ -53,7 +53,7 @@ class SearchHeaderState extends ConsumerState<SearchHeader> {
               ),
               onSubmitted: (text) {
                 notifier.addKeyWord(text);
-                context.pushReplacement('/resultList', extra: text);
+                context.pushReplacement('/resultList');
               },
             ),
           ),
