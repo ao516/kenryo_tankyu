@@ -38,11 +38,11 @@ final routesProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/resultList',
-        builder: (context, state) => ResultListPage(state.extra as String),
+        builder: (context, state) => ResultListPage(),
       ),
       GoRoute(
         path: '/subCategory',
-        builder: (context, state) => SubCategorySelectPage(state.extra as int),
+        builder: (context, state) => const SubCategorySelectPage(),
       ),
       GoRoute(
         path: '/search',

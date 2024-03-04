@@ -1,13 +1,15 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kenryo_tankyu/providers/search_provider.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends ConsumerWidget {
   SearchPage({super.key});
   final List<String> _items = ['鳥', 'わんこそば'];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: const SearchHeader(),
       body: Column(
@@ -42,7 +44,9 @@ class SearchPage extends StatelessWidget {
               return ListTile(
                 trailing: const Icon(Icons.navigate_next),
                 title: Text(_items[index]),
-                onTap: () => context.pushReplacement('/resultList', extra: _items[index]),
+                onTap: () {
+                  ref.read(searchProvider.notifier).addKeyWord(_items[index]);
+                  context.pushReplacement('/resultList');},
               );
             },
             separatorBuilder: (BuildContext context, int index) {

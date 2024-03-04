@@ -15,6 +15,10 @@ class SearchNotifier extends StateNotifier<Search> {
     }
   }
 
+  void selectedCategory(String selectCategoryName) {
+    state = state.copyWith(category: selectCategoryName);
+  }
+
   void selectedYear(String selectYear) {
     state = state.copyWith(year: selectYear);
   }
@@ -27,8 +31,12 @@ class SearchNotifier extends StateNotifier<Search> {
     state = state.copyWith(departure: selectDeparture);
   }
 
+  void selectedSubCategory(String selectSubCategory) {
+    state = state.copyWith(subCategory: selectSubCategory);
+  }
+
   void deleteParameter(){
-    state = state.copyWith(year: null,eventName: null,departure: null);
+    state = state.copyWith(year: null,eventName: null,departure: null,subCategory: null,category: null,searchWord: null);
   }
 
   void addKeyWord(String words){
@@ -38,8 +46,9 @@ class SearchNotifier extends StateNotifier<Search> {
   }
 
   void deleteKeyWord(int index){
-    state = state.copyWith(
-        searchWord: [...state.searchWord?.removeAt(index) as List<String>],);
+    final List<String> word = state.searchWord!.where((content) => state.searchWord!.indexOf(content) != index).toList();
+    //TODO まじで上の文なんでこんなになるかわからないけど、できてる笑。すげぇ。（感想）
+    state = state.copyWith(searchWord: word);
   }
 
 }
