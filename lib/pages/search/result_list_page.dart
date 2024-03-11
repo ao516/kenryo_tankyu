@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/data/algolia/search_algolia.dart';
-import 'package:kenryo_tankyu/providers/search_provider.dart';
 import 'package:kenryo_tankyu/data/data.dart';
 
 class ResultListPage extends ConsumerWidget {
@@ -27,9 +28,22 @@ class ResultListPage extends ConsumerWidget {
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('〇件ヒットしました'),
+                    ElevatedButton(
+                        onPressed: () {
+                          FireStoreService().create();
+                        },
+                        child: const Text('DB')),
+                    ElevatedButton(
+                        onPressed: () {
+                          ref.read(searchedNotifierProvider.notifier).fetchData(ref);
+                        },
+                        child: const Text('この状態で検索する')),
+                    ElevatedButton(
+                        onPressed: () {
+                          context.push('/result');
+                        },
+                        child: const Text('結果画面')),
                     IconButton(
                         onPressed: () =>
                             _scaffoldKey.currentState?.openEndDrawer(),
@@ -37,41 +51,28 @@ class ResultListPage extends ConsumerWidget {
                   ],
                 ),
                 Expanded(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          ElevatedButton(
-                              onPressed: () {
-                                FireStoreService().create();
-                              },
-                              child: const Text('DB追加')),
-                          ElevatedButton(
-                              onPressed: () {
-                                ref.read(searchedNotifierProvider.notifier).fetchData(ref);
-                              },
-                              child: const Text('現在の状態で検索する')),
-                        ],
-                      ),
-                      const ResultList(),
-                      Consumer(
-                        builder: (context, ref, child) {
-                          final asyncValue = ref.watch(searchedNotifierProvider);
-                          return asyncValue.when(
-                            data: (data) {
-                              return Text(data);
-                            },
-                            loading: () => const CircularProgressIndicator(),
-                            error: (error, stackTrace) {
-                              return const Text('エラーが発生しました');
-                            },
+                  child: Consumer(
+                    builder: (context, ref, child) {
+                      final asyncValue = ref.watch(searchedNotifierProvider);
+                      return asyncValue.when(
+                        data: (data) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0,top: 4.0,bottom: 4.0),
+                                child: Text('${data.length}件ヒットしました',style: const TextStyle(fontSize: 16),),
+                              ),
+                              ResultList(data: data),
+                            ],
                           );
                         },
-                      ),
-
-                      //読み込んだデータをテキストにして表示する
-
-                    ],
+                        loading: () => const CircularProgressIndicator(),
+                        error: (error, stackTrace) {
+                          return const Text('エラーが発生しました');
+                        },
+                      );
+                    },
                   ),
                 ),
               ],
@@ -81,12 +82,5 @@ class ResultListPage extends ConsumerWidget {
         endDrawer: const SideBar(),
       ),
     );
-  }
-
-  Future<DocumentSnapshot> fetchData() {
-    return FirebaseFirestore.instance
-        .collection('works')
-        .doc('document1')
-        .get();
   }
 }

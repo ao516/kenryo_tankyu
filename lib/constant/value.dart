@@ -2,7 +2,7 @@ const List<String> yearList = ['2018', '2019', '2020', '2021', '2022'];
 const List<String> departureList = ['普通科', '探究科'];
 const List<String> eventNameList = ['信州学', '個人探究'];
 const List<String> categoryList = <String>[
-  '社会・地域',
+  '地域・社会',
   '人文・歴史',
   '人権・ジェンダー',
   '国際',

@@ -6,11 +6,11 @@ import 'package:kenryo_tankyu/providers/search_provider.dart';
 import 'algolia.dart';
 
 final searchedNotifierProvider =
-    StateNotifierProvider<SearchedNotifier, AsyncValue<String>>((ref) {
+    StateNotifierProvider<SearchedNotifier, AsyncValue<List<AlgoliaObjectSnapshot>>>((ref) {
   return SearchedNotifier();
 });
 
-class SearchedNotifier extends StateNotifier<AsyncValue<String>> {
+class SearchedNotifier extends StateNotifier<AsyncValue<List<AlgoliaObjectSnapshot>>> {
   SearchedNotifier() : super(const AsyncValue.loading());
 
   Future<void> fetchData(WidgetRef ref) async {
@@ -23,15 +23,15 @@ class SearchedNotifier extends StateNotifier<AsyncValue<String>> {
     state = const AsyncValue.loading();
     final AlgoliaQuery algoliaQuery = Application.algolia.instance
         .index('firestore')
-        .setLength(3)
+        .setLength(5)
         .query(searchWord)
         .filters(filter);
 
     final AlgoliaQuerySnapshot snap = await algoliaQuery.getObjects();
-
-    debugPrint('検索ワード: $searchWord\nフィルター: $filter');
     final List<AlgoliaObjectSnapshot> objects = snap.hits;
-    state = AsyncValue.data(objects.toString());
+
+    debugPrint('検索ワード: $searchWord\nフィルター: $filter\n検索結果: $objects');
+    state = AsyncValue.data(objects);
   }
 
 
