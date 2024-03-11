@@ -43,10 +43,10 @@ dependencies:
   google_sign_in: ^6.2.1
   equatable: ^2.0.5
   firebase_storage: ^11.6.5
-  syncfusion_flutter_pdfviewer: ^24.2.6
   cached_network_image: ^3.3.1
   freezed_annotation: ^2.4.1
   flutter_native_splash: ^2.3.10
+  algolia: ^1.1.2
 
 dev_dependencies:
   flutter_test:
