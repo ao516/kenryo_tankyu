@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 
-ImageProvider? _image;
-bool _isImageLoaded = false;
-
 class FireStoreDataBase {
   String? downloadURL;
   Future getData() async {

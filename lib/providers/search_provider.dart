@@ -16,7 +16,7 @@ class SearchNotifier extends StateNotifier<Search> {
   }
 
   void selectedCategory(String selectCategoryName) {
-    state = state.copyWith(category: selectCategoryName);
+    state = state.copyWith(category: selectCategoryName, subCategory: null);
   }
 
   void selectedYear(String selectYear) {

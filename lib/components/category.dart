@@ -41,7 +41,7 @@ class CategoryList extends ConsumerWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8))),
               onPressed: () {
-                context.push('/subCategory', extra: index);
+                context.push('/subCategory');
                 categoryNotifier.selectedCategory(categoryList[index]);
               },
               child: Row(
