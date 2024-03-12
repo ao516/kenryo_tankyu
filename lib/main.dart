@@ -6,7 +6,6 @@ import 'package:kenryo_tankyu/router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -17,7 +16,7 @@ class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context,  WidgetRef ref) {
     final routerConfig = ref.watch(routesProvider);
 
     return MaterialApp.router(
