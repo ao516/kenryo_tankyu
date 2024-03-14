@@ -5,27 +5,28 @@ import 'package:kenryo_tankyu/providers/search.dart';
 import 'package:kenryo_tankyu/providers/search_provider.dart';
 import 'algolia.dart';
 
-final searchedNotifierProvider =
-    StateNotifierProvider<SearchedNotifier, AsyncValue<List<AlgoliaObjectSnapshot>>>((ref) {
-  return SearchedNotifier();
+final algoliaNotifierProvider = StateNotifierProvider<AlgoliaNotifier,
+    AsyncValue<List<AlgoliaObjectSnapshot>>>((ref) {
+  return AlgoliaNotifier();
 });
 
-class SearchedNotifier extends StateNotifier<AsyncValue<List<AlgoliaObjectSnapshot>>> {
-  SearchedNotifier() : super(const AsyncValue.loading());
+class AlgoliaNotifier
+    extends StateNotifier<AsyncValue<List<AlgoliaObjectSnapshot>>> {
+  AlgoliaNotifier() : super(const AsyncValue.loading());
 
   Future<void> fetchData(WidgetRef ref) async {
     final searchState = ref.watch(searchProvider);
     final String searchWord = searchState.searchWord != null
         ? searchState.searchWord!.map<String>((String value) => value).join(',')
         : '';
-    final String filter = _filter(searchState);//フィルターに使う文字列を決定する関数。
+    final String filter = _filter(searchState); //フィルターに使う文字列を決定する関数。
 
     state = const AsyncValue.loading();
-    final AlgoliaQuery algoliaQuery = Application.algolia.instance
-        .index('firestore')
-        .setLength(5)
-        .query(searchWord)
-        .filters(filter);
+    AlgoliaQuery algoliaQuery =
+        Application.algolia.instance.index('firestore').setLength(5);
+    algoliaQuery = filter != ''
+        ? algoliaQuery.query(searchWord).filters(filter)
+        : algoliaQuery.query(searchWord);
 
     final AlgoliaQuerySnapshot snap = await algoliaQuery.getObjects();
     final List<AlgoliaObjectSnapshot> objects = snap.hits;
@@ -33,7 +34,6 @@ class SearchedNotifier extends StateNotifier<AsyncValue<List<AlgoliaObjectSnapsh
     debugPrint('検索ワード: $searchWord\nフィルター: $filter\n検索結果: $objects');
     state = AsyncValue.data(objects);
   }
-
 
   String _filter(Search searchState) {
     String str = '';
@@ -45,11 +45,10 @@ class SearchedNotifier extends StateNotifier<AsyncValue<List<AlgoliaObjectSnapsh
                 'AND (category1:${searchState.category} OR category2:${searchState.category})'
             : null;
     searchState.year != null ? str += ' AND year:${searchState.year}' : null;
-    searchState.departure != null
-        ? str += ' AND course:${searchState.departure}'
-        : null; //todo departureじゃなくてcourseに変える
-
-    str = str.substring(4, str.length);
+    searchState.course != null
+        ? str += ' AND course:${searchState.course}'
+        : null;
+    str != '' ? str = str.substring(4, str.length) : null;
     return str;
   }
 }

@@ -12,7 +12,7 @@ class ResultList extends StatelessWidget {
     return Flexible(
       child: ListView.separated(
         itemBuilder: (BuildContext context, int index) {
-          final content = data[index];
+          final AlgoliaObjectSnapshot content = data[index];
           return GestureDetector(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -28,13 +28,17 @@ class ResultList extends StatelessWidget {
                             Container(
                               width: 16,
                               height: 16,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.blue,
+                                color: content.data['year'] %3 == 0
+                                    ? Colors.red
+                                    : content.data['year'] % 3 == 1
+                                        ? Colors.green
+                                        : Colors.blue,
                               ),
                             ),
                             const SizedBox(width: 8),
-                            Text('${content.data['year']}年度入学'),
+                            Text('${content.data['year'].toString()}年度入学'),
                             const SizedBox(width: 8),
                             Text(content.data['course']),
                           ],
@@ -64,16 +68,16 @@ class ResultList extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(left:8.0),
+                  Padding(
+                    padding: const EdgeInsets.only(left:8.0),
                     child: Column(
                       children: [
-                        Image(
-                          image: AssetImage('images/category/art.png'),
+                        const Image(
+                          image: AssetImage('assets/images/category/art.png'),
                           width: 50,
                           height: 50,
                         ),
-                        Favorite(),
+                        Favorite(numberOfFavorite: content.data['likes']),
                       ],
                     ),
                   ),
@@ -81,7 +85,8 @@ class ResultList extends StatelessWidget {
               ),
             ),
             onTap: () {
-              context.push('/result');
+              context.push('/result',extra: content);
+              debugPrint(content.toString());
             },
           );
         },

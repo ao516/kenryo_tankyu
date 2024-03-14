@@ -47,6 +47,9 @@ dependencies:
   freezed_annotation: ^2.4.1
   flutter_native_splash: ^2.3.10
   algolia: ^1.1.2
+  syncfusion_flutter_pdfviewer: ^20.4.54
+  path_provider: ^2.1.2
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -74,8 +77,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/
-    - images/category/
+    - assets/images/
+    - assets/files/
+    - assets/images/category/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

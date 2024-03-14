@@ -8,9 +8,9 @@ class Search with _$Search {
   const factory Search({
     String? category,
     String? subCategory,
-    String? year,
+    int? year,
     String? eventName,
-    String? departure,
-    @Default(['初期値'])List<String> searchWord,
-}) = _Search;
+    String? course,
+    List<String>? searchWord,
+  }) = _Search;
 }

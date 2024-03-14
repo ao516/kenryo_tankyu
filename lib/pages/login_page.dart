@@ -14,7 +14,7 @@ class LoginPage extends ConsumerWidget {
         child: Column(
           children: [
             const Text("探究アーカイブ",style: TextStyle(color: Colors.red,fontSize: 20),),
-            SizedBox(width: 200,height: 200,child: Image.asset('images/appIcon.png'),),
+            SizedBox(width: 200,height: 200,child: Image.asset('assets/images/appIcon.png'),),
             ElevatedButton.icon(
               onPressed: () async {
                 await Authentication.signInWithGoogle(context: context);
@@ -43,6 +43,10 @@ class Authentication {
     if (googleSignInAccount != null) {
       final GoogleSignInAuthentication googleSignInAuthentication =
       await googleSignInAccount.authentication;
+      final OAuthProvider googleProvider = OAuthProvider('google.com');
+      googleProvider.setCustomParameters({
+        'hd' : 'kenryo.ed.jp',
+      });
 
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -9,20 +8,20 @@ import '../providers/search_provider.dart';
 class CategoryList extends ConsumerWidget {
   const CategoryList({super.key});
   static final _items = [
-    ['社会・地域', 'images/category/society.png'],
-    ['人文・歴史', 'images/category/history.png'],
-    ['人権\nジェンダー', 'images/category/right.png'],
-    ['国際', 'images/category/global.png'],
-    ['ビジネス\n経済', 'images/category/business.png'],
-    ['一次産業', 'images/category/agriculture.png'],
-    ['スポーツ\n教育', 'images/category/school.png'],
-    ['自然環境', 'images/category/environment.png'],
-    ['科学・数学', 'images/category/science.png'],
-    ['テクノロジー\n工学', 'images/category/technology.png'],
-    ['健康・医療', 'images/category/health.png'],
-    ['デザイン\nアート', 'images/category/art.png'],
-    ['くらし', 'images/category/life.png'],
-    ['その他', 'images/category/other.png'],
+    ['社会・地域', 'assets/images/category/society.png'],
+    ['人文・歴史', 'assets/images/category/history.png'],
+    ['人権\nジェンダー', 'assets/images/category/right.png'],
+    ['国際', 'assets/images/category/global.png'],
+    ['ビジネス\n経済', 'assets/images/category/business.png'],
+    ['一次産業', 'assets/images/category/agriculture.png'],
+    ['スポーツ\n教育', 'assets/images/category/school.png'],
+    ['自然環境', 'assets/images/category/environment.png'],
+    ['科学・数学', 'assets/images/category/science.png'],
+    ['テクノロジー\n工学', 'assets/images/category/technology.png'],
+    ['健康・医療', 'assets/images/category/health.png'],
+    ['デザイン\nアート', 'assets/images/category/art.png'],
+    ['くらし', 'assets/images/category/life.png'],
+    ['その他', 'assets/images/category/other.png'],
   ];
 
   @override

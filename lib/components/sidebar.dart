@@ -75,7 +75,7 @@ class SideBar extends ConsumerWidget {
                           choices: categoryList),
                       const SizedBox(height: 15.0),
                       SearchDropButton(
-                          name: '期間', selectedText: data.year, choices: yearList),
+                          name: '期間', selectedText: data.year?.toString(), choices: yearList.map((e)=> e.toString()).toList()),
                       const SizedBox(height: 15.0),
                       SearchDropButton(
                           name: 'イベント名',
@@ -84,7 +84,7 @@ class SideBar extends ConsumerWidget {
                       const SizedBox(height: 15.0),
                       SearchDropButton(
                           name: '学科指定',
-                          selectedText: data.departure,
+                          selectedText: data.course,
                           choices: departureList),
                       const SizedBox(height: 15.0),
                       const Text('サブカテゴリを選択'),

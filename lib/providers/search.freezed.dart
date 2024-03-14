@@ -18,9 +18,9 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Search {
   String? get category => throw _privateConstructorUsedError;
   String? get subCategory => throw _privateConstructorUsedError;
-  String? get year => throw _privateConstructorUsedError;
+  int? get year => throw _privateConstructorUsedError;
   String? get eventName => throw _privateConstructorUsedError;
-  String? get departure => throw _privateConstructorUsedError;
+  String? get course => throw _privateConstructorUsedError;
   List<String>? get searchWord => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -35,9 +35,9 @@ abstract class $SearchCopyWith<$Res> {
   $Res call(
       {String? category,
       String? subCategory,
-      String? year,
+      int? year,
       String? eventName,
-      String? departure,
+      String? course,
       List<String>? searchWord});
 }
 
@@ -58,7 +58,7 @@ class _$SearchCopyWithImpl<$Res, $Val extends Search>
     Object? subCategory = freezed,
     Object? year = freezed,
     Object? eventName = freezed,
-    Object? departure = freezed,
+    Object? course = freezed,
     Object? searchWord = freezed,
   }) {
     return _then(_value.copyWith(
@@ -73,14 +73,14 @@ class _$SearchCopyWithImpl<$Res, $Val extends Search>
       year: freezed == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       eventName: freezed == eventName
           ? _value.eventName
           : eventName // ignore: cast_nullable_to_non_nullable
               as String?,
-      departure: freezed == departure
-          ? _value.departure
-          : departure // ignore: cast_nullable_to_non_nullable
+      course: freezed == course
+          ? _value.course
+          : course // ignore: cast_nullable_to_non_nullable
               as String?,
       searchWord: freezed == searchWord
           ? _value.searchWord
@@ -100,9 +100,9 @@ abstract class _$$SearchImplCopyWith<$Res> implements $SearchCopyWith<$Res> {
   $Res call(
       {String? category,
       String? subCategory,
-      String? year,
+      int? year,
       String? eventName,
-      String? departure,
+      String? course,
       List<String>? searchWord});
 }
 
@@ -121,7 +121,7 @@ class __$$SearchImplCopyWithImpl<$Res>
     Object? subCategory = freezed,
     Object? year = freezed,
     Object? eventName = freezed,
-    Object? departure = freezed,
+    Object? course = freezed,
     Object? searchWord = freezed,
   }) {
     return _then(_$SearchImpl(
@@ -136,14 +136,14 @@ class __$$SearchImplCopyWithImpl<$Res>
       year: freezed == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       eventName: freezed == eventName
           ? _value.eventName
           : eventName // ignore: cast_nullable_to_non_nullable
               as String?,
-      departure: freezed == departure
-          ? _value.departure
-          : departure // ignore: cast_nullable_to_non_nullable
+      course: freezed == course
+          ? _value.course
+          : course // ignore: cast_nullable_to_non_nullable
               as String?,
       searchWord: freezed == searchWord
           ? _value._searchWord
@@ -161,7 +161,7 @@ class _$SearchImpl with DiagnosticableTreeMixin implements _Search {
       this.subCategory,
       this.year,
       this.eventName,
-      this.departure,
+      this.course,
       final List<String>? searchWord})
       : _searchWord = searchWord;
 
@@ -170,11 +170,11 @@ class _$SearchImpl with DiagnosticableTreeMixin implements _Search {
   @override
   final String? subCategory;
   @override
-  final String? year;
+  final int? year;
   @override
   final String? eventName;
   @override
-  final String? departure;
+  final String? course;
   final List<String>? _searchWord;
   @override
   List<String>? get searchWord {
@@ -187,7 +187,7 @@ class _$SearchImpl with DiagnosticableTreeMixin implements _Search {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Search(category: $category, subCategory: $subCategory, year: $year, eventName: $eventName, departure: $departure, searchWord: $searchWord)';
+    return 'Search(category: $category, subCategory: $subCategory, year: $year, eventName: $eventName, course: $course, searchWord: $searchWord)';
   }
 
   @override
@@ -199,7 +199,7 @@ class _$SearchImpl with DiagnosticableTreeMixin implements _Search {
       ..add(DiagnosticsProperty('subCategory', subCategory))
       ..add(DiagnosticsProperty('year', year))
       ..add(DiagnosticsProperty('eventName', eventName))
-      ..add(DiagnosticsProperty('departure', departure))
+      ..add(DiagnosticsProperty('course', course))
       ..add(DiagnosticsProperty('searchWord', searchWord));
   }
 
@@ -215,15 +215,14 @@ class _$SearchImpl with DiagnosticableTreeMixin implements _Search {
             (identical(other.year, year) || other.year == year) &&
             (identical(other.eventName, eventName) ||
                 other.eventName == eventName) &&
-            (identical(other.departure, departure) ||
-                other.departure == departure) &&
+            (identical(other.course, course) || other.course == course) &&
             const DeepCollectionEquality()
                 .equals(other._searchWord, _searchWord));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, category, subCategory, year,
-      eventName, departure, const DeepCollectionEquality().hash(_searchWord));
+      eventName, course, const DeepCollectionEquality().hash(_searchWord));
 
   @JsonKey(ignore: true)
   @override
@@ -236,9 +235,9 @@ abstract class _Search implements Search {
   const factory _Search(
       {final String? category,
       final String? subCategory,
-      final String? year,
+      final int? year,
       final String? eventName,
-      final String? departure,
+      final String? course,
       final List<String>? searchWord}) = _$SearchImpl;
 
   @override
@@ -246,11 +245,11 @@ abstract class _Search implements Search {
   @override
   String? get subCategory;
   @override
-  String? get year;
+  int? get year;
   @override
   String? get eventName;
   @override
-  String? get departure;
+  String? get course;
   @override
   List<String>? get searchWord;
   @override

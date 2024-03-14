@@ -1,3 +1,4 @@
+import 'package:algolia/algolia.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -30,7 +31,7 @@ final routesProvider = Provider<GoRouter>((ref) {
      // ),
      GoRoute(
        path: '/result',
-       builder: (context, state) => const ResultPage(),
+       builder: (context, state) =>ResultPage(content: state.extra as AlgoliaObjectSnapshot),
      ),
      GoRoute(
        path: '/resultList',
