@@ -47,8 +47,8 @@ class _LibraryPageState extends State<LibraryPage>
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.black,
                 tabs: [
-                  _Tab(label: '虚無虚無プリン', icon: const Icon(Icons.favorite)),
-                  _Tab(label: '閲覧履歴', icon: const Icon(Icons.history)),
+                  _tab(label: '虚無虚無プリン', icon: const Icon(Icons.favorite)),
+                  _tab(label: '閲覧履歴', icon: const Icon(Icons.history)),
                 ],
               ),
             ),
@@ -65,7 +65,7 @@ class _LibraryPageState extends State<LibraryPage>
     );
   }
 
-  Widget _Tab({required String label, required Icon icon}) {
+  Widget _tab({required String label, required Icon icon}) {
     return Tab(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

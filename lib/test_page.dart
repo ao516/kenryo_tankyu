@@ -1,8 +1,9 @@
-import 'dart:async';
-
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:algolia/algolia.dart';
-import 'data/algolia/algolia.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:path_provider/path_provider.dart';
 
 class TestPage extends StatefulWidget {
   const TestPage({super.key});
@@ -12,36 +13,75 @@ class TestPage extends StatefulWidget {
 }
 
 class _TestPageState extends State<TestPage> {
-  Future<String>? _future;
+  Uint8List? _documentBytes;
+  // Create a storage reference from our app
+  final pathReference = FirebaseStorage.instance.ref().child('sample.pdf');
+
+  @override
+  void initState() {
+    getPdfBytes();
+    super.initState();
+  }
+
+  void getPdfBytes() async {
+    try {
+      const oneMegabyte = 1024 * 1024;
+      _documentBytes = await pathReference.getData(oneMegabyte);
+      setState(() {});
+    } on FirebaseException catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    Widget child = const Center(child: CircularProgressIndicator());
+    if (_documentBytes != null) {
+      child = SfPdfViewer.memory(
+        _documentBytes!,
+      );
+    }
     return Scaffold(
-      body: Column(
-        children: [
-          ElevatedButton(onPressed: (){
-            setState(() {
-              _future = _fetchData();
-            });
-          }, child: const Text('「ふる」を検索')),
-          FutureBuilder<String>(future: _future, builder: (BuildContext context, AsyncSnapshot<String> snapshot){
-            if(snapshot.connectionState == ConnectionState.waiting){
-              return const CircularProgressIndicator();
-            }
-            if(snapshot.hasError){
-              return Text('Error: ${snapshot.error}');
-            }
-            return Text('Data: ${snapshot.data}');
-          }),
+      appBar: AppBar(
+        title: const Text('練習'),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await _download();
+            },
+            icon: const Icon(Icons.download),
+          ),
         ],
       ),
+      body: child,
     );
   }
 
-  Future<String> _fetchData() async {
-    final AlgoliaQuery algoliaQuery = Application.algolia.instance.index('firestore').query('ふる');
-    final AlgoliaQuerySnapshot snap = await algoliaQuery.getObjects();
-    final List<AlgoliaObjectSnapshot> objects = snap.hits;
-    return objects.toString();
+  Future _download() async {
+    final appDocDir = await getApplicationDocumentsDirectory();
+    final filePath = "${appDocDir.path}/tankyu_archive/sample.pdf";
+    debugPrint(filePath);
+    final file = File(filePath);
+
+    final downloadTask = pathReference.writeToFile(file);
+    downloadTask.snapshotEvents.listen((taskSnapshot) {
+      switch (taskSnapshot.state) {
+        case TaskState.running:
+          const SnackBar(content: Text('ダウンロード中です'));
+          break;
+        case TaskState.paused:
+          // TODO: Handle this case.
+          break;
+        case TaskState.success:
+          // TODO: Handle this case.
+          break;
+        case TaskState.canceled:
+          // TODO: Handle this case.
+          break;
+        case TaskState.error:
+          // TODO: Handle this case.
+          break;
+      }
+    });
   }
 }

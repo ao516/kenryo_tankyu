@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
+
+import 'package:algolia/algolia.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +8,7 @@ import 'package:kenryo_tankyu/data/algolia/search_algolia.dart';
 import 'package:kenryo_tankyu/data/data.dart';
 
 class ResultListPage extends ConsumerWidget {
+
   ResultListPage({super.key});
 
   ///drawerを開くボタンをbody内で使うために、ScaffoldにGlobalKeyを指定して、Scaffoldの状態を保持しているScaffoldStateを参照できるようにします。
@@ -27,33 +27,36 @@ class ResultListPage extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          FireStoreService().create();
-                        },
-                        child: const Text('DB')),
-                    ElevatedButton(
-                        onPressed: () {
-                          ref.read(searchedNotifierProvider.notifier).fetchData(ref);
-                        },
-                        child: const Text('この状態で検索する')),
-                    ElevatedButton(
-                        onPressed: () {
-                          context.push('/result');
-                        },
-                        child: const Text('結果画面')),
-                    IconButton(
-                        onPressed: () =>
-                            _scaffoldKey.currentState?.openEndDrawer(),
-                        icon: const Icon(Icons.tune)),
-                  ],
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            FireStoreService().create();
+                          },
+                          child: const Text('DB')),
+                      ElevatedButton(
+                          onPressed: () {
+                            ref.read(algoliaNotifierProvider.notifier).fetchData(ref);
+                          },
+                          child: const Text('この状態で検索する')),
+                      ElevatedButton(
+                          onPressed: () {
+                            context.push('/result',extra: []);//todo 仮データ。いつか消去する
+                          },
+                          child: const Text('結果画面')),
+                      IconButton(
+                          onPressed: () =>
+                              _scaffoldKey.currentState?.openEndDrawer(),
+                          icon: const Icon(Icons.tune)),
+                    ],
+                  ),
                 ),
                 Expanded(
                   child: Consumer(
                     builder: (context, ref, child) {
-                      final asyncValue = ref.watch(searchedNotifierProvider);
+                      final asyncValue = ref.watch(algoliaNotifierProvider);
                       return asyncValue.when(
                         data: (data) {
                           return Column(
@@ -67,7 +70,7 @@ class ResultListPage extends ConsumerWidget {
                             ],
                           );
                         },
-                        loading: () => const CircularProgressIndicator(),
+                        loading: () => const Center(child: CircularProgressIndicator()),
                         error: (error, stackTrace) {
                           return const Text('エラーが発生しました');
                         },

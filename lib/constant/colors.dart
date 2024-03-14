@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
 class MyColor {
-  static const String ThemeColor = "#ffffff";
+  static const String themeColor = "#ffffff";
 
 }

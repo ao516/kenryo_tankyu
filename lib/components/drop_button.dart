@@ -52,7 +52,7 @@ class SearchDropButton extends ConsumerWidget {
   _onChanged(String? value, WidgetRef ref) {
     final notifier = ref.read(searchProvider.notifier);
     name == '期間'
-        ? notifier.selectedYear(value!)
+        ? notifier.selectedYear(int.parse(value!))
         : name == 'イベント名'
             ? notifier.selectedEventName(value!)
             : name == '学科指定'

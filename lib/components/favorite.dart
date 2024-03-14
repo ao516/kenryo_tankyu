@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 class Favorite extends StatelessWidget {
-  const Favorite({super.key});
+  final int numberOfFavorite;
+  const Favorite({super.key,required this.numberOfFavorite});
 
   @override
   Widget build(BuildContext context) {
-    return const Chip(label: Text('22'),avatar: Icon(Icons.favorite));
+    return Chip(label: Text(numberOfFavorite.toString()),avatar: const Icon(Icons.favorite));
   }
 }

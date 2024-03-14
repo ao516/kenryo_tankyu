@@ -19,7 +19,7 @@ class SearchNotifier extends StateNotifier<Search> {
     state = state.copyWith(category: selectCategoryName, subCategory: null);
   }
 
-  void selectedYear(String selectYear) {
+  void selectedYear(int selectYear) {
     state = state.copyWith(year: selectYear);
   }
 
@@ -27,8 +27,8 @@ class SearchNotifier extends StateNotifier<Search> {
     state = state.copyWith(eventName: selectEventName);
   }
 
-  void selectedDeparture(String selectDeparture) {
-    state = state.copyWith(departure: selectDeparture);
+  void selectedDeparture(String selectCourse) {
+    state = state.copyWith(course: selectCourse);
   }
 
   void selectedSubCategory(String selectSubCategory) {
@@ -36,7 +36,7 @@ class SearchNotifier extends StateNotifier<Search> {
   }
 
   void deleteParameter(){
-    state = state.copyWith(year: null,eventName: null,departure: null,subCategory: null,category: null,searchWord: null);
+    state = state.copyWith(year: null,eventName: null,course: null,subCategory: null,category: null,searchWord: null);
   }
 
   void addKeyWord(String words){
@@ -48,6 +48,7 @@ class SearchNotifier extends StateNotifier<Search> {
   void deleteKeyWord(int index){
     final List<String> word = state.searchWord!.where((content) => state.searchWord!.indexOf(content) != index).toList();
     //TODO まじで上の文なんでこんなになるかわからないけど、できてる笑。すげぇ。（感想）
+    //TODO 多分mapとか、リストの型変換とかそのあたりの理解が薄いんだろうな
     state = state.copyWith(searchWord: word);
   }
 
