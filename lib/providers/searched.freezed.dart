@@ -14,28 +14,42 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+Searched _$SearchedFromJson(Map<String, dynamic> json) {
+  return _Searched.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Searched {
-  int? get documentId => throw _privateConstructorUsedError;
-  String? get category1 => throw _privateConstructorUsedError;
-  String? get category2 => throw _privateConstructorUsedError;
-  String? get subCategory1 => throw _privateConstructorUsedError;
-  String? get subCategory2 => throw _privateConstructorUsedError;
-  int? get year => throw _privateConstructorUsedError;
-  String? get eventName => throw _privateConstructorUsedError;
-  String? get course => throw _privateConstructorUsedError;
-  String? get title => throw _privateConstructorUsedError;
-  String? get author => throw _privateConstructorUsedError;
-  int? get likes => throw _privateConstructorUsedError;
-  bool? get existsSlide => throw _privateConstructorUsedError;
-  bool? get existsReport => throw _privateConstructorUsedError;
-  bool? get existsThesis => throw _privateConstructorUsedError;
-  bool? get existsPoster => throw _privateConstructorUsedError;
-  Uint8List? get slidePdfBytes => throw _privateConstructorUsedError;
-  Uint8List? get reportPdfBytes => throw _privateConstructorUsedError;
-  Uint8List? get thesisPdfBytes => throw _privateConstructorUsedError;
-  Uint8List? get posterPdfBytes => throw _privateConstructorUsedError;
+  @JsonKey(name: 'category1')
+  String get category1 => throw _privateConstructorUsedError;
+  @JsonKey(name: 'category2')
+  String get category2 => throw _privateConstructorUsedError;
+  @JsonKey(name: 'subCategory1')
+  String get subCategory1 => throw _privateConstructorUsedError;
+  @JsonKey(name: 'subCategory2')
+  String get subCategory2 => throw _privateConstructorUsedError;
+  @JsonKey(name: 'year')
+  int get year => throw _privateConstructorUsedError;
+  @JsonKey(name: 'eventName')
+  String get eventName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'course')
+  String get course => throw _privateConstructorUsedError;
+  @JsonKey(name: 'title')
+  String get title => throw _privateConstructorUsedError;
+  @JsonKey(name: 'author')
+  String get author => throw _privateConstructorUsedError;
+  @JsonKey(name: 'likes')
+  int get likes => throw _privateConstructorUsedError;
+  @JsonKey(name: 'existsSlide')
+  bool get existsSlide => throw _privateConstructorUsedError;
+  @JsonKey(name: 'existsReport')
+  bool get existsReport => throw _privateConstructorUsedError;
+  @JsonKey(name: 'existsThesis')
+  bool get existsThesis => throw _privateConstructorUsedError;
+  @JsonKey(name: 'existsPoster')
+  bool get existsPoster => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $SearchedCopyWith<Searched> get copyWith =>
       throw _privateConstructorUsedError;
@@ -47,25 +61,20 @@ abstract class $SearchedCopyWith<$Res> {
       _$SearchedCopyWithImpl<$Res, Searched>;
   @useResult
   $Res call(
-      {int? documentId,
-      String? category1,
-      String? category2,
-      String? subCategory1,
-      String? subCategory2,
-      int? year,
-      String? eventName,
-      String? course,
-      String? title,
-      String? author,
-      int? likes,
-      bool? existsSlide,
-      bool? existsReport,
-      bool? existsThesis,
-      bool? existsPoster,
-      Uint8List? slidePdfBytes,
-      Uint8List? reportPdfBytes,
-      Uint8List? thesisPdfBytes,
-      Uint8List? posterPdfBytes});
+      {@JsonKey(name: 'category1') String category1,
+      @JsonKey(name: 'category2') String category2,
+      @JsonKey(name: 'subCategory1') String subCategory1,
+      @JsonKey(name: 'subCategory2') String subCategory2,
+      @JsonKey(name: 'year') int year,
+      @JsonKey(name: 'eventName') String eventName,
+      @JsonKey(name: 'course') String course,
+      @JsonKey(name: 'title') String title,
+      @JsonKey(name: 'author') String author,
+      @JsonKey(name: 'likes') int likes,
+      @JsonKey(name: 'existsSlide') bool existsSlide,
+      @JsonKey(name: 'existsReport') bool existsReport,
+      @JsonKey(name: 'existsThesis') bool existsThesis,
+      @JsonKey(name: 'existsPoster') bool existsPoster});
 }
 
 /// @nodoc
@@ -81,103 +90,78 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? documentId = freezed,
-    Object? category1 = freezed,
-    Object? category2 = freezed,
-    Object? subCategory1 = freezed,
-    Object? subCategory2 = freezed,
-    Object? year = freezed,
-    Object? eventName = freezed,
-    Object? course = freezed,
-    Object? title = freezed,
-    Object? author = freezed,
-    Object? likes = freezed,
-    Object? existsSlide = freezed,
-    Object? existsReport = freezed,
-    Object? existsThesis = freezed,
-    Object? existsPoster = freezed,
-    Object? slidePdfBytes = freezed,
-    Object? reportPdfBytes = freezed,
-    Object? thesisPdfBytes = freezed,
-    Object? posterPdfBytes = freezed,
+    Object? category1 = null,
+    Object? category2 = null,
+    Object? subCategory1 = null,
+    Object? subCategory2 = null,
+    Object? year = null,
+    Object? eventName = null,
+    Object? course = null,
+    Object? title = null,
+    Object? author = null,
+    Object? likes = null,
+    Object? existsSlide = null,
+    Object? existsReport = null,
+    Object? existsThesis = null,
+    Object? existsPoster = null,
   }) {
     return _then(_value.copyWith(
-      documentId: freezed == documentId
-          ? _value.documentId
-          : documentId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      category1: freezed == category1
+      category1: null == category1
           ? _value.category1
           : category1 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      category2: freezed == category2
+              as String,
+      category2: null == category2
           ? _value.category2
           : category2 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      subCategory1: freezed == subCategory1
+              as String,
+      subCategory1: null == subCategory1
           ? _value.subCategory1
           : subCategory1 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      subCategory2: freezed == subCategory2
+              as String,
+      subCategory2: null == subCategory2
           ? _value.subCategory2
           : subCategory2 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      year: freezed == year
+              as String,
+      year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
-              as int?,
-      eventName: freezed == eventName
+              as int,
+      eventName: null == eventName
           ? _value.eventName
           : eventName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      course: freezed == course
+              as String,
+      course: null == course
           ? _value.course
           : course // ignore: cast_nullable_to_non_nullable
-              as String?,
-      title: freezed == title
+              as String,
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      author: freezed == author
+              as String,
+      author: null == author
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
-              as String?,
-      likes: freezed == likes
+              as String,
+      likes: null == likes
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
-              as int?,
-      existsSlide: freezed == existsSlide
+              as int,
+      existsSlide: null == existsSlide
           ? _value.existsSlide
           : existsSlide // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      existsReport: freezed == existsReport
+              as bool,
+      existsReport: null == existsReport
           ? _value.existsReport
           : existsReport // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      existsThesis: freezed == existsThesis
+              as bool,
+      existsThesis: null == existsThesis
           ? _value.existsThesis
           : existsThesis // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      existsPoster: freezed == existsPoster
+              as bool,
+      existsPoster: null == existsPoster
           ? _value.existsPoster
           : existsPoster // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      slidePdfBytes: freezed == slidePdfBytes
-          ? _value.slidePdfBytes
-          : slidePdfBytes // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
-      reportPdfBytes: freezed == reportPdfBytes
-          ? _value.reportPdfBytes
-          : reportPdfBytes // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
-      thesisPdfBytes: freezed == thesisPdfBytes
-          ? _value.thesisPdfBytes
-          : thesisPdfBytes // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
-      posterPdfBytes: freezed == posterPdfBytes
-          ? _value.posterPdfBytes
-          : posterPdfBytes // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+              as bool,
     ) as $Val);
   }
 }
@@ -191,25 +175,20 @@ abstract class _$$SearchedImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? documentId,
-      String? category1,
-      String? category2,
-      String? subCategory1,
-      String? subCategory2,
-      int? year,
-      String? eventName,
-      String? course,
-      String? title,
-      String? author,
-      int? likes,
-      bool? existsSlide,
-      bool? existsReport,
-      bool? existsThesis,
-      bool? existsPoster,
-      Uint8List? slidePdfBytes,
-      Uint8List? reportPdfBytes,
-      Uint8List? thesisPdfBytes,
-      Uint8List? posterPdfBytes});
+      {@JsonKey(name: 'category1') String category1,
+      @JsonKey(name: 'category2') String category2,
+      @JsonKey(name: 'subCategory1') String subCategory1,
+      @JsonKey(name: 'subCategory2') String subCategory2,
+      @JsonKey(name: 'year') int year,
+      @JsonKey(name: 'eventName') String eventName,
+      @JsonKey(name: 'course') String course,
+      @JsonKey(name: 'title') String title,
+      @JsonKey(name: 'author') String author,
+      @JsonKey(name: 'likes') int likes,
+      @JsonKey(name: 'existsSlide') bool existsSlide,
+      @JsonKey(name: 'existsReport') bool existsReport,
+      @JsonKey(name: 'existsThesis') bool existsThesis,
+      @JsonKey(name: 'existsPoster') bool existsPoster});
 }
 
 /// @nodoc
@@ -223,199 +202,151 @@ class __$$SearchedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? documentId = freezed,
-    Object? category1 = freezed,
-    Object? category2 = freezed,
-    Object? subCategory1 = freezed,
-    Object? subCategory2 = freezed,
-    Object? year = freezed,
-    Object? eventName = freezed,
-    Object? course = freezed,
-    Object? title = freezed,
-    Object? author = freezed,
-    Object? likes = freezed,
-    Object? existsSlide = freezed,
-    Object? existsReport = freezed,
-    Object? existsThesis = freezed,
-    Object? existsPoster = freezed,
-    Object? slidePdfBytes = freezed,
-    Object? reportPdfBytes = freezed,
-    Object? thesisPdfBytes = freezed,
-    Object? posterPdfBytes = freezed,
+    Object? category1 = null,
+    Object? category2 = null,
+    Object? subCategory1 = null,
+    Object? subCategory2 = null,
+    Object? year = null,
+    Object? eventName = null,
+    Object? course = null,
+    Object? title = null,
+    Object? author = null,
+    Object? likes = null,
+    Object? existsSlide = null,
+    Object? existsReport = null,
+    Object? existsThesis = null,
+    Object? existsPoster = null,
   }) {
     return _then(_$SearchedImpl(
-      documentId: freezed == documentId
-          ? _value.documentId
-          : documentId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      category1: freezed == category1
+      category1: null == category1
           ? _value.category1
           : category1 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      category2: freezed == category2
+              as String,
+      category2: null == category2
           ? _value.category2
           : category2 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      subCategory1: freezed == subCategory1
+              as String,
+      subCategory1: null == subCategory1
           ? _value.subCategory1
           : subCategory1 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      subCategory2: freezed == subCategory2
+              as String,
+      subCategory2: null == subCategory2
           ? _value.subCategory2
           : subCategory2 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      year: freezed == year
+              as String,
+      year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
-              as int?,
-      eventName: freezed == eventName
+              as int,
+      eventName: null == eventName
           ? _value.eventName
           : eventName // ignore: cast_nullable_to_non_nullable
-              as String?,
-      course: freezed == course
+              as String,
+      course: null == course
           ? _value.course
           : course // ignore: cast_nullable_to_non_nullable
-              as String?,
-      title: freezed == title
+              as String,
+      title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String?,
-      author: freezed == author
+              as String,
+      author: null == author
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
-              as String?,
-      likes: freezed == likes
+              as String,
+      likes: null == likes
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
-              as int?,
-      existsSlide: freezed == existsSlide
+              as int,
+      existsSlide: null == existsSlide
           ? _value.existsSlide
           : existsSlide // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      existsReport: freezed == existsReport
+              as bool,
+      existsReport: null == existsReport
           ? _value.existsReport
           : existsReport // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      existsThesis: freezed == existsThesis
+              as bool,
+      existsThesis: null == existsThesis
           ? _value.existsThesis
           : existsThesis // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      existsPoster: freezed == existsPoster
+              as bool,
+      existsPoster: null == existsPoster
           ? _value.existsPoster
           : existsPoster // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      slidePdfBytes: freezed == slidePdfBytes
-          ? _value.slidePdfBytes
-          : slidePdfBytes // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
-      reportPdfBytes: freezed == reportPdfBytes
-          ? _value.reportPdfBytes
-          : reportPdfBytes // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
-      thesisPdfBytes: freezed == thesisPdfBytes
-          ? _value.thesisPdfBytes
-          : thesisPdfBytes // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
-      posterPdfBytes: freezed == posterPdfBytes
-          ? _value.posterPdfBytes
-          : posterPdfBytes // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+              as bool,
     ));
   }
 }
 
 /// @nodoc
-
-class _$SearchedImpl with DiagnosticableTreeMixin implements _Searched {
+@JsonSerializable()
+class _$SearchedImpl extends _Searched {
   const _$SearchedImpl(
-      {this.documentId,
-      this.category1,
-      this.category2,
-      this.subCategory1,
-      this.subCategory2,
-      this.year,
-      this.eventName,
-      this.course,
-      this.title,
-      this.author,
-      this.likes,
-      this.existsSlide,
-      this.existsReport,
-      this.existsThesis,
-      this.existsPoster,
-      this.slidePdfBytes,
-      this.reportPdfBytes,
-      this.thesisPdfBytes,
-      this.posterPdfBytes});
+      {@JsonKey(name: 'category1') required this.category1,
+      @JsonKey(name: 'category2') required this.category2,
+      @JsonKey(name: 'subCategory1') required this.subCategory1,
+      @JsonKey(name: 'subCategory2') required this.subCategory2,
+      @JsonKey(name: 'year') required this.year,
+      @JsonKey(name: 'eventName') required this.eventName,
+      @JsonKey(name: 'course') required this.course,
+      @JsonKey(name: 'title') required this.title,
+      @JsonKey(name: 'author') required this.author,
+      @JsonKey(name: 'likes') required this.likes,
+      @JsonKey(name: 'existsSlide') required this.existsSlide,
+      @JsonKey(name: 'existsReport') required this.existsReport,
+      @JsonKey(name: 'existsThesis') required this.existsThesis,
+      @JsonKey(name: 'existsPoster') required this.existsPoster})
+      : super._();
+
+  factory _$SearchedImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SearchedImplFromJson(json);
 
   @override
-  final int? documentId;
+  @JsonKey(name: 'category1')
+  final String category1;
   @override
-  final String? category1;
+  @JsonKey(name: 'category2')
+  final String category2;
   @override
-  final String? category2;
+  @JsonKey(name: 'subCategory1')
+  final String subCategory1;
   @override
-  final String? subCategory1;
+  @JsonKey(name: 'subCategory2')
+  final String subCategory2;
   @override
-  final String? subCategory2;
+  @JsonKey(name: 'year')
+  final int year;
   @override
-  final int? year;
+  @JsonKey(name: 'eventName')
+  final String eventName;
   @override
-  final String? eventName;
+  @JsonKey(name: 'course')
+  final String course;
   @override
-  final String? course;
+  @JsonKey(name: 'title')
+  final String title;
   @override
-  final String? title;
+  @JsonKey(name: 'author')
+  final String author;
   @override
-  final String? author;
+  @JsonKey(name: 'likes')
+  final int likes;
   @override
-  final int? likes;
+  @JsonKey(name: 'existsSlide')
+  final bool existsSlide;
   @override
-  final bool? existsSlide;
+  @JsonKey(name: 'existsReport')
+  final bool existsReport;
   @override
-  final bool? existsReport;
+  @JsonKey(name: 'existsThesis')
+  final bool existsThesis;
   @override
-  final bool? existsThesis;
-  @override
-  final bool? existsPoster;
-  @override
-  final Uint8List? slidePdfBytes;
-  @override
-  final Uint8List? reportPdfBytes;
-  @override
-  final Uint8List? thesisPdfBytes;
-  @override
-  final Uint8List? posterPdfBytes;
+  @JsonKey(name: 'existsPoster')
+  final bool existsPoster;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Searched(documentId: $documentId, category1: $category1, category2: $category2, subCategory1: $subCategory1, subCategory2: $subCategory2, year: $year, eventName: $eventName, course: $course, title: $title, author: $author, likes: $likes, existsSlide: $existsSlide, existsReport: $existsReport, existsThesis: $existsThesis, existsPoster: $existsPoster, slidePdfBytes: $slidePdfBytes, reportPdfBytes: $reportPdfBytes, thesisPdfBytes: $thesisPdfBytes, posterPdfBytes: $posterPdfBytes)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Searched'))
-      ..add(DiagnosticsProperty('documentId', documentId))
-      ..add(DiagnosticsProperty('category1', category1))
-      ..add(DiagnosticsProperty('category2', category2))
-      ..add(DiagnosticsProperty('subCategory1', subCategory1))
-      ..add(DiagnosticsProperty('subCategory2', subCategory2))
-      ..add(DiagnosticsProperty('year', year))
-      ..add(DiagnosticsProperty('eventName', eventName))
-      ..add(DiagnosticsProperty('course', course))
-      ..add(DiagnosticsProperty('title', title))
-      ..add(DiagnosticsProperty('author', author))
-      ..add(DiagnosticsProperty('likes', likes))
-      ..add(DiagnosticsProperty('existsSlide', existsSlide))
-      ..add(DiagnosticsProperty('existsReport', existsReport))
-      ..add(DiagnosticsProperty('existsThesis', existsThesis))
-      ..add(DiagnosticsProperty('existsPoster', existsPoster))
-      ..add(DiagnosticsProperty('slidePdfBytes', slidePdfBytes))
-      ..add(DiagnosticsProperty('reportPdfBytes', reportPdfBytes))
-      ..add(DiagnosticsProperty('thesisPdfBytes', thesisPdfBytes))
-      ..add(DiagnosticsProperty('posterPdfBytes', posterPdfBytes));
+  String toString() {
+    return 'Searched(category1: $category1, category2: $category2, subCategory1: $subCategory1, subCategory2: $subCategory2, year: $year, eventName: $eventName, course: $course, title: $title, author: $author, likes: $likes, existsSlide: $existsSlide, existsReport: $existsReport, existsThesis: $existsThesis, existsPoster: $existsPoster)';
   }
 
   @override
@@ -423,8 +354,6 @@ class _$SearchedImpl with DiagnosticableTreeMixin implements _Searched {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SearchedImpl &&
-            (identical(other.documentId, documentId) ||
-                other.documentId == documentId) &&
             (identical(other.category1, category1) ||
                 other.category1 == category1) &&
             (identical(other.category2, category2) ||
@@ -447,108 +376,106 @@ class _$SearchedImpl with DiagnosticableTreeMixin implements _Searched {
             (identical(other.existsThesis, existsThesis) ||
                 other.existsThesis == existsThesis) &&
             (identical(other.existsPoster, existsPoster) ||
-                other.existsPoster == existsPoster) &&
-            const DeepCollectionEquality()
-                .equals(other.slidePdfBytes, slidePdfBytes) &&
-            const DeepCollectionEquality()
-                .equals(other.reportPdfBytes, reportPdfBytes) &&
-            const DeepCollectionEquality()
-                .equals(other.thesisPdfBytes, thesisPdfBytes) &&
-            const DeepCollectionEquality()
-                .equals(other.posterPdfBytes, posterPdfBytes));
+                other.existsPoster == existsPoster));
   }
 
+  @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hashAll([
-        runtimeType,
-        documentId,
-        category1,
-        category2,
-        subCategory1,
-        subCategory2,
-        year,
-        eventName,
-        course,
-        title,
-        author,
-        likes,
-        existsSlide,
-        existsReport,
-        existsThesis,
-        existsPoster,
-        const DeepCollectionEquality().hash(slidePdfBytes),
-        const DeepCollectionEquality().hash(reportPdfBytes),
-        const DeepCollectionEquality().hash(thesisPdfBytes),
-        const DeepCollectionEquality().hash(posterPdfBytes)
-      ]);
+  int get hashCode => Object.hash(
+      runtimeType,
+      category1,
+      category2,
+      subCategory1,
+      subCategory2,
+      year,
+      eventName,
+      course,
+      title,
+      author,
+      likes,
+      existsSlide,
+      existsReport,
+      existsThesis,
+      existsPoster);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SearchedImplCopyWith<_$SearchedImpl> get copyWith =>
       __$$SearchedImplCopyWithImpl<_$SearchedImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SearchedImplToJson(
+      this,
+    );
+  }
 }
 
-abstract class _Searched implements Searched {
+abstract class _Searched extends Searched {
   const factory _Searched(
-      {final int? documentId,
-      final String? category1,
-      final String? category2,
-      final String? subCategory1,
-      final String? subCategory2,
-      final int? year,
-      final String? eventName,
-      final String? course,
-      final String? title,
-      final String? author,
-      final int? likes,
-      final bool? existsSlide,
-      final bool? existsReport,
-      final bool? existsThesis,
-      final bool? existsPoster,
-      final Uint8List? slidePdfBytes,
-      final Uint8List? reportPdfBytes,
-      final Uint8List? thesisPdfBytes,
-      final Uint8List? posterPdfBytes}) = _$SearchedImpl;
+          {@JsonKey(name: 'category1') required final String category1,
+          @JsonKey(name: 'category2') required final String category2,
+          @JsonKey(name: 'subCategory1') required final String subCategory1,
+          @JsonKey(name: 'subCategory2') required final String subCategory2,
+          @JsonKey(name: 'year') required final int year,
+          @JsonKey(name: 'eventName') required final String eventName,
+          @JsonKey(name: 'course') required final String course,
+          @JsonKey(name: 'title') required final String title,
+          @JsonKey(name: 'author') required final String author,
+          @JsonKey(name: 'likes') required final int likes,
+          @JsonKey(name: 'existsSlide') required final bool existsSlide,
+          @JsonKey(name: 'existsReport') required final bool existsReport,
+          @JsonKey(name: 'existsThesis') required final bool existsThesis,
+          @JsonKey(name: 'existsPoster') required final bool existsPoster}) =
+      _$SearchedImpl;
+  const _Searched._() : super._();
+
+  factory _Searched.fromJson(Map<String, dynamic> json) =
+      _$SearchedImpl.fromJson;
 
   @override
-  int? get documentId;
+  @JsonKey(name: 'category1')
+  String get category1;
   @override
-  String? get category1;
+  @JsonKey(name: 'category2')
+  String get category2;
   @override
-  String? get category2;
+  @JsonKey(name: 'subCategory1')
+  String get subCategory1;
   @override
-  String? get subCategory1;
+  @JsonKey(name: 'subCategory2')
+  String get subCategory2;
   @override
-  String? get subCategory2;
+  @JsonKey(name: 'year')
+  int get year;
   @override
-  int? get year;
+  @JsonKey(name: 'eventName')
+  String get eventName;
   @override
-  String? get eventName;
+  @JsonKey(name: 'course')
+  String get course;
   @override
-  String? get course;
+  @JsonKey(name: 'title')
+  String get title;
   @override
-  String? get title;
+  @JsonKey(name: 'author')
+  String get author;
   @override
-  String? get author;
+  @JsonKey(name: 'likes')
+  int get likes;
   @override
-  int? get likes;
+  @JsonKey(name: 'existsSlide')
+  bool get existsSlide;
   @override
-  bool? get existsSlide;
+  @JsonKey(name: 'existsReport')
+  bool get existsReport;
   @override
-  bool? get existsReport;
+  @JsonKey(name: 'existsThesis')
+  bool get existsThesis;
   @override
-  bool? get existsThesis;
-  @override
-  bool? get existsPoster;
-  @override
-  Uint8List? get slidePdfBytes;
-  @override
-  Uint8List? get reportPdfBytes;
-  @override
-  Uint8List? get thesisPdfBytes;
-  @override
-  Uint8List? get posterPdfBytes;
+  @JsonKey(name: 'existsPoster')
+  bool get existsPoster;
   @override
   @JsonKey(ignore: true)
   _$$SearchedImplCopyWith<_$SearchedImpl> get copyWith =>
