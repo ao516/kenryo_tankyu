@@ -132,10 +132,10 @@ class ResultPage extends ConsumerWidget {
                   data: (data) {
                     final partOfId = content.objectID.substring(1);
                     final list = [];
-                    if (data.existsSlide) list.add('スライド');
-                    if (data.existsReport) list.add('レポート');
-                    if (data.existsPoster) list.add('ポスター');
-                    if (data.existsThesis) list.add('論文');
+                    if (data.existsSlide!) list.add('スライド');
+                    if (data.existsReport!) list.add('レポート');
+                    if (data.existsPoster!) list.add('ポスター');
+                    if (data.existsThesis!) list.add('論文');
 
                     ///todo 最初に呼び出すpdfを決定している。ちょっとコード汚いな…。
                     WidgetsBinding.instance!.addPostFrameCallback((_) {

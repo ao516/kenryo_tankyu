@@ -1,7 +1,10 @@
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'searched.freezed.dart';
 part 'searched.g.dart';
+
+
 
 @freezed
 class Searched with _$Searched {
@@ -17,12 +20,15 @@ class Searched with _$Searched {
     @JsonKey(name: 'eventName') required String eventName,
     @JsonKey(name: 'course') required String course,
     @JsonKey(name: 'title') required String title,
-    @JsonKey(name: 'author') required String author,
-    @JsonKey(name: 'likes') required int likes,
-    @JsonKey(name: 'existsSlide') required bool existsSlide,
-    @JsonKey(name: 'existsReport') required bool existsReport,
-    @JsonKey(name: 'existsThesis') required bool existsThesis,
-    @JsonKey(name: 'existsPoster') required bool existsPoster,
+    @JsonKey(name: 'author') String? author,
+    @JsonKey(name: 'vagueLikes')  String? vagueLikes,
+    @JsonKey(name: 'exactLikes') int? exactLikes,
+    @JsonKey(name: 'existsSlide')  bool? existsSlide,
+    @JsonKey(name: 'existsReport')  bool? existsReport,
+    @JsonKey(name: 'existsThesis')  bool? existsThesis,
+    @JsonKey(name: 'existsPoster')  bool? existsPoster,
+
   }) = _Searched;
+
   factory Searched.fromJson(Map<String, dynamic> json) => _$SearchedFromJson(json);
 }

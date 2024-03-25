@@ -4,6 +4,7 @@ import 'package:kenryo_tankyu/components/components.dart';
 
 ///TODO あまり納得いってないよこのタブ
 ///あと、riverpod使わずにstateful使っちゃってるのちょっと罪悪感あるし！
+///ゆーてstateprovider１つ使うだけでよさそうなんだよな。
 
 class LibraryPage extends StatefulWidget {
   const LibraryPage({super.key});
