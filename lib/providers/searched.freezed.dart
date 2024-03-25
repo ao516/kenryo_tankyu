@@ -37,17 +37,19 @@ mixin _$Searched {
   @JsonKey(name: 'title')
   String get title => throw _privateConstructorUsedError;
   @JsonKey(name: 'author')
-  String get author => throw _privateConstructorUsedError;
-  @JsonKey(name: 'likes')
-  int get likes => throw _privateConstructorUsedError;
+  String? get author => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vagueLikes')
+  String? get vagueLikes => throw _privateConstructorUsedError;
+  @JsonKey(name: 'exactLikes')
+  int? get exactLikes => throw _privateConstructorUsedError;
   @JsonKey(name: 'existsSlide')
-  bool get existsSlide => throw _privateConstructorUsedError;
+  bool? get existsSlide => throw _privateConstructorUsedError;
   @JsonKey(name: 'existsReport')
-  bool get existsReport => throw _privateConstructorUsedError;
+  bool? get existsReport => throw _privateConstructorUsedError;
   @JsonKey(name: 'existsThesis')
-  bool get existsThesis => throw _privateConstructorUsedError;
+  bool? get existsThesis => throw _privateConstructorUsedError;
   @JsonKey(name: 'existsPoster')
-  bool get existsPoster => throw _privateConstructorUsedError;
+  bool? get existsPoster => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -69,12 +71,13 @@ abstract class $SearchedCopyWith<$Res> {
       @JsonKey(name: 'eventName') String eventName,
       @JsonKey(name: 'course') String course,
       @JsonKey(name: 'title') String title,
-      @JsonKey(name: 'author') String author,
-      @JsonKey(name: 'likes') int likes,
-      @JsonKey(name: 'existsSlide') bool existsSlide,
-      @JsonKey(name: 'existsReport') bool existsReport,
-      @JsonKey(name: 'existsThesis') bool existsThesis,
-      @JsonKey(name: 'existsPoster') bool existsPoster});
+      @JsonKey(name: 'author') String? author,
+      @JsonKey(name: 'vagueLikes') String? vagueLikes,
+      @JsonKey(name: 'exactLikes') int? exactLikes,
+      @JsonKey(name: 'existsSlide') bool? existsSlide,
+      @JsonKey(name: 'existsReport') bool? existsReport,
+      @JsonKey(name: 'existsThesis') bool? existsThesis,
+      @JsonKey(name: 'existsPoster') bool? existsPoster});
 }
 
 /// @nodoc
@@ -98,12 +101,13 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
     Object? eventName = null,
     Object? course = null,
     Object? title = null,
-    Object? author = null,
-    Object? likes = null,
-    Object? existsSlide = null,
-    Object? existsReport = null,
-    Object? existsThesis = null,
-    Object? existsPoster = null,
+    Object? author = freezed,
+    Object? vagueLikes = freezed,
+    Object? exactLikes = freezed,
+    Object? existsSlide = freezed,
+    Object? existsReport = freezed,
+    Object? existsThesis = freezed,
+    Object? existsPoster = freezed,
   }) {
     return _then(_value.copyWith(
       category1: null == category1
@@ -138,30 +142,34 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      author: null == author
+      author: freezed == author
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
-              as String,
-      likes: null == likes
-          ? _value.likes
-          : likes // ignore: cast_nullable_to_non_nullable
-              as int,
-      existsSlide: null == existsSlide
+              as String?,
+      vagueLikes: freezed == vagueLikes
+          ? _value.vagueLikes
+          : vagueLikes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      exactLikes: freezed == exactLikes
+          ? _value.exactLikes
+          : exactLikes // ignore: cast_nullable_to_non_nullable
+              as int?,
+      existsSlide: freezed == existsSlide
           ? _value.existsSlide
           : existsSlide // ignore: cast_nullable_to_non_nullable
-              as bool,
-      existsReport: null == existsReport
+              as bool?,
+      existsReport: freezed == existsReport
           ? _value.existsReport
           : existsReport // ignore: cast_nullable_to_non_nullable
-              as bool,
-      existsThesis: null == existsThesis
+              as bool?,
+      existsThesis: freezed == existsThesis
           ? _value.existsThesis
           : existsThesis // ignore: cast_nullable_to_non_nullable
-              as bool,
-      existsPoster: null == existsPoster
+              as bool?,
+      existsPoster: freezed == existsPoster
           ? _value.existsPoster
           : existsPoster // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
     ) as $Val);
   }
 }
@@ -183,12 +191,13 @@ abstract class _$$SearchedImplCopyWith<$Res>
       @JsonKey(name: 'eventName') String eventName,
       @JsonKey(name: 'course') String course,
       @JsonKey(name: 'title') String title,
-      @JsonKey(name: 'author') String author,
-      @JsonKey(name: 'likes') int likes,
-      @JsonKey(name: 'existsSlide') bool existsSlide,
-      @JsonKey(name: 'existsReport') bool existsReport,
-      @JsonKey(name: 'existsThesis') bool existsThesis,
-      @JsonKey(name: 'existsPoster') bool existsPoster});
+      @JsonKey(name: 'author') String? author,
+      @JsonKey(name: 'vagueLikes') String? vagueLikes,
+      @JsonKey(name: 'exactLikes') int? exactLikes,
+      @JsonKey(name: 'existsSlide') bool? existsSlide,
+      @JsonKey(name: 'existsReport') bool? existsReport,
+      @JsonKey(name: 'existsThesis') bool? existsThesis,
+      @JsonKey(name: 'existsPoster') bool? existsPoster});
 }
 
 /// @nodoc
@@ -210,12 +219,13 @@ class __$$SearchedImplCopyWithImpl<$Res>
     Object? eventName = null,
     Object? course = null,
     Object? title = null,
-    Object? author = null,
-    Object? likes = null,
-    Object? existsSlide = null,
-    Object? existsReport = null,
-    Object? existsThesis = null,
-    Object? existsPoster = null,
+    Object? author = freezed,
+    Object? vagueLikes = freezed,
+    Object? exactLikes = freezed,
+    Object? existsSlide = freezed,
+    Object? existsReport = freezed,
+    Object? existsThesis = freezed,
+    Object? existsPoster = freezed,
   }) {
     return _then(_$SearchedImpl(
       category1: null == category1
@@ -250,30 +260,34 @@ class __$$SearchedImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      author: null == author
+      author: freezed == author
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
-              as String,
-      likes: null == likes
-          ? _value.likes
-          : likes // ignore: cast_nullable_to_non_nullable
-              as int,
-      existsSlide: null == existsSlide
+              as String?,
+      vagueLikes: freezed == vagueLikes
+          ? _value.vagueLikes
+          : vagueLikes // ignore: cast_nullable_to_non_nullable
+              as String?,
+      exactLikes: freezed == exactLikes
+          ? _value.exactLikes
+          : exactLikes // ignore: cast_nullable_to_non_nullable
+              as int?,
+      existsSlide: freezed == existsSlide
           ? _value.existsSlide
           : existsSlide // ignore: cast_nullable_to_non_nullable
-              as bool,
-      existsReport: null == existsReport
+              as bool?,
+      existsReport: freezed == existsReport
           ? _value.existsReport
           : existsReport // ignore: cast_nullable_to_non_nullable
-              as bool,
-      existsThesis: null == existsThesis
+              as bool?,
+      existsThesis: freezed == existsThesis
           ? _value.existsThesis
           : existsThesis // ignore: cast_nullable_to_non_nullable
-              as bool,
-      existsPoster: null == existsPoster
+              as bool?,
+      existsPoster: freezed == existsPoster
           ? _value.existsPoster
           : existsPoster // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
     ));
   }
 }
@@ -290,12 +304,13 @@ class _$SearchedImpl extends _Searched {
       @JsonKey(name: 'eventName') required this.eventName,
       @JsonKey(name: 'course') required this.course,
       @JsonKey(name: 'title') required this.title,
-      @JsonKey(name: 'author') required this.author,
-      @JsonKey(name: 'likes') required this.likes,
-      @JsonKey(name: 'existsSlide') required this.existsSlide,
-      @JsonKey(name: 'existsReport') required this.existsReport,
-      @JsonKey(name: 'existsThesis') required this.existsThesis,
-      @JsonKey(name: 'existsPoster') required this.existsPoster})
+      @JsonKey(name: 'author') this.author,
+      @JsonKey(name: 'vagueLikes') this.vagueLikes,
+      @JsonKey(name: 'exactLikes') this.exactLikes,
+      @JsonKey(name: 'existsSlide') this.existsSlide,
+      @JsonKey(name: 'existsReport') this.existsReport,
+      @JsonKey(name: 'existsThesis') this.existsThesis,
+      @JsonKey(name: 'existsPoster') this.existsPoster})
       : super._();
 
   factory _$SearchedImpl.fromJson(Map<String, dynamic> json) =>
@@ -327,26 +342,29 @@ class _$SearchedImpl extends _Searched {
   final String title;
   @override
   @JsonKey(name: 'author')
-  final String author;
+  final String? author;
   @override
-  @JsonKey(name: 'likes')
-  final int likes;
+  @JsonKey(name: 'vagueLikes')
+  final String? vagueLikes;
+  @override
+  @JsonKey(name: 'exactLikes')
+  final int? exactLikes;
   @override
   @JsonKey(name: 'existsSlide')
-  final bool existsSlide;
+  final bool? existsSlide;
   @override
   @JsonKey(name: 'existsReport')
-  final bool existsReport;
+  final bool? existsReport;
   @override
   @JsonKey(name: 'existsThesis')
-  final bool existsThesis;
+  final bool? existsThesis;
   @override
   @JsonKey(name: 'existsPoster')
-  final bool existsPoster;
+  final bool? existsPoster;
 
   @override
   String toString() {
-    return 'Searched(category1: $category1, category2: $category2, subCategory1: $subCategory1, subCategory2: $subCategory2, year: $year, eventName: $eventName, course: $course, title: $title, author: $author, likes: $likes, existsSlide: $existsSlide, existsReport: $existsReport, existsThesis: $existsThesis, existsPoster: $existsPoster)';
+    return 'Searched(category1: $category1, category2: $category2, subCategory1: $subCategory1, subCategory2: $subCategory2, year: $year, eventName: $eventName, course: $course, title: $title, author: $author, vagueLikes: $vagueLikes, exactLikes: $exactLikes, existsSlide: $existsSlide, existsReport: $existsReport, existsThesis: $existsThesis, existsPoster: $existsPoster)';
   }
 
   @override
@@ -368,7 +386,10 @@ class _$SearchedImpl extends _Searched {
             (identical(other.course, course) || other.course == course) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.author, author) || other.author == author) &&
-            (identical(other.likes, likes) || other.likes == likes) &&
+            (identical(other.vagueLikes, vagueLikes) ||
+                other.vagueLikes == vagueLikes) &&
+            (identical(other.exactLikes, exactLikes) ||
+                other.exactLikes == exactLikes) &&
             (identical(other.existsSlide, existsSlide) ||
                 other.existsSlide == existsSlide) &&
             (identical(other.existsReport, existsReport) ||
@@ -392,7 +413,8 @@ class _$SearchedImpl extends _Searched {
       course,
       title,
       author,
-      likes,
+      vagueLikes,
+      exactLikes,
       existsSlide,
       existsReport,
       existsThesis,
@@ -422,12 +444,13 @@ abstract class _Searched extends Searched {
           @JsonKey(name: 'eventName') required final String eventName,
           @JsonKey(name: 'course') required final String course,
           @JsonKey(name: 'title') required final String title,
-          @JsonKey(name: 'author') required final String author,
-          @JsonKey(name: 'likes') required final int likes,
-          @JsonKey(name: 'existsSlide') required final bool existsSlide,
-          @JsonKey(name: 'existsReport') required final bool existsReport,
-          @JsonKey(name: 'existsThesis') required final bool existsThesis,
-          @JsonKey(name: 'existsPoster') required final bool existsPoster}) =
+          @JsonKey(name: 'author') final String? author,
+          @JsonKey(name: 'vagueLikes') final String? vagueLikes,
+          @JsonKey(name: 'exactLikes') final int? exactLikes,
+          @JsonKey(name: 'existsSlide') final bool? existsSlide,
+          @JsonKey(name: 'existsReport') final bool? existsReport,
+          @JsonKey(name: 'existsThesis') final bool? existsThesis,
+          @JsonKey(name: 'existsPoster') final bool? existsPoster}) =
       _$SearchedImpl;
   const _Searched._() : super._();
 
@@ -460,22 +483,25 @@ abstract class _Searched extends Searched {
   String get title;
   @override
   @JsonKey(name: 'author')
-  String get author;
+  String? get author;
   @override
-  @JsonKey(name: 'likes')
-  int get likes;
+  @JsonKey(name: 'vagueLikes')
+  String? get vagueLikes;
+  @override
+  @JsonKey(name: 'exactLikes')
+  int? get exactLikes;
   @override
   @JsonKey(name: 'existsSlide')
-  bool get existsSlide;
+  bool? get existsSlide;
   @override
   @JsonKey(name: 'existsReport')
-  bool get existsReport;
+  bool? get existsReport;
   @override
   @JsonKey(name: 'existsThesis')
-  bool get existsThesis;
+  bool? get existsThesis;
   @override
   @JsonKey(name: 'existsPoster')
-  bool get existsPoster;
+  bool? get existsPoster;
   @override
   @JsonKey(ignore: true)
   _$$SearchedImplCopyWith<_$SearchedImpl> get copyWith =>

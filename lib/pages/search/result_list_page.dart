@@ -41,11 +41,6 @@ class ResultListPage extends ConsumerWidget {
                             ref.read(algoliaNotifierProvider.notifier).fetchData(ref);
                           },
                           child: const Text('この状態で検索する')),
-                      ElevatedButton(
-                          onPressed: () {
-                            context.push('/result',extra: []);//todo 仮データ。いつか消去する
-                          },
-                          child: const Text('結果画面')),
                       IconButton(
                           onPressed: () =>
                               _scaffoldKey.currentState?.openEndDrawer(),

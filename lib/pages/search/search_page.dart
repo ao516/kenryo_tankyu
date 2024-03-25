@@ -26,14 +26,20 @@ class SearchPage extends ConsumerWidget {
               color: Colors.grey,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: SizedBox(
               child: Row(
 
                 children: [
-                  Icon(Icons.history),
-                  Text('閲覧履歴',style: TextStyle(fontSize: 20),),
+                  const Icon(Icons.history),
+                  const Text('検索履歴',style: TextStyle(fontSize: 20),),
+                  IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: (){
+                      //todo 検索履歴を削除する処理
+                    },
+                  ),
                 ],
               ),
             ),

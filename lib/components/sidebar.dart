@@ -98,7 +98,10 @@ class SideBar extends ConsumerWidget {
                 const Spacer(),
                 Center(
                   child: ElevatedButton(
-                      onPressed: () {}, child: const Text('再検索する')),
+                      onPressed: () {
+                        ref.read(searchProvider.notifier);
+                        Navigator.of(context).pop();
+                      }, child: const Text('再検索する')),
                 ), //TODO
               ],
             ),

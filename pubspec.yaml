@@ -50,6 +50,7 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^20.4.54
   path_provider: ^2.1.2
   shimmer: ^3.0.0
+  sqflite: ^2.3.2
 
 dev_dependencies:
   flutter_test:

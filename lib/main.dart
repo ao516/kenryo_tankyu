@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/firebase_options.dart';
 import 'package:kenryo_tankyu/router.dart';
+import 'color_schemes.g.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,9 +23,7 @@ class MainApp extends ConsumerWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: routerConfig,
-      theme: ThemeData(
-        colorScheme: const ColorScheme.light().copyWith(primary: const Color(0xFFc8252b)),
-      ),
+      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
     );
   }
 }

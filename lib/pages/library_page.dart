@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kenryo_tankyu/components/components.dart';
 
 ///TODO あまり納得いってないよこのタブ
 ///あと、riverpod使わずにstateful使っちゃってるのちょっと罪悪感あるし！
+///ゆーてstateprovider１つ使うだけでよさそうなんだよな。
 
 class LibraryPage extends StatefulWidget {
   const LibraryPage({super.key});
@@ -47,7 +49,7 @@ class _LibraryPageState extends State<LibraryPage>
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.black,
                 tabs: [
-                  _tab(label: '虚無虚無プリン', icon: const Icon(Icons.favorite)),
+                  _tab(label: 'お気に入り', icon: const Icon(Icons.favorite)),
                   _tab(label: '閲覧履歴', icon: const Icon(Icons.history)),
                 ],
               ),
@@ -58,8 +60,8 @@ class _LibraryPageState extends State<LibraryPage>
       body: TabBarView(
         controller: _tabController,
         children: const <Widget>[
-          Text('aaa'),
-          Text('bbb')
+          LibraryList(onlyFavorite: true),
+          LibraryList(onlyFavorite: false),
         ], //TODO,, tabcontrollerがindexを管理してくれているから、順番に作っちゃうだけでおけ
       ),
     );
