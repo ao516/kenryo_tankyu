@@ -2,86 +2,81 @@ import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kenryo_tankyu/data/local_history_db.dart';
 
-class TestPage extends StatefulWidget {
+class TestPage extends ConsumerWidget {
   const TestPage({super.key});
 
   @override
-  State<TestPage> createState() => _TestPageState();
-}
-
-class _TestPageState extends State<TestPage> {
-  Uint8List? _documentBytes;
-  // Create a storage reference from our app
-  final pathReference = FirebaseStorage.instance.ref().child('sample.pdf');
-
-  @override
-  void initState() {
-    getPdfBytes();
-    super.initState();
-  }
-
-  void getPdfBytes() async {
-    try {
-      const oneMegabyte = 1024 * 1024;
-      _documentBytes = await pathReference.getData(oneMegabyte);
-      setState(() {});
-    } on FirebaseException catch (e) {
-      debugPrint(e.toString());
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Widget child = const Center(child: CircularProgressIndicator());
-    if (_documentBytes != null) {
-      child = SfPdfViewer.memory(
-        _documentBytes!,
-      );
-    }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final historyAsyncValue = ref.watch(historyAsyncNotifierProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('練習'),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              await _download();
-            },
-            icon: const Icon(Icons.download),
-          ),
-        ],
+        title: const Text('Test Page'),
+        leading: IconButton(
+          icon: const Icon(Icons.add),
+          onPressed: () async {
+            final notifier = ref.read(historyAsyncNotifierProvider.notifier);
+            const history = History(
+                title: 'タイトルぅ',
+                isFavorite: 1,
+                category1: '',
+                subCategory1: '',
+                category2: '',
+                subCategory2: '',
+                year: 2012,
+                course: '',
+                eventName: '',
+                author: '');
+            await notifier.insertHistory(history);
+          },
+        ),
       ),
-      body: child,
+      body: historyAsyncValue.when(
+          data: (history) {
+            return history == null
+                ? const Center(child: Text('No data'))
+                : RefreshIndicator(
+                    onRefresh: () async {
+                      final notifier =
+                          ref.read(historyAsyncNotifierProvider.notifier);
+                      await notifier.getAllHistory();
+                    },
+                    child: ListView.separated(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: history.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(history[index].title),
+                          subtitle: Text(history[index].author),
+                          trailing: IconButton(
+                            icon: history[index].isFavorite == 1
+                                ? const Icon(Icons.favorite, color: Colors.red)
+                                : const Icon(Icons.favorite_border,
+                                    color: Colors.red),
+                            onPressed: () async {
+                              final notifier = ref
+                                  .read(historyAsyncNotifierProvider.notifier);
+                              await notifier
+                                  .changeFavoriteState(history[index]);
+                            },
+                          ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Divider(),
+                        );
+                      },
+                    ),
+                  );
+          },
+          loading: () => const Center(child: CircularProgressIndicator()),
+          error: (Object error, StackTrace stackTrace) {
+            return Center(child: Text(error.toString()));
+          }),
     );
-  }
-
-  Future _download() async {
-    final appDocDir = await getApplicationDocumentsDirectory();
-    final filePath = "${appDocDir.path}/tankyu_archive/sample.pdf";
-    debugPrint(filePath);
-    final file = File(filePath);
-
-    final downloadTask = pathReference.writeToFile(file);
-    downloadTask.snapshotEvents.listen((taskSnapshot) {
-      switch (taskSnapshot.state) {
-        case TaskState.running:
-          const SnackBar(content: Text('ダウンロード中です'));
-          break;
-        case TaskState.paused:
-          // TODO: Handle this case.
-          break;
-        case TaskState.success:
-          // TODO: Handle this case.
-          break;
-        case TaskState.canceled:
-          // TODO: Handle this case.
-          break;
-        case TaskState.error:
-          // TODO: Handle this case.
-          break;
-      }
-    });
   }
 }

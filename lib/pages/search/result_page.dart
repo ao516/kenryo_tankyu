@@ -67,6 +67,7 @@ class ResultPage extends ConsumerWidget {
               style: const TextStyle(fontSize: 20),
             )),
           ),
+          const Favorite(numberOfFavorite: 1000),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Table(
@@ -136,15 +137,16 @@ class ResultPage extends ConsumerWidget {
                     if (data.existsPoster) list.add('ポスター');
                     if (data.existsThesis) list.add('論文');
 
-                    ///最初に呼び出すpdfを決定している。ちょっとコード汚いな…。
+                    ///todo 最初に呼び出すpdfを決定している。ちょっとコード汚いな…。
                     WidgetsBinding.instance!.addPostFrameCallback((_) {
-                      ref.read(stringProvider.notifier).state = list[0] == 'スライド'
-                          ? '1$partOfId'
-                          : list[0] == 'レポート'
-                              ? '2$partOfId'
-                              : list[0] == 'ポスター'
-                                  ? '3$partOfId'
-                                  : '4$partOfId';
+                      ref.read(stringProvider.notifier).state =
+                          list[0] == 'スライド'
+                              ? '1$partOfId'
+                              : list[0] == 'レポート'
+                                  ? '2$partOfId'
+                                  : list[0] == 'ポスター'
+                                      ? '3$partOfId'
+                                      : '4$partOfId';
                     });
                     return Column(
                       children: [
