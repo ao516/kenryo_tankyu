@@ -28,14 +28,20 @@ class TestPage extends ConsumerWidget {
               eventName: '',
               savedAt: DateTime.now(),
             );
-            await HistoryController().insertHistory(searched);
+            await HistoryController.instance.insertHistory(searched);
           },
         ),
       ),
       body: historyAsyncValue.when(
           data: (searched) {
             return searched == null
-                ? const Center(child: Text('No data'))
+                ? Center(child: Column(
+                  children: [
+                    const Text('データがヒットしませんでした'),
+                    const SizedBox(height: 20),
+                    ElevatedButton(onPressed: ()=> ref.invalidate(historyProvider), child: const Text('リロードする')),
+                  ],
+                ))
                 : RefreshIndicator(
                     onRefresh: () async {
                       ref.invalidate(historyProvider);
@@ -72,7 +78,7 @@ class TestPage extends ConsumerWidget {
                                     .read(isFavoriteProvider(searched[index])
                                         .notifier)
                                     .state = isFavorite == 1 ? 0 : 1;
-                                HistoryController().changeFavoriteState(
+                                HistoryController.instance.changeFavoriteState(
                                     searched[index].documentID,
                                     isFavorite == 1 ? 0 : 1);
                               },

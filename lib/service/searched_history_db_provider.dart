@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:sqflite/sqflite.dart';
@@ -13,11 +12,20 @@ final isFavoriteProvider =
 final historyProvider = FutureProvider.family
     .autoDispose<List<Searched>?, bool>((ref, onlyShowFavorite) async {
   return onlyShowFavorite
-      ? await HistoryController().getFavoriteHistory()
-      : await HistoryController().getAllHistory();
+      ? await HistoryController.instance.getFavoriteHistory()
+      : await HistoryController.instance.getAllHistory();
 });
 
 class HistoryController {
+  //シングルトンインスタンスを作成
+  //TODO この辺よくわかってないよーう。
+  //外部からこのコンストラクタを呼び出すことはできません (`_` を接頭辞につけることでプライベートにします)
+  static final HistoryController _instance = HistoryController._();
+  HistoryController._();
+  // シングルトンインスタンスにアクセスするための公開メソッド↓
+  static HistoryController get instance => _instance;
+  //こうすることのメリットは、このクラスのインスタンスが1つしか生成されないことを保証することができること。？？？？
+
   Future<Database> get database async {
     try {
       return openDatabase(
@@ -36,12 +44,12 @@ class HistoryController {
             'course TEXT NOT NULL, '
             'eventName TEXT NOT NULL, '
             'savedAt TEXT NOT NULL, '
-            'CHECK(documentID != "empty"),'
+            'CHECK(LENGTH(documentID) == 8),'
             'CHECK(savedAt != null) '
             ');',
           );
         },
-        version: 2,
+        version: 3,
       );
     } catch (error, stackTrace) {
       return Future.error(error, stackTrace);
@@ -101,8 +109,6 @@ class HistoryController {
 
   Future<void> insertHistory(Searched searched) async {
     final Database db = await database;
-    debugPrint(searched.toString());
-    debugPrint(searched.toJson().toString());
     await db.insert(
       'searched_history',
       searched.toJson(),

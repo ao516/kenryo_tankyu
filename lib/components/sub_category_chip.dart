@@ -26,7 +26,7 @@ class SubCategoryChip extends ConsumerWidget {
         return ChoiceChip(
             label: Text(exactSubCategoryList[index]),
             selected: selectedSubCategory != null
-            ? exactSubCategoryList.indexOf(selectedSubCategory!) == index
+            ? exactSubCategoryList.indexOf(selectedSubCategory) == index
             : false,
             onSelected: (_) =>
                 notifier.selectedSubCategory(exactSubCategoryList[index]));
