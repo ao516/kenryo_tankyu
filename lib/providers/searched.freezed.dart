@@ -20,6 +20,10 @@ Searched _$SearchedFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Searched {
+  @JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
+  String get documentID => throw _privateConstructorUsedError;
+  @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
+  int get isFavorite => throw _privateConstructorUsedError;
   @JsonKey(name: 'category1')
   String get category1 => throw _privateConstructorUsedError;
   @JsonKey(name: 'category2')
@@ -36,20 +40,22 @@ mixin _$Searched {
   String get course => throw _privateConstructorUsedError;
   @JsonKey(name: 'title')
   String get title => throw _privateConstructorUsedError;
-  @JsonKey(name: 'author')
+  @JsonKey(name: 'author', includeToJson: false)
   String? get author => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vagueLikes')
-  String? get vagueLikes => throw _privateConstructorUsedError;
-  @JsonKey(name: 'exactLikes')
+  @JsonKey(name: 'vagueLikes', includeToJson: false)
+  int? get vagueLikes => throw _privateConstructorUsedError;
+  @JsonKey(name: 'exactLikes', includeToJson: false)
   int? get exactLikes => throw _privateConstructorUsedError;
-  @JsonKey(name: 'existsSlide')
+  @JsonKey(name: 'existsSlide', includeToJson: false)
   bool? get existsSlide => throw _privateConstructorUsedError;
-  @JsonKey(name: 'existsReport')
+  @JsonKey(name: 'existsReport', includeToJson: false)
   bool? get existsReport => throw _privateConstructorUsedError;
-  @JsonKey(name: 'existsThesis')
+  @JsonKey(name: 'existsThesis', includeToJson: false)
   bool? get existsThesis => throw _privateConstructorUsedError;
-  @JsonKey(name: 'existsPoster')
+  @JsonKey(name: 'existsPoster', includeToJson: false)
   bool? get existsPoster => throw _privateConstructorUsedError;
+  @DateTimeConverter()
+  DateTime? get savedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -63,7 +69,11 @@ abstract class $SearchedCopyWith<$Res> {
       _$SearchedCopyWithImpl<$Res, Searched>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'category1') String category1,
+      {@JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
+      String documentID,
+      @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
+      int isFavorite,
+      @JsonKey(name: 'category1') String category1,
       @JsonKey(name: 'category2') String category2,
       @JsonKey(name: 'subCategory1') String subCategory1,
       @JsonKey(name: 'subCategory2') String subCategory2,
@@ -71,13 +81,14 @@ abstract class $SearchedCopyWith<$Res> {
       @JsonKey(name: 'eventName') String eventName,
       @JsonKey(name: 'course') String course,
       @JsonKey(name: 'title') String title,
-      @JsonKey(name: 'author') String? author,
-      @JsonKey(name: 'vagueLikes') String? vagueLikes,
-      @JsonKey(name: 'exactLikes') int? exactLikes,
-      @JsonKey(name: 'existsSlide') bool? existsSlide,
-      @JsonKey(name: 'existsReport') bool? existsReport,
-      @JsonKey(name: 'existsThesis') bool? existsThesis,
-      @JsonKey(name: 'existsPoster') bool? existsPoster});
+      @JsonKey(name: 'author', includeToJson: false) String? author,
+      @JsonKey(name: 'vagueLikes', includeToJson: false) int? vagueLikes,
+      @JsonKey(name: 'exactLikes', includeToJson: false) int? exactLikes,
+      @JsonKey(name: 'existsSlide', includeToJson: false) bool? existsSlide,
+      @JsonKey(name: 'existsReport', includeToJson: false) bool? existsReport,
+      @JsonKey(name: 'existsThesis', includeToJson: false) bool? existsThesis,
+      @JsonKey(name: 'existsPoster', includeToJson: false) bool? existsPoster,
+      @DateTimeConverter() DateTime? savedAt});
 }
 
 /// @nodoc
@@ -93,6 +104,8 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? documentID = null,
+    Object? isFavorite = null,
     Object? category1 = null,
     Object? category2 = null,
     Object? subCategory1 = null,
@@ -108,8 +121,17 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
     Object? existsReport = freezed,
     Object? existsThesis = freezed,
     Object? existsPoster = freezed,
+    Object? savedAt = freezed,
   }) {
     return _then(_value.copyWith(
+      documentID: null == documentID
+          ? _value.documentID
+          : documentID // ignore: cast_nullable_to_non_nullable
+              as String,
+      isFavorite: null == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as int,
       category1: null == category1
           ? _value.category1
           : category1 // ignore: cast_nullable_to_non_nullable
@@ -149,7 +171,7 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
       vagueLikes: freezed == vagueLikes
           ? _value.vagueLikes
           : vagueLikes // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       exactLikes: freezed == exactLikes
           ? _value.exactLikes
           : exactLikes // ignore: cast_nullable_to_non_nullable
@@ -170,6 +192,10 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
           ? _value.existsPoster
           : existsPoster // ignore: cast_nullable_to_non_nullable
               as bool?,
+      savedAt: freezed == savedAt
+          ? _value.savedAt
+          : savedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -183,7 +209,11 @@ abstract class _$$SearchedImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'category1') String category1,
+      {@JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
+      String documentID,
+      @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
+      int isFavorite,
+      @JsonKey(name: 'category1') String category1,
       @JsonKey(name: 'category2') String category2,
       @JsonKey(name: 'subCategory1') String subCategory1,
       @JsonKey(name: 'subCategory2') String subCategory2,
@@ -191,13 +221,14 @@ abstract class _$$SearchedImplCopyWith<$Res>
       @JsonKey(name: 'eventName') String eventName,
       @JsonKey(name: 'course') String course,
       @JsonKey(name: 'title') String title,
-      @JsonKey(name: 'author') String? author,
-      @JsonKey(name: 'vagueLikes') String? vagueLikes,
-      @JsonKey(name: 'exactLikes') int? exactLikes,
-      @JsonKey(name: 'existsSlide') bool? existsSlide,
-      @JsonKey(name: 'existsReport') bool? existsReport,
-      @JsonKey(name: 'existsThesis') bool? existsThesis,
-      @JsonKey(name: 'existsPoster') bool? existsPoster});
+      @JsonKey(name: 'author', includeToJson: false) String? author,
+      @JsonKey(name: 'vagueLikes', includeToJson: false) int? vagueLikes,
+      @JsonKey(name: 'exactLikes', includeToJson: false) int? exactLikes,
+      @JsonKey(name: 'existsSlide', includeToJson: false) bool? existsSlide,
+      @JsonKey(name: 'existsReport', includeToJson: false) bool? existsReport,
+      @JsonKey(name: 'existsThesis', includeToJson: false) bool? existsThesis,
+      @JsonKey(name: 'existsPoster', includeToJson: false) bool? existsPoster,
+      @DateTimeConverter() DateTime? savedAt});
 }
 
 /// @nodoc
@@ -211,6 +242,8 @@ class __$$SearchedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? documentID = null,
+    Object? isFavorite = null,
     Object? category1 = null,
     Object? category2 = null,
     Object? subCategory1 = null,
@@ -226,8 +259,17 @@ class __$$SearchedImplCopyWithImpl<$Res>
     Object? existsReport = freezed,
     Object? existsThesis = freezed,
     Object? existsPoster = freezed,
+    Object? savedAt = freezed,
   }) {
     return _then(_$SearchedImpl(
+      documentID: null == documentID
+          ? _value.documentID
+          : documentID // ignore: cast_nullable_to_non_nullable
+              as String,
+      isFavorite: null == isFavorite
+          ? _value.isFavorite
+          : isFavorite // ignore: cast_nullable_to_non_nullable
+              as int,
       category1: null == category1
           ? _value.category1
           : category1 // ignore: cast_nullable_to_non_nullable
@@ -267,7 +309,7 @@ class __$$SearchedImplCopyWithImpl<$Res>
       vagueLikes: freezed == vagueLikes
           ? _value.vagueLikes
           : vagueLikes // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       exactLikes: freezed == exactLikes
           ? _value.exactLikes
           : exactLikes // ignore: cast_nullable_to_non_nullable
@@ -288,6 +330,10 @@ class __$$SearchedImplCopyWithImpl<$Res>
           ? _value.existsPoster
           : existsPoster // ignore: cast_nullable_to_non_nullable
               as bool?,
+      savedAt: freezed == savedAt
+          ? _value.savedAt
+          : savedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -296,7 +342,11 @@ class __$$SearchedImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SearchedImpl extends _Searched {
   const _$SearchedImpl(
-      {@JsonKey(name: 'category1') required this.category1,
+      {@JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
+      this.documentID = 'empty',
+      @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
+      this.isFavorite = 0,
+      @JsonKey(name: 'category1') required this.category1,
       @JsonKey(name: 'category2') required this.category2,
       @JsonKey(name: 'subCategory1') required this.subCategory1,
       @JsonKey(name: 'subCategory2') required this.subCategory2,
@@ -304,18 +354,25 @@ class _$SearchedImpl extends _Searched {
       @JsonKey(name: 'eventName') required this.eventName,
       @JsonKey(name: 'course') required this.course,
       @JsonKey(name: 'title') required this.title,
-      @JsonKey(name: 'author') this.author,
-      @JsonKey(name: 'vagueLikes') this.vagueLikes,
-      @JsonKey(name: 'exactLikes') this.exactLikes,
-      @JsonKey(name: 'existsSlide') this.existsSlide,
-      @JsonKey(name: 'existsReport') this.existsReport,
-      @JsonKey(name: 'existsThesis') this.existsThesis,
-      @JsonKey(name: 'existsPoster') this.existsPoster})
+      @JsonKey(name: 'author', includeToJson: false) this.author,
+      @JsonKey(name: 'vagueLikes', includeToJson: false) this.vagueLikes,
+      @JsonKey(name: 'exactLikes', includeToJson: false) this.exactLikes,
+      @JsonKey(name: 'existsSlide', includeToJson: false) this.existsSlide,
+      @JsonKey(name: 'existsReport', includeToJson: false) this.existsReport,
+      @JsonKey(name: 'existsThesis', includeToJson: false) this.existsThesis,
+      @JsonKey(name: 'existsPoster', includeToJson: false) this.existsPoster,
+      @DateTimeConverter() this.savedAt})
       : super._();
 
   factory _$SearchedImpl.fromJson(Map<String, dynamic> json) =>
       _$$SearchedImplFromJson(json);
 
+  @override
+  @JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
+  final String documentID;
+  @override
+  @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
+  final int isFavorite;
   @override
   @JsonKey(name: 'category1')
   final String category1;
@@ -341,30 +398,33 @@ class _$SearchedImpl extends _Searched {
   @JsonKey(name: 'title')
   final String title;
   @override
-  @JsonKey(name: 'author')
+  @JsonKey(name: 'author', includeToJson: false)
   final String? author;
   @override
-  @JsonKey(name: 'vagueLikes')
-  final String? vagueLikes;
+  @JsonKey(name: 'vagueLikes', includeToJson: false)
+  final int? vagueLikes;
   @override
-  @JsonKey(name: 'exactLikes')
+  @JsonKey(name: 'exactLikes', includeToJson: false)
   final int? exactLikes;
   @override
-  @JsonKey(name: 'existsSlide')
+  @JsonKey(name: 'existsSlide', includeToJson: false)
   final bool? existsSlide;
   @override
-  @JsonKey(name: 'existsReport')
+  @JsonKey(name: 'existsReport', includeToJson: false)
   final bool? existsReport;
   @override
-  @JsonKey(name: 'existsThesis')
+  @JsonKey(name: 'existsThesis', includeToJson: false)
   final bool? existsThesis;
   @override
-  @JsonKey(name: 'existsPoster')
+  @JsonKey(name: 'existsPoster', includeToJson: false)
   final bool? existsPoster;
+  @override
+  @DateTimeConverter()
+  final DateTime? savedAt;
 
   @override
   String toString() {
-    return 'Searched(category1: $category1, category2: $category2, subCategory1: $subCategory1, subCategory2: $subCategory2, year: $year, eventName: $eventName, course: $course, title: $title, author: $author, vagueLikes: $vagueLikes, exactLikes: $exactLikes, existsSlide: $existsSlide, existsReport: $existsReport, existsThesis: $existsThesis, existsPoster: $existsPoster)';
+    return 'Searched(documentID: $documentID, isFavorite: $isFavorite, category1: $category1, category2: $category2, subCategory1: $subCategory1, subCategory2: $subCategory2, year: $year, eventName: $eventName, course: $course, title: $title, author: $author, vagueLikes: $vagueLikes, exactLikes: $exactLikes, existsSlide: $existsSlide, existsReport: $existsReport, existsThesis: $existsThesis, existsPoster: $existsPoster, savedAt: $savedAt)';
   }
 
   @override
@@ -372,6 +432,10 @@ class _$SearchedImpl extends _Searched {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SearchedImpl &&
+            (identical(other.documentID, documentID) ||
+                other.documentID == documentID) &&
+            (identical(other.isFavorite, isFavorite) ||
+                other.isFavorite == isFavorite) &&
             (identical(other.category1, category1) ||
                 other.category1 == category1) &&
             (identical(other.category2, category2) ||
@@ -397,13 +461,16 @@ class _$SearchedImpl extends _Searched {
             (identical(other.existsThesis, existsThesis) ||
                 other.existsThesis == existsThesis) &&
             (identical(other.existsPoster, existsPoster) ||
-                other.existsPoster == existsPoster));
+                other.existsPoster == existsPoster) &&
+            (identical(other.savedAt, savedAt) || other.savedAt == savedAt));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      documentID,
+      isFavorite,
       category1,
       category2,
       subCategory1,
@@ -418,7 +485,8 @@ class _$SearchedImpl extends _Searched {
       existsSlide,
       existsReport,
       existsThesis,
-      existsPoster);
+      existsPoster,
+      savedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -436,27 +504,41 @@ class _$SearchedImpl extends _Searched {
 
 abstract class _Searched extends Searched {
   const factory _Searched(
-          {@JsonKey(name: 'category1') required final String category1,
-          @JsonKey(name: 'category2') required final String category2,
-          @JsonKey(name: 'subCategory1') required final String subCategory1,
-          @JsonKey(name: 'subCategory2') required final String subCategory2,
-          @JsonKey(name: 'year') required final int year,
-          @JsonKey(name: 'eventName') required final String eventName,
-          @JsonKey(name: 'course') required final String course,
-          @JsonKey(name: 'title') required final String title,
-          @JsonKey(name: 'author') final String? author,
-          @JsonKey(name: 'vagueLikes') final String? vagueLikes,
-          @JsonKey(name: 'exactLikes') final int? exactLikes,
-          @JsonKey(name: 'existsSlide') final bool? existsSlide,
-          @JsonKey(name: 'existsReport') final bool? existsReport,
-          @JsonKey(name: 'existsThesis') final bool? existsThesis,
-          @JsonKey(name: 'existsPoster') final bool? existsPoster}) =
-      _$SearchedImpl;
+      {@JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
+      final String documentID,
+      @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
+      final int isFavorite,
+      @JsonKey(name: 'category1') required final String category1,
+      @JsonKey(name: 'category2') required final String category2,
+      @JsonKey(name: 'subCategory1') required final String subCategory1,
+      @JsonKey(name: 'subCategory2') required final String subCategory2,
+      @JsonKey(name: 'year') required final int year,
+      @JsonKey(name: 'eventName') required final String eventName,
+      @JsonKey(name: 'course') required final String course,
+      @JsonKey(name: 'title') required final String title,
+      @JsonKey(name: 'author', includeToJson: false) final String? author,
+      @JsonKey(name: 'vagueLikes', includeToJson: false) final int? vagueLikes,
+      @JsonKey(name: 'exactLikes', includeToJson: false) final int? exactLikes,
+      @JsonKey(name: 'existsSlide', includeToJson: false)
+      final bool? existsSlide,
+      @JsonKey(name: 'existsReport', includeToJson: false)
+      final bool? existsReport,
+      @JsonKey(name: 'existsThesis', includeToJson: false)
+      final bool? existsThesis,
+      @JsonKey(name: 'existsPoster', includeToJson: false)
+      final bool? existsPoster,
+      @DateTimeConverter() final DateTime? savedAt}) = _$SearchedImpl;
   const _Searched._() : super._();
 
   factory _Searched.fromJson(Map<String, dynamic> json) =
       _$SearchedImpl.fromJson;
 
+  @override
+  @JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
+  String get documentID;
+  @override
+  @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
+  int get isFavorite;
   @override
   @JsonKey(name: 'category1')
   String get category1;
@@ -482,26 +564,29 @@ abstract class _Searched extends Searched {
   @JsonKey(name: 'title')
   String get title;
   @override
-  @JsonKey(name: 'author')
+  @JsonKey(name: 'author', includeToJson: false)
   String? get author;
   @override
-  @JsonKey(name: 'vagueLikes')
-  String? get vagueLikes;
+  @JsonKey(name: 'vagueLikes', includeToJson: false)
+  int? get vagueLikes;
   @override
-  @JsonKey(name: 'exactLikes')
+  @JsonKey(name: 'exactLikes', includeToJson: false)
   int? get exactLikes;
   @override
-  @JsonKey(name: 'existsSlide')
+  @JsonKey(name: 'existsSlide', includeToJson: false)
   bool? get existsSlide;
   @override
-  @JsonKey(name: 'existsReport')
+  @JsonKey(name: 'existsReport', includeToJson: false)
   bool? get existsReport;
   @override
-  @JsonKey(name: 'existsThesis')
+  @JsonKey(name: 'existsThesis', includeToJson: false)
   bool? get existsThesis;
   @override
-  @JsonKey(name: 'existsPoster')
+  @JsonKey(name: 'existsPoster', includeToJson: false)
   bool? get existsPoster;
+  @override
+  @DateTimeConverter()
+  DateTime? get savedAt;
   @override
   @JsonKey(ignore: true)
   _$$SearchedImplCopyWith<_$SearchedImpl> get copyWith =>

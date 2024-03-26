@@ -6,8 +6,8 @@ import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 
 class ResultPage extends ConsumerWidget {
-  final AlgoliaObjectSnapshot content;
-  const ResultPage({super.key, required this.content});
+  final Searched searched;
+  const ResultPage({super.key, required this.searched});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,14 +43,14 @@ class ResultPage extends ConsumerWidget {
                 height: 16,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: content.data['year'] % 3 == 0
+                  color: searched.year % 3 == 0
                       ? Colors.red
-                      : content.data['year'] % 3 == 1
+                      : searched.year % 3 == 1
                           ? Colors.green
                           : Colors.blue,
                 ),
               ),
-              Text('${content.data['year'].toString()}年度入学'),
+              Text('${searched.year.toString()}年度入学'),
             ],
           ),
           const SizedBox(height: 8),
@@ -62,12 +62,12 @@ class ResultPage extends ConsumerWidget {
             ),
             child: Flexible(
                 child: Text(
-              content.data['title'],
+              searched.title,
               softWrap: true,
               style: const TextStyle(fontSize: 20),
             )),
           ),
-          const Favorite(numberOfFavorite: 1000),
+          FavoriteForResultPage(exactLikes: searched.exactLikes?? 0, isFavorite: searched.isFavorite),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Table(
@@ -86,7 +86,7 @@ class ResultPage extends ConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.only(
                         left: 16.0, top: 8.0, bottom: 8.0),
-                    child: Text('${content.data['course']} あと名前',
+                    child: Text('${searched.course} あと名前',
                         style: const TextStyle(fontSize: 16)),
                   ),
                 ]),
@@ -98,7 +98,7 @@ class ResultPage extends ConsumerWidget {
                     padding: const EdgeInsets.only(
                         left: 16.0, top: 8.0, bottom: 8.0),
                     child: Text(
-                        '${content.data['category1']} > ${content.data['subCategory1']}',
+                        '${searched.category1} > ${searched.subCategory1}',
                         style: const TextStyle(fontSize: 16)),
                   ),
                 ]),
@@ -110,7 +110,7 @@ class ResultPage extends ConsumerWidget {
                     padding: const EdgeInsets.only(
                         left: 16.0, top: 8.0, bottom: 8.0),
                     child: Text(
-                        '${content.data['category2']} > ${content.data['subCategory2']}',
+                        '${searched.category2} > ${searched.subCategory2}',
                         style: const TextStyle(fontSize: 16)),
                   ),
                 ]),
@@ -127,10 +127,10 @@ class ResultPage extends ConsumerWidget {
           Consumer(
             builder: (context, ref, child) {
               final searchedAsyncValue =
-                  ref.watch(searchedProvider(content.objectID));
+                  ref.watch(searchedProvider(searched.documentID));
               return searchedAsyncValue.when(
                   data: (data) {
-                    final partOfId = content.objectID.substring(1);
+                    final partOfId = searched.documentID.substring(1);
                     final list = [];
                     if (data.existsSlide!) list.add('スライド');
                     if (data.existsReport!) list.add('レポート');

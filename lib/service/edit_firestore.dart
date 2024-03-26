@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+//TODO 最終的にこのフォルダは削除します。
+
 class FireStoreService {
   final db = FirebaseFirestore.instance;
 
@@ -19,7 +21,8 @@ class FireStoreService {
       'existsThesis': false,
       'existsPoster': true,
       'author':'後藤碧生',
-      'likes': 0,
+      'vagueLikes': 0,
+      'exactLikes': 0,
     });
     await db.collection('works').doc('00320224').set({
       'title': 'みんなのぶしつ 〜高校生の放課後の居場所に挑む〜',
@@ -35,7 +38,8 @@ class FireStoreService {
       'existsThesis': false,
       'existsPoster': true,
       'author':'田口壱星',
-      'likes': 0,
+      'vagueLikes': 0,
+      'exactLikes': 0,
     });
     await db.collection('works').doc('00220101').set({
       'title': '「ブラック」な教育現場をITの力で働き方改革',
@@ -51,7 +55,8 @@ class FireStoreService {
       'existsThesis': false,
       'existsPoster': true,
       'author':'青木陸哉',
-      'likes': 0,
+      'vagueLikes': 0,
+      'exactLikes': 0,
     });
     await db.collection('works').doc('00220236').set({
       'title': 'iPad、効率的に使ってますか?~縣陵生の学力を向上させるアプリの開発~',
@@ -67,7 +72,8 @@ class FireStoreService {
       'existsThesis': false,
       'existsPoster': true,
       'author':'務䑓結月',
-      'likes': 0,
+      'vagueLikes': 0,
+      'exactLikes': 0,
     });
     await db.collection('works').doc('00220505').set({
       'title': '朝、スッキリ起きられるためには',
@@ -83,7 +89,8 @@ class FireStoreService {
       'existsThesis': false,
       'existsPoster': true,
       'author':'飯田菜央',
-      'likes': 0,
+      'vagueLikes': 0,
+      'exactLikes': 0,
     });
     await db.collection('works').doc('00320324').set({
       'title': '黒板とホワイトボードどちらが勉強に最適か',
@@ -99,7 +106,8 @@ class FireStoreService {
       'existsThesis': false,
       'existsPoster': true,
       'author':'高木美羽',
-      'likes': 0,
+      'vagueLikes': 0,
+      'exactLikes': 0,
     });
     await db.collection('works').doc('00420103').set({
       'title': '人生最大䛾悩み“猫背”ここで治さずいつ治す!?',
@@ -115,7 +123,8 @@ class FireStoreService {
       'existsThesis': false,
       'existsPoster': true,
       'author':'荒﨑優芽',
-      'likes': 0,
+      'vagueLikes': 0,
+      'exactLikes': 0,
     });
     await db.collection('works').doc('00420127').set({
       'title': '交流のできる駄菓子屋を作ろう',
@@ -131,7 +140,8 @@ class FireStoreService {
       'existsThesis': false,
       'existsPoster': true,
       'author':'橋本あかり',
-      'likes': 0,
+      'vagueLikes': 0,
+      'exactLikes': 0,
     });
     await db.collection('works').doc('00511001').set({
       'title': 'ニジマスのこれから 〜外来種=観光資源?〜',
@@ -147,7 +157,8 @@ class FireStoreService {
       'existsThesis': false,
       'existsPoster': true,
       'author':'橋本昂賢、中畑慧琉',
-      'likes': 0,
+      'vagueLikes': 0,
+      'exactLikes': 0,
     });
     await db.collection('works').doc('00411001').set({
       'title': 'お腹の音の悩みを解決しよう！',
@@ -163,13 +174,9 @@ class FireStoreService {
       'existsThesis': false,
       'existsPoster': true,
       'author':'小東聖美、澤木文菜、関谷ひより',
-      'likes': 0,
+      'vagueLikes': 0,
+      'exactLikes': 0,
     });
   }
 
-  Future<String> read() async {
-    final doc = await db.collection('works').doc('document1').get();
-    final text = doc.data().toString();
-    return text;
-  }
 }

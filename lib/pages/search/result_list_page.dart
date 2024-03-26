@@ -1,16 +1,13 @@
-
-import 'package:algolia/algolia.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kenryo_tankyu/data/algolia/search_algolia.dart';
-import 'package:kenryo_tankyu/data/data.dart';
+import 'package:kenryo_tankyu/service/algolia_provider.dart';
+import 'package:kenryo_tankyu/service/service.dart';
 
 class ResultListPage extends ConsumerWidget {
 
   ResultListPage({super.key});
-
   ///drawerを開くボタンをbody内で使うために、ScaffoldにGlobalKeyを指定して、Scaffoldの状態を保持しているScaffoldStateを参照できるようにします。
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
@@ -42,6 +39,9 @@ class ResultListPage extends ConsumerWidget {
                           },
                           child: const Text('この状態で検索する')),
                       IconButton(
+                          onPressed: () {}, //todo ソート処理を書く いいね数順、古い順、新しい順
+                          icon: const Icon(Icons.sort)),
+                      IconButton(
                           onPressed: () =>
                               _scaffoldKey.currentState?.openEndDrawer(),
                           icon: const Icon(Icons.tune)),
@@ -67,7 +67,14 @@ class ResultListPage extends ConsumerWidget {
                         },
                         loading: () => const Center(child: CircularProgressIndicator()),
                         error: (error, stackTrace) {
-                          return const Text('エラーが発生しました');
+                          return Center(
+                            child: Column(
+                              children: [
+                                const Text('エラーが発生しました'),
+                                Text(error.toString()),
+                              ],
+                            ),
+                          );
                         },
                       );
                     },

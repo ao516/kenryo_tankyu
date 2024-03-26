@@ -1,9 +1,7 @@
-import 'dart:io';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kenryo_tankyu/data/local_history_db.dart';
+import 'package:kenryo_tankyu/providers/providers.dart';
+import 'package:kenryo_tankyu/service/searched_history_db_provider.dart';
 
 class TestPage extends ConsumerWidget {
   const TestPage({super.key});
@@ -17,26 +15,26 @@ class TestPage extends ConsumerWidget {
         leading: IconButton(
           icon: const Icon(Icons.add),
           onPressed: () async {
-            final history = History(
-              documentID: 111,
-                title: '他に作れる？',
-                isFavorite: 1,
-                category1: '',
-                subCategory1: '',
-                category2: '',
-                subCategory2: '',
-                year: 2012,
-                course: '',
-                eventName: '',
-                author: '',
-                createdAt: DateTime.now());
-            await HistoryController().insertHistory(history);
+            final searched = Searched(
+              documentID: '10000',
+              title: '履歴だよー',
+              isFavorite: 1,
+              category1: '',
+              subCategory1: '',
+              category2: '',
+              subCategory2: '',
+              year: 2012,
+              course: '',
+              eventName: '',
+              savedAt: DateTime.now(),
+            );
+            await HistoryController().insertHistory(searched);
           },
         ),
       ),
       body: historyAsyncValue.when(
-          data: (history) {
-            return history == null
+          data: (searched) {
+            return searched == null
                 ? const Center(child: Text('No data'))
                 : RefreshIndicator(
                     onRefresh: () async {
@@ -44,11 +42,11 @@ class TestPage extends ConsumerWidget {
                     },
                     child: ListView.separated(
                       physics: const AlwaysScrollableScrollPhysics(),
-                      itemCount: history.length,
+                      itemCount: searched.length,
                       itemBuilder: (context, index) {
                         return Consumer(builder: (context, ref, child) {
                           final isFavorite =
-                              ref.watch(isFavoriteProvider(history[index]));
+                              ref.watch(isFavoriteProvider(searched[index]));
 
                           ///この辺のいいねの管理はどうやってんの？って感じだと思うから補足しておく。
                           ///まずはhistoryProvider（futureProvider）で全部のデータベースを取得する。RefreshIndicatorでもやっていることは同様
@@ -56,8 +54,13 @@ class TestPage extends ConsumerWidget {
                           ///画面の変更はこのproviderの変更によって成されており、DBの変更は裏で行われているため画面には反映されていない。
                           ///このような挙動を採用した理由は、1つのfutureProviderで行ったとき、お気に入りの登録でDBに変更が出た場合、もう１度全てのデータベースを読み取ることになるから。
                           return ListTile(
-                            title: Text(history[index].title),
-                            subtitle: Text(history[index].author),
+                            title: Column(
+                              children: [
+                                Text(searched[index].title),
+                                Text(searched[index].documentID),
+                              ],
+                            ),
+                            subtitle: Text(searched[index].savedAt.toString()),
                             trailing: IconButton(
                               icon: isFavorite == 1
                                   ? const Icon(Icons.favorite,
@@ -66,10 +69,12 @@ class TestPage extends ConsumerWidget {
                                       color: Colors.red),
                               onPressed: () {
                                 ref
-                                    .read(isFavoriteProvider(history[index])
+                                    .read(isFavoriteProvider(searched[index])
                                         .notifier)
                                     .state = isFavorite == 1 ? 0 : 1;
-                                HistoryController().changeFavoriteState(history[index]);
+                                HistoryController().changeFavoriteState(
+                                    searched[index].documentID,
+                                    isFavorite == 1 ? 0 : 1);
                               },
                             ),
                           );
