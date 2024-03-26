@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../service/searched_history_db_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -62,10 +63,11 @@ class LibraryList extends ConsumerWidget {
                               ref
                                   .read(isFavoriteProvider(searched).notifier)
                                   .state = isFavorite == 1 ? 0 : 1;
-                              await HistoryController().changeFavoriteState(
+                              await HistoryController.instance.changeFavoriteState(
                                   searched.documentID, isFavorite == 1 ? 0 : 1);
                             },
                           ),
+                          onTap: () => context.push('/result',extra: searched),
                         );
                       });
                     },

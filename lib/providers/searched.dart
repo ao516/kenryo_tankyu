@@ -1,4 +1,6 @@
 import 'package:algolia/algolia.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'searched.freezed.dart';
@@ -54,31 +56,19 @@ class Searched with _$Searched {
 
   ///Algoliaから取得したsnapshotは、objectIDとisFavoriteのみjson形式ではないため、無理やりcopyWithで変換して付け加えている。
   factory Searched.fromAlgolia(AlgoliaObjectSnapshot doc, int isFavorite) {
-    return Searched.fromJson(doc.data)
+    final Map<String, dynamic> data = doc.data;
+    return Searched.fromJson(data)
         .copyWith(documentID: doc.objectID, isFavorite: isFavorite);
   }
-
+  factory Searched.fromFirestore(DocumentSnapshot doc, int isFavorite) {
+    final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    return Searched.fromJson(data)
+        .copyWith(documentID: doc.id, isFavorite: isFavorite);
+  }
   factory Searched.fromSQLite(Map<String, dynamic> searched) {
     return Searched.fromJson(searched).copyWith(
         documentID: searched['documentID'], isFavorite: searched['isFavorite']);
   }
-
-  // ///ローカルDBに保存するためのjson形式に変換する関数。この内容が実際にDBに保存されている。
-  // Map<String, dynamic> toSQLite() {
-  //   return {
-  //     'documentID': documentID,
-  //     'isFavorite': isFavorite,
-  //     'title': title,
-  //     'category1': category1,
-  //     'subCategory1': subCategory1,
-  //     'category2': category2,
-  //     'subCategory2': subCategory2,
-  //     'year': year,
-  //     'course': course,
-  //     'eventName': eventName,
-  //     'savedAt': savedAt!.toIso8601String(),
-  //   };
-  // }
 }
 
 //DateTime型をjsonに変換するための独自クラス
@@ -88,7 +78,7 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
 
   @override
   DateTime fromJson(String json) {
-    return DateTime.parse(json).toLocal();
+    return DateTime.now(); //TODO ここどうすっぺ？
   }
 
   @override

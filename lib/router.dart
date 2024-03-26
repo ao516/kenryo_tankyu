@@ -32,7 +32,7 @@ final routesProvider = Provider<GoRouter>((ref) {
      // ),
      GoRoute(
        path: '/result',
-       builder: (context, state) =>ResultPage(searched: state.extra as Searched),
+       builder: (context, state) =>ResultPage(beforeSearched: state.extra as Searched),
      ),
      GoRoute(
        path: '/resultList',

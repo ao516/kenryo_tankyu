@@ -4,6 +4,7 @@ import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:kenryo_tankyu/constant/value.dart';
 import 'package:kenryo_tankyu/providers/search_provider.dart';
+import 'package:kenryo_tankyu/service/service.dart';
 
 //todo enumでメソッドやコンストラクタを引数に取りたいと思ってるができなくて葛藤中
 enum SearchType {
@@ -99,8 +100,8 @@ class SideBar extends ConsumerWidget {
                 Center(
                   child: ElevatedButton(
                       onPressed: () {
-                        ref.read(searchProvider.notifier);
                         Navigator.of(context).pop();
+                        ref.invalidate(algoliaSearchProvider);
                       }, child: const Text('再検索する')),
                 ), //TODO
               ],
