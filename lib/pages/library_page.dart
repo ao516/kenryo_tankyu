@@ -39,20 +39,18 @@ class _LibraryPageState extends State<LibraryPage>
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.grey.shade300, borderRadius: BorderRadius.circular(25.0)),
-            child: Expanded(
-              child: TabBar(
-                controller: _tabController,
-                indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25.0),
-                  color: Colors.red,
-                ),
-                labelColor: Colors.white,
-                unselectedLabelColor: Colors.black,
-                tabs: [
-                  _tab(label: 'お気に入り', icon: const Icon(Icons.favorite)),
-                  _tab(label: '閲覧履歴', icon: const Icon(Icons.history)),
-                ],
+            child: TabBar(
+              controller: _tabController,
+              indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(25.0),
+                color: Colors.red,
               ),
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.black,
+              tabs: [
+                _tab(label: 'お気に入り', icon: const Icon(Icons.favorite)),
+                _tab(label: '閲覧履歴', icon: const Icon(Icons.history)),
+              ],
             ),
           ),
         ),
