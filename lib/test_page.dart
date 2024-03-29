@@ -10,17 +10,8 @@ class TestPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final historyAsyncValue = ref.watch(historyProvider(false));
     return Scaffold(
-      appBar: AppBar(
-        title: Text('test'),
-        backgroundColor: Colors.amber,
-      ),
-      body: Center(child: Text('test')),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          ref.invalidate(historyProvider);
-        },
-        child: const Icon(Icons.add),
-      )
+      appBar: AppBar(title: const Text('dadada'),),
+      body: Center(child: Text('wewewewe')),
     );
   }
 }
