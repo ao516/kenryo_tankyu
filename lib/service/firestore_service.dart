@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kenryo_tankyu/providers/providers.dart';
 
 //TODO 最終的にこのフォルダは削除します。
 
 class FireStoreService {
-  final db = FirebaseFirestore.instance;
+  static final FireStoreService _instance = FireStoreService._();
+  FireStoreService._();
+  static FireStoreService get instance => _instance;
+
+
+  Future saveFavoriteData({required Searched searched}) async{
+    final int nowFavoriteValue  = searched.exactLikes ?? 0;
+
+
+
+    final int nextFavoriteValue = searched.isFavorite == 1 ? nowFavoriteValue - 1 : nowFavoriteValue + 1;
+    final firestore = FirebaseFirestore.instance;
+    await firestore.collection('works').doc(searched.documentID).update({'exactLikes': nextFavoriteValue});
+  }
+
 
   Future<void> create() async {
+    final db = FirebaseFirestore.instance;
     await db.collection('works').doc('00320215').set({
       'title': 'コミュニケーション×SNS 〜僕たちは原始人に戻るべきか?〜',
       'category1': 'テクノロジー・工学',

@@ -78,7 +78,7 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
 
   @override
   DateTime fromJson(String json) {
-    return DateTime.now(); //TODO ここどうすっぺ？
+    return DateTime.parse(json).toLocal(); //TODO ここどうすっぺ？
   }
 
   @override

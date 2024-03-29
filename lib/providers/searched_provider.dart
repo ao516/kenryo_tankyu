@@ -28,8 +28,13 @@ final searchedProvider = FutureProvider.family
 
 //pdfを保管するprovider
 final slidePdfProvider =
-    FutureProvider.family<Uint8List, String>((ref, id) async {
+    FutureProvider.family<Uint8List?, String>((ref, id) async {
   final pathReference = FirebaseStorage.instance.ref().child('test/$id.pdf');
   final Uint8List? data = await pathReference.getData();
-  return data!;
+  return data;
 });
+
+//choiceChipの選択肢を管理する簡易的なProvider
+final intProvider = StateProvider.autoDispose((ref) => 0);
+
+final stringProvider = StateProvider.autoDispose((ref) => '10320224');

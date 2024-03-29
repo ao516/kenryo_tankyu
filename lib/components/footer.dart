@@ -16,6 +16,7 @@ class _FooterState extends State<Footer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const InitialHeader(),
+      body: widget.child,
       bottomNavigationBar: NavigationBar(
         selectedIndex: _selectedIndex,
         destinations: const <Widget>[
@@ -49,7 +50,6 @@ class _FooterState extends State<Footer> {
           setState(() {});
         },
       ),
-      body: widget.child,
     );
   }
 }

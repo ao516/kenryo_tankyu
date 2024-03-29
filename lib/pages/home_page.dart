@@ -12,16 +12,14 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      body: Column(
+    return Column(
         children: [
           IconButton(onPressed: () async {
             // 内部で保持しているログイン情報等が初期化される
             await FirebaseAuth.instance.signOut();
           }, icon: const Icon(Icons.logout)),
         ],
-      ),
-    );
+      );
   }
 }
 

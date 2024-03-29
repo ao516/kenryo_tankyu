@@ -34,27 +34,25 @@ class ResultHeaderState extends ConsumerState<ResultHeader> {
         titleSpacing: 0,
         title: Padding(
           padding: const EdgeInsets.only(right: 16.0),
-          child: Expanded(
-            child: SizedBox(
-              height: 40,
-              child: InkWell(
-                onTap: () => context.pushReplacement('/search'),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade50,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  child:  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(width: 16),
-                      const Icon(Icons.search),
-                      const SizedBox(width: 8),
-                      data.searchWord != null ?
-                      const SearchChipList(): const Text('キーワードを検索', style: TextStyle(fontSize: 16, color: Colors.black54)),
-                      const SizedBox(width: 16),
-                    ],
-                  ),
+          child: SizedBox(
+            height: 40,
+            child: InkWell(
+              onTap: () => context.pushReplacement('/search'),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade50,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child:  Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(width: 16),
+                    const Icon(Icons.search),
+                    const SizedBox(width: 8),
+                    data.searchWord != null ?
+                    const SearchChipList(): const Text('キーワードを検索', style: TextStyle(fontSize: 16, color: Colors.black54)),
+                    const SizedBox(width: 16),
+                  ],
                 ),
               ),
             ),
