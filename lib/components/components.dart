@@ -8,6 +8,7 @@ export 'result_page/work_details_table.dart';
 export 'result_page/work_title.dart';
 export 'result_page/pdf_choice_chip.dart';
 export 'result_page/display_pdf.dart';
+export 'result_page/header_for_result.dart';
 
 export 'getImage.dart';
 export 'category.dart';

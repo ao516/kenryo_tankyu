@@ -2,24 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 
-//TODO 最終的にこのフォルダは削除します。
-
 class FireStoreService {
   static final FireStoreService _instance = FireStoreService._();
   FireStoreService._();
   static FireStoreService get instance => _instance;
 
+  Future saveFavoriteData(
+      {required Searched searched,
+      required int isFavorite,
+      required bool needToChangeAlgoliaValue}) async {
 
-  Future saveFavoriteData({required Searched searched}) async{
-    final int nowFavoriteValue  = searched.exactLikes ?? 0;
+    //TODO 結構ぐっちゃぐちゃなので後で直そう
+    final int nowFavoriteValue = searched.exactLikes ?? 0;
+    //ここはsearchedのisFavoriteじゃなくて引数のisFavoriteを使わないと、毎回更新されないから注意
+    final int nextFavoriteValue =
+        isFavorite == 1 ? nowFavoriteValue - 1 : nowFavoriteValue;
 
+    //algoliaの変更を計算
+    int nextAlgoliaFavoriteValue = -10;
+    if (nextFavoriteValue <= 5 || nextFavoriteValue % 5 == 0) {
+      nextAlgoliaFavoriteValue = nextFavoriteValue;
+    }
 
+    final firestore =
+        FirebaseFirestore.instance.collection('works').doc(searched.documentID);
 
-    final int nextFavoriteValue = searched.isFavorite == 1 ? nowFavoriteValue - 1 : nowFavoriteValue + 1;
-    final firestore = FirebaseFirestore.instance;
-    await firestore.collection('works').doc(searched.documentID).update({'exactLikes': nextFavoriteValue});
+    if (nextAlgoliaFavoriteValue != -10 && needToChangeAlgoliaValue) {
+      await firestore.update({
+        'exactLikes': nextFavoriteValue,
+        'vagueLikes': nextAlgoliaFavoriteValue
+      });
+    } else {
+      await firestore.update({'exactLikes': nextFavoriteValue});
+    }
   }
-
 
   Future<void> create() async {
     final db = FirebaseFirestore.instance;
@@ -36,7 +52,7 @@ class FireStoreService {
       'existsReport': true,
       'existsThesis': true,
       'existsPoster': true,
-      'author':'後藤碧生',
+      'author': '後藤碧生',
       'vagueLikes': 0,
       'exactLikes': 0,
     });
@@ -53,7 +69,7 @@ class FireStoreService {
       'existsReport': true,
       'existsThesis': true,
       'existsPoster': false,
-      'author':'田口壱星',
+      'author': '田口壱星',
       'vagueLikes': 0,
       'exactLikes': 0,
     });
@@ -70,7 +86,7 @@ class FireStoreService {
       'existsReport': true,
       'existsThesis': false,
       'existsPoster': true,
-      'author':'青木陸哉',
+      'author': '青木陸哉',
       'vagueLikes': 0,
       'exactLikes': 0,
     });
@@ -87,7 +103,7 @@ class FireStoreService {
       'existsReport': true,
       'existsThesis': false,
       'existsPoster': true,
-      'author':'務䑓結月',
+      'author': '務䑓結月',
       'vagueLikes': 0,
       'exactLikes': 0,
     });
@@ -104,7 +120,7 @@ class FireStoreService {
       'existsReport': true,
       'existsThesis': false,
       'existsPoster': true,
-      'author':'飯田菜央',
+      'author': '飯田菜央',
       'vagueLikes': 0,
       'exactLikes': 0,
     });
@@ -121,7 +137,7 @@ class FireStoreService {
       'existsReport': true,
       'existsThesis': false,
       'existsPoster': true,
-      'author':'高木美羽',
+      'author': '高木美羽',
       'vagueLikes': 0,
       'exactLikes': 0,
     });
@@ -138,7 +154,7 @@ class FireStoreService {
       'existsReport': true,
       'existsThesis': false,
       'existsPoster': true,
-      'author':'荒﨑優芽',
+      'author': '荒﨑優芽',
       'vagueLikes': 0,
       'exactLikes': 0,
     });
@@ -155,7 +171,7 @@ class FireStoreService {
       'existsReport': true,
       'existsThesis': false,
       'existsPoster': true,
-      'author':'橋本あかり',
+      'author': '橋本あかり',
       'vagueLikes': 0,
       'exactLikes': 0,
     });
@@ -172,7 +188,7 @@ class FireStoreService {
       'existsReport': true,
       'existsThesis': false,
       'existsPoster': true,
-      'author':'橋本昂賢、中畑慧琉',
+      'author': '橋本昂賢、中畑慧琉',
       'vagueLikes': 0,
       'exactLikes': 0,
     });
@@ -189,10 +205,9 @@ class FireStoreService {
       'existsReport': true,
       'existsThesis': false,
       'existsPoster': true,
-      'author':'小東聖美、澤木文菜、関谷ひより',
+      'author': '小東聖美、澤木文菜、関谷ひより',
       'vagueLikes': 0,
       'exactLikes': 0,
     });
   }
-
 }

@@ -36,5 +36,4 @@ final slidePdfProvider =
 
 //choiceChipの選択肢を管理する簡易的なProvider
 final intProvider = StateProvider.autoDispose((ref) => 0);
-
 final stringProvider = StateProvider.autoDispose((ref) => '10320224');
