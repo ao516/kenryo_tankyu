@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
-import 'package:kenryo_tankyu/components/result_page/pdf_choice_chip.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 
 class ResultPage extends ConsumerWidget {
@@ -11,27 +10,7 @@ class ResultPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searched = ref.watch(searchedProvider(beforeSearched));
     return Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed: () {
-                //TODO: ダウンロード機能、いつかやる。
-                debugPrint('未実装');
-              },
-              icon: const Icon(Icons.download),
-            ),
-            PopupMenuButton(itemBuilder: (context) {
-              return [
-                const PopupMenuItem(
-                  child: Text('情報の変更を提案'),
-                ),
-                const PopupMenuItem(
-                  child: Text('情報をクリップボードにコピー'),
-                ),
-              ];
-            })
-          ],
-        ),
+        appBar: const HeaderForResultPage(),
         body: searched.when(
             data: (searched) {
               debugPrint('searched: $searched');
@@ -49,7 +28,7 @@ class ResultPage extends ConsumerWidget {
                       child: WorkDetailsTable(searched: searched),
                     ),
                     PdfChoiceChip(searched: searched),
-                    const DisplayPdf(),
+                    DisplayPdf(searched: searched),
                   ]),
                 );
               }

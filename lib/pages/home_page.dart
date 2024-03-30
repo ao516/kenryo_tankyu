@@ -12,14 +12,33 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
         children: [
-          IconButton(onPressed: () async {
-            // 内部で保持しているログイン情報等が初期化される
-            await FirebaseAuth.instance.signOut();
-          }, icon: const Icon(Icons.logout)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              const Text('ログアウトする'),
+              IconButton(
+                  onPressed: () async {
+                    // 内部で保持しているログイン情報等が初期化される
+                    await FirebaseAuth.instance.signOut();
+                  },
+                  icon: const Icon(Icons.logout)),
+            ],
+          ),
+          Card(
+            child: ListTile(
+              title: const Text('縣陵先生図鑑'),
+              onTap: () {
+                context.go('/library'); //TODO 変更
+              },
+            ),
+          ),
         ],
-      );
+      ),
+    );
   }
 }
 

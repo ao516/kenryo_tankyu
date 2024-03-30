@@ -33,6 +33,12 @@ final routesProvider = Provider<GoRouter>((ref) {
      GoRoute(
        path: '/result',
        builder: (context, state) =>ResultPage(beforeSearched: state.extra as Searched),
+       routes: [
+         GoRoute(
+           path: 'pdfExpand',
+           builder: (context, state) => PdfExpandPage(searched: state.extra as Searched),
+         ),
+       ],
      ),
      GoRoute(
        path: '/resultList',
