@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kenryo_tankyu/components/components.dart';
 import '../service/searched_history_db_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -34,8 +35,10 @@ class LibraryList extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       return Consumer(builder: (context, ref, child) {
                         final searched = searcheds[index];
-                        final isFavorite =
-                            ref.watch(isFavoriteProvider(searched));
+                        final updatedSearched =
+                            ref.watch(changeFavoriteStateProvider(searched));
+                        final updatedSearchedNotifier = ref.read(changeFavoriteStateProvider(searched).notifier);
+                        final isFavorite = updatedSearched.isFavorite;
 
                         ///この辺のいいねの管理はどうやってんの？って感じだと思うから補足しておく。
                         ///まずはhistoryProvider（futureProvider）で全部のデータベースを取得する。RefreshIndicatorでもやっていることは同様
@@ -60,9 +63,7 @@ class LibraryList extends ConsumerWidget {
                                 : const Icon(Icons.favorite_border,
                                     color: Colors.red),
                             onPressed: () async {
-                              ref
-                                  .read(isFavoriteProvider(searched).notifier)
-                                  .state = isFavorite == 1 ? 0 : 1;
+                              updatedSearchedNotifier;
                               await HistoryController.instance.changeFavoriteState(
                                   searched.documentID, isFavorite == 1 ? 0 : 1);
                             },

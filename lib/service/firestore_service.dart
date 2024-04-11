@@ -3,23 +3,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 
 class FireStoreService {
+  //シングルトンの作成。instanceでインスタンスを作成。
   static final FireStoreService _instance = FireStoreService._();
   FireStoreService._();
   static FireStoreService get instance => _instance;
 
   Future saveFavoriteData(
-      {required Searched searched,
+      {required int nowFavoriteValue,
+        required Searched searched,
       required int isFavorite,
       required bool needToChangeAlgoliaValue}) async {
 
     //TODO 結構ぐっちゃぐちゃなので後で直そう
-    final int nowFavoriteValue = searched.exactLikes ?? 0;
-    //ここはsearchedのisFavoriteじゃなくて引数のisFavoriteを使わないと、毎回更新されないから注意
     final int nextFavoriteValue =
-        isFavorite == 1 ? nowFavoriteValue - 1 : nowFavoriteValue;
+    isFavorite == 1 ? nowFavoriteValue - 1 : nowFavoriteValue + 1;
 
-    //algoliaの変更を計算
-    int nextAlgoliaFavoriteValue = -10;
+    //algoliaの変更を計
+    int nextAlgoliaFavoriteValue = 0;
     if (nextFavoriteValue <= 5 || nextFavoriteValue % 5 == 0) {
       nextAlgoliaFavoriteValue = nextFavoriteValue;
     }
@@ -28,11 +28,13 @@ class FireStoreService {
         FirebaseFirestore.instance.collection('works').doc(searched.documentID);
 
     if (nextAlgoliaFavoriteValue != -10 && needToChangeAlgoliaValue) {
+      debugPrint('【Algoliaも同時に変更を加えます】\n現在のisFavoriteState = $isFavorite\n$nowFavoriteValueから$nextFavoriteValueに変更。\nAlgoliaは$nextAlgoliaFavoriteValueにします。');
       await firestore.update({
         'exactLikes': nextFavoriteValue,
         'vagueLikes': nextAlgoliaFavoriteValue
       });
     } else {
+      debugPrint('【Firestoreのみ変更を加えます】\n現在のisFavoriteState = $isFavorite\n$nowFavoriteValueから$nextFavoriteValueに変更。');
       await firestore.update({'exactLikes': nextFavoriteValue});
     }
   }

@@ -91,8 +91,7 @@ class ResultList extends ConsumerWidget {
                               height: 50,
                             ),
                             FavoriteForResultListPage(
-                                vagueLikes: searched.vagueLikes ?? 0,
-                                isFavorite: searched.isFavorite),
+                                searched: searched),
                           ],
                         ),
                       ),
