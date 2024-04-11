@@ -11,7 +11,7 @@ class TestPage extends ConsumerWidget {
     final historyAsyncValue = ref.watch(historyProvider(false));
     return Scaffold(
       appBar: AppBar(title: const Text('dadada'),),
-      body: Center(child: Text('wewewewe')),
+      body: const Center(child: Text('wewewewe')),
     );
   }
 }

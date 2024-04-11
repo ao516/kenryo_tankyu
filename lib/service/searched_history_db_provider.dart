@@ -3,11 +3,7 @@ import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-final isFavoriteProvider =
-    StateProvider.family.autoDispose<int, Searched>((ref, searched) {
-  //int型を返す。1がお気に入り、0がお気に入りじゃない
-  return searched.isFavorite;
-});
+
 
 final historyProvider = FutureProvider.family
     .autoDispose<List<Searched>?, bool>((ref, onlyShowFavorite) async {
@@ -92,7 +88,6 @@ class HistoryController {
       return Future.error(error, stackTrace);
     }
   }
-
 
   Future<List<String>?>? getFavoriteState(List<String> documentIDs) async {
     final Database db = await database;
