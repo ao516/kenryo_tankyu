@@ -3,28 +3,31 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:kenryo_tankyu/service/service.dart';
 
-
-
 ///ボタン連打防止を管理するProvider
 final ableChangeFavoriteProvider =
     StateProvider.autoDispose<bool>((ref) => true);
 
-///いいねを押したか押してないかをリアルタイムで保守するprovider。
-///呼び出すごとに状態を切り替えるような感じ。familyで各searchedで切り替えてる
-final changeFavoriteStateProvider =
-StateProvider.family.autoDispose<Searched, Searched>((ref, searched) {
+///updateFavoriteStateとchangeFavoriteStateProviderを使用して、お気に入りの状態を変更、保守している。
+void updateFavoriteState(Searched searched, WidgetRef ref) {
+  final updatedSearchedNotifier =
+      ref.read(changeFavoriteStateProvider(searched).notifier);
   final int isFavorite = searched.isFavorite;
   final int nextFavorite = searched.isFavorite == 1 ? 0 : 1;
-  final int nowFavoriteValue = searched.exactLikes?? 0;
+  final int nowFavoriteValue = searched.exactLikes ?? 0;
   final int nextFavoriteValue =
-  isFavorite == 1 ? nowFavoriteValue - 1 : nowFavoriteValue + 1;
-  //int型を返す。1がお気に入り、0がお気に入りじゃない
-  return searched.copyWith(exactLikes: nextFavoriteValue,isFavorite: nextFavorite);
-});
+      isFavorite == 1 ? nowFavoriteValue - 1 : nowFavoriteValue + 1;
+  final updatedSearched = searched.copyWith(
+    isFavorite: nextFavorite,
+    exactLikes: nextFavoriteValue,
+  );
+  debugPrint('更新後→state=>$nextFavorite,数値=>$nextFavoriteValue');
+  updatedSearchedNotifier.state = updatedSearched;
+}
+final changeFavoriteStateProvider = StateProvider.autoDispose
+    .family<Searched, Searched>((ref, searched) => searched);
 
 class FavoriteForResultPage extends ConsumerWidget {
   final Searched searched;
-
   const FavoriteForResultPage({super.key, required this.searched});
 
   @override
@@ -33,13 +36,13 @@ class FavoriteForResultPage extends ConsumerWidget {
     final ableChangeFavoriteNotifier =
         ref.read(ableChangeFavoriteProvider.notifier);
     final updatedSearched = ref.watch(changeFavoriteStateProvider(searched));
-    final updatedSearchedNotifier = ref.read(changeFavoriteStateProvider(searched).notifier);
     final int isFavorite = updatedSearched.isFavorite;
     final int exactLikes = updatedSearched.exactLikes!;
 
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: updatedSearched.isFavorite == 1 ? Colors.red : Colors.black),
+        border: Border.all(
+            color: updatedSearched.isFavorite == 1 ? Colors.red : Colors.black),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(children: [
@@ -49,10 +52,9 @@ class FavoriteForResultPage extends ConsumerWidget {
             color: isFavorite == 1 ? Colors.red : Colors.black,
           ),
           onPressed: () async {
-            debugPrint('【表示変更】\n読み込まれたisFavoriteState = $isFavorite\n----------');
             if (ableChangeFavorite) {
               ableChangeFavoriteNotifier.state = false; //ボタン連打防止
-              updatedSearchedNotifier; //画面の変更といいね状態の保持
+              updateFavoriteState(updatedSearched, ref);
               await HistoryController.instance.changeFavoriteState(
                   searched.documentID, isFavorite == 1 ? 0 : 1); //SQLiteの変更
               await FireStoreService.instance.saveFavoriteData(
@@ -84,11 +86,10 @@ class FavoriteForResultPage extends ConsumerWidget {
 
 class FavoriteForResultListPage extends ConsumerWidget {
   final Searched searched;
-  const FavoriteForResultListPage(
-      {super.key, required this.searched});
+  const FavoriteForResultListPage({super.key, required this.searched});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final updatedSearched = ref.watch(changeFavoriteStateProvider(searched));
     final int isFavorite = updatedSearched.isFavorite;
     final int vagueLikes = updatedSearched.vagueLikes!;
