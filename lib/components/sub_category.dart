@@ -27,7 +27,7 @@ class SubCategory extends ConsumerWidget {
         ),
         Expanded(
           child: ListView.separated(
-            itemBuilder: (BuildContext context, int index) {
+           itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: (){},
                 child: ListTile(
