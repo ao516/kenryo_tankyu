@@ -8,3 +8,4 @@ export 'search/result_page.dart';
 export 'search/search_page.dart';
 export 'search/sub_category_select_page.dart';
 export 'search/pdf_expand_page.dart';
+export 'teacher/teacher.dart';
