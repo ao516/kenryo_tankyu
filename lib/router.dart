@@ -1,4 +1,3 @@
-import 'package:algolia/algolia.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +6,7 @@ import 'package:kenryo_tankyu/pages/pages.dart';
 import 'package:kenryo_tankyu/providers/auth_provider.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:kenryo_tankyu/test_page.dart';
+import 'package:kenryo_tankyu/test_for_coji.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
 
@@ -90,6 +90,11 @@ final routesProvider = Provider<GoRouter>((ref) {
            path: '/test',
            pageBuilder: (context, state) =>
                NoTransitionPage(child: TestPage(key: state.pageKey)),
+         ),
+         GoRoute(
+           path: '/testForCoji',
+           pageBuilder: (context, state) =>
+               NoTransitionPage(child: TestForCoji(key: state.pageKey)),
          ),
        ],
      ),

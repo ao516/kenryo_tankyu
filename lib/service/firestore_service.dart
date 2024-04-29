@@ -28,13 +28,11 @@ class FireStoreService {
         FirebaseFirestore.instance.collection('works').doc(searched.documentID);
 
     if (nextAlgoliaFavoriteValue != -10 && needToChangeAlgoliaValue) {
-      debugPrint('【Algoliaも同時に変更を加えます】\n現在のisFavoriteState = $isFavorite\n$nowFavoriteValueから$nextFavoriteValueに変更。\nAlgoliaは$nextAlgoliaFavoriteValueにします。');
       await firestore.update({
         'exactLikes': nextFavoriteValue,
         'vagueLikes': nextAlgoliaFavoriteValue
       });
     } else {
-      debugPrint('【Firestoreのみ変更を加えます】\n現在のisFavoriteState = $isFavorite\n$nowFavoriteValueから$nextFavoriteValueに変更。');
       await firestore.update({'exactLikes': nextFavoriteValue});
     }
   }
