@@ -6,7 +6,12 @@ class TestForCoji extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text('wewewewe')),
+      body: Column(
+        children: [
+          Text('wewewewe'),
+          Icon(Icons.accessible_outlined,size: 100,color: Colors.blue),
+        ],
+      ),
     );
   }
 }
