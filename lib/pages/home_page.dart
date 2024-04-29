@@ -31,7 +31,7 @@ class HomePage extends ConsumerWidget {
             child: ListTile(
               title: const Text('縣陵先生図鑑'),
               onTap: () {
-                context.go('/library'); //TODO 変更
+                context.go('/test'); //TODO 変更
               },
             ),
           ),
