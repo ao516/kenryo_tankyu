@@ -15,7 +15,6 @@ final searchedProvider = FutureProvider.family
         await firestore.collection('works').doc(searched.documentID).get();
 
     if (snapshot.exists) {
-      debugPrint('やるよー');
       return Searched.fromFirestore(snapshot, searched.isFavorite);
     } else {
       debugPrint('firestoreにデータが存在しません。');
@@ -36,4 +35,4 @@ final slidePdfProvider =
 
 //choiceChipの選択肢を管理する簡易的なProvider
 final intProvider = StateProvider.autoDispose((ref) => 0);
-final stringProvider = StateProvider.autoDispose((ref) => '10320224');
+final stringProvider = StateProvider.autoDispose((ref) => '10320224'); //TODO 初期値これ良くないかな。

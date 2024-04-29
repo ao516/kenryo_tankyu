@@ -1,4 +1,3 @@
-import 'package:algolia/algolia.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +7,7 @@ import 'package:kenryo_tankyu/pages/teacher/show_teacher_pdf.dart';
 import 'package:kenryo_tankyu/providers/auth_provider.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:kenryo_tankyu/test_page.dart';
+import 'package:kenryo_tankyu/test_for_coji.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
 
@@ -21,7 +21,6 @@ final routesProvider = Provider<GoRouter>((ref) {
   final redirection = authStateAsync.valueOrNull != null ? '/home' : '/login';
   return GoRouter(
     initialLocation: redirection,
-
     ///本番用
     navigatorKey: _rootNavigatorKey,
     routes: [
@@ -108,6 +107,11 @@ final routesProvider = Provider<GoRouter>((ref) {
                       )
                     ]),
               ]),
+          GoRoute(
+           path: '/testForCoji',
+           pageBuilder: (context, state) =>
+               NoTransitionPage(child: TestForCoji(key: state.pageKey)),
+         ),
         ],
       ),
     ],

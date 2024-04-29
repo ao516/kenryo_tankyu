@@ -36,8 +36,8 @@ class LibraryList extends ConsumerWidget {
                       return Consumer(builder: (context, ref, child) {
                         final searched = searcheds[index];
                         final updatedSearched =
-                            ref.watch(changeFavoriteStateProvider(searched));
-                        final updatedSearchedNotifier = ref.read(changeFavoriteStateProvider(searched).notifier);
+                            ref.watch(changeFavoriteStateProvider(searched.documentID));
+                        final updatedSearchedNotifier = ref.read(changeFavoriteStateProvider(searched.documentID).notifier);
                         final isFavorite = updatedSearched.isFavorite;
 
                         ///この辺のいいねの管理はどうやってんの？って感じだと思うから補足しておく。
