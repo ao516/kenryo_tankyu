@@ -10,10 +10,6 @@ class TestForCoji extends StatelessWidget {
     return const Scaffold(
       body: Column(
         children: [
-<<<<<<< HEAD
-          Text('wewewewe'),
-          Icon(Icons.accessible_outlined,size: 100,color: Colors.blue),
-=======
           Expanded(
             child: Center(
               child: Text('wewewewlkonhjnhklugbhkuigikyhugbh'
@@ -21,7 +17,6 @@ class TestForCoji extends StatelessWidget {
             ),
           ),
           Expanded(child: Icon(Icons.content_copy_sharp,size:55,color: Colors.cyan,))
->>>>>>> main
         ],
       ),
     );
