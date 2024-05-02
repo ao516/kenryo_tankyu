@@ -1,11 +1,7 @@
-import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kenryo_tankyu/providers/providers.dart';
-import 'package:kenryo_tankyu/service/searched_history_db_provider.dart';
 
 class TestPage extends ConsumerWidget {
   const TestPage({super.key});

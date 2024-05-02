@@ -23,6 +23,7 @@ final searchedProvider = FutureProvider.family
   } catch (e) {
     debugPrint('firestoreからデータを取得できませんでした。');
   }
+  return null;
 });
 
 //pdfを保管するprovider

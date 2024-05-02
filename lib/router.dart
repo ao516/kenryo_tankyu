@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/pages/pages.dart';
 import 'package:kenryo_tankyu/pages/teacher/show_teacher_pdf.dart';
-import 'package:kenryo_tankyu/providers/auth_provider.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:kenryo_tankyu/test_page.dart';
 import 'package:kenryo_tankyu/test_for_coji.dart';
