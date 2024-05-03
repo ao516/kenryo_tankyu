@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 class HomePage extends ConsumerWidget {
-  //this is for go_route navigation
   static HomePage builder(BuildContext context, GoRouterState state) =>
       const HomePage();
   const HomePage({super.key});
@@ -31,7 +30,7 @@ class HomePage extends ConsumerWidget {
             child: ListTile(
               title: const Text('縣陵先生図鑑'),
               onTap: () {
-                context.go('/test'); //TODO 変更
+                context.push('/teacher');
               },
             ),
           ),

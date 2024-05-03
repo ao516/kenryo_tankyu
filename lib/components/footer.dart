@@ -4,7 +4,7 @@ import 'package:kenryo_tankyu/components/header/initial_header.dart';
 
 class Footer extends StatefulWidget {
   final Widget child;
-  const Footer({super.key,  required this.child});
+  const Footer({super.key, required this.child});
 
   @override
   State<Footer> createState() => _FooterState();
@@ -23,8 +23,7 @@ class _FooterState extends State<Footer> {
           NavigationDestination(icon: Icon(Icons.home), label: 'ホーム'),
           NavigationDestination(icon: Icon(Icons.explore), label: '探索'),
           NavigationDestination(icon: Icon(Icons.bookmarks), label: 'ライブラリ'),
-          NavigationDestination(icon: Icon(Icons.add), label: 'みつき'),
-          NavigationDestination(icon: Icon(Icons.add), label: 'こじさん'),
+          NavigationDestination(icon: Icon(Icons.add), label: '練習用'),
         ],
         onDestinationSelected: (index) {
           switch (index) {
@@ -42,11 +41,7 @@ class _FooterState extends State<Footer> {
               break;
             case 3:
               _selectedIndex = 3;
-              context.push('/test');
-              break;
-            case 4:
-              _selectedIndex = 4;
-              context.push('/testForCoji');
+              context.push('/testSelect');
               break;
             default:
               _selectedIndex = 0;

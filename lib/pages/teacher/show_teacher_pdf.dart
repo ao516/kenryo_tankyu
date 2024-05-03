@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ShowTeacherPdf extends StatelessWidget {
-  ShowTeacherPdf(this.subjectName,{super.key});
+class ShowTeacherPdfPage extends StatelessWidget {
+  ShowTeacherPdfPage({required this.teacherName,super.key});
 
-  String subjectName;
+  String teacherName;
   @override
   Widget build(BuildContext context) {
-    return Text(subjectName);
+    return Scaffold(appBar: AppBar(),body: Center(child: Text(teacherName)));
   }
 }

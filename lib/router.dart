@@ -3,10 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/pages/pages.dart';
-import 'package:kenryo_tankyu/pages/teacher/show_teacher_pdf.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
-import 'package:kenryo_tankyu/test_page.dart';
-import 'package:kenryo_tankyu/test_for_coji.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
 
@@ -20,6 +17,7 @@ final routesProvider = Provider<GoRouter>((ref) {
   final redirection = authStateAsync.valueOrNull != null ? '/home' : '/login';
   return GoRouter(
     initialLocation: redirection,
+
     ///本番用
     navigatorKey: _rootNavigatorKey,
     routes: [
@@ -27,10 +25,6 @@ final routesProvider = Provider<GoRouter>((ref) {
         path: '/login',
         builder: (context, state) => const LoginPage(),
       ),
-      // GoRoute(
-      //   path: '/test',
-      //   builder: (context, state) => const TestPage(),
-      // ),
       GoRoute(
         path: '/result',
         builder: (context, state) =>
@@ -43,6 +37,23 @@ final routesProvider = Provider<GoRouter>((ref) {
           ),
         ],
       ),
+      GoRoute(
+          path: '/teacher',
+          pageBuilder: (context, state) => const NoTransitionPage(child: SubjectSelectPage()),
+          routes: <RouteBase>[
+            GoRoute(
+                path: 'select',
+                builder: (context, state) =>
+                    TeacherSelectPage(subjectNumber: state.extra as int),
+                routes: <RouteBase>[
+                  GoRoute(
+                    path: 'showPdf',
+                    builder: (context, state) =>
+                        ShowTeacherPdfPage(teacherName: state.extra as String),
+                  ),
+                ]),
+          ]),
+
       GoRoute(
         path: '/resultList',
         builder: (context, state) => ResultListPage(),
@@ -61,24 +72,14 @@ final routesProvider = Provider<GoRouter>((ref) {
         navigatorKey: _shellNavigatorKey,
         //BottomNavigationBarを実装しているページを記載する
         //childでScaffoldのbodyを渡す
-        builder: (context, state, child) => Footer(
-          child: child,
-        ),
+        builder: (context, state, child) => Footer(child: child),
         routes: <RouteBase>[
           //BottomNavigationBarから遷移するページを記載する
           GoRoute(
-              path: '/home',
-              pageBuilder: (context, state) =>
-                  NoTransitionPage(child: HomePage(key: state.pageKey)),
-              //Page1から遷移するページを記載する
-              routes: <RouteBase>[
-                GoRoute(
-                  path: 'contents',
-                  builder: (context, state) =>
-                      const ContentsPage(), //TODO 移動したい画面に変えてね。
-                ),
-              ]),
-          //BottomNavigationBarから遷移するページを記載する
+            path: '/home',
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: HomePage(key: state.pageKey)),
+          ),
           GoRoute(
             path: '/explore',
             pageBuilder: (context, state) =>
@@ -90,29 +91,26 @@ final routesProvider = Provider<GoRouter>((ref) {
                 NoTransitionPage(child: LibraryPage(key: state.pageKey)),
           ),
           GoRoute(
-              path: '/test',
-              pageBuilder: (context, state) =>
-                  NoTransitionPage(child: TestPage(key: state.pageKey)),
-              routes: <RouteBase>[
-                GoRoute(
-                    path: 'teacherList',
-                    builder: (context, state) =>
-                        TeachersPage(state.extra as int),
-                    routes: <RouteBase>[
-                      GoRoute(
-                        path: 'teacher',
-                        builder: (context, state) =>
-                            ShowTeacherPdf(state.extra as String),
-                      )
-                    ]),
-              ]),
-          GoRoute(
-           path: '/testForCoji',
-           pageBuilder: (context, state) =>
-               NoTransitionPage(child: TestForCoji(key: state.pageKey)),
-         ),
+            path: '/testSelect',
+            pageBuilder: (context, state) =>
+                NoTransitionPage(child: TestSelectPage(key: state.pageKey)),
+            routes: <RouteBase>[
+              GoRoute(
+                  path: 'mitsuki',
+                  builder: (context, state) => const TestForMitsuki()),
+              GoRoute(
+                  path: 'coji',
+                  builder: (context, state) => const TestForCoji()),
+              GoRoute(
+                  path: 'aoi', builder: (context, state) => const TestForAoi()),
+            ],
+          ),
         ],
       ),
     ],
+    errorPageBuilder: (context, state) => MaterialPage(
+      key: state.pageKey,
+      child: Scaffold(body: Center(child: Text(state.error.toString()))),
+    ),
   );
 });
