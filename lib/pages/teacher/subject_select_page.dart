@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class TestPage extends ConsumerWidget {
-  const TestPage({super.key});
+class SubjectSelectPage extends ConsumerWidget {
+  const SubjectSelectPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,7 +27,7 @@ class TestPage extends ConsumerWidget {
           itemCount: items.length,
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
-              onTap: () => context.go('/test/teacherList', extra: index),
+              onTap: () => context.push('/teacher/select', extra: index),
               title: Stack(
                 alignment: Alignment.center,
                 children: [

@@ -10,11 +10,15 @@ class TestForCoji extends StatelessWidget {
         children: [
           Expanded(
             child: Center(
-              child: Text('wewewewlkonhjnhklugbhkuigikyhugbh'
-                  ''),
+              child: Text('wewewewlkonhjnhklugbhkuigikyhugbh'),
             ),
           ),
-          Expanded(child: Icon(Icons.content_copy_sharp,size:55,color: Colors.cyan,))
+          Expanded(
+              child: Icon(
+            Icons.content_copy_sharp,
+            size: 55,
+            color: Colors.cyan,
+          ))
         ],
       ),
     );
