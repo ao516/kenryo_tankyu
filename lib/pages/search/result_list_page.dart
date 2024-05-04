@@ -22,24 +22,22 @@ class ResultListPage extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Column(
             children: [
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          FireStoreService.instance.create();
-                        },
-                        child: const Text('DB')),
-                    IconButton(
-                        onPressed: () {}, //todo ソート処理を書く いいね数順、古い順、新しい順
-                        icon: const Icon(Icons.sort)),
-                    IconButton(
-                        onPressed: () =>
-                            _scaffoldKey.currentState?.openEndDrawer(),
-                        icon: const Icon(Icons.tune)),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        FireStoreService.instance.create();
+                      },
+                      child: const Text('DB')),
+                  IconButton(
+                      onPressed: () {}, //todo ソート処理を書く いいね数順、古い順、新しい順
+                      icon: const Icon(Icons.sort)),
+                  IconButton(
+                      onPressed: () =>
+                          _scaffoldKey.currentState?.openEndDrawer(),
+                      icon: const Icon(Icons.tune)),
+                ],
               ),
               Expanded(
                 child: Consumer(

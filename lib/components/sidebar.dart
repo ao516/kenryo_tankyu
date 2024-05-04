@@ -60,7 +60,7 @@ class SideBar extends ConsumerWidget {
                     const Expanded(child: Text('絞り込み')),
                     ElevatedButton(
                         onPressed: () =>
-                            ref.read(searchProvider.notifier).deleteParameter(),
+                            ref.read(searchProvider.notifier).deleteAllParameters(),
                         child: const Text('条件をクリア')), //TODO
                   ],
                 ),

@@ -15,6 +15,7 @@ final GlobalKey<NavigatorState> _shellNavigatorKey =
 final routesProvider = Provider<GoRouter>((ref) {
   final authStateAsync = ref.watch(authStateChangesProvider);
   final redirection = authStateAsync.valueOrNull != null ? '/home' : '/login';
+
   return GoRouter(
     initialLocation: redirection,
 
@@ -39,7 +40,8 @@ final routesProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
           path: '/teacher',
-          pageBuilder: (context, state) => const NoTransitionPage(child: SubjectSelectPage()),
+          pageBuilder: (context, state) =>
+              const NoTransitionPage(child: SubjectSelectPage()),
           routes: <RouteBase>[
             GoRoute(
                 path: 'select',

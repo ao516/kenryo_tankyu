@@ -24,36 +24,31 @@ class ResultHeaderState extends ConsumerState<ResultHeader> {
 
   @override
   Widget build(BuildContext context) {
-    final notifier = ref.read(searchProvider.notifier);
     final data = ref.watch(searchProvider);
-    return  PopScope(
-      onPopInvoked: (didPop)=> notifier.deleteParameter(),
-      child: AppBar(
-        actions: [Container()], ///drawerを開くボタンを消している
-        backgroundColor: Colors.grey.shade200,
-        titleSpacing: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(right: 16.0),
-          child: SizedBox(
-            height: 40,
-            child: InkWell(
-              onTap: () => context.pushReplacement('/search'),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade50,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child:  Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(width: 16),
-                    const Icon(Icons.search),
-                    const SizedBox(width: 8),
-                    data.searchWord != null ?
-                    const SearchChipList(): const Text('キーワードを検索', style: TextStyle(fontSize: 16, color: Colors.black54)),
-                    const SizedBox(width: 16),
-                  ],
-                ),
+    return  AppBar(
+      actions: [Container()], ///drawerを開くボタンを消している
+      backgroundColor: Colors.grey.shade200,
+      titleSpacing: 0,
+      title: Padding(
+        padding: const EdgeInsets.only(right: 16.0),
+        child: SizedBox(
+          height: 40,
+          child: InkWell(
+            onTap: () => context.pushReplacement('/search'),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey.shade50,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child:  const Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(width: 16),
+                  Icon(Icons.search),
+                  SizedBox(width: 8),
+                  SearchChipList(),
+                  SizedBox(width: 16),
+                ],
               ),
             ),
           ),

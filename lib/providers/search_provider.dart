@@ -35,17 +35,40 @@ class SearchNotifier extends StateNotifier<Search> {
     state = state.copyWith(subCategory: selectSubCategory);
   }
 
-  void deleteParameter(){
-    state = state.copyWith(year: null,eventName: null,course: null,subCategory: null,category: null,searchWord: null);
+  void deleteAllParameters(){
+    state = state.copyWith(year: null,eventName: null,course: null,subCategory: null,category: null);
+  }
+
+  void deleteParameter(String parameterName){
+    switch(parameterName){
+      case 'year':
+        state = state.copyWith(year: null);
+        break;
+      case 'eventName':
+        state = state.copyWith(eventName: null);
+        break;
+      case 'course':
+        state = state.copyWith(course: null);
+        break;
+      case 'subCategory':
+        state = state.copyWith(subCategory: null);
+        break;
+      case 'category':
+        state = state.copyWith(category: null, subCategory: null);
+        break;
+      case 'searchWord':
+        state = state.copyWith(searchWord: null);
+        break;
+    }
   }
 
   void addKeyWord(String words){
     final List<String> word = words.replaceAll("　", " ").split(" "); //検索ワードを空白で区切る
-    word.removeWhere((content) => content == ' '); //検索ワードに余分に空白が入っていた場合、消去する todo しっかり機能していないかも。
+    word.removeWhere((content) => content == ' ' || content == '　'); //検索ワードに余分に空白が入っていた場合、消去する todo しっかり機能していないかも。
     state = state.copyWith(searchWord: word);
   }
 
-  void deleteKeyWord(int index){
+  void deleteWord(int index){
     final List<String> word = state.searchWord!.where((content) => state.searchWord!.indexOf(content) != index).toList();
     //TODO まじで上の文なんでこんなになるかわからないけど、できてる笑。すげぇ。（感想）
     //TODO 多分mapとか、リストの型変換とかそのあたりの理解が薄いんだろうな
