@@ -20,11 +20,13 @@ class SearchHeaderState extends ConsumerState<SearchHeader> {
     ref.read(searchProvider);
   }
 
-  final _controller = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
     final notifier = ref.read(searchProvider.notifier);
+    final List<String>? searchWord = ref.watch(searchProvider).searchWord;
+    final controller = TextEditingController(text: searchWord?.join(' '));
     return AppBar(
       backgroundColor: Colors.grey.shade200,
       titleSpacing: 0,
@@ -40,11 +42,11 @@ class SearchHeaderState extends ConsumerState<SearchHeader> {
             ),
             child: TextField(
               autofocus: true,
-              controller: _controller,
+              controller: controller,
               decoration: InputDecoration(
                 hintText: 'キーワードを入力',
                 suffixIcon: IconButton(
-                  onPressed: () => _controller.clear(), //リセット処理
+                  onPressed: () => controller.clear(), //リセット処理
                   icon: const Icon(Icons.clear),
                 ),
                 enabledBorder: InputBorder.none,
@@ -52,6 +54,7 @@ class SearchHeaderState extends ConsumerState<SearchHeader> {
                 isDense: true,
               ),
               onSubmitted: (text) {
+                if(RegExp(r'^\s*$').hasMatch(text)) return;
                 notifier.addKeyWord(text);
                 context.pushReplacement('/resultList');
               },

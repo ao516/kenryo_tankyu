@@ -26,7 +26,7 @@ class CategoryList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final categoryNotifier = ref.read(searchProvider.notifier);
+    final notifier = ref.read(searchProvider.notifier);
     return SizedBox(
       width: double.infinity,
       child: GridView.builder(
@@ -41,7 +41,7 @@ class CategoryList extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(8))),
               onPressed: () {
                 context.push('/subCategory');
-                categoryNotifier.selectedCategory(categoryList[index]);
+                notifier.selectedCategory(categoryList[index]);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
