@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kenryo_tankyu/pages/teacher/teacher_provider.dart';
 
-class TeacherSelectPage extends StatelessWidget {
+class TeacherSelectPage extends ConsumerWidget {
   TeacherSelectPage({required this.subjectNumber, super.key});
 
-  static const List<List<String>> teacherList = [
-    ['日下部英司'],
-    ['塩原潤'],
-    ['伊藤'],
-    ['金澤大典'],
-    [''],
-    ['農業', '水産業', '林業'],
-    ['スポーツ', '幼児教育', '教育'],
-    ['水資源', '森資源', '生物', '地学', 'エシカル'],
-    ['数学', '化学', '物理'],
-    ['コンピューター', 'ロボット', '機械工学', 'ＩＣＴ'],
-    ['健康', '美容', '医療'],
-    ['アート', 'デザイン', '音楽'],
-    ['食', '学校生活', '図書'],
+  static const List<List<List<String>>> teacherList = [
+    [
+      ['日下部英司', '在籍中','kusakabe'],
+      ['降籏史郎', '異動','hurihuri']
+    ],
+    [
+      ['塩原潤', '在籍中']
+    ],
+    [
+      ['伊藤', '在籍中']
+    ],
+    [
+      ['金澤大典', '在籍中']
+    ],
   ];
 
   int subjectNumber;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(),
       body: ListView.separated(
@@ -32,10 +34,19 @@ class TeacherSelectPage extends StatelessWidget {
             onTap: () {},
             child: ListTile(
               trailing: const Icon(Icons.navigate_next),
-              title: Text(teacherList[subjectNumber][index]),
+              title: Row(
+                children: [
+                  teacherList[subjectNumber][index][1] == '在籍中'
+                      ? Chip(avatar: CircleAvatar(backgroundColor: Colors.green.shade200,),label: Text(teacherList[subjectNumber][index][1]))
+                      : const Text(''),
+                  const SizedBox(width: 10,),
+                  Text(teacherList[subjectNumber][index][0]),
+                ],
+              ),
               onTap: () {
-                context.push('/teacher/select/showPdf',
-                    extra: teacherList[subjectNumber][index]);
+                ref.read(selectedTeacherProvider.notifier).state = teacherList[subjectNumber][index][0];
+                ref.read(teacherPdfProvider(teacherList[subjectNumber][index][2]));
+                context.push('/teacher/select/showPdf');
               },
             ),
           );

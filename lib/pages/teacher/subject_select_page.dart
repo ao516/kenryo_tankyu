@@ -13,6 +13,12 @@ class SubjectSelectPage extends ConsumerWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text('縣陵先生図鑑'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () => context.push('/teacher/search'),
+            ),
+          ],
         ),
         body: ListView.separated(
           separatorBuilder: (BuildContext context, int index) {
