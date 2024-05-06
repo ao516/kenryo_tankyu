@@ -25,11 +25,6 @@ class ResultListPage extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  ElevatedButton(
-                      onPressed: () {
-                        FireStoreService.instance.create();
-                      },
-                      child: const Text('DB')),
                   IconButton(
                       onPressed: () {}, //todo ソート処理を書く いいね数順、古い順、新しい順
                       icon: const Icon(Icons.sort)),
