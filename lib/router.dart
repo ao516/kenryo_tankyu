@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/pages/pages.dart';
+import 'package:kenryo_tankyu/pages/teacher/search_teacher.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
@@ -43,6 +44,9 @@ final routesProvider = Provider<GoRouter>((ref) {
           pageBuilder: (context, state) =>
               const NoTransitionPage(child: SubjectSelectPage()),
           routes: <RouteBase>[
+            GoRoute(path: 'search',
+            builder: (context, state) =>
+            const SearchTeacher()),
             GoRoute(
                 path: 'select',
                 builder: (context, state) =>
@@ -51,7 +55,7 @@ final routesProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: 'showPdf',
                     builder: (context, state) =>
-                        ShowTeacherPdfPage(teacherName: state.extra as String),
+                        const ShowTeacherPdfPage(),
                   ),
                 ]),
           ]),
