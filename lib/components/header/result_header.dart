@@ -24,7 +24,6 @@ class ResultHeaderState extends ConsumerState<ResultHeader> {
 
   @override
   Widget build(BuildContext context) {
-    final data = ref.watch(searchProvider);
     return  AppBar(
       actions: [Container()], ///drawerを開くボタンを消している
       backgroundColor: Colors.grey.shade200,

@@ -15,7 +15,7 @@ class ChangeFavoriteStateNotifier extends StateNotifier<Searched> {
   ChangeFavoriteStateNotifier(String documentID)
       : super(const Searched(
             documentID: '11',
-            isFavorite: 1,
+            isFavorite: 0,
             category1: '',
             category2: '',
             subCategory1: '',
@@ -36,7 +36,7 @@ class ChangeFavoriteStateNotifier extends StateNotifier<Searched> {
       isFavorite: nextFavorite,
       exactLikes: nextFavoriteValue,
     );
-    // debugPrint('更新前\n$searched,\n\n更新後\n$updatedSearched');
+    debugPrint('更新前\n$searched,\n\n更新後\n$updatedSearched');
     state = updatedSearched;
   }
 }
