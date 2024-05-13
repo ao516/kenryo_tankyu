@@ -58,7 +58,7 @@ class LibraryList extends ConsumerWidget {
                           ),
                           subtitle: Text(searched.savedAt.toString()),
                           trailing: IconButton(
-                            icon: isFavorite == 1
+                            icon: onlyFavorite == true
                                 ? const Icon(Icons.favorite, color: Colors.red)
                                 : const Icon(Icons.favorite_border,
                                     color: Colors.red),

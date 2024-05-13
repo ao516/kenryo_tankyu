@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 
+import '../components/components.dart';
+
 //firestoreからデータを取得するProvider
 final searchedProvider = FutureProvider.family
     .autoDispose<Searched?, Searched>((ref, searched) async {
@@ -15,7 +17,8 @@ final searchedProvider = FutureProvider.family
         await firestore.collection('works').doc(searched.documentID).get();
 
     if (snapshot.exists) {
-      return Searched.fromFirestore(snapshot, searched.isFavorite);
+      final data = Searched.fromFirestore(snapshot, searched.isFavorite);
+      return data;
     } else {
       debugPrint('firestoreにデータが存在しません。');
       return null;
