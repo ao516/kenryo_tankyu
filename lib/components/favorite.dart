@@ -7,40 +7,35 @@ import 'package:kenryo_tankyu/service/service.dart';
 final ableChangeFavoriteProvider =
     StateProvider.autoDispose<bool>((ref) => true);
 
-final changeFavoriteStateProvider = StateNotifierProvider.family
-    .autoDispose<ChangeFavoriteStateNotifier, Searched, String>(
-        (ref, value) => ChangeFavoriteStateNotifier(value));
+//familyを使って、documentIDごとにfavoriteかどうかを記録。
+final userIsFavoriteStateProvider = StateNotifierProvider.family
+    .autoDispose<ChangeFavoriteStateNotifier, String, String>(
+        (ref, documentID) {
+  final notifier = ChangeFavoriteStateNotifier(documentID);
+  notifier.initialize(ref: ref, documentID: documentID);
+  return notifier;
+});
 
-class ChangeFavoriteStateNotifier extends StateNotifier<Searched> {
-  ChangeFavoriteStateNotifier(String documentID)
-      : super(const Searched(
-            documentID: '11',
-            isFavorite: 0,
-            category1: '',
-            category2: '',
-            subCategory1: '',
-            subCategory2: '',
-            year: 0,
-            eventName: '',
-            course: '',
-            title: ''));
+class ChangeFavoriteStateNotifier extends StateNotifier<String> {
+  ChangeFavoriteStateNotifier(super.initialState);
 
-  void updateFavoriteState(Searched searched) {
+  Future<void> initialize(
+      {required Ref ref, required String documentID}) async {
+    final String? favoriteState =
+        await HistoryController.instance.getFavoriteState(documentID);
+    state = favoriteState ?? '0';
+  }
 
-    final int isFavorite = searched.isFavorite;
-    final int nextFavorite = searched.isFavorite == 1 ? 0 : 1;
-    final int nowFavoriteValue = searched.exactLikes ?? 0;
-    final int nextFavoriteValue =
-        isFavorite == 1 ? nowFavoriteValue - 1 : nowFavoriteValue + 1;
-    final updatedSearched = searched.copyWith(
-      isFavorite: nextFavorite,
-      exactLikes: nextFavoriteValue,
-    );
-    debugPrint('更新前\n$searched,\n\n更新後\n$updatedSearched');
-    state = updatedSearched;
+  Future<void> changeUserFavoriteState(
+      String documentID, String nowFavoriteState) async {
+    final String newFavoriteState = nowFavoriteState == '1' ? '0' : '1';
+    await HistoryController.instance
+        .changeFavoriteState(documentID, newFavoriteState);
+    state = newFavoriteState;
   }
 }
 
+///ResultPageのFavoriteボタン。(Widget)
 class FavoriteForResultPage extends ConsumerWidget {
   final Searched searched;
   const FavoriteForResultPage({super.key, required this.searched});
@@ -50,37 +45,29 @@ class FavoriteForResultPage extends ConsumerWidget {
     final ableChangeFavorite = ref.watch(ableChangeFavoriteProvider);
     final ableChangeFavoriteNotifier =
         ref.read(ableChangeFavoriteProvider.notifier);
-    final updatedSearched =
-        ref.watch(changeFavoriteStateProvider(searched.documentID));
-    final int isFavorite = updatedSearched.isFavorite;
-    final int exactLikes = updatedSearched.exactLikes ?? 0;
+    final isFavorite =
+        ref.watch(userIsFavoriteStateProvider(searched.documentID));
+    final int exactLikes = searched.exactLikes ?? 0;
 
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(
-            color: updatedSearched.isFavorite == 1 ? Colors.red : Colors.black),
+        border:
+            Border.all(color: isFavorite == '1' ? Colors.red : Colors.black),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(children: [
         IconButton(
           icon: Icon(
-            isFavorite == 1 ? Icons.favorite : Icons.favorite_border,
-            color: isFavorite == 1 ? Colors.red : Colors.black,
+            isFavorite == '1' ? Icons.favorite : Icons.favorite_border,
+            color: isFavorite == '1' ? Colors.red : Colors.black,
           ),
           onPressed: () async {
             if (ableChangeFavorite) {
               ableChangeFavoriteNotifier.state = false; //ボタン連打防止
               ref
                   .read(
-                      changeFavoriteStateProvider(searched.documentID).notifier)
-                  .updateFavoriteState(searched);
-              await HistoryController.instance.changeFavoriteState(
-                  searched.documentID, isFavorite == 1 ? 0 : 1); //SQLiteの変更
-              await FireStoreService.instance.saveFavoriteData(
-                  nowFavoriteValue: exactLikes,
-                  searched: searched,
-                  isFavorite: isFavorite,
-                  needToChangeAlgoliaValue: true); //Firestoreの変更
+                      userIsFavoriteStateProvider(searched.documentID).notifier)
+                  .changeUserFavoriteState(searched.documentID, isFavorite);
               await Future.delayed(const Duration(seconds: 2));
               ableChangeFavoriteNotifier.state = true; //ボタン連打防止
             } else {
@@ -95,7 +82,7 @@ class FavoriteForResultPage extends ConsumerWidget {
         const SizedBox(height: 4),
         Text(
           exactLikes.toString(),
-          style: TextStyle(color: isFavorite == 1 ? Colors.red : Colors.black),
+          style: TextStyle(color: isFavorite == '1' ? Colors.red : Colors.black),
         ),
       ]),
     );
@@ -108,20 +95,41 @@ class FavoriteForResultListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final updatedSearched =
-        ref.watch(changeFavoriteStateProvider(searched.documentID));
-    final int isFavorite = updatedSearched.isFavorite;
-    final int vagueLikes = updatedSearched.vagueLikes?? 0;
+    final isFavorite =
+        ref.watch(userIsFavoriteStateProvider(searched.documentID));
+    final int vagueLikes = searched.vagueLikes ?? 0;
 
     return Column(children: [
       Icon(
-        isFavorite == 1 ? Icons.favorite : Icons.favorite_border,
-        color: isFavorite == 1 ? Colors.red : Colors.black,
+        isFavorite == '1' ? Icons.favorite : Icons.favorite_border,
+        color: isFavorite == '1' ? Colors.red : Colors.black,
       ),
       Text(
         vagueLikes.toString(),
-        style: TextStyle(color: isFavorite == 1 ? Colors.red : Colors.black),
+        style: TextStyle(color: isFavorite == '1' ? Colors.red : Colors.black),
       ),
     ]);
+  }
+}
+
+class FavoriteForHistory extends ConsumerWidget {
+  final Searched searched;
+  const FavoriteForHistory({super.key, required this.searched});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isFavorite = ref.watch(userIsFavoriteStateProvider(searched.documentID));
+    return IconButton(
+      icon: isFavorite == '1'
+          ? const Icon(Icons.favorite, color: Colors.red)
+          : const Icon(Icons.favorite_border,
+          color: Colors.red),
+      onPressed: () async {
+        ref
+            .read(
+            userIsFavoriteStateProvider(searched.documentID).notifier)
+            .changeUserFavoriteState(searched.documentID, isFavorite);
+      },
+    );
   }
 }

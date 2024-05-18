@@ -10,12 +10,12 @@ class FireStoreService {
   Future saveFavoriteData(
       {required int nowFavoriteValue,
         required Searched searched,
-      required int isFavorite,
+      required String isFavorite,
       required bool needToChangeAlgoliaValue}) async {
 
     //TODO 結構ぐっちゃぐちゃなので後で直そう
     final int nextFavoriteValue =
-    isFavorite == 1 ? nowFavoriteValue - 1 : nowFavoriteValue + 1;
+    isFavorite == '1' ? nowFavoriteValue - 1 : nowFavoriteValue + 1;
 
     //algoliaの変更を計
     int nextAlgoliaFavoriteValue = 0;

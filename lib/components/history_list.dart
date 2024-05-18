@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/components/components.dart';
+import 'package:kenryo_tankyu/components/favorite.dart';
 import '../service/searched_history_db_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -35,17 +36,6 @@ class LibraryList extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       return Consumer(builder: (context, ref, child) {
                         final searched = searcheds[index];
-                        final updatedSearched =
-                            ref.watch(changeFavoriteStateProvider(searched.documentID));
-                        final updatedSearchedNotifier = ref.read(changeFavoriteStateProvider(searched.documentID).notifier);
-                        final isFavorite = updatedSearched.isFavorite;
-
-                        ///この辺のいいねの管理はどうやってんの？って感じだと思うから補足しておく。
-                        ///まずはhistoryProvider（futureProvider）で全部のデータベースを取得する。RefreshIndicatorでもやっていることは同様
-                        ///そのあと、入ってきたお気に入りのデータを一旦、isFavoriteProviderに保守させる。
-                        ///画面の変更はこのproviderの変更によって成されており、DBの変更は裏で行われているため画面には反映されていない。
-                        ///このような挙動を採用した理由は、1つのfutureProviderで行ったときにお気に入りの登録でDBに変更が出た場合、
-                        ///もう１度全てのデータベースを読み取ることになってすべての画面を書き直すことになってしまうから。
 
                         return ListTile(
                           title: Column(
@@ -57,17 +47,7 @@ class LibraryList extends ConsumerWidget {
                             ],
                           ),
                           subtitle: Text(searched.savedAt.toString()),
-                          trailing: IconButton(
-                            icon: onlyFavorite == true
-                                ? const Icon(Icons.favorite, color: Colors.red)
-                                : const Icon(Icons.favorite_border,
-                                    color: Colors.red),
-                            onPressed: () async {
-                              updatedSearchedNotifier;
-                              await HistoryController.instance.changeFavoriteState(
-                                  searched.documentID, isFavorite == 1 ? 0 : 1);
-                            },
-                          ),
+                          trailing: FavoriteForHistory(searched: searched),
                           onTap: () => context.push('/result',extra: searched),
                         );
                       });

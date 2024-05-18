@@ -75,12 +75,12 @@ class HistoryController {
   }
 
   Future<void> changeFavoriteState(
-      String documentID, int nextIsFavorite) async {
+      String documentID, String nextIsFavorite) async {
     try {
       final Database db = await database;
       await db.update(
         'searched_history',
-        {'isFavorite': nextIsFavorite},
+        {'isFavorite': int.parse(nextIsFavorite)},
         where: 'documentID = ?',
         whereArgs: [documentID],
       );
@@ -89,7 +89,7 @@ class HistoryController {
     }
   }
 
-  Future<List<String>?>? getFavoriteState(List<String> documentIDs) async {
+  Future<List<String>?>? getSomeFavoriteState(List<String> documentIDs) async {
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('searched_history',
         where:
@@ -100,6 +100,16 @@ class HistoryController {
       return null;
     }
     return List.generate(maps.length, (index) => maps[index]['documentID']);
+  }
+
+  Future<String?> getFavoriteState(String documentID) async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('searched_history',
+        where: 'documentID = ? AND isFavorite = ?', whereArgs: [documentID, 1]);
+    if (maps.isEmpty) {
+      return null;
+    }
+    return maps[0]['documentID'];
   }
 
   Future<void> insertHistory(Searched searched) async {
