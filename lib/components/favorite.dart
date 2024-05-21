@@ -37,7 +37,7 @@ class ChangeFavoriteStateNotifier extends StateNotifier<int> {
 ///documentIDごとにFavoriteの数を管理するProvider
 final favoriteCountProvider = StateNotifierProvider.family
     .autoDispose<ChangeFavoriteCountNotifier, int, Searched>((ref, searched) {
-  return ChangeFavoriteCountNotifier(searched.exactLikes ?? 0);
+  return ChangeFavoriteCountNotifier(searched.exactLikes ?? searched.vagueLikes ?? 0);
 });
 
 class ChangeFavoriteCountNotifier extends StateNotifier<int> {
@@ -78,7 +78,7 @@ class ChangeFavoriteCountNotifier extends StateNotifier<int> {
     }
     final firestore =
         FirebaseFirestore.instance.collection('works').doc(searched.documentID);
-    if (nextAlgoliaFavoriteValue != -10 && needToChangeAlgoliaValue) {
+    if (needToChangeAlgoliaValue) {
       await firestore.update({
         'exactLikes': nextFavoriteValue,
         'vagueLikes': nextAlgoliaFavoriteValue
@@ -158,7 +158,7 @@ class FavoriteForResultListPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isFavorite =
         ref.watch(userIsFavoriteStateProvider(searched.documentID));
-    final int vagueLikes = searched.vagueLikes ?? 0;
+    final int likes = ref.watch(favoriteCountProvider(searched));
 
     return Column(children: [
       Icon(
@@ -166,7 +166,7 @@ class FavoriteForResultListPage extends ConsumerWidget {
         color: isFavorite == 1 ? Colors.red : Colors.black,
       ),
       Text(
-        vagueLikes.toString(),
+        likes.toString(),
         style: TextStyle(color: isFavorite == 1 ? Colors.red : Colors.black),
       ),
     ]);
@@ -189,6 +189,13 @@ class FavoriteForHistory extends ConsumerWidget {
         ref
             .read(userIsFavoriteStateProvider(searched.documentID).notifier)
             .changeUserFavoriteState(searched.documentID, isFavorite);
+        ref
+            .read(favoriteCountProvider(searched).notifier)
+            .changeFavoriteCount(
+          needToChangeAlgoliaValue: false,
+          searched: searched,
+          nowIsFavorite: isFavorite,
+        );
       },
     );
   }

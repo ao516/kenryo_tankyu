@@ -7,34 +7,6 @@ class FireStoreService {
   FireStoreService._();
   static FireStoreService get instance => _instance;
 
-  Future saveFavoriteData(
-      {required int nowFavoriteValue,
-        required Searched searched,
-      required String isFavorite,
-      required bool needToChangeAlgoliaValue}) async {
-
-    //TODO 結構ぐっちゃぐちゃなので後で直そう
-    final int nextFavoriteValue =
-    isFavorite == '1' ? nowFavoriteValue - 1 : nowFavoriteValue + 1;
-
-    //algoliaの変更を計
-    int nextAlgoliaFavoriteValue = 0;
-    if (nextFavoriteValue <= 5 || nextFavoriteValue % 5 == 0) {
-      nextAlgoliaFavoriteValue = nextFavoriteValue;
-    }
-
-    final firestore =
-        FirebaseFirestore.instance.collection('works').doc(searched.documentID);
-
-    if (nextAlgoliaFavoriteValue != -10 && needToChangeAlgoliaValue) {
-      await firestore.update({
-        'exactLikes': nextFavoriteValue,
-        'vagueLikes': nextAlgoliaFavoriteValue
-      });
-    } else {
-      await firestore.update({'exactLikes': nextFavoriteValue});
-    }
-  }
 
   Future<void> create() async {
     final db = FirebaseFirestore.instance;
