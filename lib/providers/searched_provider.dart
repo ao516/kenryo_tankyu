@@ -8,7 +8,7 @@ import 'package:kenryo_tankyu/providers/providers.dart';
 import '../components/components.dart';
 
 //firestoreからデータを取得するProvider
-final searchedProvider = FutureProvider.family
+final getFirestoreSearchedProvider = FutureProvider.family
     .autoDispose<Searched?, Searched>((ref, searched) async {
   final firestore = FirebaseFirestore.instance;
 

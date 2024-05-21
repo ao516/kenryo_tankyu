@@ -26,11 +26,12 @@ final algoliaSearchProvider = FutureProvider
     if (objects.isEmpty) {
       return null; //TODO ここ上手く動いていない。
     } else {
+
       ///ヒットしたデータがユーザーがお気に入りに登録しているかどうかをローカルDBから取得する。
       ///ある場合は、favoriteListにそのデータのdocumentIDを入手、ない場合はnullをいれる。
       final List<String> documentIDs = objects.map((e) => e.objectID).toList();
       final List<String>? favoriteList =
-          await HistoryController.instance.getFavoriteState(documentIDs);
+          await HistoryController.instance.getSomeFavoriteState(documentIDs);
 
       ///Algoliaから取得したデータをSearched型に変換する。
       ///この際、favoriteListにidが含まれているかどうかを検証しながらstateに渡すdataを作成している。
