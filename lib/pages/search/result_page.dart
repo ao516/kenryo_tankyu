@@ -8,12 +8,11 @@ class ResultPage extends ConsumerWidget {
   const ResultPage({super.key, required this.beforeSearched});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final searched = ref.watch(searchedProvider(beforeSearched));
+    final searched = ref.watch(getFirestoreSearchedProvider(beforeSearched));
     return Scaffold(
         appBar: const HeaderForResultPage(),
         body: searched.when(
             data: (searched) {
-              debugPrint('searched: $searched');
               if (searched == null) {
                 return const Text('データがありません。');
               } else {

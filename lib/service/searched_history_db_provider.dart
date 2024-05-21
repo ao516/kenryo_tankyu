@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:sqflite/sqflite.dart';
@@ -75,12 +76,12 @@ class HistoryController {
   }
 
   Future<void> changeFavoriteState(
-      String documentID, String nextIsFavorite) async {
+      String documentID, int nextIsFavorite) async {
     try {
       final Database db = await database;
       await db.update(
         'searched_history',
-        {'isFavorite': int.parse(nextIsFavorite)},
+        {'isFavorite':nextIsFavorite},
         where: 'documentID = ?',
         whereArgs: [documentID],
       );
@@ -102,14 +103,14 @@ class HistoryController {
     return List.generate(maps.length, (index) => maps[index]['documentID']);
   }
 
-  Future<String?> getFavoriteState(String documentID) async {
+  Future<int?> getFavoriteState(String documentID) async {
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('searched_history',
         where: 'documentID = ? AND isFavorite = ?', whereArgs: [documentID, 1]);
     if (maps.isEmpty) {
       return null;
     }
-    return maps[0]['documentID'];
+    return maps[0]['isFavorite'];
   }
 
   Future<void> insertHistory(Searched searched) async {

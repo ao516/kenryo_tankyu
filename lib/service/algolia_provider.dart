@@ -26,6 +26,7 @@ final algoliaSearchProvider = FutureProvider
     if (objects.isEmpty) {
       return null; //TODO ここ上手く動いていない。
     } else {
+
       ///ヒットしたデータがユーザーがお気に入りに登録しているかどうかをローカルDBから取得する。
       ///ある場合は、favoriteListにそのデータのdocumentIDを入手、ない場合はnullをいれる。
       final List<String> documentIDs = objects.map((e) => e.objectID).toList();
