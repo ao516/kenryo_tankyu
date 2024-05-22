@@ -19,6 +19,7 @@ export 'drop_button.dart';
 export 'sub_category_chip.dart';
 export 'result_list_preview.dart';
 export 'result_preview_content.dart';
+export 'content_carousel.dart';
 
 export 'favorite.dart';
 export 'history_list.dart';
