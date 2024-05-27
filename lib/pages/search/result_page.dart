@@ -10,7 +10,7 @@ class ResultPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searched = ref.watch(getFirestoreSearchedProvider(beforeSearched));
     return Scaffold(
-        appBar: const HeaderForResultPage(),
+        appBar: HeaderForResultPage(searched: beforeSearched),
         body: searched.when(
             data: (searched) {
               if (searched == null) {
