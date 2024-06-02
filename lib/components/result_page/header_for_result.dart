@@ -17,6 +17,7 @@ class HeaderForResultPage extends ConsumerWidget
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedPdf = ref.watch(intProvider);
+    final selectedPdfPath = ref.watch(stringProvider);
     String pdfName = selectedPdf == 0
         ? 'スライド'
         : selectedPdf == 1
@@ -31,7 +32,7 @@ class HeaderForResultPage extends ConsumerWidget
             itemBuilder: (context) {
               return [
                 PopupMenuItem(
-                  onTap: _downLoadPdf(context),
+                  onTap: _downLoadPdf(context,selectedPdfPath),
                   child: Text('「$pdfName」のみをダウンロード'),
                 ),
                 const PopupMenuItem(
@@ -55,11 +56,11 @@ class HeaderForResultPage extends ConsumerWidget
     );
   }
 
-  _downLoadPdf(BuildContext context) async {
-    final ref = FirebaseStorage.instance.ref().child(searched.documentID);
+  _downLoadPdf(BuildContext context,String selectedPdfPath) async {
+    final ref = FirebaseStorage.instance.ref().child('test/$selectedPdfPath.pdf');
     final appDocDir = await getApplicationDocumentsDirectory();
     final filePath =
-        "${appDocDir.absolute}/kenryo_tankyu_app/${searched.title}.pdf";
+        '${appDocDir.absolute}/${searched.title}.pdf';
     final file = File(filePath);
     final downloadTask = ref.writeToFile(file);
     downloadTask.snapshotEvents.listen((taskSnapshot) {

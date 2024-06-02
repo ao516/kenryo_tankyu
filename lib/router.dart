@@ -19,8 +19,6 @@ final routesProvider = Provider<GoRouter>((ref) {
 
   return GoRouter(
     initialLocation: redirection,
-
-    ///本番用
     navigatorKey: _rootNavigatorKey,
     routes: [
       GoRoute(

@@ -75,7 +75,7 @@ class HomePage extends ConsumerWidget {
             const Card(
               margin: EdgeInsets.symmetric(horizontal: 8.0),
               child: SizedBox(
-                height: 250,
+                height: 400,
                 child: NotificationList(),
                 ),
               ),
