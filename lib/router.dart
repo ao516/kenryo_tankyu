@@ -28,7 +28,7 @@ final routesProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/result',
         builder: (context, state) =>
-            ResultPage(beforeSearched: state.extra as Searched),
+            ResultPageRoute(beforeSearched: state.extra as Searched),
         routes: [
           GoRoute(
             path: 'pdfExpand',
@@ -68,7 +68,7 @@ final routesProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/search',
-        builder: (context, state) => SearchPage(),
+        builder: (context, state) => const SearchPage(),
       ),
 
       //ShellRoute内にBottomNavigationBarで遷移する画面を記載する

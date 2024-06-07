@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TestForCoji extends StatelessWidget {
-  const TestForCoji({Key? key}) : super(key: key);
+  const TestForCoji({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -896,6 +896,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
+  screen_protector:
+    dependency: "direct main"
+    description:
+      name: screen_protector
+      sha256: "541bdcd341de1e38026b5b94cc2a74cd95299d2c51150735165c4b445fa0209a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.2"
   shelf:
     dependency: transitive
     description:

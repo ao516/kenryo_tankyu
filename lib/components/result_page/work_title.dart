@@ -4,7 +4,7 @@ import 'package:kenryo_tankyu/providers/providers.dart';
 
 class WorkTitle extends StatelessWidget {
   final Searched searched;
-  const WorkTitle({super.key,required this.searched});
+  const  WorkTitle({super.key,required this.searched});
 
   @override
   Widget build(BuildContext context) {

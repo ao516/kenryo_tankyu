@@ -10,4 +10,4 @@ final teacherPdfProvider = FutureProvider.family<Uint8List?, String>((ref, pdfPa
 });
 
 final selectedTeacherProvider = StateProvider<String>((ref) => '初期値');
-final teacherPdfPathProvider = StateProvider<String>((ref) => 'sample');
+final teacherPdfPathProvider = StateProvider<String>((ref) => 'kanazawa');

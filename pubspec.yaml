@@ -55,6 +55,7 @@ dependencies:
   permission_handler: ^11.3.1
   external_path: ^1.0.3
   firebase_messaging: ^14.9.4
+  screen_protector: ^1.4.2
 
 dev_dependencies:
   flutter_test:

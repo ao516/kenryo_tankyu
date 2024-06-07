@@ -19,6 +19,13 @@ const List<String> categoryList = [
   'その他',
 ];
 
+const List<String> changeInfoList = [
+  'カテゴリの分類が不適切',
+  '名前、学科、入学年度が間違っている',
+  'PDFが閲覧できない',
+  'その他',
+];
+
 const List<List<String>> subCategoryList = [
   ['防災', '観光', '市政', '政治'],
   ['歴史', '言語', '地理', '心理', '哲学'],

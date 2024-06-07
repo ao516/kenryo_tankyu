@@ -18,7 +18,7 @@ class TeacherSelectPage extends ConsumerWidget {
       ['伊藤', '在籍中']
     ],
     [
-      ['金澤大典', '在籍中']
+      ['金澤大典', '在籍中','kanazawa']
     ],
   ];
 

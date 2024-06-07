@@ -7,7 +7,7 @@ import 'package:kenryo_tankyu/providers/search_provider.dart';
 import '../../constant/constant.dart';
 
 class SearchPage extends ConsumerWidget {
-  SearchPage({super.key});
+  const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

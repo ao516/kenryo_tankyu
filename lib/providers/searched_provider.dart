@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 
-import '../components/components.dart';
 
 //firestoreからデータを取得するProvider
 final getFirestoreSearchedProvider = FutureProvider.family
