@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/components/header/initial_header.dart';
@@ -12,6 +13,24 @@ class Footer extends StatefulWidget {
 
 class _FooterState extends State<Footer> {
   int _selectedIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    FirebaseMessaging.instance.getInitialMessage();
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      debugPrint('Got a message whilst in the foreground!');
+      debugPrint('Message data: ${message.data}');
+      if (message.notification != null) {
+        debugPrint('Message also contained a notification: ${message.notification}');
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      debugPrint('Message clicked!');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -58,6 +57,7 @@ class HomePage extends ConsumerWidget {
             const Text('コンテンツ',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
+            // const ContentCarousel(),
             Card(
               margin: const EdgeInsets.symmetric(horizontal: 8.0),
               child: ListTile(
@@ -74,7 +74,7 @@ class HomePage extends ConsumerWidget {
             const Card(
               margin: EdgeInsets.symmetric(horizontal: 8.0),
               child: SizedBox(
-                height: 250,
+                height: 400,
                 child: NotificationList(),
                 ),
               ),

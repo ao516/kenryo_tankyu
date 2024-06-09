@@ -1,6 +1,6 @@
 const List<int> yearList = [2018, 2019, 2020, 2021, 2022];
-const List<String> yearLists = ['2018', '2019', '2020', '2021', '2022'];
-const List<String> departureList = ['普通科', '探究科'];
+// const List<String> yearLists = ['2018', '2019', '2020', '2021', '2022'];
+const List<String> departmentList = ['普通科', '探究科'];
 const List<String> eventNameList = ['信州学', '個人探究'];
 const List<String> categoryList = [
   '地域・社会',
@@ -18,6 +18,8 @@ const List<String> categoryList = [
   'くらし',
   'その他',
 ];
+
+
 
 const List<List<String>> subCategoryList = [
   ['防災', '観光', '市政', '政治'],
@@ -50,4 +52,18 @@ const List<List<String>> categoryImageList = [
   ['デザイン\nアート','デザイン・アート', 'assets/images/category/art.png'],
   ['くらし', 'くらし','assets/images/category/life.png'],
   ['その他', 'その他', 'assets/images/category/other.png'],
+];
+
+const List<String> changeInfoList = [
+  'カテゴリの分類が不適切',
+  '作品の情報が間違っている',
+  'PDFが閲覧できない',
+  'その他',
+];
+
+const List<String> pdfChoiceList = [
+  'スライド',
+  'レポート',
+  'ポスター',
+  '論文',
 ];

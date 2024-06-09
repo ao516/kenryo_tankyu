@@ -3,9 +3,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 
-import '../components/components.dart';
 
 //firestoreからデータを取得するProvider
 final getFirestoreSearchedProvider = FutureProvider.family
@@ -18,6 +18,7 @@ final getFirestoreSearchedProvider = FutureProvider.family
 
     if (snapshot.exists) {
       final data = Searched.fromFirestore(snapshot, searched.isFavorite);
+      ref.read(searchedProvider.notifier).state = data; //ここでfuture型でないproviderに値を代入してい
       return data;
     } else {
       debugPrint('firestoreにデータが存在しません。');
@@ -29,11 +30,14 @@ final getFirestoreSearchedProvider = FutureProvider.family
   return null;
 });
 
+final searchedProvider = StateProvider<Searched>((ref) => testSearchedValue);
+
 //pdfを保管するprovider
 final slidePdfProvider =
     FutureProvider.family<Uint8List?, String>((ref, id) async {
   final pathReference = FirebaseStorage.instance.ref().child('test/$id.pdf');
-  final Uint8List? data = await pathReference.getData();
+  const storage = 1024 * 1024*3; ///これ以上のサイズのファイルは読み込めない。１度にキャッシュさせないとsyncfusion_pdfは機能しないのかも。
+  final Uint8List? data = await pathReference.getData(storage);
   return data;
 });
 

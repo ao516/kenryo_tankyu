@@ -9,7 +9,7 @@ class PdfExpandPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const HeaderForResultPage(),
+      appBar: HeaderForResultPage(searched: searched),
       body: Column(
         children: [
           PdfChoiceChip(searched: searched),

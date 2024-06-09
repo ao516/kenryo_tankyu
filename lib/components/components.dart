@@ -9,6 +9,8 @@ export 'result_page/work_title.dart';
 export 'result_page/pdf_choice_chip.dart';
 export 'result_page/display_pdf.dart';
 export 'result_page/header_for_result.dart';
+export 'result_page/overlay_dialog.dart';
+export 'result_page/change_info_form.dart';
 
 export 'getImage.dart';
 export 'category.dart';
@@ -19,6 +21,7 @@ export 'drop_button.dart';
 export 'sub_category_chip.dart';
 export 'result_list_preview.dart';
 export 'result_preview_content.dart';
+export 'content_carousel.dart';
 
 export 'favorite.dart';
 export 'history_list.dart';

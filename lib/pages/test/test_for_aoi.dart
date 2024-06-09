@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
 class TestForAoi extends StatelessWidget {
@@ -5,8 +6,28 @@ class TestForAoi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('This is a test page for Aoi.'))
+    return Scaffold(
+      body: const Center(child: Text('This is a test page for Aoi.')),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async{
+          final fcmToken = await FirebaseMessaging.instance.getToken();
+          FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+          NotificationSettings settings = await messaging.requestPermission(
+            alert: true,
+            announcement: false,
+            badge: true,
+            carPlay: false,
+            criticalAlert: false,
+            provisional: false,
+            sound: true,
+          );
+
+          debugPrint('User granted permission: ${settings.authorizationStatus}');
+          debugPrint('fcmToken: $fcmToken');
+        },
+        child: const Icon(Icons.arrow_back),
+      )
     );
   }
 }

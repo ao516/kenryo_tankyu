@@ -86,7 +86,7 @@ class SideBar extends ConsumerWidget {
                       SearchDropButton(
                           name: '学科指定',
                           selectedText: data.course,
-                          choices: departureList),
+                          choices: departmentList),
                       const SizedBox(height: 15.0),
                       const Text('サブカテゴリを選択'),
                       data.category != null
