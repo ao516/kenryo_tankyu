@@ -62,6 +62,7 @@ class OverlayDialog extends ModalRoute<void> {
           const SizedBox(height: 8),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop(),
+            //todo 送信処理。スプシに自動追加とかさせたい。
             child: const Text('送信する'),
           ),
         ],
