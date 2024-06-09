@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 
 
@@ -17,6 +18,7 @@ final getFirestoreSearchedProvider = FutureProvider.family
 
     if (snapshot.exists) {
       final data = Searched.fromFirestore(snapshot, searched.isFavorite);
+      ref.read(searchedProvider.notifier).state = data; //ここでfuture型でないproviderに値を代入してい
       return data;
     } else {
       debugPrint('firestoreにデータが存在しません。');
@@ -27,6 +29,8 @@ final getFirestoreSearchedProvider = FutureProvider.family
   }
   return null;
 });
+
+final searchedProvider = StateProvider<Searched>((ref) => testSearchedValue);
 
 //pdfを保管するprovider
 final slidePdfProvider =

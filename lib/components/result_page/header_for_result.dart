@@ -20,7 +20,7 @@ class HeaderForResultPage extends StatelessWidget
           itemBuilder: (context) {
             return [
               PopupMenuItem(
-                onTap: ()=> Navigator.of(context).push(OverlayDialog()),
+                onTap: ()=> Navigator.of(context).push(OverlayDialog(searched)),
                 child: const Text('情報の変更を提案'),
               ),
               PopupMenuItem(

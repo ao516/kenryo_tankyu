@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kenryo_tankyu/components/components.dart';
+import 'package:kenryo_tankyu/providers/providers.dart';
 
 class OverlayDialog extends ModalRoute<void> {
+  final Searched searched;
+  OverlayDialog(this.searched);
   @override
   Duration get transitionDuration => const Duration(milliseconds: 200);
   @override
@@ -55,7 +58,7 @@ class OverlayDialog extends ModalRoute<void> {
             ],
           ),
           const SizedBox(height: 8),
-          const ChangeInfoForm(),
+          ChangeInfoForm(searched),
           const SizedBox(height: 8),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop(),
