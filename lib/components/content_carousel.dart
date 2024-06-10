@@ -1,17 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 final carouselSliderNumberProvider = StateProvider<int>((ref) => 0);
 
 class ContentCarousel extends ConsumerWidget {
   const ContentCarousel({super.key});
 
-  static const imageList = [
-    '縣陵先生図鑑',
-    '2023トップ',
+  static const List<List<String>> imageList = [
+    ['縣陵先生図鑑', '/teacher'],
+    ['2023年KRGPグランプリ優秀作品', '/krgp'],
   ];
-
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,18 +21,22 @@ class ContentCarousel extends ConsumerWidget {
       children: [
         CarouselSlider.builder(
           options: CarouselOptions(
-              height: 60,
               initialPage: 0,
-              viewportFraction: 1,
               enlargeCenterPage: true,
               onPageChanged: (index, reason) {
-                ref
-                    .read(carouselSliderNumberProvider.notifier)
-                    .state
-                = carouselSliderNumber = index;
+                ref.read(carouselSliderNumberProvider.notifier).state =
+                    carouselSliderNumber = index;
               }),
           itemCount: imageList.length,
-          itemBuilder: (context, index, realIndex) => Text(imageList[index]),
+          itemBuilder: (context, index, realIndex) => GestureDetector(
+              onTap: () {
+                context.push(imageList[index][1]);
+              },
+              child: Card(
+                  child: Center(
+                child: Text(imageList[index][0],
+                    style: const TextStyle(fontSize: 18)),
+              ))),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -41,16 +45,17 @@ class ContentCarousel extends ConsumerWidget {
             return Container(
               width: 10,
               height: 10,
-              margin: const EdgeInsets.symmetric(
-                  vertical: 10.0, horizontal: 5.0),
+              margin:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: carouselSliderNumber == index
-                    ? const Color.fromRGBO(115, 137, 187, 1)
-                    : const Color.fromRGBO(115, 137, 187, 0.4),
+                    ? const Color.fromRGBO(186, 25, 35, 1)
+                    : const Color.fromRGBO(186, 25, 35, 0.4),
               ),
             );
-          }).toList(),)
+          }).toList(),
+        )
       ],
     );
   }

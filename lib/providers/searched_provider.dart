@@ -12,10 +12,10 @@ final getFirestoreSearchedProvider = FutureProvider.family
     .autoDispose<Searched?, Searched>((ref, searched) async {
   final firestore = FirebaseFirestore.instance;
 
+  //まずはキャッシュから取得してみる
   try {
     final DocumentSnapshot snapshot =
-        await firestore.collection('works').doc(searched.documentID).get();
-
+        await firestore.collection('works').doc(searched.documentID).get(const GetOptions(source: Source.cache));
     if (snapshot.exists) {
       final data = Searched.fromFirestore(snapshot, searched.isFavorite);
       ref.read(searchedProvider.notifier).state = data; //ここでfuture型でないproviderに値を代入してい
@@ -25,7 +25,17 @@ final getFirestoreSearchedProvider = FutureProvider.family
       return null;
     }
   } catch (e) {
-    debugPrint('firestoreからデータを取得できませんでした。');
+    //キャッシュがない場合はサーバーから取得
+    final DocumentSnapshot snapshot =
+    await firestore.collection('works').doc(searched.documentID).get(const GetOptions(source: Source.server));
+    if (snapshot.exists) {
+      final data = Searched.fromFirestore(snapshot, searched.isFavorite);
+      ref.read(searchedProvider.notifier).state = data; //ここでfuture型でないproviderに値を代入してい
+      return data;
+    } else {
+      debugPrint('firestoreにデータが存在しません。');
+      return null;
+    }
   }
   return null;
 });
