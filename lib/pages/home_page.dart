@@ -35,15 +35,12 @@ class HomePage extends ConsumerWidget {
                             backgroundImage: NetworkImage(user.photoURL!),
                           ),
                           const SizedBox(width: 8),
-                          Text('${user.displayName}さん、ログアウトする'),
+                          Text('ようこそ、${user.displayName}さん'),
                         ],
                       ),
                 IconButton(
-                    onPressed: () async {
-                      // 内部で保持しているログイン情報等が初期化される
-                      await FirebaseAuth.instance.signOut();
-                    },
-                    icon: const Icon(Icons.logout)),
+                    onPressed: () => context.push('/settings'),
+                    icon: const Icon(Icons.settings)),
               ],
             ),
             const SizedBox(height: 8),
@@ -57,16 +54,7 @@ class HomePage extends ConsumerWidget {
             const Text('コンテンツ',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            // const ContentCarousel(),
-            Card(
-              margin: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: ListTile(
-                title: const Text('縣陵先生図鑑'),
-                onTap: () {
-                  context.push('/teacher');
-                },
-              ),
-            ),
+            const ContentCarousel(),
             const SizedBox(height: 16),
             const Text('お知らせ',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),

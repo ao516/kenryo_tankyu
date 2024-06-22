@@ -26,6 +26,11 @@ final routesProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const LoginPage(),
       ),
       GoRoute(
+        path: '/settings',
+        builder: (context, state) =>
+        const SettingsPage(),
+      ),
+      GoRoute(
         path: '/result',
         builder: (context, state) =>
             ResultPageRoute(beforeSearched: state.extra as Searched),
@@ -36,6 +41,11 @@ final routesProvider = Provider<GoRouter>((ref) {
                 PdfExpandPage(searched: state.extra as Searched),
           ),
         ],
+      ),
+      GoRoute(
+        path: '/krgp',
+        builder: (context, state) =>
+            const KrgpPage(),
       ),
       GoRoute(
           path: '/teacher',

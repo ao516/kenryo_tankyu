@@ -1,23 +1,62 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-class ContentCarousel extends StatelessWidget {
+final carouselSliderNumberProvider = StateProvider<int>((ref) => 0);
+
+class ContentCarousel extends ConsumerWidget {
   const ContentCarousel({super.key});
 
+  static const List<List<String>> imageList = [
+    ['縣陵先生図鑑', '/teacher'],
+    ['2023年KRGPグランプリ優秀作品', '/krgp'],
+  ];
+
   @override
-  Widget build(BuildContext context) {
-    return  CarouselSlider(
-      options: CarouselOptions(
-        height: 200.0,
-      ),
-      items: [1, 2, 3].map((i) {
-        return Container(
-          width: MediaQuery.of(context).size.width,
-          margin: const EdgeInsets.symmetric(horizontal: 5.0),
-          decoration: const BoxDecoration(color: Colors.amber),
-          child: Text('text $i', style: const TextStyle(fontSize: 16.0)),
-        );
-      }).toList(),
+  Widget build(BuildContext context, WidgetRef ref) {
+    int carouselSliderNumber = ref.watch(carouselSliderNumberProvider);
+
+    return Column(
+      children: [
+        CarouselSlider.builder(
+          options: CarouselOptions(
+              initialPage: 0,
+              enlargeCenterPage: true,
+              onPageChanged: (index, reason) {
+                ref.read(carouselSliderNumberProvider.notifier).state =
+                    carouselSliderNumber = index;
+              }),
+          itemCount: imageList.length,
+          itemBuilder: (context, index, realIndex) => GestureDetector(
+              onTap: () {
+                context.push(imageList[index][1]);
+              },
+              child: Card(
+                  child: Center(
+                child: Text(imageList[index][0],
+                    style: const TextStyle(fontSize: 18)),
+              ))),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: imageList.map((url) {
+            int index = imageList.indexOf(url);
+            return Container(
+              width: 10,
+              height: 10,
+              margin:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: carouselSliderNumber == index
+                    ? const Color.fromRGBO(186, 25, 35, 1)
+                    : const Color.fromRGBO(186, 25, 35, 0.4),
+              ),
+            );
+          }).toList(),
+        )
+      ],
     );
   }
 }
