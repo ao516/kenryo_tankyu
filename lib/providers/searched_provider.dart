@@ -12,6 +12,7 @@ final getFirestoreSearchedProvider = FutureProvider.family
     .autoDispose<Searched?, Searched>((ref, searched) async {
   final firestore = FirebaseFirestore.instance;
 
+  ///todo まだキャッシュに関しての理解が薄い。また書き直したい。
   //まずはキャッシュから取得してみる
   try {
     final DocumentSnapshot snapshot =
