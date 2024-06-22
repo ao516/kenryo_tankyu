@@ -17,8 +17,12 @@ class SettingsPage extends StatelessWidget {
                 final fcm = FirebaseMessaging.instance;
                 if (value) {
                   await fcm.requestPermission();
+                  final token = await fcm.getToken();
+                  debugPrint(token);
                 } else {
                   await fcm.requestPermission();
+                  final token = await fcm.getToken();
+                  debugPrint(token);
                 }
               },
               secondary: const Icon(Icons.notifications_active_outlined),
