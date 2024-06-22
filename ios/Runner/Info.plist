@@ -30,6 +30,7 @@
 		<string>Main</string>
 		<key>UISupportedInterfaceOrientations</key>
 		<array>
+		    <string>848862581518-c73uvqaavqbkje0fo6tva67a2rf678ks.apps.googleusercontent.com</string>
 			<string>UIInterfaceOrientationPortrait</string>
 			<string>UIInterfaceOrientationLandscapeLeft</string>
 			<string>UIInterfaceOrientationLandscapeRight</string>
