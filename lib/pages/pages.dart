@@ -12,5 +12,6 @@ export 'search/result_page_main.dart';
 export 'teacher/teacher_select_page.dart';
 export 'test/tests.dart';
 export 'teacher/teacher.dart';
-export 'contents/krgp.dart';
+export 'contents/krgp_home_page.dart';
+export 'contents/krgp_year_page.dart';
 export 'settings.dart';

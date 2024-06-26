@@ -26,7 +26,7 @@ class HomePage extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 user == null
-                    ? const Text('ログアウトする')
+                    ? const Text('ようこそ、ゲストさん')
                     : Row(
                         children: [
                           CircleAvatar(
