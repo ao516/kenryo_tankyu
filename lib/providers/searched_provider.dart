@@ -47,8 +47,8 @@ final searchedProvider = StateProvider<Searched>((ref) => testSearchedValue);
 final slidePdfProvider =
     FutureProvider.family<Uint8List?, String>((ref, id) async {
   final pathReference = FirebaseStorage.instance.ref().child('test/$id.pdf');
-  const storage = 1024 * 1024*3; ///これ以上のサイズのファイルは読み込めない。１度にキャッシュさせないとsyncfusion_pdfは機能しないのかも。
-  final Uint8List? data = await pathReference.getData(storage);
+  const storage = 1024 * 1024*10; ///これ以上のサイズのファイルは読み込めない。１度にキャッシュさせないとsyncfusion_pdfは機能しないのかも。
+  final Uint8List? data = await pathReference.getData();
   return data;
 });
 

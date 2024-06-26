@@ -15,7 +15,8 @@ final GlobalKey<NavigatorState> _shellNavigatorKey =
 
 final routesProvider = Provider<GoRouter>((ref) {
   final authStateAsync = ref.watch(authStateChangesProvider);
-  final redirection = authStateAsync.valueOrNull != null ? '/home' : '/login';
+  //final redirection = authStateAsync.valueOrNull != null ? '/home' : '/login';
+  const redirection = '/home';
 
   return GoRouter(
     initialLocation: redirection,
@@ -46,6 +47,13 @@ final routesProvider = Provider<GoRouter>((ref) {
         path: '/krgp',
         builder: (context, state) =>
             const KrgpPage(),
+        routes: [
+          GoRoute(
+          path:  'year',
+          builder: (context, state) =>
+              KrgpYearPage(year: state.extra as String),
+          ),
+  ],
       ),
       GoRoute(
           path: '/teacher',
