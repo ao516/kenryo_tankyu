@@ -41,7 +41,7 @@ final getFirestoreSearchedProvider = FutureProvider.family
   return null;
 });
 
-final searchedProvider = StateProvider<Searched>((ref) => testSearchedValue);
+final searchedProvider = StateProvider<Searched>((ref) => testSearchedValue1);
 
 //pdfを保管するprovider
 final slidePdfProvider =

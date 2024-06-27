@@ -30,34 +30,24 @@ class LibraryList extends ConsumerWidget {
                   onRefresh: () async {
                     ref.invalidate(historyProvider);
                   },
-                  child: ListView.separated(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    itemCount: searcheds.length,
-                    itemBuilder: (context, index) {
-                      return Consumer(builder: (context, ref, child) {
-                        final searched = searcheds[index];
-
-                        return ListTile(
-                          title: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(searched.title),
-                              Text('id => ${searched.documentID}'),
-                              Text('今isFavorite => ${searched.isFavorite}'),
-                            ],
-                          ),
-                          subtitle: Text(searched.savedAt.toString()),
-                          trailing: FavoriteForHistory(searched: searched),
-                          onTap: () => context.push('/result',extra: searched),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.separated(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: searcheds.length,
+                      itemBuilder: (context, index) {
+                        return Consumer(builder: (context, ref, child) {
+                          final searched = searcheds[index];
+                          return HistoryPreviewContent(searched: searched);
+                        });
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Divider(),
                         );
-                      });
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Divider(),
-                      );
-                    },
+                      },
+                    ),
                   ),
                 );
         },
