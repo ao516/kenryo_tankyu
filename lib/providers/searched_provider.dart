@@ -41,17 +41,17 @@ final getFirestoreSearchedProvider = FutureProvider.family
   return null;
 });
 
-final searchedProvider = StateProvider<Searched>((ref) => testSearchedValue);
+final searchedProvider = StateProvider<Searched>((ref) => testSearchedValue1);
 
 //pdfを保管するprovider
 final slidePdfProvider =
     FutureProvider.family<Uint8List?, String>((ref, id) async {
-  final pathReference = FirebaseStorage.instance.ref().child('test/$id.pdf');
-  const storage = 1024 * 1024*10; ///これ以上のサイズのファイルは読み込めない。１度にキャッシュさせないとsyncfusion_pdfは機能しないのかも。
-  final Uint8List? data = await pathReference.getData();
+  final pathReference = FirebaseStorage.instance.ref().child('works/$id.pdf');
+  const storage = 1024 * 1024*3; ///これ以上のサイズのファイルは読み込めない。１度にキャッシュさせないとsyncfusion_pdfは機能しないのかも。
+  final Uint8List? data = await pathReference.getData(storage);
   return data;
 });
 
 //choiceChipの選択肢を管理する簡易的なProvider
 final intProvider = StateProvider.autoDispose((ref) => 0);
-final stringProvider = StateProvider.autoDispose((ref) => '10320224'); //TODO 初期値これ良くないかな。
+final stringProvider = StateProvider.autoDispose((ref) => '22202363'); //TODO 初期値これ良くないかな。

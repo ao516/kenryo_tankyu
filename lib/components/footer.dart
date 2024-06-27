@@ -42,7 +42,7 @@ class _FooterState extends State<Footer> {
           NavigationDestination(icon: Icon(Icons.home), label: 'ホーム'),
           NavigationDestination(icon: Icon(Icons.explore), label: '探索'),
           NavigationDestination(icon: Icon(Icons.bookmarks), label: 'ライブラリ'),
-          NavigationDestination(icon: Icon(Icons.add), label: '練習用'),
+          NavigationDestination(icon: Icon(Icons.add), label: '開発用'),
         ],
         onDestinationSelected: (index) {
           switch (index) {
