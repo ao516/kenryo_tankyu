@@ -14,6 +14,10 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+Search _$SearchFromJson(Map<String, dynamic> json) {
+  return _Search.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Search {
   String? get category => throw _privateConstructorUsedError;
@@ -21,8 +25,13 @@ mixin _$Search {
   int? get year => throw _privateConstructorUsedError;
   String? get eventName => throw _privateConstructorUsedError;
   String? get course => throw _privateConstructorUsedError;
+  @SearchWordConverter()
   List<String>? get searchWord => throw _privateConstructorUsedError;
+  int? get numberOfHits => throw _privateConstructorUsedError;
+  @DateTimeConverter()
+  DateTime? get savedAt => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $SearchCopyWith<Search> get copyWith => throw _privateConstructorUsedError;
 }
@@ -38,7 +47,9 @@ abstract class $SearchCopyWith<$Res> {
       int? year,
       String? eventName,
       String? course,
-      List<String>? searchWord});
+      @SearchWordConverter() List<String>? searchWord,
+      int? numberOfHits,
+      @DateTimeConverter() DateTime? savedAt});
 }
 
 /// @nodoc
@@ -60,6 +71,8 @@ class _$SearchCopyWithImpl<$Res, $Val extends Search>
     Object? eventName = freezed,
     Object? course = freezed,
     Object? searchWord = freezed,
+    Object? numberOfHits = freezed,
+    Object? savedAt = freezed,
   }) {
     return _then(_value.copyWith(
       category: freezed == category
@@ -86,6 +99,14 @@ class _$SearchCopyWithImpl<$Res, $Val extends Search>
           ? _value.searchWord
           : searchWord // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      numberOfHits: freezed == numberOfHits
+          ? _value.numberOfHits
+          : numberOfHits // ignore: cast_nullable_to_non_nullable
+              as int?,
+      savedAt: freezed == savedAt
+          ? _value.savedAt
+          : savedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -103,7 +124,9 @@ abstract class _$$SearchImplCopyWith<$Res> implements $SearchCopyWith<$Res> {
       int? year,
       String? eventName,
       String? course,
-      List<String>? searchWord});
+      @SearchWordConverter() List<String>? searchWord,
+      int? numberOfHits,
+      @DateTimeConverter() DateTime? savedAt});
 }
 
 /// @nodoc
@@ -123,6 +146,8 @@ class __$$SearchImplCopyWithImpl<$Res>
     Object? eventName = freezed,
     Object? course = freezed,
     Object? searchWord = freezed,
+    Object? numberOfHits = freezed,
+    Object? savedAt = freezed,
   }) {
     return _then(_$SearchImpl(
       category: freezed == category
@@ -149,21 +174,35 @@ class __$$SearchImplCopyWithImpl<$Res>
           ? _value._searchWord
           : searchWord // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      numberOfHits: freezed == numberOfHits
+          ? _value.numberOfHits
+          : numberOfHits // ignore: cast_nullable_to_non_nullable
+              as int?,
+      savedAt: freezed == savedAt
+          ? _value.savedAt
+          : savedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
 
 /// @nodoc
-
-class _$SearchImpl with DiagnosticableTreeMixin implements _Search {
+@JsonSerializable()
+class _$SearchImpl extends _Search {
   const _$SearchImpl(
       {this.category,
       this.subCategory,
       this.year,
       this.eventName,
       this.course,
-      final List<String>? searchWord})
-      : _searchWord = searchWord;
+      @SearchWordConverter() final List<String>? searchWord,
+      this.numberOfHits,
+      @DateTimeConverter() this.savedAt})
+      : _searchWord = searchWord,
+        super._();
+
+  factory _$SearchImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SearchImplFromJson(json);
 
   @override
   final String? category;
@@ -177,6 +216,7 @@ class _$SearchImpl with DiagnosticableTreeMixin implements _Search {
   final String? course;
   final List<String>? _searchWord;
   @override
+  @SearchWordConverter()
   List<String>? get searchWord {
     final value = _searchWord;
     if (value == null) return null;
@@ -186,21 +226,14 @@ class _$SearchImpl with DiagnosticableTreeMixin implements _Search {
   }
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Search(category: $category, subCategory: $subCategory, year: $year, eventName: $eventName, course: $course, searchWord: $searchWord)';
-  }
+  final int? numberOfHits;
+  @override
+  @DateTimeConverter()
+  final DateTime? savedAt;
 
   @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Search'))
-      ..add(DiagnosticsProperty('category', category))
-      ..add(DiagnosticsProperty('subCategory', subCategory))
-      ..add(DiagnosticsProperty('year', year))
-      ..add(DiagnosticsProperty('eventName', eventName))
-      ..add(DiagnosticsProperty('course', course))
-      ..add(DiagnosticsProperty('searchWord', searchWord));
+  String toString() {
+    return 'Search(category: $category, subCategory: $subCategory, year: $year, eventName: $eventName, course: $course, searchWord: $searchWord, numberOfHits: $numberOfHits, savedAt: $savedAt)';
   }
 
   @override
@@ -217,28 +250,52 @@ class _$SearchImpl with DiagnosticableTreeMixin implements _Search {
                 other.eventName == eventName) &&
             (identical(other.course, course) || other.course == course) &&
             const DeepCollectionEquality()
-                .equals(other._searchWord, _searchWord));
+                .equals(other._searchWord, _searchWord) &&
+            (identical(other.numberOfHits, numberOfHits) ||
+                other.numberOfHits == numberOfHits) &&
+            (identical(other.savedAt, savedAt) || other.savedAt == savedAt));
   }
 
+  @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, category, subCategory, year,
-      eventName, course, const DeepCollectionEquality().hash(_searchWord));
+  int get hashCode => Object.hash(
+      runtimeType,
+      category,
+      subCategory,
+      year,
+      eventName,
+      course,
+      const DeepCollectionEquality().hash(_searchWord),
+      numberOfHits,
+      savedAt);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SearchImplCopyWith<_$SearchImpl> get copyWith =>
       __$$SearchImplCopyWithImpl<_$SearchImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$SearchImplToJson(
+      this,
+    );
+  }
 }
 
-abstract class _Search implements Search {
+abstract class _Search extends Search {
   const factory _Search(
       {final String? category,
       final String? subCategory,
       final int? year,
       final String? eventName,
       final String? course,
-      final List<String>? searchWord}) = _$SearchImpl;
+      @SearchWordConverter() final List<String>? searchWord,
+      final int? numberOfHits,
+      @DateTimeConverter() final DateTime? savedAt}) = _$SearchImpl;
+  const _Search._() : super._();
+
+  factory _Search.fromJson(Map<String, dynamic> json) = _$SearchImpl.fromJson;
 
   @override
   String? get category;
@@ -251,7 +308,13 @@ abstract class _Search implements Search {
   @override
   String? get course;
   @override
+  @SearchWordConverter()
   List<String>? get searchWord;
+  @override
+  int? get numberOfHits;
+  @override
+  @DateTimeConverter()
+  DateTime? get savedAt;
   @override
   @JsonKey(ignore: true)
   _$$SearchImplCopyWith<_$SearchImpl> get copyWith =>

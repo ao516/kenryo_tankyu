@@ -92,7 +92,7 @@ class ResultPreviewContent extends StatelessWidget {
       onTap: () async {
         ///詳細画面への遷移と、履歴の追加
         context.push('/result', extra: searched);
-        HistoryController.instance.insertHistory(
+        SearchedHistoryController.instance.insertHistory(
           Searched(
               documentID: searched.documentID,
               isFavorite: searched.isFavorite,

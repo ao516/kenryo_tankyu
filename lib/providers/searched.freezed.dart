@@ -40,19 +40,19 @@ mixin _$Searched {
   String get course => throw _privateConstructorUsedError;
   @JsonKey(name: 'title')
   String get title => throw _privateConstructorUsedError;
-  @JsonKey(name: 'author', includeToJson: false)
+  @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
   String? get author => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vagueLikes', includeToJson: false)
+  @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
   int? get vagueLikes => throw _privateConstructorUsedError;
-  @JsonKey(name: 'exactLikes', includeToJson: false)
+  @JsonKey(name: 'exactLikes', includeFromJson: true, includeToJson: false)
   int? get exactLikes => throw _privateConstructorUsedError;
-  @JsonKey(name: 'existsSlide', includeToJson: false)
+  @JsonKey(name: 'existsSlide', includeFromJson: true, includeToJson: false)
   bool? get existsSlide => throw _privateConstructorUsedError;
-  @JsonKey(name: 'existsReport', includeToJson: false)
+  @JsonKey(name: 'existsReport', includeFromJson: true, includeToJson: false)
   bool? get existsReport => throw _privateConstructorUsedError;
-  @JsonKey(name: 'existsThesis', includeToJson: false)
+  @JsonKey(name: 'existsThesis', includeFromJson: true, includeToJson: false)
   bool? get existsThesis => throw _privateConstructorUsedError;
-  @JsonKey(name: 'existsPoster', includeToJson: false)
+  @JsonKey(name: 'existsPoster', includeFromJson: true, includeToJson: false)
   bool? get existsPoster => throw _privateConstructorUsedError;
   @DateTimeConverter()
   DateTime? get savedAt => throw _privateConstructorUsedError;
@@ -81,13 +81,23 @@ abstract class $SearchedCopyWith<$Res> {
       @JsonKey(name: 'eventName') String eventName,
       @JsonKey(name: 'course') String course,
       @JsonKey(name: 'title') String title,
-      @JsonKey(name: 'author', includeToJson: false) String? author,
-      @JsonKey(name: 'vagueLikes', includeToJson: false) int? vagueLikes,
-      @JsonKey(name: 'exactLikes', includeToJson: false) int? exactLikes,
-      @JsonKey(name: 'existsSlide', includeToJson: false) bool? existsSlide,
-      @JsonKey(name: 'existsReport', includeToJson: false) bool? existsReport,
-      @JsonKey(name: 'existsThesis', includeToJson: false) bool? existsThesis,
-      @JsonKey(name: 'existsPoster', includeToJson: false) bool? existsPoster,
+      @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
+      String? author,
+      @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
+      int? vagueLikes,
+      @JsonKey(name: 'exactLikes', includeFromJson: true, includeToJson: false)
+      int? exactLikes,
+      @JsonKey(name: 'existsSlide', includeFromJson: true, includeToJson: false)
+      bool? existsSlide,
+      @JsonKey(
+          name: 'existsReport', includeFromJson: true, includeToJson: false)
+      bool? existsReport,
+      @JsonKey(
+          name: 'existsThesis', includeFromJson: true, includeToJson: false)
+      bool? existsThesis,
+      @JsonKey(
+          name: 'existsPoster', includeFromJson: true, includeToJson: false)
+      bool? existsPoster,
       @DateTimeConverter() DateTime? savedAt});
 }
 
@@ -221,13 +231,23 @@ abstract class _$$SearchedImplCopyWith<$Res>
       @JsonKey(name: 'eventName') String eventName,
       @JsonKey(name: 'course') String course,
       @JsonKey(name: 'title') String title,
-      @JsonKey(name: 'author', includeToJson: false) String? author,
-      @JsonKey(name: 'vagueLikes', includeToJson: false) int? vagueLikes,
-      @JsonKey(name: 'exactLikes', includeToJson: false) int? exactLikes,
-      @JsonKey(name: 'existsSlide', includeToJson: false) bool? existsSlide,
-      @JsonKey(name: 'existsReport', includeToJson: false) bool? existsReport,
-      @JsonKey(name: 'existsThesis', includeToJson: false) bool? existsThesis,
-      @JsonKey(name: 'existsPoster', includeToJson: false) bool? existsPoster,
+      @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
+      String? author,
+      @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
+      int? vagueLikes,
+      @JsonKey(name: 'exactLikes', includeFromJson: true, includeToJson: false)
+      int? exactLikes,
+      @JsonKey(name: 'existsSlide', includeFromJson: true, includeToJson: false)
+      bool? existsSlide,
+      @JsonKey(
+          name: 'existsReport', includeFromJson: true, includeToJson: false)
+      bool? existsReport,
+      @JsonKey(
+          name: 'existsThesis', includeFromJson: true, includeToJson: false)
+      bool? existsThesis,
+      @JsonKey(
+          name: 'existsPoster', includeFromJson: true, includeToJson: false)
+      bool? existsPoster,
       @DateTimeConverter() DateTime? savedAt});
 }
 
@@ -354,13 +374,23 @@ class _$SearchedImpl extends _Searched {
       @JsonKey(name: 'eventName') required this.eventName,
       @JsonKey(name: 'course') required this.course,
       @JsonKey(name: 'title') required this.title,
-      @JsonKey(name: 'author', includeToJson: false) this.author,
-      @JsonKey(name: 'vagueLikes', includeToJson: false) this.vagueLikes,
-      @JsonKey(name: 'exactLikes', includeToJson: false) this.exactLikes,
-      @JsonKey(name: 'existsSlide', includeToJson: false) this.existsSlide,
-      @JsonKey(name: 'existsReport', includeToJson: false) this.existsReport,
-      @JsonKey(name: 'existsThesis', includeToJson: false) this.existsThesis,
-      @JsonKey(name: 'existsPoster', includeToJson: false) this.existsPoster,
+      @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
+      this.author,
+      @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
+      this.vagueLikes,
+      @JsonKey(name: 'exactLikes', includeFromJson: true, includeToJson: false)
+      this.exactLikes,
+      @JsonKey(name: 'existsSlide', includeFromJson: true, includeToJson: false)
+      this.existsSlide,
+      @JsonKey(
+          name: 'existsReport', includeFromJson: true, includeToJson: false)
+      this.existsReport,
+      @JsonKey(
+          name: 'existsThesis', includeFromJson: true, includeToJson: false)
+      this.existsThesis,
+      @JsonKey(
+          name: 'existsPoster', includeFromJson: true, includeToJson: false)
+      this.existsPoster,
       @DateTimeConverter() this.savedAt})
       : super._();
 
@@ -398,25 +428,25 @@ class _$SearchedImpl extends _Searched {
   @JsonKey(name: 'title')
   final String title;
   @override
-  @JsonKey(name: 'author', includeToJson: false)
+  @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
   final String? author;
   @override
-  @JsonKey(name: 'vagueLikes', includeToJson: false)
+  @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
   final int? vagueLikes;
   @override
-  @JsonKey(name: 'exactLikes', includeToJson: false)
+  @JsonKey(name: 'exactLikes', includeFromJson: true, includeToJson: false)
   final int? exactLikes;
   @override
-  @JsonKey(name: 'existsSlide', includeToJson: false)
+  @JsonKey(name: 'existsSlide', includeFromJson: true, includeToJson: false)
   final bool? existsSlide;
   @override
-  @JsonKey(name: 'existsReport', includeToJson: false)
+  @JsonKey(name: 'existsReport', includeFromJson: true, includeToJson: false)
   final bool? existsReport;
   @override
-  @JsonKey(name: 'existsThesis', includeToJson: false)
+  @JsonKey(name: 'existsThesis', includeFromJson: true, includeToJson: false)
   final bool? existsThesis;
   @override
-  @JsonKey(name: 'existsPoster', includeToJson: false)
+  @JsonKey(name: 'existsPoster', includeFromJson: true, includeToJson: false)
   final bool? existsPoster;
   @override
   @DateTimeConverter()
@@ -516,16 +546,22 @@ abstract class _Searched extends Searched {
       @JsonKey(name: 'eventName') required final String eventName,
       @JsonKey(name: 'course') required final String course,
       @JsonKey(name: 'title') required final String title,
-      @JsonKey(name: 'author', includeToJson: false) final String? author,
-      @JsonKey(name: 'vagueLikes', includeToJson: false) final int? vagueLikes,
-      @JsonKey(name: 'exactLikes', includeToJson: false) final int? exactLikes,
-      @JsonKey(name: 'existsSlide', includeToJson: false)
+      @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
+      final String? author,
+      @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
+      final int? vagueLikes,
+      @JsonKey(name: 'exactLikes', includeFromJson: true, includeToJson: false)
+      final int? exactLikes,
+      @JsonKey(name: 'existsSlide', includeFromJson: true, includeToJson: false)
       final bool? existsSlide,
-      @JsonKey(name: 'existsReport', includeToJson: false)
+      @JsonKey(
+          name: 'existsReport', includeFromJson: true, includeToJson: false)
       final bool? existsReport,
-      @JsonKey(name: 'existsThesis', includeToJson: false)
+      @JsonKey(
+          name: 'existsThesis', includeFromJson: true, includeToJson: false)
       final bool? existsThesis,
-      @JsonKey(name: 'existsPoster', includeToJson: false)
+      @JsonKey(
+          name: 'existsPoster', includeFromJson: true, includeToJson: false)
       final bool? existsPoster,
       @DateTimeConverter() final DateTime? savedAt}) = _$SearchedImpl;
   const _Searched._() : super._();
@@ -564,25 +600,25 @@ abstract class _Searched extends Searched {
   @JsonKey(name: 'title')
   String get title;
   @override
-  @JsonKey(name: 'author', includeToJson: false)
+  @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
   String? get author;
   @override
-  @JsonKey(name: 'vagueLikes', includeToJson: false)
+  @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
   int? get vagueLikes;
   @override
-  @JsonKey(name: 'exactLikes', includeToJson: false)
+  @JsonKey(name: 'exactLikes', includeFromJson: true, includeToJson: false)
   int? get exactLikes;
   @override
-  @JsonKey(name: 'existsSlide', includeToJson: false)
+  @JsonKey(name: 'existsSlide', includeFromJson: true, includeToJson: false)
   bool? get existsSlide;
   @override
-  @JsonKey(name: 'existsReport', includeToJson: false)
+  @JsonKey(name: 'existsReport', includeFromJson: true, includeToJson: false)
   bool? get existsReport;
   @override
-  @JsonKey(name: 'existsThesis', includeToJson: false)
+  @JsonKey(name: 'existsThesis', includeFromJson: true, includeToJson: false)
   bool? get existsThesis;
   @override
-  @JsonKey(name: 'existsPoster', includeToJson: false)
+  @JsonKey(name: 'existsPoster', includeFromJson: true, includeToJson: false)
   bool? get existsPoster;
   @override
   @DateTimeConverter()

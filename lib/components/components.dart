@@ -28,4 +28,6 @@ export 'history_list.dart';
 export 'show_dialog.dart';
 export 'notification/notification.dart';
 export 'history_preview_content.dart';
+export 'search_history_list.dart';
+
 

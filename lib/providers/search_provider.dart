@@ -27,7 +27,7 @@ class SearchNotifier extends StateNotifier<Search> {
     state = state.copyWith(eventName: selectEventName);
   }
 
-  void selectedDeparture(String selectCourse) {
+  void selectedCourse(String selectCourse) {
     state = state.copyWith(course: selectCourse);
   }
 

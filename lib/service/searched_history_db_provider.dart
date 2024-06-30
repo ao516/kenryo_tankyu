@@ -5,21 +5,21 @@ import 'package:path/path.dart';
 
 
 
-final historyProvider = FutureProvider.family
+final searchedHistoryProvider = FutureProvider.family
     .autoDispose<List<Searched>?, bool>((ref, onlyShowFavorite) async {
   return onlyShowFavorite
-      ? await HistoryController.instance.getFavoriteHistory()
-      : await HistoryController.instance.getAllHistory();
+      ? await SearchedHistoryController.instance.getFavoriteHistory()
+      : await SearchedHistoryController.instance.getAllHistory();
 });
 
-class HistoryController {
+class SearchedHistoryController {
   //シングルトンインスタンスを作成
   //TODO この辺よくわかってないよーう。
   //外部からこのコンストラクタを呼び出すことはできません (`_` を接頭辞につけることでプライベートにします)
-  static final HistoryController _instance = HistoryController._();
-  HistoryController._();
+  static final SearchedHistoryController _instance = SearchedHistoryController._();
+  SearchedHistoryController._();
   // シングルトンインスタンスにアクセスするための公開メソッド↓
-  static HistoryController get instance => _instance;
+  static SearchedHistoryController get instance => _instance;
   //こうすることのメリットは、このクラスのインスタンスが1つしか生成されないことを保証することができること。？？？？
 
   Future<Database> get database async {

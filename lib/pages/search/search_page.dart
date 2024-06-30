@@ -49,28 +49,7 @@ class SearchPage extends ConsumerWidget {
                 ],
               ),
             ),
-            Expanded(
-              child: ListView.separated(
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                      trailing: const Icon(Icons.navigate_next),
-                      title: Text(searchHistoryList[index]),
-                      onTap: () {
-                        ref
-                            .read(searchProvider.notifier)
-                            .addKeyWord(searchHistoryList[index]);
-                        context.pushReplacement('/resultList');
-                      });
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return const Divider(
-                    height: 1,
-                    color: Colors.grey,
-                  );
-                },
-                itemCount: searchHistoryList.length,
-              ),
-            ),
+            const SearchHistoryList(),
           ],
         ),
       ),

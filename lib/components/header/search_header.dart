@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:kenryo_tankyu/providers/search_provider.dart';
+import 'package:kenryo_tankyu/service/search_history_db_provider.dart';
 
 class SearchHeader extends ConsumerStatefulWidget
     implements PreferredSizeWidget {
@@ -19,8 +23,6 @@ class SearchHeaderState extends ConsumerState<SearchHeader> {
     super.initState();
     ref.read(searchProvider);
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +56,14 @@ class SearchHeaderState extends ConsumerState<SearchHeader> {
                 isDense: true,
               ),
               onSubmitted: (text) {
-                if(RegExp(r'^\s*$').hasMatch(text)) return;
+                final provider = ref.watch(searchProvider);
+                if (RegExp(r'^\s*$').hasMatch(text)) return; //空白のみの場合は何もしない
                 notifier.addKeyWord(text);
+                //検索結果画面に遷移
                 context.pushReplacement('/resultList');
+                //履歴の追加
+                SearchHistoryController.instance.insertHistory(provider.copyWith(savedAt: DateTime.now()));
+                debugPrint('検索履歴に追加しました。');
               },
             ),
           ),

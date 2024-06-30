@@ -21,14 +21,14 @@ class ChangeFavoriteStateNotifier extends StateNotifier<int> {
 
   Future<void> initialize({required String documentID}) async {
     final int? favoriteState =
-        await HistoryController.instance.getFavoriteState(documentID);
+        await SearchedHistoryController.instance.getFavoriteState(documentID);
     state = favoriteState ?? 0;
   }
 
   Future<void> changeUserFavoriteState(
       String documentID, int nowFavoriteState) async {
     final int newFavoriteState = nowFavoriteState == 1 ? 0 : 1;
-    await HistoryController.instance
+    await SearchedHistoryController.instance
         .changeFavoriteState(documentID, newFavoriteState);
     state = newFavoriteState;
   }

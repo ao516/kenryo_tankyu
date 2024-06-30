@@ -12,7 +12,7 @@ class LibraryList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final String str = onlyFavorite ? 'お気に入りに登録された作品は' : '履歴は';
-    final historyAsyncValue = ref.watch(historyProvider(onlyFavorite));
+    final historyAsyncValue = ref.watch(searchedHistoryProvider(onlyFavorite));
     return historyAsyncValue.when(
         data: (searcheds) {
           return searcheds == null
@@ -22,13 +22,13 @@ class LibraryList extends ConsumerWidget {
                     Text('$strありません。'),
                     const SizedBox(height: 20),
                     ElevatedButton(
-                        onPressed: () => ref.invalidate(historyProvider),
+                        onPressed: () => ref.invalidate(searchedHistoryProvider),
                         child: const Text('リロードする')),
                   ],
                 )
               : RefreshIndicator(
                   onRefresh: () async {
-                    ref.invalidate(historyProvider);
+                    ref.invalidate(searchedHistoryProvider);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
