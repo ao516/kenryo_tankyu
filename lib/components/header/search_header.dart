@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:kenryo_tankyu/providers/search_provider.dart';
-import 'package:kenryo_tankyu/service/search_history_db_provider.dart';
 
 class SearchHeader extends ConsumerStatefulWidget
     implements PreferredSizeWidget {
@@ -56,14 +53,12 @@ class SearchHeaderState extends ConsumerState<SearchHeader> {
                 isDense: true,
               ),
               onSubmitted: (text) {
-                final provider = ref.watch(searchProvider);
                 if (RegExp(r'^\s*$').hasMatch(text)) return; //空白のみの場合は何もしない
-                notifier.addKeyWord(text);
+                final List<String> word = text.replaceAll("　", " ").split(" "); //検索ワードを空白で区切る
+                word.removeWhere((content) => content == ' ' || content == '　'); //検索ワードに余分に空白が入っていた場合、消去する todo しっかり機能していないかも。
+                notifier.addKeyWord(word);
                 //検索結果画面に遷移
                 context.pushReplacement('/resultList');
-                //履歴の追加
-                SearchHistoryController.instance.insertHistory(provider.copyWith(savedAt: DateTime.now()));
-                debugPrint('検索履歴に追加しました。');
               },
             ),
           ),

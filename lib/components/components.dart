@@ -12,7 +12,6 @@ export 'result_page/header_for_result.dart';
 export 'result_page/overlay_dialog.dart';
 export 'result_page/change_info_form.dart';
 
-export 'getImage.dart';
 export 'category.dart';
 export 'sub_category.dart';
 export 'search_chip_list.dart';

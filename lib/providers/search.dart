@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'dart:convert';
 
 import 'package:kenryo_tankyu/providers/providers.dart';
@@ -5,7 +7,6 @@ import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'search.freezed.dart';
-
 part 'search.g.dart';
 
 //ファイルが生成されなくてキレそうな時は…。笑
@@ -42,11 +43,12 @@ class SearchWordConverter implements JsonConverter<List<String>, String> {
 
   @override
   List<String> fromJson(String json) {
-    return jsonDecode(json);
+    List<dynamic> decodedJson = jsonDecode(json);
+    return decodedJson.map((e) => e.toString()).toList();
   }
 
   @override
-  String toJson(List<String> object) {
+  String toJson(List<dynamic> object) {
     return jsonEncode(object);
   }
 }

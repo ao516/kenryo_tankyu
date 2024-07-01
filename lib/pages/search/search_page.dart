@@ -2,9 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kenryo_tankyu/providers/search_provider.dart';
+import 'package:kenryo_tankyu/service/search_history_db_provider.dart';
 
-import '../../constant/constant.dart';
 
 class SearchPage extends ConsumerWidget {
   const SearchPage({super.key});
@@ -43,7 +42,30 @@ class SearchPage extends ConsumerWidget {
                   IconButton(
                     icon: const Icon(Icons.delete),
                     onPressed: () {
-                      //todo 検索履歴を削除する処理
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text('検索履歴を削除しますか？'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('キャンセル'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  SearchHistoryController.instance.deleteAllHistory();
+                                  ref.invalidate(searchHistoryProvider);
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('削除'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
                   ),
                 ],

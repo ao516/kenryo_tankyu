@@ -5,11 +5,12 @@ import 'package:kenryo_tankyu/constant/constant.dart';
 import '../providers/search_provider.dart';
 
 class SubCategory extends ConsumerWidget {
-  SubCategory(this.number, {super.key});
-  int number; //何のカテゴリなのかが入ってくる  ex.) 0 --> 地域・社会
+  const SubCategory({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final String selectedCategory = ref.watch(searchProvider).category!;
+    int number = categoryList.indexOf(selectedCategory);
     final notifier = ref.read(searchProvider.notifier);
     return Column(
       children: [
@@ -34,8 +35,8 @@ class SubCategory extends ConsumerWidget {
                   trailing: const Icon(Icons.navigate_next),
                   title: Text(subCategoryList[number][index]),
                   onTap: () {
-                    context.pushReplacement('/resultList', extra: subCategoryList[number][index]);
                     notifier.selectedSubCategory(subCategoryList[number][index]);
+                    context.pushReplacement('/resultList');
                     },
                 ),
               );

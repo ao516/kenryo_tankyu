@@ -20,6 +20,12 @@ class HeaderForResultPage extends StatelessWidget
           itemBuilder: (context) {
             return [
               PopupMenuItem(
+                onTap: (){
+                  //todo: リロード処理
+                },
+                child: const Text('リロードする'),
+              ),
+              PopupMenuItem(
                 onTap: ()=> Navigator.of(context).push(OverlayDialog(searched)),
                 child: const Text('情報の変更を提案'),
               ),

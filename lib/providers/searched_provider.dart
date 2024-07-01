@@ -38,7 +38,6 @@ final getFirestoreSearchedProvider = FutureProvider.family
       return null;
     }
   }
-  return null;
 });
 
 final searchedProvider = StateProvider<Searched>((ref) => testSearchedValue1);

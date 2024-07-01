@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
@@ -22,7 +21,7 @@ class SearchHistoryController {
         onCreate: (db, version) {
           return db.execute(
             'CREATE TABLE search_history('
-            'id INTEGER PRIMARY KEY AUTOINCREMENT, '
+            'id INTEGER PRIMARY KEY AUTOINCREMENT,'
             'category TEXT, '
             'subCategory TEXT, '
             'year INTEGER, '
@@ -33,14 +32,20 @@ class SearchHistoryController {
             'numberOfHits INTEGER, '
             'CHECK(savedAt != null) '
             'CHECK(category != null OR subCategory != null OR year != null OR eventName != null OR course != null OR searchWord != null) '
+            'UNIQUE(category, subCategory, year, eventName, course, searchWord) '
             ');',
           );
         },
-        version: 4,
+        version: 10,
       );
     } catch (error, stackTrace) {
       return Future.error(error, stackTrace);
     }
+  }
+
+  Future<void> deleteAllHistory() async {
+    final Database db = await database;
+    await db.delete('search_history');
   }
 
   Future<void> insertHistory(Search search) async {
@@ -56,10 +61,13 @@ class SearchHistoryController {
     final Database db = await database;
     final List<Map<String, dynamic>> maps =
         await db.query('search_history', orderBy: 'savedAt DESC');
+    debugPrint('検索履歴: $maps');
     if (maps.isEmpty) {
+      debugPrint('検索履歴がありません。');
       return null;
     }
     return List.generate(maps.length, (i) {
+      debugPrint('検索履歴: ${Search.fromJson(maps[i])}');
       return Search.fromJson(maps[i]);
     });
   }
