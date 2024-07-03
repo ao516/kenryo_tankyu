@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:kenryo_tankyu/providers/search_provider.dart';
 
 class SearchHeader extends ConsumerStatefulWidget
@@ -19,8 +20,6 @@ class SearchHeaderState extends ConsumerState<SearchHeader> {
     super.initState();
     ref.read(searchProvider);
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,8 +53,11 @@ class SearchHeaderState extends ConsumerState<SearchHeader> {
                 isDense: true,
               ),
               onSubmitted: (text) {
-                if(RegExp(r'^\s*$').hasMatch(text)) return;
-                notifier.addKeyWord(text);
+                if (RegExp(r'^\s*$').hasMatch(text)) return; //空白のみの場合は何もしない
+                final List<String> word = text.replaceAll("　", " ").split(" "); //検索ワードを空白で区切る
+                word.removeWhere((content) => content == ' ' || content == '　'); //検索ワードに余分に空白が入っていた場合、消去する todo しっかり機能していないかも。
+                notifier.addKeyWord(word);
+                //検索結果画面に遷移
                 context.pushReplacement('/resultList');
               },
             ),

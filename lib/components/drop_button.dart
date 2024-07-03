@@ -56,7 +56,7 @@ class SearchDropButton extends ConsumerWidget {
         : name == 'イベント名'
             ? notifier.selectedEventName(value!)
             : name == '学科指定'
-                ? notifier.selectedDeparture(value!)
+                ? notifier.selectedCourse(value!)
                 : notifier.selectedCategory(value!);
     ///todo : こんな書き方したくないよーーー笑
   }

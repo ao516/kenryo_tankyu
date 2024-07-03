@@ -15,7 +15,7 @@ final algoliaSearchProvider = FutureProvider
   try {
     AlgoliaQuery algoliaQuery = Application.algolia.instance
         .index('firestore')
-        .setLength(5); //TODO ヒットさせる件数は後で変更する。
+        .setPage(0); //TODO ヒットさせるページ。あとで変更。
     algoliaQuery = filter != ''
         ? algoliaQuery.query(searchWord).filters(filter)
         : algoliaQuery.query(searchWord);
@@ -31,7 +31,7 @@ final algoliaSearchProvider = FutureProvider
       ///ある場合は、favoriteListにそのデータのdocumentIDを入手、ない場合はnullをいれる。
       final List<String> documentIDs = objects.map((e) => e.objectID).toList();
       final List<String>? favoriteList =
-          await HistoryController.instance.getSomeFavoriteState(documentIDs);
+          await SearchedHistoryController.instance.getSomeFavoriteState(documentIDs);
 
       ///Algoliaから取得したデータをSearched型に変換する。
       ///この際、favoriteListにidが含まれているかどうかを検証しながらstateに渡すdataを作成している。
