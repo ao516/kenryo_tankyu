@@ -84,7 +84,7 @@ class LoginPage extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                SwitchWidget(errorMessage, ref),
+                switchWidget(errorMessage, ref),
               ],
             ),
           ),
@@ -93,7 +93,7 @@ class LoginPage extends ConsumerWidget {
     );
   }
 
-  Widget SwitchWidget(String errorMessage, WidgetRef ref) {
+  Widget switchWidget(String errorMessage, WidgetRef ref) {
     final password = ref.watch(passwordProvider);
     final email = ref.watch(emailProvider);
     final passwordNotifier = ref.read(passwordProvider.notifier);

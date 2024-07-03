@@ -18,15 +18,15 @@ class _ResultPageMainState extends State<ResultPageMain> {
   @override
   void initState() {
     super.initState();
-    ScreenProtector.preventScreenshotOn();
-    ScreenProtector.protectDataLeakageWithColor(Colors.black);
+    // ScreenProtector.preventScreenshotOn();
+    // ScreenProtector.protectDataLeakageWithColor(Colors.black);
   }
 
   @override
   void dispose() {
     super.dispose();
-    ScreenProtector.preventScreenshotOff();
-    ScreenProtector.protectDataLeakageWithColorOff();
+    // ScreenProtector.preventScreenshotOff();
+    // ScreenProtector.protectDataLeakageWithColorOff();
   }
 
   @override
