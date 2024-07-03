@@ -15,9 +15,8 @@ final GlobalKey<NavigatorState> _shellNavigatorKey =
 
 final routesProvider = Provider<GoRouter>((ref) {
   final authStateAsync = ref.watch(authStateChangesProvider);
-  //final redirection = authStateAsync.valueOrNull != null ? '/home' : '/login';
-  const redirection = '/home';
-
+  // final redirection = authStateAsync.valueOrNull != null ? '/home' : '/login';
+  const redirection  = '/home';
   return GoRouter(
     initialLocation: redirection,
     navigatorKey: _rootNavigatorKey,
@@ -28,8 +27,7 @@ final routesProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/settings',
-        builder: (context, state) =>
-        const SettingsPage(),
+        builder: (context, state) => const SettingsPage(),
       ),
       GoRoute(
         path: '/result',
@@ -45,24 +43,23 @@ final routesProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/krgp',
-        builder: (context, state) =>
-            const KrgpPage(),
+        builder: (context, state) => const KrgpPage(),
         routes: [
           GoRoute(
-          path:  'year',
-          builder: (context, state) =>
-              KrgpYearPage(year: state.extra as String),
+            path: 'year',
+            builder: (context, state) =>
+                KrgpYearPage(year: state.extra as String),
           ),
-  ],
+        ],
       ),
       GoRoute(
           path: '/teacher',
           pageBuilder: (context, state) =>
               const NoTransitionPage(child: SubjectSelectPage()),
           routes: <RouteBase>[
-            GoRoute(path: 'search',
-            builder: (context, state) =>
-            const SearchTeacher()),
+            GoRoute(
+                path: 'search',
+                builder: (context, state) => const SearchTeacher()),
             GoRoute(
                 path: 'select',
                 builder: (context, state) =>
@@ -70,8 +67,7 @@ final routesProvider = Provider<GoRouter>((ref) {
                 routes: <RouteBase>[
                   GoRoute(
                     path: 'showPdf',
-                    builder: (context, state) =>
-                        const ShowTeacherPdfPage(),
+                    builder: (context, state) => const ShowTeacherPdfPage(),
                   ),
                 ]),
           ]),

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
@@ -61,13 +60,10 @@ class SearchHistoryController {
     final Database db = await database;
     final List<Map<String, dynamic>> maps =
         await db.query('search_history', orderBy: 'savedAt DESC');
-    debugPrint('検索履歴: $maps');
     if (maps.isEmpty) {
-      debugPrint('検索履歴がありません。');
       return null;
     }
     return List.generate(maps.length, (i) {
-      debugPrint('検索履歴: ${Search.fromJson(maps[i])}');
       return Search.fromJson(maps[i]);
     });
   }

@@ -32,10 +32,10 @@ class HomePage extends ConsumerWidget {
                             CircleAvatar(
                               radius: 20,
                               backgroundColor: Colors.white,
-                              backgroundImage: NetworkImage(user.photoURL!),
+                              backgroundImage: NetworkImage(user.photoURL ?? ''),
                             ),
                             const SizedBox(width: 8),
-                            Text('ようこそ、${user.displayName}さん'),
+                            Text('ようこそ、${user.email}さん'),
                           ],
                         ),
                   IconButton(
