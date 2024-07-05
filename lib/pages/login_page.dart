@@ -1,26 +1,24 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
-final emailProvider = StateProvider.autoDispose<String>((ref) => '');
-final passwordProvider = StateProvider.autoDispose<String>((ref) => '');
+final emailControllerProvider = StateProvider.autoDispose<TextEditingController>((ref) => TextEditingController());
+final passwordControllerProvider = StateProvider.autoDispose<TextEditingController>((ref) => TextEditingController());
 final errorMessageProvider = StateProvider.autoDispose<String>((ref) => '');
+final obscureTextProvider = StateProvider.autoDispose<bool>((ref) => true);
+final authEmailVerifiedProvider = StateProvider.autoDispose<UserCredential?>((ref) => null);
 
 class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final email = ref.watch(emailProvider);
-    final password = ref.watch(passwordProvider);
-    final passwordNotifier = ref.read(passwordProvider.notifier);
+    final obscureText = ref.watch(obscureTextProvider);
+    final obscureTextNotifier = ref.read(obscureTextProvider.notifier);
+    final emailController = ref.watch(emailControllerProvider);
+    final passwordController = ref.watch(passwordControllerProvider);
     final errorMessage = ref.watch(errorMessageProvider);
-    final emailNotifier = ref.read(emailProvider.notifier);
     final errorMessageNotifier = ref.read(errorMessageProvider.notifier);
-    final emailController = TextEditingController(text: email);
-    final passwordController = TextEditingController(text: password);
-
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -42,9 +40,15 @@ class LoginPage extends ConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        const Text('メールアドレスを入力してログインまたは新規登録を行ってください'),
+                        const Text('縣陵生であることを確認',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.left),
+                        const SizedBox(height: 10),
+                        const Text(
+                            'このアプリは縣陵生のみが利用できます。\nまずは、縣陵アカウントのメールアドレスとパスワードを入力してください。'),
                         const SizedBox(height: 20),
                         TextField(
                           controller: emailController,
@@ -55,129 +59,65 @@ class LoginPage extends ConsumerWidget {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
-                          onChanged: (value) => emailNotifier.state = value,
                         ),
-                        const SizedBox(height: 10),
-                        ElevatedButton(
-                          onPressed: () async {
-                            try {
-                              await FirebaseAuth.instance
-                                  .signInWithEmailAndPassword(
-                                email: '${emailController.text}@kenryo.ed.jp',
-                                password: 'checkIfUserExists',
-                              );
-                            } on FirebaseAuthException catch (e) {
-                              errorMessageNotifier.state = e.code;
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                        const SizedBox(height: 20),
+                        TextField(
+                          controller: passwordController,
+                          decoration: InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: Icon(obscureText
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                                onPressed: () =>
+                                    obscureTextNotifier.state = !obscureText,
+                              ),
+                              labelText: '(初期)パスワード',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              errorText: errorMessage),
+                          obscureText: obscureText,),
+                        const SizedBox(height: 20),
+                        Center(
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              try {
+                                final result = await FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(
+                                  email: '${emailController.text}@gmail.com',
+                                  password: passwordController.text,
+                                );
+                                final emailVerified = result.user?.emailVerified;
+                                if (emailVerified == true) {
+                                  debugPrint('ログイン成功');
+                                } else {
+                                  result.user?.sendEmailVerification();
+                                  debugPrint('メールを送信しました');
+                                }
+                              } on FirebaseAuthException catch (e) {
+                                errorMessageNotifier.state = e.code;
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 40, vertical: 15),
                             ),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 40, vertical: 15),
+                            child: const Text('送信'),
                           ),
-                          child: const Text('次へ'),
                         ),
                       ],
                     ),
                   ),
                 ),
                 const SizedBox(height: 20),
-                switchWidget(errorMessage, ref),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  Widget switchWidget(String errorMessage, WidgetRef ref) {
-    final password = ref.watch(passwordProvider);
-    final email = ref.watch(emailProvider);
-    final passwordNotifier = ref.read(passwordProvider.notifier);
-    final errorMessage = ref.watch(errorMessageProvider);
-    final errorMessageNotifier = ref.read(errorMessageProvider.notifier);
-    final passwordController = TextEditingController(text: password);
-    if (errorMessage == 'user-not-found') {
-      return Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        elevation: 10.0,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const Text('ユーザーが見つかりませんでした。新規登録をしましょう！'),
-              const SizedBox(height: 10),
-              TextField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                    labelText: 'パスワード',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    errorText: errorMessage),
-                obscureText: true,
-                onChanged: (value) => passwordNotifier.state = value,
-              ),
-              const SizedBox(height: 20),
-            ],
-          ),
-        ),
-      );
-    } else if (errorMessage == 'wrong-password') {
-      return Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        elevation: 10.0,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const SizedBox(height: 10),
-              TextField(
-                controller: passwordController,
-                decoration: InputDecoration(
-                    labelText: 'パスワード',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    errorText: errorMessage),
-                obscureText: true,
-                onChanged: (value) => passwordNotifier.state = value,
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  try {
-                    await FirebaseAuth.instance.signInWithEmailAndPassword(
-                        email: '${email}@kenryo.ed.jp',
-                        password: passwordController.text);
-                  } on FirebaseAuthException catch (e) {
-                    errorMessageNotifier.state = e.code;
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                ),
-                child: const Text('次へ'),
-              ),
-            ],
-          ),
-        ),
-      );
-    } else {
-      return const SizedBox(height: 0);
-    }
   }
 }

@@ -15,8 +15,14 @@ final GlobalKey<NavigatorState> _shellNavigatorKey =
 
 final routesProvider = Provider<GoRouter>((ref) {
   final authStateAsync = ref.watch(authStateChangesProvider);
-  // final redirection = authStateAsync.valueOrNull != null ? '/home' : '/login';
-  const redirection  = '/home';
+  final redirection = authStateAsync.hasValue
+      ? authStateAsync.value == null
+          ? '/login'
+          : authStateAsync.value!.emailVerified == false
+              ? '/login'
+              : '/home'
+      : '/login';
+  // const redirection  = '/home';
   return GoRouter(
     initialLocation: redirection,
     navigatorKey: _rootNavigatorKey,

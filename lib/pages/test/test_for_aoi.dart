@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:kenryo_tankyu/service/firestore_service.dart';
 
@@ -9,9 +11,8 @@ class TestForAoi extends StatelessWidget {
     return Scaffold(
       body: const Center(child: Text('This is a test page for Aoi.')),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await FireStoreService.instance.create();
-          debugPrint('情報を更新しました。');
+        onPressed: ()  async{
+          final data = FirebaseAuth.instance.authStateChanges();
         },
       ),
       // floatingActionButton: FloatingActionButton(
