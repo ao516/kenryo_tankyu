@@ -11,10 +11,10 @@ class SearchHeader extends ConsumerStatefulWidget
   const SearchHeader({super.key});
 
   @override
-  SearchHeaderState createState() => SearchHeaderState();
+  ConsumerState createState() => _SearchHeaderState();
 }
 
-class SearchHeaderState extends ConsumerState<SearchHeader> {
+class _SearchHeaderState extends ConsumerState<SearchHeader> {
   @override
   void initState() {
     super.initState();

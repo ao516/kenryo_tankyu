@@ -29,4 +29,6 @@ export 'notification/notification.dart';
 export 'history_preview_content.dart';
 export 'search_history_list.dart';
 
-
+export 'auth/input_email.dart';
+export 'auth/input_password.dart';
+export 'auth/input_year.dart';
