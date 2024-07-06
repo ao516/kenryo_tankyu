@@ -83,3 +83,5 @@ const List<List<String>> krgp2022List = [
   ['奨励賞'],
   ['奨励賞'],
 ];
+
+const List<int> enterYears = [2022, 2023, 2024];

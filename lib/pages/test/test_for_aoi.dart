@@ -12,7 +12,8 @@ class TestForAoi extends StatelessWidget {
       body: const Center(child: Text('This is a test page for Aoi.')),
       floatingActionButton: FloatingActionButton(
         onPressed: ()  async{
-          final data = FirebaseAuth.instance.authStateChanges();
+          await FireStoreService.instance.create();
+          debugPrint('create');
         },
       ),
       // floatingActionButton: FloatingActionButton(

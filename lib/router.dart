@@ -22,7 +22,7 @@ final routesProvider = Provider<GoRouter>((ref) {
               ? '/login'
               : '/home'
       : '/login';
-  // const redirection  = '/home';
+  // const redirection = '/home';
   return GoRouter(
     initialLocation: redirection,
     navigatorKey: _rootNavigatorKey,
@@ -30,6 +30,22 @@ final routesProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/login',
         builder: (context, state) => const LoginPage(),
+        routes: [
+          GoRoute(
+            path: 'create_account',
+            builder: (context, state) => const CreateAccountPage(),
+            routes: [
+              GoRoute(
+                path: 'check_email',
+                builder: (context, state) => const CheckEmailPage(),
+              )
+            ]
+          ),
+          GoRoute(
+            path: 'input_password',
+            builder: (context, state) => const InputPasswordPage(),
+          ),
+        ]
       ),
       GoRoute(
         path: '/settings',
