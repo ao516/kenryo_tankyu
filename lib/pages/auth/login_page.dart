@@ -13,12 +13,6 @@ class LoginPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.arrow_forward),
-        onPressed: () {
-          context.push('/login/create_account');
-        },
-      ),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -28,9 +22,12 @@ class LoginPage extends ConsumerWidget {
                 const Text('Welcome to 探究アーカイブ',
                     style:
                         TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 20),
                 Image.asset('assets/images/appIcon.png',
                     width: 100, height: 100),
+                const Text('新規作成',
+                    style:
+                    TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 20),
                 Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),

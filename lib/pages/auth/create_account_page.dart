@@ -40,26 +40,11 @@ class CreateAccountPage extends ConsumerWidget {
                         const Text('アカウントを作成しましょう',
                             style: TextStyle(fontWeight: FontWeight.bold),
                             textAlign: TextAlign.left),
-                        const SizedBox(height: 10),
-                        const Text('新しいパスワードを入力してください。'),
                         const SizedBox(height: 20),
                         InputEmail(ref.watch(authProvider).email!,false),
                         const SizedBox(height: 20),
                         const InputPassword(),
                         const SizedBox(height: 20),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () => _createAccount(context, ref),
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 15),
-                            ),
-                            child: const Text('新規作成'),
-                          ),
-                        ),
                       ],
                     ),
                   ),

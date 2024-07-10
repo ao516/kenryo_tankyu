@@ -36,7 +36,7 @@ final routesProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => const CreateAccountPage(),
             routes: [
               GoRoute(
-                path: 'check_email',
+                path: 'verify_email',
                 builder: (context, state) => const CheckEmailPage(),
               )
             ]

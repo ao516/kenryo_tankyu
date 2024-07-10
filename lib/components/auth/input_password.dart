@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../providers/providers.dart';
 
@@ -17,6 +19,10 @@ class _InputPasswordState extends ConsumerState<InputPassword> {
   String? _confirmPasswordError;
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+  bool _isLengthValid = false;
+  bool _isAlphanumeric = false;
+  bool _hasBothLettersAndNumbers = false;
+
   @override
   void initState() {
     super.initState();
@@ -36,6 +42,41 @@ class _InputPasswordState extends ConsumerState<InputPassword> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Text('パスワードの条件', style: TextStyle(fontWeight: FontWeight.bold)),
+          Row(
+            children: [
+              Icon(Icons.check,
+                  color: _isLengthValid ? Colors.green : Colors.grey),
+              const SizedBox(width: 10),
+              Text('8文字以上',
+                  style: TextStyle(
+                      color: _isLengthValid ? Colors.green : Colors.grey)),
+            ],
+          ),
+          Row(
+            children: [
+              Icon(Icons.check,
+                  color: _isAlphanumeric ? Colors.green : Colors.grey),
+              const SizedBox(width: 10),
+              Text('半角英数字(a-z,A-Z,0-9)のみ',
+                  style: TextStyle(
+                      color: _isAlphanumeric ? Colors.green : Colors.grey)),
+            ],
+          ),
+          Row(
+            children: [
+              Icon(Icons.check,
+                  color:
+                      _hasBothLettersAndNumbers ? Colors.green : Colors.grey),
+              const SizedBox(width: 10),
+              Text('英字と数字の組み合わせ',
+                  style: TextStyle(
+                      color: _hasBothLettersAndNumbers
+                          ? Colors.green
+                          : Colors.grey)),
+            ],
+          ),
+          const SizedBox(height: 20),
           TextFormField(
             controller: _passwordController,
             obscureText: _obscurePassword,
@@ -55,33 +96,12 @@ class _InputPasswordState extends ConsumerState<InputPassword> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
-            validator: _validatePassword,
-          ),
-          const SizedBox(height: 20),
-          const Text('パスワードの条件',style: TextStyle(fontWeight: FontWeight.bold)),
-          const Row(
-            children: [
-              Icon(Icons.check,color: Colors.grey),
-              SizedBox(width: 10),
-              Text('8文字以上',style: TextStyle(color: Colors.grey)),
-            ],
-          ),
-          const Row(
-            children: [
-              Icon(Icons.check, color: Colors.grey),
-              SizedBox(width: 10),
-              Text('半角英数字(a-z,A-Z,0-9)のみ',style: TextStyle(color: Colors.grey)),
-            ],
-          ),
-          const Row(
-            children: [
-              Icon(Icons.check,color: Colors.grey),
-              SizedBox(width: 10),
-              Text('英字と数字の組み合わせ',style: TextStyle(color: Colors.grey)),
-            ],
+            onChanged: _validatePassword,
           ),
           const SizedBox(height: 20),
           TextFormField(
+            enabled:
+                _isLengthValid && _isAlphanumeric && _hasBothLettersAndNumbers,
             controller: _confirmPasswordController,
             obscureText: _obscureConfirmPassword,
             decoration: InputDecoration(
@@ -101,35 +121,81 @@ class _InputPasswordState extends ConsumerState<InputPassword> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
-            validator: _validateConfirmPassword,
             onChanged: _validateConfirmPassword,
+          ),
+          const SizedBox(height: 20),
+          Center(
+            child: ElevatedButton(
+              onPressed: (_confirmPasswordController.text.length >= 8 &&
+                      _confirmPasswordController.text ==
+                          _passwordController.text)
+                  ? () async {
+                      await _createAccountWithEmailAndPassword(
+                          context, ref, _confirmPasswordController.text);
+                    }
+                  : null,
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+              ),
+              child: const Text('新規作成'),
+            ),
           ),
         ],
       ),
     );
   }
 
-  String? _validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'パスワードを入力してください';
-    }
-    return null;
+  void _validatePassword(String value) {
+    setState(() {
+      _isLengthValid = value.length >= 8;
+      _isAlphanumeric = RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value);
+      _hasBothLettersAndNumbers =
+          RegExp(r'(?=.*?[a-z])(?=.*?\d)').hasMatch(value);
+    });
   }
 
-  String? _validateConfirmPassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'パスワードを入力してください';
-    }
+  void _validateConfirmPassword(String value) {
     if (value != _passwordController.text) {
       setState(() {
         _confirmPasswordError = 'パスワードが一致しません';
       });
-      return 'パスワードが一致しません';
     } else {
       setState(() {
         _confirmPasswordError = null;
       });
     }
-    return null;
+  }
+
+  Future<void> _createAccountWithEmailAndPassword(
+      BuildContext context, WidgetRef ref, String password) async {
+    ref.read(authProvider.notifier).changePassword(password);
+    final firebaseAuth = FirebaseAuth.instance;
+    final email = '${ref.watch(authProvider).email!}@kenryo.ed.jp';
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      await firebaseAuth.currentUser!.sendEmailVerification();
+      if (!context.mounted) return;
+      context.go('/login/verify_email');
+    } on FirebaseAuthException catch (e) {
+      if(e.code == 'email-already-in-use') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Column(
+              children: [
+                const Text('このメールアドレスは既に登録されています'),
+                ElevatedButton(onPressed: ()=> context.go('/login/input_password'), child: const Text('ログイン画面に移動')),
+              ],
+            ),
+          ),
+        );
+      } else {
+        debugPrint('error: ${e.code}');
+      }
+    }
   }
 }
