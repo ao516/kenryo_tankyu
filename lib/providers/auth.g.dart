@@ -14,6 +14,7 @@ _$AuthImpl _$$AuthImplFromJson(Map<String, dynamic> json) => _$AuthImpl(
       passwordForCreate2: json['passwordForCreate2'] as String?,
       passwordForLogin: json['passwordForLogin'] as String?,
       errorMessage: json['errorMessage'] as String?,
+      userName: json['userName'] as String?,
       checkAccountExistLimit:
           (json['checkAccountExistLimit'] as num?)?.toInt() ?? 5,
       checkPasswordLimit: (json['checkPasswordLimit'] as num?)?.toInt() ?? 5,
@@ -28,6 +29,7 @@ Map<String, dynamic> _$$AuthImplToJson(_$AuthImpl instance) =>
       'passwordForCreate2': instance.passwordForCreate2,
       'passwordForLogin': instance.passwordForLogin,
       'errorMessage': instance.errorMessage,
+      'userName': instance.userName,
       'checkAccountExistLimit': instance.checkAccountExistLimit,
       'checkPasswordLimit': instance.checkPasswordLimit,
     };

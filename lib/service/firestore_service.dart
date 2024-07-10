@@ -12,9 +12,11 @@ class FireStoreService {
 
     await db.collection('users').doc('2022').collection('users').add({
       'email': 'goto.aoi.516@gmail.com',
+      'name': '後藤碧生',
     });
     await db.collection('users').doc('2024').collection('users').add({
       'email': 'aoi-goto@kenryo.ed.jp',
+      'name': '後藤碧生',
     });
 
     // await db.collection('works').doc('20202150').set({

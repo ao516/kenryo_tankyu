@@ -12,3 +12,18 @@ class InputPasswordPage extends ConsumerWidget {
     );
   }
 }
+
+//try {
+//           await firebaseAuth.signInWithEmailAndPassword(
+//               email: emailAddress, password: 'password');
+//         } on FirebaseAuthException catch (e) {
+//           if (e.code == 'user-not-found') {
+//             if (!context.mounted) return;
+//             context.go('/login/create_account');
+//           } else if (e.code == 'wrong-password') {
+//             if (!context.mounted) return;
+//             context.go('/login/input_password');
+//           } else {
+//             debugPrint('error: ${e.code}');
+//           }
+//         }

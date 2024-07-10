@@ -5,7 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../providers/providers.dart';
 
 class InputEmail extends ConsumerStatefulWidget {
-  const InputEmail({super.key});
+  final String email;
+  final bool isEdit;
+  const InputEmail(this.email, this.isEdit, {super.key});
 
   @override
   ConsumerState<InputEmail> createState() => _InputEmailState();
@@ -13,23 +15,32 @@ class InputEmail extends ConsumerStatefulWidget {
 
 class _InputEmailState extends ConsumerState<InputEmail> {
 
+  late TextEditingController _controller;
+
   @override
   void initState() {
     super.initState();
-    ref.read(authProvider.notifier);
+    _controller = TextEditingController(text: widget.email);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 
 
   @override
   Widget build(BuildContext context) {
     final notifier = ref.read(authProvider.notifier);
-    final controller = TextEditingController();
+
 
     return TextField(
+      enabled: widget.isEdit,
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9_.+-]')),  //メールアドレスの入力制限
       ],
-      controller: controller,
+      controller: _controller,
       decoration: InputDecoration(
         suffixText: '@kenryo.ed.jp',
         labelText: 'メールアドレス',

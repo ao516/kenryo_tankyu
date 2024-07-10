@@ -27,6 +27,7 @@ mixin _$Auth {
   String? get passwordForCreate2 => throw _privateConstructorUsedError;
   String? get passwordForLogin => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
+  String? get userName => throw _privateConstructorUsedError;
   int get checkAccountExistLimit => throw _privateConstructorUsedError;
   int get checkPasswordLimit => throw _privateConstructorUsedError;
 
@@ -48,6 +49,7 @@ abstract class $AuthCopyWith<$Res> {
       String? passwordForCreate2,
       String? passwordForLogin,
       String? errorMessage,
+      String? userName,
       int checkAccountExistLimit,
       int checkPasswordLimit});
 }
@@ -72,6 +74,7 @@ class _$AuthCopyWithImpl<$Res, $Val extends Auth>
     Object? passwordForCreate2 = freezed,
     Object? passwordForLogin = freezed,
     Object? errorMessage = freezed,
+    Object? userName = freezed,
     Object? checkAccountExistLimit = null,
     Object? checkPasswordLimit = null,
   }) {
@@ -104,6 +107,10 @@ class _$AuthCopyWithImpl<$Res, $Val extends Auth>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
       checkAccountExistLimit: null == checkAccountExistLimit
           ? _value.checkAccountExistLimit
           : checkAccountExistLimit // ignore: cast_nullable_to_non_nullable
@@ -131,6 +138,7 @@ abstract class _$$AuthImplCopyWith<$Res> implements $AuthCopyWith<$Res> {
       String? passwordForCreate2,
       String? passwordForLogin,
       String? errorMessage,
+      String? userName,
       int checkAccountExistLimit,
       int checkPasswordLimit});
 }
@@ -152,6 +160,7 @@ class __$$AuthImplCopyWithImpl<$Res>
     Object? passwordForCreate2 = freezed,
     Object? passwordForLogin = freezed,
     Object? errorMessage = freezed,
+    Object? userName = freezed,
     Object? checkAccountExistLimit = null,
     Object? checkPasswordLimit = null,
   }) {
@@ -184,6 +193,10 @@ class __$$AuthImplCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
+              as String?,
       checkAccountExistLimit: null == checkAccountExistLimit
           ? _value.checkAccountExistLimit
           : checkAccountExistLimit // ignore: cast_nullable_to_non_nullable
@@ -207,6 +220,7 @@ class _$AuthImpl implements _Auth {
       this.passwordForCreate2,
       this.passwordForLogin,
       this.errorMessage,
+      this.userName,
       this.checkAccountExistLimit = 5,
       this.checkPasswordLimit = 5});
 
@@ -229,6 +243,8 @@ class _$AuthImpl implements _Auth {
   @override
   final String? errorMessage;
   @override
+  final String? userName;
+  @override
   @JsonKey()
   final int checkAccountExistLimit;
   @override
@@ -237,7 +253,7 @@ class _$AuthImpl implements _Auth {
 
   @override
   String toString() {
-    return 'Auth(year: $year, email: $email, obscureText: $obscureText, passwordForCreate1: $passwordForCreate1, passwordForCreate2: $passwordForCreate2, passwordForLogin: $passwordForLogin, errorMessage: $errorMessage, checkAccountExistLimit: $checkAccountExistLimit, checkPasswordLimit: $checkPasswordLimit)';
+    return 'Auth(year: $year, email: $email, obscureText: $obscureText, passwordForCreate1: $passwordForCreate1, passwordForCreate2: $passwordForCreate2, passwordForLogin: $passwordForLogin, errorMessage: $errorMessage, userName: $userName, checkAccountExistLimit: $checkAccountExistLimit, checkPasswordLimit: $checkPasswordLimit)';
   }
 
   @override
@@ -257,6 +273,8 @@ class _$AuthImpl implements _Auth {
                 other.passwordForLogin == passwordForLogin) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
             (identical(other.checkAccountExistLimit, checkAccountExistLimit) ||
                 other.checkAccountExistLimit == checkAccountExistLimit) &&
             (identical(other.checkPasswordLimit, checkPasswordLimit) ||
@@ -274,6 +292,7 @@ class _$AuthImpl implements _Auth {
       passwordForCreate2,
       passwordForLogin,
       errorMessage,
+      userName,
       checkAccountExistLimit,
       checkPasswordLimit);
 
@@ -300,6 +319,7 @@ abstract class _Auth implements Auth {
       final String? passwordForCreate2,
       final String? passwordForLogin,
       final String? errorMessage,
+      final String? userName,
       final int checkAccountExistLimit,
       final int checkPasswordLimit}) = _$AuthImpl;
 
@@ -319,6 +339,8 @@ abstract class _Auth implements Auth {
   String? get passwordForLogin;
   @override
   String? get errorMessage;
+  @override
+  String? get userName;
   @override
   int get checkAccountExistLimit;
   @override
