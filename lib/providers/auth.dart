@@ -2,6 +2,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'auth.freezed.dart';
+
 part 'auth.g.dart';
 
 @freezed
@@ -14,6 +15,7 @@ class Auth with _$Auth {
     String? passwordForCreate2,
     String? passwordForLogin,
     String? errorMessage,
+    String? userName,
     @Default(5)int checkAccountExistLimit,
     @Default(5)int checkPasswordLimit,
   }) = _Auth;

@@ -22,7 +22,8 @@ class CategoryList extends ConsumerWidget {
               style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(20),
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8))),
+                      borderRadius: BorderRadius.circular(8),
+                  )),
               onPressed: () {
                 context.push('/subCategory');
                 notifier.selectedCategory(categoryList[index]);

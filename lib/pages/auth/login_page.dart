@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/components/components.dart';
-import 'package:kenryo_tankyu/service/firestore_service.dart';
 
 import '../../providers/providers.dart';
 
@@ -14,6 +13,12 @@ class LoginPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.arrow_forward),
+        onPressed: () {
+          context.push('/login/create_account');
+        },
+      ),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -46,7 +51,7 @@ class LoginPage extends ConsumerWidget {
                         const SizedBox(height: 20),
                         const InputYear(),
                         const SizedBox(height: 20),
-                        const InputEmail(),
+                        InputEmail(ref.read(authProvider).email?? '',true),
                         const SizedBox(height: 20),
                         Consumer(builder: (context, ref, child) {
                           final limit =
@@ -77,6 +82,18 @@ class LoginPage extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Text('すでにアカウントをお持ちの場合',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    const SizedBox(width: 10),
+                    InkWell(
+                        child: const Text('ログイン',
+                            style: TextStyle(color: Colors.blue)),
+                        onTap: () => context.push('/login/input_password')),
+                  ],
+                ),
               ],
             ),
           ),
@@ -89,32 +106,18 @@ class LoginPage extends ConsumerWidget {
     final auth = ref.watch(authProvider);
     final notifier = ref.read(authProvider.notifier);
     final emailAddress = '${auth.email}@kenryo.ed.jp';
-    final firebaseAuth = FirebaseAuth.instance;
     final firestore = FirebaseFirestore.instance;
     debugPrint('emailAddress: $emailAddress\nyear: ${auth.year} ');
     final searchTerms = firestore
         .collection('users')
         .doc('${auth.year}')
         .collection('users')
-        .where('email',
-        isEqualTo: emailAddress); //自分の入学年度に自分のメールアドレスが存在するかを確認
-    await searchTerms.get().then((value) {
-      debugPrint(value.docs.toString());
+        .where('email', isEqualTo: emailAddress); //自分の入学年度に自分のメールアドレスが存在するかを確認
+    await searchTerms.get().then((value) async {
       if (value.docs.isNotEmpty) {
-        try {
-          firebaseAuth.signInWithEmailAndPassword(
-              email: emailAddress, password: 'samplePassword');
-        } on FirebaseAuthException catch (e) {
-          debugPrint('ここ来たよー${e.code.toString()}');
-          if (e.code == 'user-not-found') {
-            debugPrint('user-not-foundでしたよ');
-            context.push('/login/create_account');
-          } else if (e.code == 'wrong-password') {
-            context.push('/login/input_password');
-          } else {
-            debugPrint('ここ来たよー${e.toString()}');
-          }
-        }
+        final userName = value.docs[0].get('name');
+        notifier.addUserName(userName);
+        context.go('/login/create_account');
       } else {
         notifier.decrementCheckAccountExistLimit();
       }

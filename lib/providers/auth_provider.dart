@@ -13,6 +13,10 @@ final authProvider = StateNotifierProvider.autoDispose<AuthNotifier, Auth>((ref)
 class AuthNotifier extends StateNotifier<Auth> {
   AuthNotifier() : super(const Auth());
 
+  void addUserName(String userName) {
+    state = state.copyWith(userName: userName);
+  }
+
   void changeYear(int year) {
     state = state.copyWith(year: year);
   }
