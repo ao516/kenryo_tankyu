@@ -19,7 +19,7 @@ final routesProvider = Provider<GoRouter>((ref) {
       ? authStateAsync.value == null
           ? '/welcome'
           : authStateAsync.value!.emailVerified == false
-              ? '/welcome'
+              ? '/verify_email'
               : '/home'
       : '/welcome';
   // const redirection = '/home';
@@ -28,30 +28,26 @@ final routesProvider = Provider<GoRouter>((ref) {
     navigatorKey: _rootNavigatorKey,
     routes: [
       GoRoute(
-        path: '/welcome',
-        builder: (context, state) => const WelcomePage(),
-        routes: [
-          GoRoute(
-            path: 'create_account',
-            builder: (context, state) => const CreateAccountPage(),
-            routes: [
-              GoRoute(
-                path: 'verify_email',
-                builder: (context, state) => const CheckEmailPage(),
-              )
-            ]
-          ),
-          GoRoute(
-            path: 'login',
-            builder: (context, state) => const LoginPage(),
-            routes: [
-              GoRoute(
-                path:  'reset_password',
-                builder: (context, state) => const ResetPasswordPage(),
-              )
-            ]
-          ),
-        ]
+          path: '/welcome',
+          builder: (context, state) => const WelcomePage(),
+          routes: [
+            GoRoute(
+              path: 'create_account',
+              builder: (context, state) => const CreateAccountPage(),
+            ),
+            GoRoute(
+                path: 'login',
+                builder: (context, state) => const LoginPage(),
+                routes: [
+                  GoRoute(
+                    path: 'reset_password',
+                    builder: (context, state) => const ResetPasswordPage(),
+                  )
+                ]),
+          ]),
+      GoRoute(
+        path: '/verify_email',
+        builder: (context, state) => const CheckEmailPage(),
       ),
       GoRoute(
         path: '/settings',

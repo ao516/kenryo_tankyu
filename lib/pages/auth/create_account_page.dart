@@ -9,8 +9,7 @@ class CreateAccountPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userName = ref.watch(authProvider).userName!;
-    final userEmailAddress = ref.watch(authProvider).email!;
+    final userName = ref.watch(authProvider).userName;
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -19,7 +18,7 @@ class CreateAccountPage extends ConsumerWidget {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Text('ようこそ $userName さん',
+                Text('ようこそ $userName さん!',
                     style: const TextStyle(
                         fontSize: 20.0, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 20),

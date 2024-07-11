@@ -39,7 +39,7 @@ class LoginPage extends ConsumerWidget {
                         const SizedBox(height: 20),
                         InputEmail(ref.watch(authProvider).email?? '', true),
                         const SizedBox(height: 20),
-                        InputPasswordForLogin(ref.watch(authProvider).passwordForCreate1?? ''),
+                        InputPasswordForLogin(ref.watch(authProvider).password?? ''),
                       ],
                     ),
                   ),
@@ -55,6 +55,18 @@ class LoginPage extends ConsumerWidget {
                         child: const Text('新規作成',
                             style: TextStyle(color: Colors.blue)),
                         onTap: () => context.push('/welcome')),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Text('パスワードを忘れた場合',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    const SizedBox(width: 10),
+                    InkWell(
+                        child: const Text('パスワードのリセット',
+                            style: TextStyle(color: Colors.blue)),
+                        onTap: () => context.push('/welcome/login/reset_password')),
                   ],
                 ),
               ],

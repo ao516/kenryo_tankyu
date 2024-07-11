@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/providers/auth.dart';
 
 final authStateChangesProvider = StreamProvider<User?>((ref) {
-  return FirebaseAuth.instance.userChanges();
+  final changes = FirebaseAuth.instance.userChanges();
+  return changes;
 });
 
 final authProvider = StateNotifierProvider.autoDispose<AuthNotifier, Auth>((ref) {
@@ -13,7 +15,11 @@ final authProvider = StateNotifierProvider.autoDispose<AuthNotifier, Auth>((ref)
 class AuthNotifier extends StateNotifier<Auth> {
   AuthNotifier() : super(const Auth());
 
-  void addUserName(String userName) {
+  void changeVerifyEmail() {
+    state = state.copyWith(confirmVerifyEmail: !state.confirmVerifyEmail);
+  }
+
+  void changeUserName(String userName) {
     state = state.copyWith(userName: userName);
   }
 
@@ -26,18 +32,11 @@ class AuthNotifier extends StateNotifier<Auth> {
   }
 
   void changePassword(String password) {
-    state = state.copyWith(passwordForCreate1: password);
+    state = state.copyWith(password: password);
   }
 
-  void changeObscureText() {
-    state = state.copyWith(obscureText: !state.obscureText);
+  void decrementLimit(){
+    state = state.copyWith(limit: state.limit - 1);
   }
 
-  void decrementCheckAccountExistLimit(){
-    state = state.copyWith(checkAccountExistLimit: state.checkAccountExistLimit - 1);
-  }
-
-  void decrementCheckPasswordLimit(){
-    state = state.copyWith(checkPasswordLimit: state.checkPasswordLimit - 1);
-  }
 }

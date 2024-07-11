@@ -16,7 +16,7 @@ class InputPasswordForLogin extends ConsumerStatefulWidget {
 class _InputPasswordForLoginState extends ConsumerState<InputPasswordForLogin> {
 
   late TextEditingController _controller;
-  bool _obscureText = false;
+  bool _obscureText = true;
   String? _passwordError;
 
   @override
@@ -78,6 +78,7 @@ class _InputPasswordForLoginState extends ConsumerState<InputPasswordForLogin> {
       ],
     );
   }
+
   Future<void> _login(BuildContext context, WidgetRef ref, String password) async{
     final firebaseAuth = FirebaseAuth.instance;
     final email = '${ref.watch(authProvider).email!}@kenryo.ed.jp';
@@ -97,7 +98,7 @@ class _InputPasswordForLoginState extends ConsumerState<InputPasswordForLogin> {
             content: Column(
               children: [
                 const Text('パスワードが間違っています'),
-                ElevatedButton(onPressed: ()=> context.go('/welcome/login'), child: const Text('パスワードを変更する')),
+                ElevatedButton(onPressed: ()=> context.go('/welcome/login/reset_password'), child: const Text('パスワードを変更する')),
               ],
             ),
             ),

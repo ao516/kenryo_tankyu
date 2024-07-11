@@ -52,7 +52,7 @@ class WelcomePage extends ConsumerWidget {
                         const SizedBox(height: 20),
                         Consumer(builder: (context, ref, child) {
                           final limit =
-                              ref.watch(authProvider).checkAccountExistLimit;
+                              ref.watch(authProvider).limit;
                           if (limit == 5) {
                             return const SizedBox();
                           }
@@ -113,10 +113,10 @@ class WelcomePage extends ConsumerWidget {
     await searchTerms.get().then((value) async {
       if (value.docs.isNotEmpty) {
         final userName = value.docs[0].get('name');
-        notifier.addUserName(userName);
+        notifier.changeUserName(userName);
         context.go('/welcome/create_account');
       } else {
-        notifier.decrementCheckAccountExistLimit();
+        notifier.decrementLimit();
       }
     });
   }

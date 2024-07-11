@@ -178,9 +178,8 @@ class _InputPasswordState extends ConsumerState<InputPassword> {
     try {
       await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
-      await firebaseAuth.currentUser!.sendEmailVerification();
-      if (!context.mounted) return;
-      context.go('/home'); //todo ここの画面遷移がうまくできてなくて、/welcomeのルートページに戻ってしまう。
+      await firebaseAuth.currentUser?.sendEmailVerification();
+      if(!context.mounted) return;
     } on FirebaseAuthException catch (e) {
       if(e.code == 'email-already-in-use') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -195,8 +194,8 @@ class _InputPasswordState extends ConsumerState<InputPassword> {
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('何か別のエラーが発生しました。'),
+          SnackBar(
+            content: Text('エラーが発生しました。${e.code}。'),
           ),
         );
       }
