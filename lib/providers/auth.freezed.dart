@@ -22,14 +22,10 @@ Auth _$AuthFromJson(Map<String, dynamic> json) {
 mixin _$Auth {
   int? get year => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
-  bool get obscureText => throw _privateConstructorUsedError;
-  String? get passwordForCreate1 => throw _privateConstructorUsedError;
-  String? get passwordForCreate2 => throw _privateConstructorUsedError;
-  String? get passwordForLogin => throw _privateConstructorUsedError;
-  String? get errorMessage => throw _privateConstructorUsedError;
+  String? get password => throw _privateConstructorUsedError;
   String? get userName => throw _privateConstructorUsedError;
-  int get checkAccountExistLimit => throw _privateConstructorUsedError;
-  int get checkPasswordLimit => throw _privateConstructorUsedError;
+  bool get confirmVerifyEmail => throw _privateConstructorUsedError;
+  int get limit => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,14 +40,10 @@ abstract class $AuthCopyWith<$Res> {
   $Res call(
       {int? year,
       String? email,
-      bool obscureText,
-      String? passwordForCreate1,
-      String? passwordForCreate2,
-      String? passwordForLogin,
-      String? errorMessage,
+      String? password,
       String? userName,
-      int checkAccountExistLimit,
-      int checkPasswordLimit});
+      bool confirmVerifyEmail,
+      int limit});
 }
 
 /// @nodoc
@@ -69,14 +61,10 @@ class _$AuthCopyWithImpl<$Res, $Val extends Auth>
   $Res call({
     Object? year = freezed,
     Object? email = freezed,
-    Object? obscureText = null,
-    Object? passwordForCreate1 = freezed,
-    Object? passwordForCreate2 = freezed,
-    Object? passwordForLogin = freezed,
-    Object? errorMessage = freezed,
+    Object? password = freezed,
     Object? userName = freezed,
-    Object? checkAccountExistLimit = null,
-    Object? checkPasswordLimit = null,
+    Object? confirmVerifyEmail = null,
+    Object? limit = null,
   }) {
     return _then(_value.copyWith(
       year: freezed == year
@@ -87,37 +75,21 @@ class _$AuthCopyWithImpl<$Res, $Val extends Auth>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      obscureText: null == obscureText
-          ? _value.obscureText
-          : obscureText // ignore: cast_nullable_to_non_nullable
-              as bool,
-      passwordForCreate1: freezed == passwordForCreate1
-          ? _value.passwordForCreate1
-          : passwordForCreate1 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      passwordForCreate2: freezed == passwordForCreate2
-          ? _value.passwordForCreate2
-          : passwordForCreate2 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      passwordForLogin: freezed == passwordForLogin
-          ? _value.passwordForLogin
-          : passwordForLogin // ignore: cast_nullable_to_non_nullable
-              as String?,
-      errorMessage: freezed == errorMessage
-          ? _value.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
+      password: freezed == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
               as String?,
       userName: freezed == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String?,
-      checkAccountExistLimit: null == checkAccountExistLimit
-          ? _value.checkAccountExistLimit
-          : checkAccountExistLimit // ignore: cast_nullable_to_non_nullable
-              as int,
-      checkPasswordLimit: null == checkPasswordLimit
-          ? _value.checkPasswordLimit
-          : checkPasswordLimit // ignore: cast_nullable_to_non_nullable
+      confirmVerifyEmail: null == confirmVerifyEmail
+          ? _value.confirmVerifyEmail
+          : confirmVerifyEmail // ignore: cast_nullable_to_non_nullable
+              as bool,
+      limit: null == limit
+          ? _value.limit
+          : limit // ignore: cast_nullable_to_non_nullable
               as int,
     ) as $Val);
   }
@@ -133,14 +105,10 @@ abstract class _$$AuthImplCopyWith<$Res> implements $AuthCopyWith<$Res> {
   $Res call(
       {int? year,
       String? email,
-      bool obscureText,
-      String? passwordForCreate1,
-      String? passwordForCreate2,
-      String? passwordForLogin,
-      String? errorMessage,
+      String? password,
       String? userName,
-      int checkAccountExistLimit,
-      int checkPasswordLimit});
+      bool confirmVerifyEmail,
+      int limit});
 }
 
 /// @nodoc
@@ -155,14 +123,10 @@ class __$$AuthImplCopyWithImpl<$Res>
   $Res call({
     Object? year = freezed,
     Object? email = freezed,
-    Object? obscureText = null,
-    Object? passwordForCreate1 = freezed,
-    Object? passwordForCreate2 = freezed,
-    Object? passwordForLogin = freezed,
-    Object? errorMessage = freezed,
+    Object? password = freezed,
     Object? userName = freezed,
-    Object? checkAccountExistLimit = null,
-    Object? checkPasswordLimit = null,
+    Object? confirmVerifyEmail = null,
+    Object? limit = null,
   }) {
     return _then(_$AuthImpl(
       year: freezed == year
@@ -173,37 +137,21 @@ class __$$AuthImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
-      obscureText: null == obscureText
-          ? _value.obscureText
-          : obscureText // ignore: cast_nullable_to_non_nullable
-              as bool,
-      passwordForCreate1: freezed == passwordForCreate1
-          ? _value.passwordForCreate1
-          : passwordForCreate1 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      passwordForCreate2: freezed == passwordForCreate2
-          ? _value.passwordForCreate2
-          : passwordForCreate2 // ignore: cast_nullable_to_non_nullable
-              as String?,
-      passwordForLogin: freezed == passwordForLogin
-          ? _value.passwordForLogin
-          : passwordForLogin // ignore: cast_nullable_to_non_nullable
-              as String?,
-      errorMessage: freezed == errorMessage
-          ? _value.errorMessage
-          : errorMessage // ignore: cast_nullable_to_non_nullable
+      password: freezed == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
               as String?,
       userName: freezed == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String?,
-      checkAccountExistLimit: null == checkAccountExistLimit
-          ? _value.checkAccountExistLimit
-          : checkAccountExistLimit // ignore: cast_nullable_to_non_nullable
-              as int,
-      checkPasswordLimit: null == checkPasswordLimit
-          ? _value.checkPasswordLimit
-          : checkPasswordLimit // ignore: cast_nullable_to_non_nullable
+      confirmVerifyEmail: null == confirmVerifyEmail
+          ? _value.confirmVerifyEmail
+          : confirmVerifyEmail // ignore: cast_nullable_to_non_nullable
+              as bool,
+      limit: null == limit
+          ? _value.limit
+          : limit // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -215,14 +163,10 @@ class _$AuthImpl implements _Auth {
   const _$AuthImpl(
       {this.year,
       this.email,
-      this.obscureText = true,
-      this.passwordForCreate1,
-      this.passwordForCreate2,
-      this.passwordForLogin,
-      this.errorMessage,
+      this.password,
       this.userName,
-      this.checkAccountExistLimit = 5,
-      this.checkPasswordLimit = 5});
+      this.confirmVerifyEmail = false,
+      this.limit = 5});
 
   factory _$AuthImpl.fromJson(Map<String, dynamic> json) =>
       _$$AuthImplFromJson(json);
@@ -232,28 +176,19 @@ class _$AuthImpl implements _Auth {
   @override
   final String? email;
   @override
-  @JsonKey()
-  final bool obscureText;
-  @override
-  final String? passwordForCreate1;
-  @override
-  final String? passwordForCreate2;
-  @override
-  final String? passwordForLogin;
-  @override
-  final String? errorMessage;
+  final String? password;
   @override
   final String? userName;
   @override
   @JsonKey()
-  final int checkAccountExistLimit;
+  final bool confirmVerifyEmail;
   @override
   @JsonKey()
-  final int checkPasswordLimit;
+  final int limit;
 
   @override
   String toString() {
-    return 'Auth(year: $year, email: $email, obscureText: $obscureText, passwordForCreate1: $passwordForCreate1, passwordForCreate2: $passwordForCreate2, passwordForLogin: $passwordForLogin, errorMessage: $errorMessage, userName: $userName, checkAccountExistLimit: $checkAccountExistLimit, checkPasswordLimit: $checkPasswordLimit)';
+    return 'Auth(year: $year, email: $email, password: $password, userName: $userName, confirmVerifyEmail: $confirmVerifyEmail, limit: $limit)';
   }
 
   @override
@@ -263,38 +198,19 @@ class _$AuthImpl implements _Auth {
             other is _$AuthImpl &&
             (identical(other.year, year) || other.year == year) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.obscureText, obscureText) ||
-                other.obscureText == obscureText) &&
-            (identical(other.passwordForCreate1, passwordForCreate1) ||
-                other.passwordForCreate1 == passwordForCreate1) &&
-            (identical(other.passwordForCreate2, passwordForCreate2) ||
-                other.passwordForCreate2 == passwordForCreate2) &&
-            (identical(other.passwordForLogin, passwordForLogin) ||
-                other.passwordForLogin == passwordForLogin) &&
-            (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
             (identical(other.userName, userName) ||
                 other.userName == userName) &&
-            (identical(other.checkAccountExistLimit, checkAccountExistLimit) ||
-                other.checkAccountExistLimit == checkAccountExistLimit) &&
-            (identical(other.checkPasswordLimit, checkPasswordLimit) ||
-                other.checkPasswordLimit == checkPasswordLimit));
+            (identical(other.confirmVerifyEmail, confirmVerifyEmail) ||
+                other.confirmVerifyEmail == confirmVerifyEmail) &&
+            (identical(other.limit, limit) || other.limit == limit));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      year,
-      email,
-      obscureText,
-      passwordForCreate1,
-      passwordForCreate2,
-      passwordForLogin,
-      errorMessage,
-      userName,
-      checkAccountExistLimit,
-      checkPasswordLimit);
+      runtimeType, year, email, password, userName, confirmVerifyEmail, limit);
 
   @JsonKey(ignore: true)
   @override
@@ -314,14 +230,10 @@ abstract class _Auth implements Auth {
   const factory _Auth(
       {final int? year,
       final String? email,
-      final bool obscureText,
-      final String? passwordForCreate1,
-      final String? passwordForCreate2,
-      final String? passwordForLogin,
-      final String? errorMessage,
+      final String? password,
       final String? userName,
-      final int checkAccountExistLimit,
-      final int checkPasswordLimit}) = _$AuthImpl;
+      final bool confirmVerifyEmail,
+      final int limit}) = _$AuthImpl;
 
   factory _Auth.fromJson(Map<String, dynamic> json) = _$AuthImpl.fromJson;
 
@@ -330,21 +242,13 @@ abstract class _Auth implements Auth {
   @override
   String? get email;
   @override
-  bool get obscureText;
-  @override
-  String? get passwordForCreate1;
-  @override
-  String? get passwordForCreate2;
-  @override
-  String? get passwordForLogin;
-  @override
-  String? get errorMessage;
+  String? get password;
   @override
   String? get userName;
   @override
-  int get checkAccountExistLimit;
+  bool get confirmVerifyEmail;
   @override
-  int get checkPasswordLimit;
+  int get limit;
   @override
   @JsonKey(ignore: true)
   _$$AuthImplCopyWith<_$AuthImpl> get copyWith =>

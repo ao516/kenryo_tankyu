@@ -15,7 +15,8 @@ export 'contents/krgp_home_page.dart';
 export 'contents/krgp_year_page.dart';
 export 'settings.dart';
 
-export 'auth/login_page.dart';
+export 'auth/welcome_page.dart';
 export 'auth/create_account_page.dart';
-export 'auth/check_email_page.dart';
-export 'auth/input_password_page.dart';
+export 'auth/verify_email_page.dart';
+export 'auth/login_page.dart';
+export 'auth/reset_password_page.dart';

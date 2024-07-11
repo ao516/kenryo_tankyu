@@ -32,3 +32,4 @@ export 'search_history_list.dart';
 export 'auth/input_email.dart';
 export 'auth/input_password.dart';
 export 'auth/input_year.dart';
+export 'auth/input_password_for_login.dart';
