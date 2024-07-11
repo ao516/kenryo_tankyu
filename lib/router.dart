@@ -17,19 +17,19 @@ final routesProvider = Provider<GoRouter>((ref) {
   final authStateAsync = ref.watch(authStateChangesProvider);
   final redirection = authStateAsync.hasValue
       ? authStateAsync.value == null
-          ? '/login'
+          ? '/welcome'
           : authStateAsync.value!.emailVerified == false
-              ? '/login'
+              ? '/welcome'
               : '/home'
-      : '/login';
+      : '/welcome';
   // const redirection = '/home';
   return GoRouter(
     initialLocation: redirection,
     navigatorKey: _rootNavigatorKey,
     routes: [
       GoRoute(
-        path: '/login',
-        builder: (context, state) => const LoginPage(),
+        path: '/welcome',
+        builder: (context, state) => const WelcomePage(),
         routes: [
           GoRoute(
             path: 'create_account',
@@ -42,8 +42,14 @@ final routesProvider = Provider<GoRouter>((ref) {
             ]
           ),
           GoRoute(
-            path: 'input_password',
-            builder: (context, state) => const InputPasswordPage(),
+            path: 'login',
+            builder: (context, state) => const LoginPage(),
+            routes: [
+              GoRoute(
+                path:  'reset_password',
+                builder: (context, state) => const ResetPasswordPage(),
+              )
+            ]
           ),
         ]
       ),

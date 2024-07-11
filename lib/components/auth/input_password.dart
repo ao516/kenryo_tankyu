@@ -126,9 +126,9 @@ class _InputPasswordState extends ConsumerState<InputPassword> {
           const SizedBox(height: 20),
           Center(
             child: ElevatedButton(
-              onPressed: (_confirmPasswordController.text.length >= 8 &&
+              onPressed: _confirmPasswordController.text.length >= 8 &&
                       _confirmPasswordController.text ==
-                          _passwordController.text)
+                          _passwordController.text
                   ? () async {
                       await _createAccountWithEmailAndPassword(
                           context, ref, _confirmPasswordController.text);
@@ -176,11 +176,11 @@ class _InputPasswordState extends ConsumerState<InputPassword> {
     final firebaseAuth = FirebaseAuth.instance;
     final email = '${ref.watch(authProvider).email!}@kenryo.ed.jp';
     try {
-      await FirebaseAuth.instance
+      await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
       await firebaseAuth.currentUser!.sendEmailVerification();
       if (!context.mounted) return;
-      context.go('/login/verify_email');
+      context.go('/home'); //todo ここの画面遷移がうまくできてなくて、/welcomeのルートページに戻ってしまう。
     } on FirebaseAuthException catch (e) {
       if(e.code == 'email-already-in-use') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -188,13 +188,17 @@ class _InputPasswordState extends ConsumerState<InputPassword> {
             content: Column(
               children: [
                 const Text('このメールアドレスは既に登録されています'),
-                ElevatedButton(onPressed: ()=> context.go('/login/input_password'), child: const Text('ログイン画面に移動')),
+                ElevatedButton(onPressed: ()=> context.go('/welcome/login'), child: const Text('ログイン画面に移動')),
               ],
             ),
           ),
         );
       } else {
-        debugPrint('error: ${e.code}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('何か別のエラーが発生しました。'),
+          ),
+        );
       }
     }
   }
