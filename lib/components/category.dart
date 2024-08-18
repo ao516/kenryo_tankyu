@@ -33,7 +33,6 @@ class CategoryList extends ConsumerWidget {
                 children: [
                   Text(
                     categoryImageList[index][0],
-                    style: const TextStyle(color: Colors.black),
                   ),
                   SizedBox(
                     width: 50,

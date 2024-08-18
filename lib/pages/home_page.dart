@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import '../components/components.dart';
 import '../constant/constant.dart';
-import '../providers/providers.dart';
 
 class HomePage extends ConsumerWidget {
   static HomePage builder(BuildContext context, GoRouterState state) =>
@@ -13,8 +12,6 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authStateAsync = ref.watch(authStateChangesProvider);
-    final user = authStateAsync.value;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SingleChildScrollView(

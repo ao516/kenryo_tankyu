@@ -28,9 +28,31 @@ class ResultListPage extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  IconButton(
-                      onPressed: () {}, //todo ソート処理を書く いいね数順、古い順、新しい順
-                      icon: const Icon(Icons.sort)),
+                  PopupMenuButton(
+                    icon: const Icon(Icons.sort),
+                    itemBuilder: (context) {
+                      return [
+                        PopupMenuItem(
+                          onTap: (){
+                            //todo
+                          },
+                          child: const Text('新しい順'),
+                        ),
+                        PopupMenuItem(
+                          onTap: (){
+                            //todo
+                          },
+                          child: const Text('古い順'),
+                        ),
+                        PopupMenuItem(
+                          onTap: (){
+                            //todo
+                          },
+                          child: const Text('いいね順'),
+                        ),
+                      ];
+                    },
+                  ),
                   IconButton(
                       onPressed: () =>
                           _scaffoldKey.currentState?.openEndDrawer(),

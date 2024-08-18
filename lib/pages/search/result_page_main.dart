@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
-import 'package:screen_protector/screen_protector.dart';
 
 ///ResultPageにデータがしっかり格納されているときに表示されるメイン画面。
 ///スクリーンショットを禁止するためにstatefulWidgetを使い、結果画面に出てくるそれぞれのWidgetを呼び出している。
