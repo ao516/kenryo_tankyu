@@ -37,6 +37,7 @@ class _FooterState extends State<Footer> {
       appBar: const InitialHeader(),
       body: widget.child,
       bottomNavigationBar: NavigationBar(
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
         selectedIndex: _selectedIndex,
         destinations: const <Widget>[
           NavigationDestination(icon: Icon(Icons.home), label: 'ホーム'),

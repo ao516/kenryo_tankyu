@@ -26,7 +26,7 @@ class ResultHeaderState extends ConsumerState<ResultHeader> {
   Widget build(BuildContext context) {
     return  AppBar(
       actions: [Container()], ///drawerを開くボタンを消している
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor:Theme.of(context).colorScheme.surfaceContainerHigh,
       titleSpacing: 0,
       title: Padding(
         padding: const EdgeInsets.only(right: 16.0),
@@ -36,7 +36,7 @@ class ResultHeaderState extends ConsumerState<ResultHeader> {
             onTap: () => context.pushReplacement('/search'),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.grey.shade50,
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child:  const Row(
