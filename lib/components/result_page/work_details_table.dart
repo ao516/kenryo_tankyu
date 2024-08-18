@@ -8,9 +8,9 @@ class WorkDetailsTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Table(
-      border: TableBorder.symmetric(
+      border: const TableBorder.symmetric(
           inside:
-          const BorderSide(width: 1, color: Colors.grey)),
+          BorderSide(width: 1, color: Colors.grey)),
       columnWidths: const {
         0: FlexColumnWidth(2),
         1: FlexColumnWidth(5),

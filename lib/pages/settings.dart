@@ -43,7 +43,7 @@ class SettingsPage extends ConsumerWidget {
               value: ref.watch(themeModeProvider),
               onChanged: (ThemeMode? value) {
                 _saveThemeMode(value!);
-                ref.read(themeModeProvider.notifier).state = value!;
+                ref.read(themeModeProvider.notifier).state = value;
               },
               items: const [
                 DropdownMenuItem(

@@ -26,7 +26,6 @@ class SearchDropButton extends ConsumerWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
-              color: Colors.grey.shade200,
             ),
             child: DropdownButtonHideUnderline(
               child: DropdownButton(
