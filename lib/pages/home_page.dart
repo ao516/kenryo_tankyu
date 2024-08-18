@@ -24,19 +24,7 @@ class HomePage extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                user == null
-                    ? const Text('ようこそ、ゲストさん')
-                    : Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 20,
-                            backgroundColor: Colors.white,
-                            backgroundImage: NetworkImage(user.photoURL ?? ''),
-                          ),
-                          const SizedBox(width: 8),
-                          Text('ようこそ、${user.email}さん'),
-                        ],
-                      ),
+               const Text('ようこそ、ゲストさん'),
                 IconButton(
                     onPressed: () => context.push('/settings'),
                     icon: const Icon(Icons.settings)),

@@ -13,7 +13,7 @@ class InitialHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
       titleSpacing: categoryWord?.isEmpty == null ? 20.0 : 0.0, //？が
       title: Padding(
         padding: EdgeInsets.only(
@@ -25,7 +25,7 @@ class InitialHeader extends StatelessWidget implements PreferredSizeWidget {
                 categoryWord?.isEmpty == null ? context.push('/search') : null,
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.grey.shade50,
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: Row(
@@ -36,7 +36,7 @@ class InitialHeader extends StatelessWidget implements PreferredSizeWidget {
                   const Padding(padding: EdgeInsets.only(left: 12)),
                   Text(
                     categoryWord?.isEmpty == null ? 'キーワードを検索' : 'カテゴリ...$categoryWord',
-                    style: const TextStyle(fontSize: 16, color: Colors.black54),
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ],
               ),

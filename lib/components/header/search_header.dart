@@ -27,7 +27,7 @@ class _SearchHeaderState extends ConsumerState<SearchHeader> {
     final List<String>? searchWord = ref.watch(searchProvider).searchWord;
     final controller = TextEditingController(text: searchWord?.join(' '));
     return AppBar(
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
       titleSpacing: 0,
       title: Padding(
         padding: const EdgeInsets.only(right: 16.0),
@@ -36,7 +36,7 @@ class _SearchHeaderState extends ConsumerState<SearchHeader> {
           child: Container(
             padding: const EdgeInsets.only(left: 16.0),
             decoration: BoxDecoration(
-              color: Colors.grey.shade50,
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: TextField(

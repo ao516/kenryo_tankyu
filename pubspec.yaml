@@ -57,6 +57,7 @@ dependencies:
   firebase_messaging: ^14.9.4
   screen_protector: ^1.4.2
   json_annotation: ^4.9.0
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:

@@ -38,7 +38,7 @@ class CreateAccountPage extends ConsumerWidget {
                             style: TextStyle(fontWeight: FontWeight.bold),
                             textAlign: TextAlign.left),
                         const SizedBox(height: 20),
-                        InputEmail(ref.watch(authProvider).email!,false),
+                        InputEmail(ref.watch(authProvider).email!, false),
                         const SizedBox(height: 20),
                         const InputPassword(),
                         const SizedBox(height: 20),
@@ -54,6 +54,4 @@ class CreateAccountPage extends ConsumerWidget {
       ),
     );
   }
-
-  _createAccount(BuildContext context, WidgetRef ref) {}
 }
