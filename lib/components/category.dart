@@ -33,6 +33,7 @@ class CategoryList extends ConsumerWidget {
                 children: [
                   Text(
                     categoryImageList[index][0],
+                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                   ),
                   SizedBox(
                     width: 50,

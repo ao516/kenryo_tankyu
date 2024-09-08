@@ -12,14 +12,16 @@ export 'result_page/header_for_result.dart';
 export 'result_page/overlay_dialog.dart';
 export 'result_page/change_info_form.dart';
 
+
 export 'category.dart';
 export 'sub_category.dart';
 export 'search_chip_list.dart';
 export 'sidebar.dart';
 export 'drop_button.dart';
 export 'sub_category_chip.dart';
-export 'result_list_preview.dart';
-export 'result_preview_content.dart';
+export 'result_list_page/result_list_preview.dart';
+export 'result_list_page/result_preview_content.dart';
+export 'result_list_page/image_chip.dart';
 export 'content_carousel.dart';
 
 export 'favorite.dart';
