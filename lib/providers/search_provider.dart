@@ -36,7 +36,7 @@ class SearchNotifier extends StateNotifier<Search> {
   }
 
   void deleteAllParameters(){
-    state = state.copyWith(year: null,eventName: null,course: null,subCategory: null,category: null);
+    state = state.copyWith(year: null,eventName: null,course: null,subCategory: null,category: null,searchWord: null);
   }
 
   void deleteParameter(String parameterName){

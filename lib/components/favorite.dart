@@ -106,14 +106,14 @@ class FavoriteForResultPage extends ConsumerWidget {
 
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: isFavorite == 1 ? Colors.red : Colors.black),
+        border: Border.all(color: isFavorite == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(children: [
         IconButton(
           icon: Icon(
             isFavorite == 1 ? Icons.favorite : Icons.favorite_border,
-            color: isFavorite == 1 ? Colors.red : Colors.black,
+            color: isFavorite == 1 ? Colors.red :Theme.of(context).colorScheme.onSurface,
           ),
           onPressed: () async {
             if (ableChangeFavorite) {
@@ -143,7 +143,7 @@ class FavoriteForResultPage extends ConsumerWidget {
         const SizedBox(height: 4),
         Text(
           likes.toString(),
-          style: TextStyle(color: isFavorite == 1 ? Colors.red : Colors.black),
+          style: TextStyle(color: isFavorite == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface),
         ),
       ]),
     );
@@ -163,11 +163,11 @@ class FavoriteForResultListPage extends ConsumerWidget {
     return Column(children: [
       Icon(
         isFavorite == 1 ? Icons.favorite : Icons.favorite_border,
-        color: isFavorite == 1 ? Colors.red : Colors.black,
+        color: isFavorite == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface,
       ),
       Text(
         likes.toString(),
-        style: TextStyle(color: isFavorite == 1 ? Colors.red : Colors.black),
+        style: TextStyle(color: isFavorite == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface),
       ),
     ]);
   }

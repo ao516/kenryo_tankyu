@@ -58,6 +58,8 @@ dependencies:
   screen_protector: ^1.4.2
   json_annotation: ^4.9.0
   shared_preferences: ^2.2.3
+  googleapis: ^13.1.0
+  googleapis_auth: ^1.4.1
 
 dev_dependencies:
   flutter_test:
@@ -90,6 +92,8 @@ flutter:
     - assets/files/
     - assets/images/category/
     - assets/images/subject_image/
+    - assets/credentials.json
+    - assets/your_service_account_credentials.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

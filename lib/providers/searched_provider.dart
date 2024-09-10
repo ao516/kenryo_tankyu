@@ -7,6 +7,9 @@ import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:kenryo_tankyu/service/pdf_db.dart';
 
+//調べている探究作品がキャッシュから取得したものかどうかを管理するProvider
+final isCachedProvider = StateProvider.autoDispose<bool>((ref) => false);
+
 //firestoreからデータを取得するProvider
 final getFirestoreSearchedProvider = FutureProvider.family
     .autoDispose<Searched?, Searched>((ref, searched) async {
@@ -21,8 +24,9 @@ final getFirestoreSearchedProvider = FutureProvider.family
         .get(const GetOptions(source: Source.cache));
     if (snapshot.exists) {
       final data = Searched.fromFirestore(snapshot, searched.isFavorite);
+      ref.read(isCachedProvider.notifier).state = true;
       ref.read(searchedProvider.notifier).state =
-          data; //ここでfuture型でないproviderに値を代入してい
+          data; //ここでfuture型でないproviderに値を代入している
       return data;
     } else {
       debugPrint('firestoreにデータが存在しません。');
@@ -44,7 +48,10 @@ final getFirestoreSearchedProvider = FutureProvider.family
       return null;
     }
   }
+
+
 });
+
 
 final searchedProvider = StateProvider<Searched>((ref) => testSearchedValue1);
 
