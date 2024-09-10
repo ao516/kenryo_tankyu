@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/components/result_page/overlay_dialog.dart';
 
 import '../../providers/providers.dart';
 
-class HeaderForResultPage extends StatelessWidget
+class HeaderForResultPage extends ConsumerWidget
     implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -13,7 +14,10 @@ class HeaderForResultPage extends StatelessWidget
   final Searched searched;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isCached = ref.watch(isCachedProvider);
+    final searched = ref.watch(searchedProvider);
+    final String cachedText = isCached ? '(キャッシュを表示中)' : '(最新版を表示中)';
     return AppBar(
       actions: [
         PopupMenuButton(
@@ -21,9 +25,9 @@ class HeaderForResultPage extends StatelessWidget
             return [
               PopupMenuItem(
                 onTap: (){
-                  //todo: リロード処理
+                  ref.invalidate(getFirestoreSearchedProvider(searched));
                 },
-                child: const Text('リロードする'),
+                child: Text('リロードする$cachedText'),
               ),
               PopupMenuItem(
                 onTap: ()=> Navigator.of(context).push(OverlayDialog(searched)),

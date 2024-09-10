@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
@@ -21,21 +22,20 @@ class SearchHistoryController {
           return db.execute(
             'CREATE TABLE search_history('
             'id INTEGER PRIMARY KEY AUTOINCREMENT,'
-            'category TEXT, '
-            'subCategory TEXT, '
-            'year INTEGER, '
-            'eventName TEXT, '
-            'course TEXT, '
-            'searchWord TEXT, '
+            'category TEXT NOT NULL, '
+            'subCategory TEXT DEFAULT "", '
+            'year INTEGER DEFAULT 0, '
+            'eventName TEXT DEFAULT "", '
+            'course TEXT DEFAULT "", '
+            'searchWord TEXT DEFAULT "", '
             'savedAt TEXT NOT NULL, '
             'numberOfHits INTEGER, '
-            'CHECK(savedAt != null) '
-            'CHECK(category != null OR subCategory != null OR year != null OR eventName != null OR course != null OR searchWord != null) '
+            'CHECK(category != "" OR subCategory != "" OR year != 0 OR eventName != "" OR course != "" OR searchWord != "") '
             'UNIQUE(category, subCategory, year, eventName, course, searchWord) '
             ');',
           );
         },
-        version: 10,
+        version: 15,
       );
     } catch (error, stackTrace) {
       return Future.error(error, stackTrace);
@@ -64,6 +64,7 @@ class SearchHistoryController {
       return null;
     }
     return List.generate(maps.length, (i) {
+      debugPrint(maps[i].toString());
       return Search.fromJson(maps[i]);
     });
   }

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
+import 'package:kenryo_tankyu/service/service.dart';
 
 import '../../constant/value.dart';
 
 ///全体で使うProvider
 final selectedChangeInfoDropdownProvider =
     StateProvider.autoDispose<String?>((ref) => null);
+
+final enabledChangeInfoButtonProvider =
+    StateProvider.autoDispose<bool>((ref) => false);
 
 ///「カテゴリの分類が不適切」の際に使うProvider等
 enum RadioValue { category1, category2 }
@@ -31,8 +35,16 @@ final selectedTitleControllerProvider =
         TextEditingController(text: ref.watch(searchedProvider).title));
 
 ///「PDFが閲覧できない」の際に使うProvider等
-final selectedCannotViewPdfProvider =
-    StateProvider.autoDispose<List<bool>>((ref) => List.generate(pdfChoiceList.length, (index) => false));
+final selectedCannotViewPdfProvider = StateProvider.autoDispose<List<bool>>(
+    (ref) => List.generate(pdfChoiceList.length, (index) => false));
+final freeDescriptionControllerProviderForCannotViewPdf =
+    StateProvider.autoDispose<TextEditingController>((ref) =>
+        TextEditingController());
+
+///「その他」の際に使うProvider等
+final freeDescriptionControllerProviderForOtherReason =
+    StateProvider.autoDispose<TextEditingController>((ref) =>
+        TextEditingController());
 
 class ChangeInfoForm extends ConsumerWidget {
   final Searched searched;
@@ -41,7 +53,11 @@ class ChangeInfoForm extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final String? selected = ref.watch(selectedChangeInfoDropdownProvider);
-    final notifier = ref.read(selectedChangeInfoDropdownProvider.notifier);
+    final selectedNotifier =
+        ref.read(selectedChangeInfoDropdownProvider.notifier);
+    final bool enabledChangeInfoButton =
+        ref.watch(enabledChangeInfoButtonProvider);
+    final enableNotifier = ref.read(enabledChangeInfoButtonProvider.notifier);
     return Column(children: [
       DropdownButtonFormField(
         decoration: const InputDecoration(
@@ -66,7 +82,10 @@ class ChangeInfoForm extends ConsumerWidget {
         items: changeInfoList.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(value: value, child: Text(value));
         }).toList(),
-        onChanged: (value) => notifier.state = value,
+        onChanged: (value) {
+          selectedNotifier.state = value;
+          enableNotifier.state = false;
+        },
         value: selected,
         hint: const Text('選択してください'),
       ),
@@ -81,13 +100,24 @@ class ChangeInfoForm extends ConsumerWidget {
           case 2: //PDFが閲覧できない
             return cannotViewPdf(ref);
           case 3: //その他
-            return otherReason();
+            return otherReason(ref);
           case -1:
             return const SizedBox();
           default:
             return const SizedBox();
         }
       })(),
+      const SizedBox(height: 8),
+      ElevatedButton(
+        onPressed: enabledChangeInfoButton
+            ? () async {
+                Navigator.of(context).pop();
+                await EditSpreadSheet.instance
+                    .editSpreadSheet(context, ref, searched, selected);
+              }
+            : null,
+        child: const Text('送信する'),
+      ),
     ]);
   }
 
@@ -144,6 +174,7 @@ class ChangeInfoForm extends ConsumerWidget {
           onChanged: (value) {
             categoryNotifier.state = value;
             subCategoryNotifier.state = null;
+            ref.read(enabledChangeInfoButtonProvider.notifier).state = false;
           },
         ),
         const SizedBox(height: 16),
@@ -167,7 +198,9 @@ class ChangeInfoForm extends ConsumerWidget {
                   .map<DropdownMenuItem<String>>((String value) =>
                       DropdownMenuItem(value: value, child: Text(value)))
                   .toList(),
-          onChanged: (value) => subCategoryNotifier.state = value,
+          onChanged: (value) {
+            ref.read(enabledChangeInfoButtonProvider.notifier).state = true;
+            subCategoryNotifier.state = value;}
         ),
       ],
     );
@@ -178,6 +211,8 @@ class ChangeInfoForm extends ConsumerWidget {
     final int selectedYear = ref.watch(selectedYearProvider);
     final departmentNotifier = ref.read(selectedDepartmentProvider.notifier);
     final yearNotifier = ref.read(selectedYearProvider.notifier);
+    final enabledChangeInfoButtonNotifier =
+        ref.read(enabledChangeInfoButtonProvider.notifier);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -185,6 +220,7 @@ class ChangeInfoForm extends ConsumerWidget {
             style: TextStyle(fontWeight: FontWeight.bold)),
         const SizedBox(height: 16),
         TextFormField(
+          onChanged:(value)=> enabledChangeInfoButtonNotifier.state = true,
           controller: ref.watch(selectedAuthorControllerProvider),
           decoration: const InputDecoration(
             isDense: true,
@@ -194,6 +230,7 @@ class ChangeInfoForm extends ConsumerWidget {
         ),
         const SizedBox(height: 8),
         TextFormField(
+          onChanged:(value)=> enabledChangeInfoButtonNotifier.state = true,
           minLines: 2,
           maxLines: 3,
           controller: ref.watch(selectedTitleControllerProvider),
@@ -216,6 +253,7 @@ class ChangeInfoForm extends ConsumerWidget {
                   DropdownMenuItem(value: value, child: Text(value)))
               .toList(),
           onChanged: (value) {
+            enabledChangeInfoButtonNotifier.state = true;
             departmentNotifier.state = value!;
           },
         ),
@@ -232,6 +270,7 @@ class ChangeInfoForm extends ConsumerWidget {
                   value: value.toString(), child: Text(value.toString())))
               .toList(),
           onChanged: (value) {
+            enabledChangeInfoButtonNotifier.state = true;
             yearNotifier.state = int.parse(value!);
           },
         ),
@@ -258,6 +297,7 @@ class ChangeInfoForm extends ConsumerWidget {
                 title: Text(pdfChoiceList[index]),
                 value: selectedCannotViewPdf[index],
                 onChanged: (bool? value) {
+                  ref.read(enabledChangeInfoButtonProvider.notifier).state = true;
                   selectedCannotViewPdf.removeAt(index);
                   selectedCannotViewPdf.insert(index, value!);
                   notifier.state = [...selectedCannotViewPdf];
@@ -265,6 +305,7 @@ class ChangeInfoForm extends ConsumerWidget {
               );
             }),
         TextFormField(
+          controller: ref.watch(freeDescriptionControllerProviderForCannotViewPdf),
           maxLines: 3,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
@@ -275,8 +316,12 @@ class ChangeInfoForm extends ConsumerWidget {
     );
   }
 
-  Widget otherReason() {
+  Widget otherReason(WidgetRef ref) {
     return TextFormField(
+      controller: ref.watch(freeDescriptionControllerProviderForOtherReason),
+      onChanged: (value) {
+        ref.read(enabledChangeInfoButtonProvider.notifier).state = value.isNotEmpty;
+      },
       maxLines: 5,
       decoration: const InputDecoration(
         border: OutlineInputBorder(),

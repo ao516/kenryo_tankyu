@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/service/search_history_db_provider.dart';
 
-
 class SearchPage extends ConsumerWidget {
   const SearchPage({super.key});
 
@@ -32,13 +31,8 @@ class SearchPage extends ConsumerWidget {
               child: Row(
                 children: [
                   const Icon(Icons.history),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  const Text(
-                    '検索履歴',
-                    style: TextStyle(fontSize: 20),
-                  ),
+                  const SizedBox(width: 8),
+                  const Text('検索履歴', style: TextStyle(fontSize: 20)),
                   IconButton(
                     icon: const Icon(Icons.delete),
                     onPressed: () {
@@ -56,7 +50,8 @@ class SearchPage extends ConsumerWidget {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  SearchHistoryController.instance.deleteAllHistory();
+                                  SearchHistoryController.instance
+                                      .deleteAllHistory();
                                   ref.invalidate(searchHistoryProvider);
                                   Navigator.of(context).pop();
                                 },

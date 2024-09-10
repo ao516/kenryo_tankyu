@@ -3,7 +3,7 @@ const List<int> yearList = [2018, 2019, 2020, 2021, 2022];
 const List<String> departmentList = ['普通科', '探究科'];
 const List<String> eventNameList = ['信州学', '個人探究'];
 const List<String> categoryList = [
-  '地域・社会',
+  '社会・地域',
   '人文・歴史',
   '人権・ジェンダー',
   '国際',
@@ -38,7 +38,7 @@ const List<List<String>> subCategoryList = [
 ];
 
 const List<List<String>> categoryImageList = [
-  ['社会・地域','地域・社会', 'assets/images/category/society.png'],
+  ['社会・地域','社会・地域', 'assets/images/category/society.png'],
   ['人文・歴史','人文・歴史', 'assets/images/category/history.png'],
   ['人権\nジェンダー','人権・ジェンダー', 'assets/images/category/right.png'],
   ['国際', '国際','assets/images/category/global.png'],
