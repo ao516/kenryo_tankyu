@@ -10,6 +10,17 @@ import 'package:kenryo_tankyu/service/pdf_db.dart';
 //調べている探究作品がキャッシュから取得したものかどうかを管理するProvider
 final isCachedProvider = StateProvider.autoDispose<bool>((ref) => false);
 
+//全画面表示ボタンを表示するかしないかを管理するprovider
+final showFullScreenButtonProvider =
+StateProvider.autoDispose<bool>((ref) => true);
+
+//全画面か詳細画面かどうかを管理するprovider。IndexedStackに使用
+final isFullScreenProvider = StateProvider.autoDispose<bool>((ref) => false);
+
+//同じ探究作品を見ている最中なのかどうかを管理するprovider
+//このproviderを導入することによって、全画面に切り替えたときに不用意な再ビルドを防ぐ。
+final isSameScreenProvider = StateProvider.autoDispose<bool>((ref) => false);
+
 //firestoreからデータを取得するProvider
 final getFirestoreSearchedProvider = FutureProvider.family
     .autoDispose<Searched?, Searched>((ref, searched) async {

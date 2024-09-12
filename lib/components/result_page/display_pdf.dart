@@ -2,16 +2,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 import '../../pages/pages.dart';
 import '../../service/pdf_db.dart';
 
-//全画面表示ボタンを表示するかしないかを管理するprovider
-final showFullScreenButtonProvider =
-    StateProvider.autoDispose<bool>((ref) => true);
+
 
 class DisplayPdf extends ConsumerWidget {
   final Searched searched;
