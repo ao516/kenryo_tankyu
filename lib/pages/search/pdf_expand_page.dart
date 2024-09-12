@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
+import '../pages.dart';
 
-class PdfExpandPage extends StatelessWidget {
+class PdfExpandPage extends ConsumerWidget {
   final Searched searched;
   const PdfExpandPage({super.key, required this.searched});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: HeaderForResultPage(searched: searched),
-      body: Column(
-        children: [
-          PdfChoiceChip(searched: searched),
-          DisplayPdf(searched: searched),
-        ]
-      )
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isFullScreen = ref.watch(isFullScreenProvider);
+    final showFullScreen = ref.watch(showFullScreenButtonProvider);
+    return PopScope(
+      canPop: !isFullScreen,
+      onPopInvoked: (bool isPop) {
+        ref.read(isFullScreenProvider.notifier).state = false;
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: PdfChoiceChip(searched: searched),
+          ),
+          body: Column(children: [
+            DisplayPdf(searched: searched),
+          ])),
     );
   }
 }
