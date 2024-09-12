@@ -11,8 +11,7 @@ class PdfExpandPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isFullScreen = ref.watch(isFullScreenProvider);
-    final showFullScreen = ref.watch(showFullScreenButtonProvider);
-    return PopScope(
+     return PopScope(
       canPop: !isFullScreen,
       onPopInvoked: (bool isPop) {
         ref.read(isFullScreenProvider.notifier).state = false;

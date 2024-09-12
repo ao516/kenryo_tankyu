@@ -4,9 +4,6 @@ import 'package:kenryo_tankyu/providers/providers.dart';
 
 import '../components.dart';
 
-//同じ探究作品を見ている最中なのかどうかを管理するprovider
-//このproviderを導入することによって、全画面に切り替えたときに不用意な再ビルドを防ぐ。
-final isSameScreenProvider = StateProvider.autoDispose<bool>((ref) => false);
 
 enum DocumentType {
   slide,

@@ -47,8 +47,8 @@ class _LibraryPageState extends State<LibraryPage>
               labelColor: Colors.white,
               unselectedLabelColor: Colors.black,
               tabs: [
-                _tab(label: 'お気に入り', icon: const Icon(Icons.favorite)),
                 _tab(label: '閲覧履歴', icon: const Icon(Icons.history)),
+                _tab(label: 'お気に入り', icon: const Icon(Icons.favorite)),
               ],
             ),
           ),
@@ -57,8 +57,8 @@ class _LibraryPageState extends State<LibraryPage>
       body: TabBarView(
         controller: _tabController,
         children: const <Widget>[
-          LibraryList(onlyFavorite: true),
           LibraryList(onlyFavorite: false),
+          LibraryList(onlyFavorite: true),
         ], //TODO,, tabcontrollerがindexを管理してくれているから、順番に作っちゃうだけでおけ
       ),
     );
