@@ -55,24 +55,8 @@ final getFirestoreSearchedProvider = FutureProvider.family
 
 final searchedProvider = StateProvider<Searched>((ref) => testSearchedValue1);
 
-//pdfを保管するprovider
-final slidePdfProvider =
-    FutureProvider.family<Uint8List?, String>((ref, id) async {
-  final Uint8List? localData = await PdfDbController.instance.getPdf(id);
-  if (localData != null) {
-    debugPrint('ローカルデータを取得しました。');
-    return localData;
-  }
-  final pathReference = FirebaseStorage.instance.ref().child('works/$id.pdf');
-  const storage = 1024 * 1024 * 3;
-  ///これ以上のサイズのファイルは読み込めない。１度にキャッシュさせないとsyncfusion_pdfは機能しないのかも。
-  final Uint8List? remoteData = await pathReference.getData(storage);
-  remoteData != null ? await PdfDbController.instance.insertPdf(id, remoteData) : null;
-  debugPrint('リモートデータを取得しました。');
-  return remoteData;
-});
 
 //choiceChipの選択肢を管理する簡易的なProvider
 final intProvider = StateProvider.autoDispose((ref) => 0);
 final stringProvider =
-    StateProvider.autoDispose((ref) => '22202363'); //TODO 初期値これ良くないかな。
+    StateProvider.autoDispose((ref) => '22202363'); //TODO 初期値これ升田さんのやつ。

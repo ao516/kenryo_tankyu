@@ -2,30 +2,69 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 
+import '../components.dart';
+
+//同じ探究作品を見ている最中なのかどうかを管理するprovider
+//このproviderを導入することによって、全画面に切り替えたときに不用意な再ビルドを防ぐ。
+final isSameScreenProvider = StateProvider.autoDispose<bool>((ref) => false);
+
+enum DocumentType {
+  slide,
+  report,
+  poster,
+  thesis,
+}
+
+extension DocumentTypeExtension on DocumentType {
+  String get label {
+    switch (this) {
+      case DocumentType.slide:
+        return 'スライド';
+      case DocumentType.report:
+        return 'レポート';
+      case DocumentType.poster:
+        return 'ポスター';
+      case DocumentType.thesis:
+        return '論文';
+    }
+  }
+
+  String get idSuffix {
+    switch (this) {
+      case DocumentType.slide:
+        return '1';
+      case DocumentType.report:
+        return '2';
+      case DocumentType.poster:
+        return '3';
+      case DocumentType.thesis:
+        return '4';
+    }
+  }
+}
+
 class PdfChoiceChip extends ConsumerWidget {
   final Searched searched;
   const PdfChoiceChip({super.key, required this.searched});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(stringProvider.notifier);
-    final partOfId = searched.documentID.substring(0,7);
-    final list = [];
-    if (searched.existsSlide!) list.add('スライド');
-    if (searched.existsReport!) list.add('レポート');
-    if (searched.existsPoster!) list.add('ポスター');
-    if (searched.existsThesis!) list.add('論文');
+    final stringProviderNotifier = ref.read(stringProvider.notifier);
+    final isSameScreen = ref.watch(isSameScreenProvider);
+    final isSameScreenNotifier = ref.read(isSameScreenProvider.notifier);
+    final partOfId = searched.documentID.substring(0, 7);
+    final List<DocumentType> list = [];
+    if (searched.existsSlide!) list.add(DocumentType.slide);
+    if (searched.existsReport!) list.add(DocumentType.report);
+    if (searched.existsPoster!) list.add(DocumentType.poster);
+    if (searched.existsThesis!) list.add(DocumentType.thesis);
 
-    ///TODO 最初に呼び出すpdfを決定している。ちょっとコード汚いな…。
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(stringProvider.notifier).state = list[0] == 'スライド'
-          ? '${partOfId}1'
-          : list[0] == 'レポート'
-              ? '${partOfId}2'
-              : list[0] == 'ポスター'
-                  ? '${partOfId}3'
-                  : '${partOfId}4';
-    });
+      if (isSameScreen) return;
+      stringProviderNotifier.state = '$partOfId${list[0].idSuffix}';
+      isSameScreenNotifier.state = true;
+    }); //最初に表示されるpdfのidを決定
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -37,17 +76,14 @@ class PdfChoiceChip extends ConsumerWidget {
                 avatar: Container(),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
-                label: Text(choice),
+                label: Text(choice.label),
                 selected: list.indexOf(choice) == ref.watch(intProvider),
                 onSelected: (bool selected) {
+                  if (!selected) return; //同じチップを押した場合はなにもしない
                   ref.read(intProvider.notifier).state = list.indexOf(choice);
-                  choice == 'スライド'
-                      ? notifier.state = '${partOfId}1'
-                      : choice == 'レポート'
-                          ? notifier.state = '${partOfId}2'
-                          : choice == 'ポスター'
-                              ? notifier.state = '${partOfId}3'
-                              : notifier.state = '${partOfId}4';
+                  stringProviderNotifier.state = '$partOfId${choice.idSuffix}';
+                  debugPrint('選択されたチップは${choice.label}です。');
+                  debugPrint('選択されたチップのidは$partOfId${choice.idSuffix}です。');
                 },
               ),
             );
