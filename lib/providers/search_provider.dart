@@ -72,8 +72,6 @@ class SearchNotifier extends StateNotifier<Search> {
 
   void deleteWord(int index){
     final List<String> word = state.searchWord!.where((content) => state.searchWord!.indexOf(content) != index).toList();
-    //TODO まじで上の文なんでこんなになるかわからないけど、できてる笑。すげぇ。（感想）
-    //TODO 多分mapとか、リストの型変換とかそのあたりの理解が薄いんだろうな
     state = state.copyWith(searchWord: word);
   }
 

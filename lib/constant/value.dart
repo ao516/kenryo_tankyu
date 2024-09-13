@@ -85,3 +85,16 @@ const List<List<String>> krgp2022List = [
 ];
 
 const List<int> enterYears = [2022, 2023, 2024];
+enum SortType { newOrder, oldOrder, likeOrder }
+extension SortTypeExtension on SortType {
+  String get name {
+    switch (this) {
+      case SortType.newOrder:
+        return '新しい順';
+      case SortType.oldOrder:
+        return '古い順';
+      case SortType.likeOrder:
+        return 'いいね順';
+    }
+  }
+}

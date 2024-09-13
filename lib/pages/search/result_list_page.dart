@@ -2,6 +2,7 @@ import 'package:kenryo_tankyu/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:kenryo_tankyu/service/search_history_db_provider.dart';
 import 'package:kenryo_tankyu/service/service.dart';
 
@@ -31,26 +32,15 @@ class ResultListPage extends ConsumerWidget {
                   PopupMenuButton(
                     icon: const Icon(Icons.sort),
                     itemBuilder: (context) {
-                      return [
-                        PopupMenuItem(
-                          onTap: (){
-                            //todo
-                          },
-                          child: const Text('新しい順'),
-                        ),
-                        PopupMenuItem(
-                          onTap: (){
-                            //todo
-                          },
-                          child: const Text('古い順'),
-                        ),
-                        PopupMenuItem(
-                          onTap: (){
-                            //todo
-                          },
-                          child: const Text('いいね順'),
-                        ),
-                      ];
+                      return SortType.values //sortTypeはvalue.dartに定義
+                          .map((e) => PopupMenuItem(
+                                onTap: () => ref
+                                    .read(sortedListProvider.notifier)
+                                    .sortList(e),
+                                value: e,
+                                child: Text(e.name),
+                              ))
+                          .toList();
                     },
                   ),
                   IconButton(
@@ -63,20 +53,28 @@ class ResultListPage extends ConsumerWidget {
                 child: Consumer(
                   builder: (context, ref, child) {
                     final asyncValue = ref.watch(algoliaSearchProvider);
+                    final sortedList = ref.watch(sortedListProvider);
                     final provider = ref.watch(searchProvider);
                     return asyncValue.when(
                       data: (data) {
-                        if(data == null){
-                          return Center(child: Column(
+                        if (data == null) {
+                          return Center(
+                              child: Column(
                             children: [
                               const Text('データがヒットしませんでした'),
                               const SizedBox(height: 20),
-                              ElevatedButton(onPressed: ()=> ref.invalidate(algoliaSearchProvider), child: const Text('リロードする')),
+                              ElevatedButton(
+                                  onPressed: () =>
+                                      ref.invalidate(algoliaSearchProvider),
+                                  child: const Text('リロードする')),
                             ],
-                          ));  //TODO ユーザーに検索条件を変えさせるようにする。変えないと再読み込みできないようにしたい。
+                          )); //TODO ユーザーに検索条件を変えさせるようにする。変えないと再読み込みできないようにしたい。
                         } else {
                           ///検索履歴に保存
-                          SearchHistoryController.instance.insertHistory(provider.copyWith(savedAt: DateTime.now(), numberOfHits: data.length));
+                          SearchHistoryController.instance.insertHistory(
+                              provider.copyWith(
+                                  savedAt: DateTime.now(),
+                                  numberOfHits: data.length));
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -88,7 +86,7 @@ class ResultListPage extends ConsumerWidget {
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               ),
-                              ResultList(data: data),
+                              ResultList(data: sortedList),
                             ],
                           );
                         }
