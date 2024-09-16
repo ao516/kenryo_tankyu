@@ -9,6 +9,8 @@ import 'package:kenryo_tankyu/service/searched_history_db_provider.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'algolia.dart';
 
+final forceRefreshProvider = StateProvider.autoDispose<bool>((ref) => false);
+
 final algoliaSearchProvider = FutureProvider
     .autoDispose<List<Searched>?>((ref) async {
   final search = ref.read(searchProvider); //ref.readにすると、watchと違って値が変更されたときに再ビルドされない！
@@ -103,6 +105,18 @@ class SortedListNotifier extends StateNotifier<List<Searched>> {
 
 
 final randomAlgoliaSearchProvider = FutureProvider.autoDispose<List<Searched>?> ((ref)async {
+  final isForce = ref.watch(forceRefreshProvider);
+  final data = await RandomRecommendedCacheController.instance.getAllCache();
+  if (isForce == false &&data != null && data.isNotEmpty && data[0].savedAt != null && data[0].savedAt!.difference(DateTime.now()).inDays < 3) {
+    //キャッシュが3日以内のものであればそれを返す。
+    debugPrint('キャッシュから取得します');
+    ref.read(forceRefreshProvider.notifier).state = false;
+    return data;
+  }
+
+  debugPrint('Algoliaから取得します');
+
+
   int randomNumber1 = Random().nextInt(4); //0~3の乱数を生成。この数はalgoliaに入っているデータの数に合わせる。
   int randomNumber2;
   do {
@@ -114,20 +128,18 @@ final randomAlgoliaSearchProvider = FutureProvider.autoDispose<List<Searched>?> 
   final data1 = await _getQuery(algoliaQuery, randomNumber1);
   final data2 = await _getQuery(algoliaQuery, randomNumber2);
 
-  //ここでalgoliaから取得してきたデータが既にお気に入りに登録してあるかどうかを取得。
-  final List<String> documentIDs = [data1.objectID, data2.objectID];
-  final List<String>? favoriteList =
-      await SearchedHistoryController.instance.getSomeFavoriteState(documentIDs);
-  if (favoriteList == null) {
+  final isFavorite1 = await SearchedHistoryController.instance.getFavoriteState(data1.objectID);
+  final isFavorite2 = await SearchedHistoryController.instance.getFavoriteState(data2.objectID);
+  if (isFavorite1 == null && isFavorite2 == null) {
     RandomRecommendedCacheController.instance.insertMultipleCache(Searched.fromAlgolia(data1, 0), Searched.fromAlgolia(data2, 0));
     return [Searched.fromAlgolia(data1, 0), Searched.fromAlgolia(data2, 0)];
   } else {
-    RandomRecommendedCacheController.instance.insertMultipleCache(, searched2)
+    RandomRecommendedCacheController.instance.insertMultipleCache(Searched.fromAlgolia(data1, 0), Searched.fromAlgolia(data2, 0));
     return [
-      favoriteList.contains(data1.objectID)
+      isFavorite1 == 1
           ? Searched.fromAlgolia(data1, 1)
           : Searched.fromAlgolia(data1, 0),
-      favoriteList.contains(data2.objectID)
+      isFavorite2 == 1
           ? Searched.fromAlgolia(data2, 1)
           : Searched.fromAlgolia(data2, 0)
     ];

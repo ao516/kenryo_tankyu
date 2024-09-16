@@ -38,7 +38,10 @@ class HomePage extends ConsumerWidget {
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 IconButton(
-                    onPressed: () => ref.invalidate(randomAlgoliaSearchProvider),
+                    onPressed: () {
+                      ref.read(forceRefreshProvider.notifier).state = true;
+                      ref.invalidate(randomAlgoliaSearchProvider);
+                    },
                     icon: const Icon(Icons.refresh)),
               ],
             ),
@@ -46,7 +49,7 @@ class HomePage extends ConsumerWidget {
               builder: (context, ref, child) {
                 final asyncValue = ref.watch(randomAlgoliaSearchProvider);
                 return asyncValue.when(
-                  loading: () => const CircularProgressIndicator(),
+                  loading: () => Center(child: const CircularProgressIndicator()),
                   error: (error, stackTrace) => Text('Error: $error'),
                   data: (data) {
                     if (data == null) {

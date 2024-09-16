@@ -1,6 +1,3 @@
-import 'dart:js_interop';
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -29,11 +26,12 @@ class RandomRecommendedCacheController {
             'year INTEGER NOT NULL, '
             'course TEXT NOT NULL, '
             'eventName TEXT NOT NULL, '
-            'CHECK(LENGTH(documentID) == 8),'
+            'savedAt TEXT NOT NULL, '
+            'CHECK(LENGTH(documentID) == 8)'
             ');',
           );
         },
-        version: 1,
+        version: 3,
 
         ///recommendedNumberには1か2しか入らない。homePageでの表示順で保管されてます。
       );
@@ -46,9 +44,11 @@ class RandomRecommendedCacheController {
       Searched searched1, Searched searched2) async {
     final Database db = await database;
     final json1 = searched1.toJson();
+    json1['savedAt'] = DateTime.now().toIso8601String();
     json1['recommendedNumber'] = 1;
     final json2 = searched2.toJson();
     json2['recommendedNumber'] = 2;
+    json2['savedAt'] = DateTime.now().toIso8601String();
     final List<Map<String, dynamic>> maps = [
       json1,
       json2,
@@ -59,5 +59,16 @@ class RandomRecommendedCacheController {
             conflictAlgorithm: ConflictAlgorithm.replace);
       }
     });
+  }
+
+  Future<List<Searched>?> getAllCache() async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> maps =
+        await db.query('random_recommended_cache');
+    if (maps.isEmpty) {
+      return null;
+    }
+    return List.generate(
+        maps.length, (index) => Searched.fromSQLite(maps[index]));
   }
 }
