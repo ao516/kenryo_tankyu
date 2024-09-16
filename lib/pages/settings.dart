@@ -33,8 +33,11 @@ class SettingsPage extends ConsumerWidget {
                 showDialog(
                     context: context,
                     builder: (context) {
+                      final profileName =
+                          FirebaseAuth.instance.currentUser?.displayName ?? 'ゲスト';
                       return AlertDialog(
-                          title: const Text('ログアウトしてよろしいですか？'),
+                          title: Text('待って！ $profileNameさん'),
+                          content: const Text('ログアウトしてよろしいですか？'),
                           actions: [
                             TextButton(
                               onPressed: () {

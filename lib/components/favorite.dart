@@ -31,6 +31,10 @@ class ChangeFavoriteStateNotifier extends StateNotifier<int> {
     await SearchedHistoryController.instance
         .changeFavoriteState(documentID, newFavoriteState);
     state = newFavoriteState;
+
+    //todo この辺り、トランザクションとか意識しないといけないかも。
+    //参考：https://zenn.dev/pressedkonbu/articles/random-get-from-firestore かな？
+    //https://zenn.dev/yucatio/articles/7c4ba0d0138ca9
   }
 }
 

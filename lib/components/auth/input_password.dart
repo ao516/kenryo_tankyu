@@ -140,7 +140,6 @@ class _InputPasswordState extends ConsumerState<InputPassword> {
                 ),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                foregroundColor: Theme.of(context).colorScheme.onPrimary,
               ),
               child: const Text('新規作成'),
             ),
@@ -179,6 +178,7 @@ class _InputPasswordState extends ConsumerState<InputPassword> {
     try {
       await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
+      await firebaseAuth.currentUser?.updateDisplayName(ref.watch(authProvider).userName);
       await firebaseAuth.currentUser?.sendEmailVerification();
       if(!context.mounted) return;
     } on FirebaseAuthException catch (e) {
