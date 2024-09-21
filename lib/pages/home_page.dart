@@ -49,7 +49,7 @@ class HomePage extends ConsumerWidget {
               builder: (context, ref, child) {
                 final asyncValue = ref.watch(randomAlgoliaSearchProvider);
                 return asyncValue.when(
-                  loading: () => Center(child: const CircularProgressIndicator()),
+                  loading: () => const Center(child: CircularProgressIndicator()),
                   error: (error, stackTrace) => Text('Error: $error'),
                   data: (data) {
                     if (data == null) {
@@ -58,10 +58,10 @@ class HomePage extends ConsumerWidget {
                       return Column(
                         children: [
                           Card(
-                            child:ResultPreviewContent(searched: data[0]),
+                            child:ResultPreviewContent(searched: data[0], forLibrary: false,),
                           ),
                           Card(
-                            child:ResultPreviewContent(searched: data[1]),
+                            child:ResultPreviewContent(searched: data[1], forLibrary: false,),
                           ),
                         ],
                       );

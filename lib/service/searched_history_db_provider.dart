@@ -120,4 +120,13 @@ class SearchedHistoryController {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+
+  Future<void> deleteHistory(String documentID) async {
+    final Database db = await database;
+    await db.delete(
+      'searched_history',
+      where: 'documentID = ?',
+      whereArgs: [documentID],
+    );
+  }
 }

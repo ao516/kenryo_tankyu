@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/constant/constant.dart';
@@ -6,13 +7,60 @@ import 'package:kenryo_tankyu/service/service.dart';
 
 import '../../providers/providers.dart';
 
-class ResultPreviewContent extends StatelessWidget {
+class ResultPreviewContent extends ConsumerWidget {
   final Searched searched;
-  const ResultPreviewContent({super.key, required this.searched});
+  final bool forLibrary;
+  const ResultPreviewContent({super.key, required this.searched, required this.forLibrary});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     return GestureDetector(
+      onTap: () async {
+        ///詳細画面への遷移と、履歴の追加
+        context.push('/result', extra: searched);
+        SearchedHistoryController.instance.insertHistory(
+          Searched(
+              documentID: searched.documentID,
+              isFavorite: searched.isFavorite,
+              category1: searched.category1,
+              subCategory1: searched.subCategory1,
+              category2: searched.category2,
+              subCategory2: searched.subCategory2,
+              year: searched.year,
+              course: searched.course,
+              title: searched.title,
+              eventName: searched.eventName,
+              savedAt: DateTime.now()),
+        );
+      },
+      onLongPress: forLibrary ? () async {
+        ///履歴の消去
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('履歴を消去しますか？'),
+              content: Text('「${searched.title}」の履歴を消去しますか？'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('キャンセル'),
+                ),
+                TextButton(
+                  onPressed: ()  {
+                    SearchedHistoryController.instance.deleteHistory(searched.documentID);
+                    ref.invalidate(searchedHistoryProvider);
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('消去'),
+                ),
+              ],
+            );
+          },
+        );
+      } : null,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -40,7 +88,7 @@ class ResultPreviewContent extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top:8.0,left:4.0),
-                  child: FavoriteForResultListPage(searched: searched),
+                  child: forLibrary ? FavoriteForHistory(searched: searched) : FavoriteForResultListPage(searched: searched),
                 ),
               ],
             ),
@@ -68,24 +116,6 @@ class ResultPreviewContent extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () async {
-        ///詳細画面への遷移と、履歴の追加
-        context.push('/result', extra: searched);
-        SearchedHistoryController.instance.insertHistory(
-          Searched(
-              documentID: searched.documentID,
-              isFavorite: searched.isFavorite,
-              category1: searched.category1,
-              subCategory1: searched.subCategory1,
-              category2: searched.category2,
-              subCategory2: searched.subCategory2,
-              year: searched.year,
-              course: searched.course,
-              title: searched.title,
-              eventName: searched.eventName,
-              savedAt: DateTime.now()),
-        );
-      },
     );
   }
 }
