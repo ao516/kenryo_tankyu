@@ -36,7 +36,7 @@ class LibraryList extends ConsumerWidget {
                       itemBuilder: (context, index) {
                         return Consumer(builder: (context, ref, child) {
                           final searched = searcheds[index];
-                          return HistoryPreviewContent(searched: searched);
+                          return ResultPreviewContent(searched: searched, forLibrary: true,);
                         });
                       },
                       separatorBuilder: (BuildContext context, int index) {

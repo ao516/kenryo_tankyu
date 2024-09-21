@@ -19,7 +19,7 @@ class ResultList extends ConsumerWidget {
           itemBuilder: (BuildContext context, int index) {
             final Searched searched = data[index];
             return Consumer(builder: (context, ref, child) {
-              return ResultPreviewContent(searched: searched);
+              return ResultPreviewContent(searched: searched, forLibrary: false,);
             });
           },
           separatorBuilder: (BuildContext context, int index) {
