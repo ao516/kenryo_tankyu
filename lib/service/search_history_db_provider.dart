@@ -47,6 +47,7 @@ class SearchHistoryController {
     await db.delete('search_history');
   }
 
+
   Future<void> insertHistory(Search search) async {
     final Database db = await database;
     await db.insert(

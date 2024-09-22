@@ -920,14 +920,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
-  screen_capture_event:
-    dependency: "direct main"
-    description:
-      name: screen_capture_event
-      sha256: "49981745c19e86c3ea7df2b1982651f5f7fb439d293c72cc578c15d032731af7"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.1"
   screenshot_callback:
     dependency: "direct main"
     description:

@@ -98,3 +98,19 @@ extension SortTypeExtension on SortType {
     }
   }
 }
+
+enum SortTypeForTeacher {nameAscendingOrder,nameDescendingOrder,subjectOrder,gradeOrder}
+extension SortTypeForTeacherExtension on SortTypeForTeacher {
+  String get name {
+    switch (this) {
+      case SortTypeForTeacher.nameAscendingOrder:
+        return '50音順';
+      case SortTypeForTeacher.nameDescendingOrder:
+        return '逆50音順';
+      case SortTypeForTeacher.subjectOrder:
+        return '教科順';
+      case SortTypeForTeacher.gradeOrder:
+        return '学年順';
+    }
+  }
+}

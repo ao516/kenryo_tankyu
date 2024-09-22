@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kenryo_tankyu/pages/teacher/teacher_provider.dart';
+import 'package:kenryo_tankyu/model/teacher.dart';
+import 'package:kenryo_tankyu/service/teacher_sort_provider.dart';
+
+import '../../constant/constant.dart';
+
 
 class TeacherSelectPage extends ConsumerWidget {
-  TeacherSelectPage({required this.subjectNumber, super.key});
-
-  static const List<List<List<String>>> teacherList = [
-    [
-      ['日下部英司', '在籍中','kusakabe'],
-      ['降籏史郎', '異動','hurihuri']
-    ],
-    [
-      ['塩原潤', '在籍中']
-    ],
-    [
-      ['伊藤', '在籍中']
-    ],
-    [
-      ['金澤大典', '在籍中','kanazawa']
-    ],
-  ];
-
-  int subjectNumber;
-
+  const TeacherSelectPage({super.key});
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final teacherList = ref.watch(teacherSortedListProvider);
+    final sortedType = ref.watch(sortedTypeForTeacherProvider);
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: const Text('縣陵先生図鑑'),actions: [
+        PopupMenuButton(itemBuilder: (context) {
+          return SortTypeForTeacher.values
+              .map((e) => PopupMenuItem(
+                    onTap: () {
+                        ref.read(teacherSortedListProvider.notifier).sortList(e);
+                        ref.read(sortedTypeForTeacherProvider.notifier).state = e;
+                    },
+                    value: e,
+                    child: Text(e.name),
+                  ))
+              .toList();
+        },icon: const Icon(Icons.sort),),
+      ],),
       body: ListView.separated(
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
@@ -36,17 +36,24 @@ class TeacherSelectPage extends ConsumerWidget {
               trailing: const Icon(Icons.navigate_next),
               title: Row(
                 children: [
-                  teacherList[subjectNumber][index][1] == '在籍中'
-                      ? Chip(avatar: CircleAvatar(backgroundColor: Colors.green.shade200,),label: Text(teacherList[subjectNumber][index][1]))
-                      : const Text(''),
-                  const SizedBox(width: 10,),
-                  Text(teacherList[subjectNumber][index][0]),
+                  Chip(
+                      avatar: CircleAvatar(
+                        backgroundColor: sortedType == SortTypeForTeacher.gradeOrder
+                            ? teacherList[index].grade.color
+                            : teacherList[index].subject.color,
+                      ),
+                      label: Text(
+                          sortedType == SortTypeForTeacher.gradeOrder
+                              ? teacherList[index].grade.name
+                              : teacherList[index].subject.name)),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(teacherList[index].name),
                 ],
               ),
               onTap: () {
-                ref.read(selectedTeacherProvider.notifier).state = teacherList[subjectNumber][index][0];
-                ref.read(teacherPdfProvider(teacherList[subjectNumber][index][2]));
-                context.push('/teacher/select/showPdf');
+                context.push('/teacher/showPdf');
               },
             ),
           );
@@ -60,7 +67,7 @@ class TeacherSelectPage extends ConsumerWidget {
             ),
           );
         },
-        itemCount: teacherList[subjectNumber].length,
+        itemCount: teacherList.length,
       ),
     );
   }

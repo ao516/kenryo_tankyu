@@ -1,6 +1,6 @@
-export 'search.dart';
+export '../model/search.dart';
 export 'search_provider.dart';
-export 'searched.dart';
+export '../model/searched.dart';
 export 'searched_provider.dart';
 export 'auth_provider.dart';
-export 'auth.dart';
+export '../model/auth.dart';

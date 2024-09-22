@@ -33,8 +33,10 @@ class SearchHistoryList extends ConsumerWidget {
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(word, maxLines: 1, overflow: TextOverflow.ellipsis),
-                              Text(' ${search.numberOfHits}件', style: const TextStyle(fontSize: 12)),
+                              Text(word,
+                                  maxLines: 1, overflow: TextOverflow.ellipsis),
+                              Text(' ${search.numberOfHits}件',
+                                  style: const TextStyle(fontSize: 12)),
                             ],
                           ),
                           onTap: () {

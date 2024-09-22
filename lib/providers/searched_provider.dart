@@ -1,11 +1,8 @@
-import 'dart:typed_data';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
-import 'package:kenryo_tankyu/service/pdf_db.dart';
 
 //調べている探究作品がキャッシュから取得したものかどうかを管理するProvider
 final isCachedProvider = StateProvider.autoDispose<bool>((ref) => false);
