@@ -1,10 +1,11 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/firebase_options.dart';
 import 'package:kenryo_tankyu/router.dart';
-import 'package:kenryo_tankyu/service/service.dart';
 import 'package:kenryo_tankyu/theme.dart';
+import 'package:kenryo_tankyu/service/service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 Future<void> main() async {
@@ -39,13 +40,29 @@ class _MainAppState extends ConsumerState<MainApp> {
   Widget build(BuildContext context) {
     final routerConfig = ref.watch(routesProvider);
     final themeMode = ref.watch(themeModeProvider);
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      routerConfig: routerConfig,
-      themeMode: themeMode,
-      darkTheme: ThemeData(useMaterial3: true, colorScheme: MaterialTheme.darkScheme()),
-      theme: ThemeData(useMaterial3: true, colorScheme: MaterialTheme.lightScheme(),
-      ),
+    return DynamicColorBuilder(
+      builder: (lightDynamic, darkDynamic) {
+        ColorScheme lightColorScheme;
+        ColorScheme darkColorScheme;
+
+        if (lightDynamic != null && darkDynamic != null) {
+          lightColorScheme = lightDynamic.harmonized();
+          darkColorScheme = darkDynamic.harmonized();
+        }
+        else {
+          lightColorScheme =  MaterialTheme.lightScheme();
+          darkColorScheme = MaterialTheme.darkScheme();
+        }
+
+        return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          routerConfig: routerConfig,
+          themeMode: themeMode,
+          darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+          theme: ThemeData(useMaterial3: true, colorScheme:lightColorScheme,
+          ),
+        );
+      }
     );
   }
 

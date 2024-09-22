@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'search.dart';
+import '../model/search.dart';
 
 final searchProvider =
     StateNotifierProvider<SearchNotifier, Search>((ref) => SearchNotifier());

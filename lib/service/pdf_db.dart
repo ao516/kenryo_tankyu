@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -43,13 +45,27 @@ class PdfDbController {
     );
   }
 
-  Future<Uint8List?> getPdf(String id) async {
+  Future<Uint8List?> getLocalPdf(String id) async {
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('works_pdf',
         columns: ['pdfData'], where: 'id = ?', whereArgs: [id]);
     if (maps.isEmpty) {
       return null;
     }
+    debugPrint('ローカルに保管されたpdfを取得しました。');
     return maps[0]['pdfData'];
+  }
+
+  Future<Uint8List?> getRemotePdf(String id) async {
+    final pathReference = FirebaseStorage.instance.ref().child('works/$id.pdf');
+    const storage = 1024 * 1024 * 3;
+
+    ///これ以上のサイズ（3MB）のファイルは読み込めないように設定してあります。
+    final Uint8List? remoteData = await pathReference.getData(storage);
+    remoteData != null
+        ? await PdfDbController.instance.insertPdf(id, remoteData)
+        : null;
+    debugPrint('リモートに保管されたpdfを取得しました。');
+    return remoteData;
   }
 }

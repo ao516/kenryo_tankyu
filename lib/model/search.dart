@@ -6,8 +6,8 @@ import 'package:kenryo_tankyu/providers/providers.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'search.freezed.dart';
-part 'search.g.dart';
+part '../model/search.freezed.dart';
+part '../model/search.g.dart';
 
 //ファイルが生成されなくてキレそうな時は…。笑
 //①'search.g.dart'を書き直す

@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/service/algolia_provider.dart';
 
 import '../components/components.dart';
-import '../constant/constant.dart';
 
 class HomePage extends ConsumerWidget {
   static HomePage builder(BuildContext context, GoRouterState state) =>

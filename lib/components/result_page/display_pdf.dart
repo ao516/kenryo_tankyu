@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-
-import '../../pages/pages.dart';
 import '../../service/pdf_db.dart';
 
 
@@ -23,7 +21,7 @@ class DisplayPdf extends ConsumerWidget {
           Consumer(builder: (context, ref, child) {
             final nowWatchingPdf = ref.watch(stringProvider);
             return FutureBuilder<Uint8List?>(
-              future: getPdf(nowWatchingPdf),
+              future: _getPdf(nowWatchingPdf),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasError) {
@@ -102,21 +100,13 @@ class DisplayPdf extends ConsumerWidget {
     );
   }
 
-  Future<Uint8List?> getPdf(String id) async {
-    final Uint8List? localData = await PdfDbController.instance.getPdf(id);
+  Future<Uint8List?> _getPdf(String id) async {
+    final Uint8List? localData = await PdfDbController.instance.getLocalPdf(id);
     if (localData != null) {
-      debugPrint('ローカルに保管されたpdfを取得しました。');
       return localData;
     }
-    final pathReference = FirebaseStorage.instance.ref().child('works/$id.pdf');
-    const storage = 1024 * 1024 * 3;
-
-    ///これ以上のサイズ（3MB）のファイルは読み込めないように設定してあります。
-    final Uint8List? remoteData = await pathReference.getData(storage);
-    remoteData != null
-        ? await PdfDbController.instance.insertPdf(id, remoteData)
-        : null;
-    debugPrint('リモートに保管されたpdfを取得しました。');
+    final Uint8List? remoteData =
+        await PdfDbController.instance.getRemotePdf(id);
     return remoteData;
   }
 }

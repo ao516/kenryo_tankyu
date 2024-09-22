@@ -4,7 +4,7 @@ import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/components/favorite.dart';
 
 import '../constant/value.dart';
-import '../providers/searched.dart';
+import '../model/searched.dart';
 
 class HistoryPreviewContent extends StatelessWidget {
   final Searched searched;
