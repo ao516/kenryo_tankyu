@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kenryo_tankyu/model/teacher.dart';
-import 'package:kenryo_tankyu/service/teacher_sort_provider.dart';
+import 'package:kenryo_tankyu/models/models.dart';
 
 import '../../constant/constant.dart';
+import '../../providers/providers.dart';
 
 
 class TeacherSelectPage extends ConsumerWidget {
   const TeacherSelectPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final teacherList = ref.watch(teacherSortedListProvider);
+    final notifier = ref.read(selectedTeacherProvider.notifier);
+    final sortedTeacherList = ref.watch(teacherSortedListProvider);
     final sortedType = ref.watch(sortedTypeForTeacherProvider);
     return Scaffold(
       appBar: AppBar(title: const Text('縣陵先生図鑑'),actions: [
@@ -30,32 +31,29 @@ class TeacherSelectPage extends ConsumerWidget {
       ],),
       body: ListView.separated(
         itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            onTap: () {},
-            child: ListTile(
-              trailing: const Icon(Icons.navigate_next),
-              title: Row(
-                children: [
-                  Chip(
-                      avatar: CircleAvatar(
-                        backgroundColor: sortedType == SortTypeForTeacher.gradeOrder
-                            ? teacherList[index].grade.color
-                            : teacherList[index].subject.color,
-                      ),
-                      label: Text(
-                          sortedType == SortTypeForTeacher.gradeOrder
-                              ? teacherList[index].grade.name
-                              : teacherList[index].subject.name)),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(teacherList[index].name),
-                ],
-              ),
-              onTap: () {
-                context.push('/teacher/showPdf');
-              },
+          return ListTile(
+            trailing: const Icon(Icons.navigate_next),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('${sortedTeacherList[index].name} 先生'),
+                Chip(
+                    avatar: CircleAvatar(
+                      backgroundColor: sortedType == SortTypeForTeacher.gradeOrder
+                          ? sortedTeacherList[index].grade.color
+                          : sortedTeacherList[index].subject.color,
+                    ),
+                    label: Text(
+                        sortedType == SortTypeForTeacher.gradeOrder
+                            ? sortedTeacherList[index].grade.name
+                            : sortedTeacherList[index].subject.name)),
+              ],
             ),
+            onTap: () {
+              notifier.state = sortedTeacherList[index];
+              if(!context.mounted) return;
+              context.push('/teacher/showPdf');
+            },
           );
         },
         separatorBuilder: (BuildContext context, int index) {
@@ -67,7 +65,7 @@ class TeacherSelectPage extends ConsumerWidget {
             ),
           );
         },
-        itemCount: teacherList.length,
+        itemCount: sortedTeacherList.length,
       ),
     );
   }

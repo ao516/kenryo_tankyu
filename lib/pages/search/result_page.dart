@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
+import 'package:kenryo_tankyu/models/models.dart';
 import 'package:kenryo_tankyu/pages/pages.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:screen_capture_event/screen_capture_event.dart';

@@ -20,12 +20,12 @@ class PdfDbController {
             'id TEXT PRIMARY KEY NOT NULL, '
             'pdfData BLOB NOT NULL, '
             'savedAt TEXT NOT NULL, '
-            'CHECK(LENGTH(id) == 8),'
+            'CHECK(LENGTH(id) == 8 OR LENGTH(id) == 5),'
             'CHECK(pdfData != null) '
             ');',
           );
         },
-        version: 2,
+        version: 3,
       );
     } catch (error, stackTrace) {
       return Future.error(error, stackTrace);
@@ -58,6 +58,19 @@ class PdfDbController {
 
   Future<Uint8List?> getRemotePdf(String id) async {
     final pathReference = FirebaseStorage.instance.ref().child('works/$id.pdf');
+    const storage = 1024 * 1024 * 3;
+
+    ///これ以上のサイズ（3MB）のファイルは読み込めないように設定してあります。
+    final Uint8List? remoteData = await pathReference.getData(storage);
+    remoteData != null
+        ? await PdfDbController.instance.insertPdf(id, remoteData)
+        : null;
+    debugPrint('リモートに保管されたpdfを取得しました。');
+    return remoteData;
+  }
+
+  Future<Uint8List?> getRemotePdfForTeacher(String id) async {
+    final pathReference = FirebaseStorage.instance.ref().child('teachers/$id.pdf');
     const storage = 1024 * 1024 * 3;
 
     ///これ以上のサイズ（3MB）のファイルは読み込めないように設定してあります。

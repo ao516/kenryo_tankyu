@@ -2,7 +2,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'auth.freezed.dart';
-part '../model/auth.g.dart';
+part '../models/auth.g.dart';
 
 @freezed
 class Auth with _$Auth {

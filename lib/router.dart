@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/components/components.dart';
+import 'package:kenryo_tankyu/models/models.dart';
 import 'package:kenryo_tankyu/pages/pages.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 

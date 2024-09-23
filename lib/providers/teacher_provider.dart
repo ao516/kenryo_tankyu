@@ -1,7 +1,24 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kenryo_tankyu/constant/constant.dart';
-import 'package:kenryo_tankyu/constant/teacher_list.dart';
-import 'package:kenryo_tankyu/model/teacher.dart';
+import 'package:kenryo_tankyu/models/models.dart';
+import 'package:kenryo_tankyu/service/service.dart';
+import '../constant/constant.dart';
+
+final selectedTeacherProvider =
+    StateProvider<Teacher>((ref) => teacherList[0]);
+
+final getPdfProvider = FutureProvider.autoDispose<Uint8List?>((ref) async {
+  final selectedTeacher = ref.watch(selectedTeacherProvider);
+  final localData =
+      await PdfDbController.instance.getLocalPdf(selectedTeacher.id);
+  if (localData != null) {
+    return localData;
+  }
+  final remoteData =
+      await PdfDbController.instance.getRemotePdf(selectedTeacher.id);
+  return remoteData;
+});
+
 
 final teacherSortedListProvider = StateNotifierProvider.autoDispose<TeacherSortedListNotifier, List<Teacher>>((ref) => TeacherSortedListNotifier());
 

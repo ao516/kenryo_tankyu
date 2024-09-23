@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kenryo_tankyu/components/components.dart';
-import 'package:kenryo_tankyu/providers/providers.dart';
+import 'package:kenryo_tankyu/models/models.dart';
 
 class OverlayDialog extends ModalRoute<void> {
   final Searched searched;

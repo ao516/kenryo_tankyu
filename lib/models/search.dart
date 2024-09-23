@@ -2,12 +2,12 @@
 
 import 'dart:convert';
 
-import 'package:kenryo_tankyu/providers/providers.dart';
+import 'package:kenryo_tankyu/models/searched.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part '../model/search.freezed.dart';
-part '../model/search.g.dart';
+part '../models/search.freezed.dart';
+part '../models/search.g.dart';
 
 //ファイルが生成されなくてキレそうな時は…。笑
 //①'search.g.dart'を書き直す

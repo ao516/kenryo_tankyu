@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kenryo_tankyu/providers/providers.dart';
+import 'package:kenryo_tankyu/models/models.dart';
 
 class WorkDetailsTable extends StatelessWidget {
   final Searched searched;
