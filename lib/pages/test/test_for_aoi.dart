@@ -13,11 +13,15 @@ class TestForAoi extends StatelessWidget {
   Widget build(BuildContext context) {
     final firebaseAuth = FirebaseAuth.instance;
     return Scaffold(
-      appBar: AppBar(title: Text(firebaseAuth.currentUser!.displayName?? '')),
-      body: const Center(child:WorkImageChip(searched: testSearchedValue1)),
+      appBar: AppBar(title: Text(firebaseAuth.currentUser!.displayName ?? '')),
+      body: Column(
+        children: [
+
+          const Center(child: WorkImageChip(searched: testSearchedValue1)),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: ()  async{
-        },
+        onPressed: () async {},
       ),
     );
   }
