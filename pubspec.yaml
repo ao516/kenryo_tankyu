@@ -93,7 +93,8 @@ flutter:
     - assets/images/
     - assets/files/sample.pdf
     - assets/images/background/
-    - assets/images/category/
+    - assets/images/category_old/
+    - assets/images/categories/
     - assets/your_service_account_credentials.json
   #   - images/a_dot_ham.jpeg
 
