@@ -92,8 +92,8 @@ flutter:
   assets:
     - assets/images/
     - assets/files/sample.pdf
+    - assets/images/background/
     - assets/images/category/
-    - assets/images/subject_image/
     - assets/your_service_account_credentials.json
   #   - images/a_dot_ham.jpeg
 

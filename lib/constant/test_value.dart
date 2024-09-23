@@ -1,4 +1,4 @@
-import 'package:kenryo_tankyu/providers/providers.dart';
+import 'package:kenryo_tankyu/models/models.dart';
 
 const Searched testSearchedValue1 = Searched(
   documentID: '22202360',

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../model/search.dart';
+import 'package:kenryo_tankyu/models/models.dart';
 
 final searchProvider =
     StateNotifierProvider<SearchNotifier, Search>((ref) => SearchNotifier());

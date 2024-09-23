@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
-import 'package:kenryo_tankyu/providers/providers.dart';
+import 'package:kenryo_tankyu/models/models.dart';
 import '../../service/service.dart';
 
 class ResultList extends ConsumerWidget {

@@ -7,7 +7,7 @@ import 'package:googleapis_auth/auth_io.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/constant/constant.dart';
-import 'package:kenryo_tankyu/providers/providers.dart';
+import 'package:kenryo_tankyu/models/models.dart';
 
 class EditSpreadSheet {
   static final EditSpreadSheet _instance = EditSpreadSheet._internal();

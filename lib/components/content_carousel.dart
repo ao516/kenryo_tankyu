@@ -33,9 +33,17 @@ class ContentCarousel extends ConsumerWidget {
                 context.push(imageList[index][1]);
               },
               child: Card(
-                  child: Center(
-                child: Text(imageList[index][0],
-                    style: const TextStyle(fontSize: 18)),
+                  child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: index == 1 ? const AssetImage('assets/images/background/krgp.png'): const AssetImage('assets/images/background/teacher.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Center(
+                  child: Text(imageList[index][0],
+                      style: const TextStyle(fontSize: 24,color: Colors.black)),
+                ),
               ))),
         ),
         Row(

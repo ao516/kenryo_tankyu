@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/components/result_page/overlay_dialog.dart';
+import 'package:kenryo_tankyu/models/models.dart';
 
 import '../../providers/providers.dart';
 
