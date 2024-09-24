@@ -2,7 +2,9 @@
 
 import 'package:algolia/algolia.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:kenryo_tankyu/models/models.dart';
 
 part 'searched.freezed.dart';
 part 'searched.g.dart';
@@ -22,19 +24,19 @@ class Searched with _$Searched {
 
   const factory Searched({
     @JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
-    @Default('empty')
-    String documentID,
+    @Default(0)
+    int documentID,
     @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
     @Default(0)
     int isFavorite,
-    @JsonKey(name: 'category1') required String category1,
-    @JsonKey(name: 'category2') required String category2,
-    @JsonKey(name: 'subCategory1') required String subCategory1,
-    @JsonKey(name: 'subCategory2') required String subCategory2,
-    @JsonKey(name: 'year') required int year,
-    @JsonKey(name: 'eventName') required String eventName,
-    @JsonKey(name: 'course') required String course,
-    @JsonKey(name: 'title') required String title,
+    @CategoryEnumConverter() required Category category1,
+    @SubCategoryEnumConverter() required SubCategory subCategory1,
+    @CategoryEnumConverter() required Category category2,
+    @SubCategoryEnumConverter() required SubCategory subCategory2,
+    required int year,
+    @EventNameEnumConverter() required EventName eventName,
+    @CourseEnumConverter() required Course course,
+    required String title,
     @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
     String? author,
     @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
@@ -59,12 +61,12 @@ class Searched with _$Searched {
   factory Searched.fromAlgolia(AlgoliaObjectSnapshot doc, int isFavorite) {
     final Map<String, dynamic> data = doc.data;
     return Searched.fromJson(data)
-        .copyWith(documentID: doc.objectID, isFavorite: isFavorite);
+        .copyWith(documentID: int.parse(doc.objectID), isFavorite: isFavorite);
   }
   factory Searched.fromFirestore(DocumentSnapshot doc, int isFavorite) {
     final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return Searched.fromJson(data)
-        .copyWith(documentID: doc.id, isFavorite: isFavorite);
+        .copyWith(documentID: int.parse(doc.id), isFavorite: isFavorite);
   }
   factory Searched.fromSQLite(Map<String, dynamic> searched) {
     return Searched.fromJson(searched).copyWith(
@@ -79,7 +81,8 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
 
   @override
   DateTime fromJson(String json) {
-    return DateTime.parse(json).toLocal(); //TODO ここどうすっぺ？
+    debugPrint('DateTimeConverter fromJson: $json');
+    return DateTime.parse(json).toLocal();
   }
 
   @override

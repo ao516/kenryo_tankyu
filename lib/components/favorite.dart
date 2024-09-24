@@ -10,7 +10,7 @@ final ableChangeFavoriteProvider =
 
 ///documentIDごとにfavoriteかどうかを記録するProvider。
 final userIsFavoriteStateProvider = StateNotifierProvider.family
-    .autoDispose<ChangeFavoriteStateNotifier, int, String>((ref, documentID) {
+    .autoDispose<ChangeFavoriteStateNotifier, int, int>((ref, documentID) {
   final notifier = ChangeFavoriteStateNotifier(0);
   notifier.initialize(documentID: documentID);
   return notifier;
@@ -19,14 +19,14 @@ final userIsFavoriteStateProvider = StateNotifierProvider.family
 class ChangeFavoriteStateNotifier extends StateNotifier<int> {
   ChangeFavoriteStateNotifier(super.initialState);
 
-  Future<void> initialize({required String documentID}) async {
+  Future<void> initialize({required int documentID}) async {
     final int? favoriteState =
         await SearchedHistoryController.instance.getFavoriteState(documentID);
     state = favoriteState ?? 0;
   }
 
   Future<void> changeUserFavoriteState(
-      String documentID, int nowFavoriteState) async {
+      int documentID, int nowFavoriteState) async {
     final int newFavoriteState = nowFavoriteState == 1 ? 0 : 1;
     await SearchedHistoryController.instance
         .changeFavoriteState(documentID, newFavoriteState);
@@ -81,7 +81,7 @@ class ChangeFavoriteCountNotifier extends StateNotifier<int> {
       nextAlgoliaFavoriteValue = nextFavoriteValue;
     }
     final firestore =
-        FirebaseFirestore.instance.collection('works').doc(searched.documentID);
+        FirebaseFirestore.instance.collection('works').doc(searched.documentID.toString());
     if (needToChangeAlgoliaValue) {
       await firestore.update({
         'exactLikes': nextFavoriteValue,

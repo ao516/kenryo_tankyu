@@ -16,7 +16,7 @@ class RandomRecommendedCacheController {
           return db.execute(
             'CREATE TABLE random_recommended_cache('
             'recommendedNumber INTEGER PRIMARY KEY NOT NULL, '
-            'documentID TEXT NOT NULL, '
+            'documentID INTEGER NOT NULL, '
             'isFavorite INTEGER NOT NULL, '
             'title TEXT NOT NULL, '
             'category1 TEXT NOT NULL, '
@@ -31,7 +31,7 @@ class RandomRecommendedCacheController {
             ');',
           );
         },
-        version: 3,
+        version: 4,
 
         ///recommendedNumberには1か2しか入らない。homePageでの表示順で保管されてます。
       );

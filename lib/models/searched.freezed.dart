@@ -21,24 +21,22 @@ Searched _$SearchedFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Searched {
   @JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
-  String get documentID => throw _privateConstructorUsedError;
+  int get documentID => throw _privateConstructorUsedError;
   @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
   int get isFavorite => throw _privateConstructorUsedError;
-  @JsonKey(name: 'category1')
-  String get category1 => throw _privateConstructorUsedError;
-  @JsonKey(name: 'category2')
-  String get category2 => throw _privateConstructorUsedError;
-  @JsonKey(name: 'subCategory1')
-  String get subCategory1 => throw _privateConstructorUsedError;
-  @JsonKey(name: 'subCategory2')
-  String get subCategory2 => throw _privateConstructorUsedError;
-  @JsonKey(name: 'year')
+  @CategoryEnumConverter()
+  Category get category1 => throw _privateConstructorUsedError;
+  @SubCategoryEnumConverter()
+  SubCategory get subCategory1 => throw _privateConstructorUsedError;
+  @CategoryEnumConverter()
+  Category get category2 => throw _privateConstructorUsedError;
+  @SubCategoryEnumConverter()
+  SubCategory get subCategory2 => throw _privateConstructorUsedError;
   int get year => throw _privateConstructorUsedError;
-  @JsonKey(name: 'eventName')
-  String get eventName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'course')
-  String get course => throw _privateConstructorUsedError;
-  @JsonKey(name: 'title')
+  @EventNameEnumConverter()
+  EventName get eventName => throw _privateConstructorUsedError;
+  @CourseEnumConverter()
+  Course get course => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
   String? get author => throw _privateConstructorUsedError;
@@ -70,17 +68,17 @@ abstract class $SearchedCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
-      String documentID,
+      int documentID,
       @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
       int isFavorite,
-      @JsonKey(name: 'category1') String category1,
-      @JsonKey(name: 'category2') String category2,
-      @JsonKey(name: 'subCategory1') String subCategory1,
-      @JsonKey(name: 'subCategory2') String subCategory2,
-      @JsonKey(name: 'year') int year,
-      @JsonKey(name: 'eventName') String eventName,
-      @JsonKey(name: 'course') String course,
-      @JsonKey(name: 'title') String title,
+      @CategoryEnumConverter() Category category1,
+      @SubCategoryEnumConverter() SubCategory subCategory1,
+      @CategoryEnumConverter() Category category2,
+      @SubCategoryEnumConverter() SubCategory subCategory2,
+      int year,
+      @EventNameEnumConverter() EventName eventName,
+      @CourseEnumConverter() Course course,
+      String title,
       @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
       String? author,
       @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
@@ -117,8 +115,8 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
     Object? documentID = null,
     Object? isFavorite = null,
     Object? category1 = null,
-    Object? category2 = null,
     Object? subCategory1 = null,
+    Object? category2 = null,
     Object? subCategory2 = null,
     Object? year = null,
     Object? eventName = null,
@@ -137,7 +135,7 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
       documentID: null == documentID
           ? _value.documentID
           : documentID // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       isFavorite: null == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
@@ -145,19 +143,19 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
       category1: null == category1
           ? _value.category1
           : category1 // ignore: cast_nullable_to_non_nullable
-              as String,
-      category2: null == category2
-          ? _value.category2
-          : category2 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Category,
       subCategory1: null == subCategory1
           ? _value.subCategory1
           : subCategory1 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as SubCategory,
+      category2: null == category2
+          ? _value.category2
+          : category2 // ignore: cast_nullable_to_non_nullable
+              as Category,
       subCategory2: null == subCategory2
           ? _value.subCategory2
           : subCategory2 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as SubCategory,
       year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
@@ -165,11 +163,11 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
       eventName: null == eventName
           ? _value.eventName
           : eventName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as EventName,
       course: null == course
           ? _value.course
           : course // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Course,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -220,17 +218,17 @@ abstract class _$$SearchedImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
-      String documentID,
+      int documentID,
       @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
       int isFavorite,
-      @JsonKey(name: 'category1') String category1,
-      @JsonKey(name: 'category2') String category2,
-      @JsonKey(name: 'subCategory1') String subCategory1,
-      @JsonKey(name: 'subCategory2') String subCategory2,
-      @JsonKey(name: 'year') int year,
-      @JsonKey(name: 'eventName') String eventName,
-      @JsonKey(name: 'course') String course,
-      @JsonKey(name: 'title') String title,
+      @CategoryEnumConverter() Category category1,
+      @SubCategoryEnumConverter() SubCategory subCategory1,
+      @CategoryEnumConverter() Category category2,
+      @SubCategoryEnumConverter() SubCategory subCategory2,
+      int year,
+      @EventNameEnumConverter() EventName eventName,
+      @CourseEnumConverter() Course course,
+      String title,
       @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
       String? author,
       @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
@@ -265,8 +263,8 @@ class __$$SearchedImplCopyWithImpl<$Res>
     Object? documentID = null,
     Object? isFavorite = null,
     Object? category1 = null,
-    Object? category2 = null,
     Object? subCategory1 = null,
+    Object? category2 = null,
     Object? subCategory2 = null,
     Object? year = null,
     Object? eventName = null,
@@ -285,7 +283,7 @@ class __$$SearchedImplCopyWithImpl<$Res>
       documentID: null == documentID
           ? _value.documentID
           : documentID // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       isFavorite: null == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
@@ -293,19 +291,19 @@ class __$$SearchedImplCopyWithImpl<$Res>
       category1: null == category1
           ? _value.category1
           : category1 // ignore: cast_nullable_to_non_nullable
-              as String,
-      category2: null == category2
-          ? _value.category2
-          : category2 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Category,
       subCategory1: null == subCategory1
           ? _value.subCategory1
           : subCategory1 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as SubCategory,
+      category2: null == category2
+          ? _value.category2
+          : category2 // ignore: cast_nullable_to_non_nullable
+              as Category,
       subCategory2: null == subCategory2
           ? _value.subCategory2
           : subCategory2 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as SubCategory,
       year: null == year
           ? _value.year
           : year // ignore: cast_nullable_to_non_nullable
@@ -313,11 +311,11 @@ class __$$SearchedImplCopyWithImpl<$Res>
       eventName: null == eventName
           ? _value.eventName
           : eventName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as EventName,
       course: null == course
           ? _value.course
           : course // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Course,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -363,17 +361,17 @@ class __$$SearchedImplCopyWithImpl<$Res>
 class _$SearchedImpl extends _Searched {
   const _$SearchedImpl(
       {@JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
-      this.documentID = 'empty',
+      this.documentID = 0,
       @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
       this.isFavorite = 0,
-      @JsonKey(name: 'category1') required this.category1,
-      @JsonKey(name: 'category2') required this.category2,
-      @JsonKey(name: 'subCategory1') required this.subCategory1,
-      @JsonKey(name: 'subCategory2') required this.subCategory2,
-      @JsonKey(name: 'year') required this.year,
-      @JsonKey(name: 'eventName') required this.eventName,
-      @JsonKey(name: 'course') required this.course,
-      @JsonKey(name: 'title') required this.title,
+      @CategoryEnumConverter() required this.category1,
+      @SubCategoryEnumConverter() required this.subCategory1,
+      @CategoryEnumConverter() required this.category2,
+      @SubCategoryEnumConverter() required this.subCategory2,
+      required this.year,
+      @EventNameEnumConverter() required this.eventName,
+      @CourseEnumConverter() required this.course,
+      required this.title,
       @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
       this.author,
       @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
@@ -399,33 +397,31 @@ class _$SearchedImpl extends _Searched {
 
   @override
   @JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
-  final String documentID;
+  final int documentID;
   @override
   @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
   final int isFavorite;
   @override
-  @JsonKey(name: 'category1')
-  final String category1;
+  @CategoryEnumConverter()
+  final Category category1;
   @override
-  @JsonKey(name: 'category2')
-  final String category2;
+  @SubCategoryEnumConverter()
+  final SubCategory subCategory1;
   @override
-  @JsonKey(name: 'subCategory1')
-  final String subCategory1;
+  @CategoryEnumConverter()
+  final Category category2;
   @override
-  @JsonKey(name: 'subCategory2')
-  final String subCategory2;
+  @SubCategoryEnumConverter()
+  final SubCategory subCategory2;
   @override
-  @JsonKey(name: 'year')
   final int year;
   @override
-  @JsonKey(name: 'eventName')
-  final String eventName;
+  @EventNameEnumConverter()
+  final EventName eventName;
   @override
-  @JsonKey(name: 'course')
-  final String course;
+  @CourseEnumConverter()
+  final Course course;
   @override
-  @JsonKey(name: 'title')
   final String title;
   @override
   @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
@@ -454,7 +450,7 @@ class _$SearchedImpl extends _Searched {
 
   @override
   String toString() {
-    return 'Searched(documentID: $documentID, isFavorite: $isFavorite, category1: $category1, category2: $category2, subCategory1: $subCategory1, subCategory2: $subCategory2, year: $year, eventName: $eventName, course: $course, title: $title, author: $author, vagueLikes: $vagueLikes, exactLikes: $exactLikes, existsSlide: $existsSlide, existsReport: $existsReport, existsThesis: $existsThesis, existsPoster: $existsPoster, savedAt: $savedAt)';
+    return 'Searched(documentID: $documentID, isFavorite: $isFavorite, category1: $category1, subCategory1: $subCategory1, category2: $category2, subCategory2: $subCategory2, year: $year, eventName: $eventName, course: $course, title: $title, author: $author, vagueLikes: $vagueLikes, exactLikes: $exactLikes, existsSlide: $existsSlide, existsReport: $existsReport, existsThesis: $existsThesis, existsPoster: $existsPoster, savedAt: $savedAt)';
   }
 
   @override
@@ -468,10 +464,10 @@ class _$SearchedImpl extends _Searched {
                 other.isFavorite == isFavorite) &&
             (identical(other.category1, category1) ||
                 other.category1 == category1) &&
-            (identical(other.category2, category2) ||
-                other.category2 == category2) &&
             (identical(other.subCategory1, subCategory1) ||
                 other.subCategory1 == subCategory1) &&
+            (identical(other.category2, category2) ||
+                other.category2 == category2) &&
             (identical(other.subCategory2, subCategory2) ||
                 other.subCategory2 == subCategory2) &&
             (identical(other.year, year) || other.year == year) &&
@@ -502,8 +498,8 @@ class _$SearchedImpl extends _Searched {
       documentID,
       isFavorite,
       category1,
-      category2,
       subCategory1,
+      category2,
       subCategory2,
       year,
       eventName,
@@ -535,17 +531,17 @@ class _$SearchedImpl extends _Searched {
 abstract class _Searched extends Searched {
   const factory _Searched(
       {@JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
-      final String documentID,
+      final int documentID,
       @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
       final int isFavorite,
-      @JsonKey(name: 'category1') required final String category1,
-      @JsonKey(name: 'category2') required final String category2,
-      @JsonKey(name: 'subCategory1') required final String subCategory1,
-      @JsonKey(name: 'subCategory2') required final String subCategory2,
-      @JsonKey(name: 'year') required final int year,
-      @JsonKey(name: 'eventName') required final String eventName,
-      @JsonKey(name: 'course') required final String course,
-      @JsonKey(name: 'title') required final String title,
+      @CategoryEnumConverter() required final Category category1,
+      @SubCategoryEnumConverter() required final SubCategory subCategory1,
+      @CategoryEnumConverter() required final Category category2,
+      @SubCategoryEnumConverter() required final SubCategory subCategory2,
+      required final int year,
+      @EventNameEnumConverter() required final EventName eventName,
+      @CourseEnumConverter() required final Course course,
+      required final String title,
       @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
       final String? author,
       @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
@@ -571,33 +567,31 @@ abstract class _Searched extends Searched {
 
   @override
   @JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
-  String get documentID;
+  int get documentID;
   @override
   @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
   int get isFavorite;
   @override
-  @JsonKey(name: 'category1')
-  String get category1;
+  @CategoryEnumConverter()
+  Category get category1;
   @override
-  @JsonKey(name: 'category2')
-  String get category2;
+  @SubCategoryEnumConverter()
+  SubCategory get subCategory1;
   @override
-  @JsonKey(name: 'subCategory1')
-  String get subCategory1;
+  @CategoryEnumConverter()
+  Category get category2;
   @override
-  @JsonKey(name: 'subCategory2')
-  String get subCategory2;
+  @SubCategoryEnumConverter()
+  SubCategory get subCategory2;
   @override
-  @JsonKey(name: 'year')
   int get year;
   @override
-  @JsonKey(name: 'eventName')
-  String get eventName;
+  @EventNameEnumConverter()
+  EventName get eventName;
   @override
-  @JsonKey(name: 'course')
-  String get course;
+  @CourseEnumConverter()
+  Course get course;
   @override
-  @JsonKey(name: 'title')
   String get title;
   @override
   @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)

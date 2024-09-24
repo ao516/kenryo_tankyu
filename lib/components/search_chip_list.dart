@@ -14,14 +14,18 @@ class SearchChipList extends ConsumerWidget {
         child: Consumer(builder: (context, ref, child) {
           final notifier = ref.read(searchProvider.notifier);
           final Search data = ref.watch(searchProvider);
+          final displayCategory = data.category.name != 'none' ? data.category.displayName : '';
+          final displaySubCategory = data.subCategory.name != 'none' ? data.subCategory.displayName : '';
+          final displayEventName = data.eventName.name != 'undefined' ? data.eventName.displayName : '';
+          final displayCourse = data.course.name != 'undefined' ? data.course.displayName : '';
           final List<String> items = data.searchWord ?? [];
 
           final List<List<String>> searchList = [
-            ['category', data.category ?? ''],
-            ['subCategory', data.subCategory ?? ''],
+            ['category', displayCategory],
+            ['subCategory', displaySubCategory],
             ['year', data.year?.toString() ?? ''],
-            ['eventName', data.eventName ?? ''],
-            ['course', data.course ?? ''],
+            ['eventName', displayEventName],
+            ['course', displayCourse],
           ];
           final bool isAllEmpty =
               searchList.every((e) => e[1] == '') && items.isEmpty;

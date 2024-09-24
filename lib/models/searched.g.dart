@@ -8,13 +8,18 @@ part of 'searched.dart';
 
 _$SearchedImpl _$$SearchedImplFromJson(Map<String, dynamic> json) =>
     _$SearchedImpl(
-      category1: json['category1'] as String,
-      category2: json['category2'] as String,
-      subCategory1: json['subCategory1'] as String,
-      subCategory2: json['subCategory2'] as String,
+      category1:
+          const CategoryEnumConverter().fromJson(json['category1'] as String),
+      subCategory1: const SubCategoryEnumConverter()
+          .fromJson(json['subCategory1'] as String),
+      category2:
+          const CategoryEnumConverter().fromJson(json['category2'] as String),
+      subCategory2: const SubCategoryEnumConverter()
+          .fromJson(json['subCategory2'] as String),
       year: (json['year'] as num).toInt(),
-      eventName: json['eventName'] as String,
-      course: json['course'] as String,
+      eventName:
+          const EventNameEnumConverter().fromJson(json['eventName'] as String),
+      course: const CourseEnumConverter().fromJson(json['course'] as String),
       title: json['title'] as String,
       author: json['author'] as String?,
       vagueLikes: (json['vagueLikes'] as num?)?.toInt(),
@@ -31,13 +36,15 @@ Map<String, dynamic> _$$SearchedImplToJson(_$SearchedImpl instance) =>
     <String, dynamic>{
       'documentID': instance.documentID,
       'isFavorite': instance.isFavorite,
-      'category1': instance.category1,
-      'category2': instance.category2,
-      'subCategory1': instance.subCategory1,
-      'subCategory2': instance.subCategory2,
+      'category1': const CategoryEnumConverter().toJson(instance.category1),
+      'subCategory1':
+          const SubCategoryEnumConverter().toJson(instance.subCategory1),
+      'category2': const CategoryEnumConverter().toJson(instance.category2),
+      'subCategory2':
+          const SubCategoryEnumConverter().toJson(instance.subCategory2),
       'year': instance.year,
-      'eventName': instance.eventName,
-      'course': instance.course,
+      'eventName': const EventNameEnumConverter().toJson(instance.eventName),
+      'course': const CourseEnumConverter().toJson(instance.course),
       'title': instance.title,
       'savedAt': _$JsonConverterToJson<String, DateTime>(
           instance.savedAt, const DateTimeConverter().toJson),

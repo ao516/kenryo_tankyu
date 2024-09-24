@@ -19,12 +19,12 @@ enum RadioValue { category1, category2 }
 final selectedRadioProvider =
     StateProvider.autoDispose<RadioValue>((ref) => RadioValue.category1);
 final selectedCategoryProvider =
-    StateProvider.autoDispose<String?>((ref) => null);
+    StateProvider.autoDispose<Category>((ref) => Category.none);
 final selectedSubCategoryProvider =
-    StateProvider.autoDispose<String?>((ref) => null);
+    StateProvider.autoDispose<SubCategory>((ref) => SubCategory.none);
 
 ///「作品の情報が間違っている」の際に使うProvider等
-final selectedDepartmentProvider = StateProvider.autoDispose<String>(
+final selectedCourseProvider = StateProvider.autoDispose<Course>(
     (ref) => ref.watch(searchedProvider).course);
 final selectedYearProvider =
     StateProvider.autoDispose<int>((ref) => ref.watch(searchedProvider).year);
@@ -39,13 +39,13 @@ final selectedTitleControllerProvider =
 final selectedCannotViewPdfProvider = StateProvider.autoDispose<List<bool>>(
     (ref) => List.generate(pdfChoiceList.length, (index) => false));
 final freeDescriptionControllerProviderForCannotViewPdf =
-    StateProvider.autoDispose<TextEditingController>((ref) =>
-        TextEditingController());
+    StateProvider.autoDispose<TextEditingController>(
+        (ref) => TextEditingController());
 
 ///「その他」の際に使うProvider等
 final freeDescriptionControllerProviderForOtherReason =
-    StateProvider.autoDispose<TextEditingController>((ref) =>
-        TextEditingController());
+    StateProvider.autoDispose<TextEditingController>(
+        (ref) => TextEditingController());
 
 class ChangeInfoForm extends ConsumerWidget {
   final Searched searched;
@@ -124,8 +124,9 @@ class ChangeInfoForm extends ConsumerWidget {
 
   Widget suggestOtherCategory(WidgetRef ref, Searched searched) {
     final RadioValue selectedRadio = ref.watch(selectedRadioProvider);
-    final String? selectedCategory = ref.watch(selectedCategoryProvider);
-    final String? selectedSubCategory = ref.watch(selectedSubCategoryProvider);
+    final Category selectedCategory = ref.watch(selectedCategoryProvider);
+    final SubCategory selectedSubCategory =
+        ref.watch(selectedSubCategoryProvider);
     final radioNotifier = ref.read(selectedRadioProvider.notifier);
     final categoryNotifier = ref.read(selectedCategoryProvider.notifier);
     final subCategoryNotifier = ref.read(selectedSubCategoryProvider.notifier);
@@ -138,7 +139,8 @@ class ChangeInfoForm extends ConsumerWidget {
         //todo この２つのradioListTileは、ListTile.builderを使った方がパフォーマンスが良いかも。（pdfが閲覧できない、の方では採用している）
         RadioListTile<RadioValue>(
           contentPadding: EdgeInsets.zero,
-          title: Text('${searched.category1}\n>${searched.subCategory1}'),
+          title: Text(
+              '${searched.category1.displayName}\n>${searched.subCategory1.displayName}'),
           value: RadioValue.category1,
           groupValue: selectedRadio,
           onChanged: (RadioValue? value) {
@@ -149,7 +151,8 @@ class ChangeInfoForm extends ConsumerWidget {
         ),
         RadioListTile<RadioValue>(
           contentPadding: EdgeInsets.zero,
-          title: Text('${searched.category2}\n>${searched.subCategory2}'),
+          title: Text(
+              '${searched.category2.displayName}\n>${searched.subCategory2.displayName}'),
           value: RadioValue.category2,
           groupValue: selectedRadio,
           onChanged: (RadioValue? value) {
@@ -168,49 +171,52 @@ class ChangeInfoForm extends ConsumerWidget {
             isDense: true,
           ),
           value: selectedCategory,
-          items: categoryList
-              .map<DropdownMenuItem<String>>((String value) =>
-                  DropdownMenuItem(value: value, child: Text(value)))
-              .toList(),
+          items:
+              Category.values.map<DropdownMenuItem<Category>>((Category value) {
+            return DropdownMenuItem(
+                value: value, child: Text(value.displayName));
+          }).toList(),
           onChanged: (value) {
-            categoryNotifier.state = value;
-            subCategoryNotifier.state = null;
+            categoryNotifier.state = value!;
             ref.read(enabledChangeInfoButtonProvider.notifier).state = false;
           },
         ),
         const SizedBox(height: 16),
         DropdownButtonFormField(
-          decoration: const InputDecoration(
-            hintText: 'サブカテゴリ',
-            border: OutlineInputBorder(),
-            isDense: true,
-          ),
-          value: selectedSubCategory,
-          items: selectedCategory == null
-              ? [
-                  const DropdownMenuItem(
-                    enabled: false,
-                    value: '',
-                    child:
-                        Text('メインカテゴリを先に選択', overflow: TextOverflow.ellipsis),
-                  )
-                ]
-              : subCategoryList[categoryList.indexOf(selectedCategory)]
-                  .map<DropdownMenuItem<String>>((String value) =>
-                      DropdownMenuItem(value: value, child: Text(value)))
-                  .toList(),
-          onChanged: (value) {
-            ref.read(enabledChangeInfoButtonProvider.notifier).state = true;
-            subCategoryNotifier.state = value;}
-        ),
+            decoration: const InputDecoration(
+              hintText: 'サブカテゴリ',
+              border: OutlineInputBorder(),
+              isDense: true,
+            ),
+            value: selectedSubCategory,
+            items: selectedCategory == Category.none
+                ? [
+                    const DropdownMenuItem(
+                      enabled: false,
+                      value: SubCategory.none,
+                      child:
+                          Text('メインカテゴリを先に選択', overflow: TextOverflow.ellipsis),
+                    )
+                  ]
+                : selectedCategory.subCategories
+                    .where((e) =>
+                        e != SubCategory.none) // Exclude SubCategory.none
+                    .map((e) {
+                    return DropdownMenuItem(
+                        value: e, child: Text(e.displayName));
+                  }).toList(),
+            onChanged: (value) {
+              subCategoryNotifier.state = value!;
+              ref.read(enabledChangeInfoButtonProvider.notifier).state = true;
+            }),
       ],
     );
   }
 
   Widget suggestWorksInfo(WidgetRef ref, Searched searched) {
-    final String selectedDepartment = ref.watch(selectedDepartmentProvider);
+    final Course selectedCourse = ref.watch(selectedCourseProvider);
     final int selectedYear = ref.watch(selectedYearProvider);
-    final departmentNotifier = ref.read(selectedDepartmentProvider.notifier);
+    final courseNotifier = ref.read(selectedCourseProvider.notifier);
     final yearNotifier = ref.read(selectedYearProvider.notifier);
     final enabledChangeInfoButtonNotifier =
         ref.read(enabledChangeInfoButtonProvider.notifier);
@@ -221,7 +227,7 @@ class ChangeInfoForm extends ConsumerWidget {
             style: TextStyle(fontWeight: FontWeight.bold)),
         const SizedBox(height: 16),
         TextFormField(
-          onChanged:(value)=> enabledChangeInfoButtonNotifier.state = true,
+          onChanged: (value) => enabledChangeInfoButtonNotifier.state = true,
           controller: ref.watch(selectedAuthorControllerProvider),
           decoration: const InputDecoration(
             isDense: true,
@@ -231,7 +237,7 @@ class ChangeInfoForm extends ConsumerWidget {
         ),
         const SizedBox(height: 8),
         TextFormField(
-          onChanged:(value)=> enabledChangeInfoButtonNotifier.state = true,
+          onChanged: (value) => enabledChangeInfoButtonNotifier.state = true,
           minLines: 2,
           maxLines: 3,
           controller: ref.watch(selectedTitleControllerProvider),
@@ -248,14 +254,16 @@ class ChangeInfoForm extends ConsumerWidget {
             border: OutlineInputBorder(),
             isDense: true,
           ),
-          value: selectedDepartment,
-          items: departmentList
-              .map<DropdownMenuItem<String>>((String value) =>
-                  DropdownMenuItem(value: value, child: Text(value)))
+          value: selectedCourse,
+          items: Course.values
+              .map<DropdownMenuItem<Course>>((Course value) => DropdownMenuItem(
+                  value: value, child: Text(value.displayName)))
               .toList(),
           onChanged: (value) {
             enabledChangeInfoButtonNotifier.state = true;
-            departmentNotifier.state = value!;
+            courseNotifier.state = Course.values.firstWhere(
+                (element) => element.displayName == value,
+                orElse: () => Course.undefined);
           },
         ),
         const SizedBox(height: 8),
@@ -298,7 +306,8 @@ class ChangeInfoForm extends ConsumerWidget {
                 title: Text(pdfChoiceList[index]),
                 value: selectedCannotViewPdf[index],
                 onChanged: (bool? value) {
-                  ref.read(enabledChangeInfoButtonProvider.notifier).state = true;
+                  ref.read(enabledChangeInfoButtonProvider.notifier).state =
+                      true;
                   selectedCannotViewPdf.removeAt(index);
                   selectedCannotViewPdf.insert(index, value!);
                   notifier.state = [...selectedCannotViewPdf];
@@ -306,7 +315,8 @@ class ChangeInfoForm extends ConsumerWidget {
               );
             }),
         TextFormField(
-          controller: ref.watch(freeDescriptionControllerProviderForCannotViewPdf),
+          controller:
+              ref.watch(freeDescriptionControllerProviderForCannotViewPdf),
           maxLines: 3,
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
@@ -321,7 +331,8 @@ class ChangeInfoForm extends ConsumerWidget {
     return TextFormField(
       controller: ref.watch(freeDescriptionControllerProviderForOtherReason),
       onChanged: (value) {
-        ref.read(enabledChangeInfoButtonProvider.notifier).state = value.isNotEmpty;
+        ref.read(enabledChangeInfoButtonProvider.notifier).state =
+            value.isNotEmpty;
       },
       maxLines: 5,
       decoration: const InputDecoration(

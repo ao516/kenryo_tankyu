@@ -79,7 +79,7 @@ class ResultPreviewContent extends ConsumerWidget {
                       Text(searched.title,
                           style: const TextStyle(fontSize: 16),maxLines: 2,overflow: TextOverflow.ellipsis),
                       const SizedBox(height: 4),
-                      Text('${searched.year.toString()}年度入学 ${searched.course}'),
+                      Text('${searched.year.toString()}年度入学 ${searched.course.displayName}'),
                       const SizedBox(height: 4),
                     ],
                   ),
@@ -96,7 +96,7 @@ class ResultPreviewContent extends ConsumerWidget {
                 children: [
                   Chip(
                       label: Text(
-                        '${searched.category1} > ${searched.subCategory1}',
+                        '${searched.category1.displayName} > ${searched.subCategory1.displayName}',
                         style: const TextStyle(fontSize: 14),
                       ),
                       visualDensity: const VisualDensity(vertical: -4),
@@ -104,7 +104,7 @@ class ResultPreviewContent extends ConsumerWidget {
                   const SizedBox(width: 8),
                   Chip(
                       label: Text(
-                          '${searched.category2} > ${searched.subCategory2}',
+                          '${searched.category2.displayName} > ${searched.subCategory2.displayName}',
                           style: const TextStyle(fontSize: 14)),
                       visualDensity: const VisualDensity(vertical: -4),
                       padding: EdgeInsets.zero),

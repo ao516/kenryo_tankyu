@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/constant/constant.dart';
+import '../models/models.dart';
 import '../providers/search_provider.dart';
 
-class SubCategory extends ConsumerWidget {
-  const SubCategory({super.key});
+class DisplaySubCategoryList extends ConsumerWidget {
+  const DisplaySubCategoryList({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String selectedCategory = ref.watch(searchProvider).category!;
-    int number = categoryList.indexOf(selectedCategory);
+    final Category selectedCategory = ref.watch(searchProvider).category;
+    final List<SubCategory> subCategoryList = selectedCategory.subCategories;
     final notifier = ref.read(searchProvider.notifier);
     return Column(
       children: [
@@ -33,9 +34,9 @@ class SubCategory extends ConsumerWidget {
                 onTap: (){},
                 child: ListTile(
                   trailing: const Icon(Icons.navigate_next),
-                  title: Text(subCategoryList[number][index]),
+                  title: Text(subCategoryList[index].displayName),
                   onTap: () {
-                    notifier.selectedSubCategory(subCategoryList[number][index]);
+                    notifier.selectedSubCategory(subCategoryList[index]);
                     context.pushReplacement('/resultList');
                     },
                 ),
@@ -50,7 +51,7 @@ class SubCategory extends ConsumerWidget {
                 ),
               );
             },
-            itemCount: subCategoryList[number].length,
+            itemCount: subCategoryList.length,
           ),
         ),
       ],

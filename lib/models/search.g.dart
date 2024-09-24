@@ -1,17 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of '../models/search.dart';
+part of 'search.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
 _$SearchImpl _$$SearchImplFromJson(Map<String, dynamic> json) => _$SearchImpl(
-      category: json['category'] as String?,
-      subCategory: json['subCategory'] as String?,
+      category:
+          const CategoryEnumConverter().fromJson(json['category'] as String),
+      subCategory: const SubCategoryEnumConverter()
+          .fromJson(json['subCategory'] as String),
       year: (json['year'] as num?)?.toInt(),
-      eventName: json['eventName'] as String?,
-      course: json['course'] as String?,
+      eventName:
+          const EventNameEnumConverter().fromJson(json['eventName'] as String),
+      course: const CourseEnumConverter().fromJson(json['course'] as String),
       searchWord: _$JsonConverterFromJson<String, List<String>>(
           json['searchWord'], const SearchWordConverter().fromJson),
       numberOfHits: (json['numberOfHits'] as num?)?.toInt(),
@@ -21,11 +24,12 @@ _$SearchImpl _$$SearchImplFromJson(Map<String, dynamic> json) => _$SearchImpl(
 
 Map<String, dynamic> _$$SearchImplToJson(_$SearchImpl instance) =>
     <String, dynamic>{
-      'category': instance.category,
-      'subCategory': instance.subCategory,
+      'category': const CategoryEnumConverter().toJson(instance.category),
+      'subCategory':
+          const SubCategoryEnumConverter().toJson(instance.subCategory),
       'year': instance.year,
-      'eventName': instance.eventName,
-      'course': instance.course,
+      'eventName': const EventNameEnumConverter().toJson(instance.eventName),
+      'course': const CourseEnumConverter().toJson(instance.course),
       'searchWord': _$JsonConverterToJson<String, List<String>>(
           instance.searchWord, const SearchWordConverter().toJson),
       'numberOfHits': instance.numberOfHits,

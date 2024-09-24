@@ -47,7 +47,7 @@ class PdfChoiceChip extends ConsumerWidget {
     final stringProviderNotifier = ref.read(stringProvider.notifier);
     final isSameScreen = ref.watch(isSameScreenProvider);
     final isSameScreenNotifier = ref.read(isSameScreenProvider.notifier);
-    final partOfId = searched.documentID.substring(0, 7);
+    final partOfId = searched.documentID.toString().substring(0, 7);
     final List<DocumentType> list = [];
     if (searched.existsSlide!) list.add(DocumentType.slide);
     if (searched.existsReport!) list.add(DocumentType.report);

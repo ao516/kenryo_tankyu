@@ -22,8 +22,14 @@ class CreateAccountPage extends ConsumerWidget {
                     style: const TextStyle(
                         fontSize: 20.0, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 20),
-                Image.asset('assets/images/appIcon.png',
-                    width: 100, height: 100),
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Image.asset('assets/images/appIcon.png',
+                      width: 80, height: 80),
+                ),
                 Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),

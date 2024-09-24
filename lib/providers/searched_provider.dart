@@ -28,7 +28,7 @@ final getFirestoreSearchedProvider = FutureProvider.family
   try {
     final DocumentSnapshot snapshot = await firestore
         .collection('works')
-        .doc(searched.documentID)
+        .doc(searched.documentID.toString())
         .get(const GetOptions(source: Source.cache));
     if (snapshot.exists) {
       final data = Searched.fromFirestore(snapshot, searched.isFavorite);
@@ -44,7 +44,7 @@ final getFirestoreSearchedProvider = FutureProvider.family
     //キャッシュがない場合はサーバーから取得
     final DocumentSnapshot snapshot = await firestore
         .collection('works')
-        .doc(searched.documentID)
+        .doc(searched.documentID.toString())
         .get(const GetOptions(source: Source.server));
     if (snapshot.exists) {
       final data = Searched.fromFirestore(snapshot, searched.isFavorite);
