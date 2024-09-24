@@ -23,10 +23,10 @@ class SearchHistoryController {
             'CREATE TABLE search_history('
             'id INTEGER PRIMARY KEY AUTOINCREMENT,'
             'category TEXT NOT NULL, '
-            'subCategory TEXT DEFAULT "", '
+            'subCategory TEXT NOT NULL, '
             'year INTEGER DEFAULT 0, '
-            'eventName TEXT DEFAULT "", '
-            'course TEXT DEFAULT "", '
+            'eventName TEXT NOT NULL, '
+            'course TEXT NOT NULL, '
             'searchWord TEXT DEFAULT "", '
             'savedAt TEXT NOT NULL, '
             'numberOfHits INTEGER, '
@@ -35,7 +35,7 @@ class SearchHistoryController {
             ');',
           );
         },
-        version: 15,
+        version: 16,
       );
     } catch (error, stackTrace) {
       return Future.error(error, stackTrace);

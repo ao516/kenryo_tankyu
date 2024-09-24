@@ -2,12 +2,12 @@
 
 import 'dart:convert';
 
-import 'package:kenryo_tankyu/models/searched.dart';
-
+import 'package:kenryo_tankyu/models/models.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part '../models/search.freezed.dart';
-part '../models/search.g.dart';
+part 'search.freezed.dart';
+
+part 'search.g.dart';
 
 //ファイルが生成されなくてキレそうな時は…。笑
 //①'search.g.dart'を書き直す
@@ -25,11 +25,11 @@ class Search with _$Search {
   const Search._();
 
   const factory Search({
-    String? category,
-    String? subCategory,
+    @CategoryEnumConverter() required Category category,
+    @SubCategoryEnumConverter() required SubCategory subCategory,
     int? year,
-    String? eventName,
-    String? course,
+    @EventNameEnumConverter()required EventName eventName,
+    @CourseEnumConverter()required Course course,
     @SearchWordConverter() List<String>? searchWord,
     int? numberOfHits,
     @DateTimeConverter() DateTime? savedAt,

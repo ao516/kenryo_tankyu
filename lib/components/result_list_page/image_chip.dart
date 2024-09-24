@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
@@ -12,14 +11,11 @@ class WorkImageChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Image(
-          image: AssetImage(categoryImageList[categoryImageList
-              .map((e) => e[1])
-              .toList()
-              .indexOf(searched.category1)][2]),
-          width: 25,
-          height: 25,
-        ),
+        SizedBox(
+            height: 25,
+            width: 25,
+            child: Image.asset(
+                'assets/images/categories/${searched.category1.name}.png')),
         SizedBox(
             height: 50,
             width: 50,
@@ -28,14 +24,11 @@ class WorkImageChip extends StatelessWidget {
         Positioned(
           top: 25,
           left: 25,
-          child: Image(
-            image: AssetImage(categoryImageList[categoryImageList
-                .map((e) => e[1])
-                .toList()
-                .indexOf(searched.category2)][2]),
-            width: 25,
-            height: 25,
-          ),
+          child:SizedBox(
+              height: 25,
+              width: 25,
+              child: Image.asset(
+                  'assets/images/categories/${searched.category2.name}.png')),
         ),
       ],
     );

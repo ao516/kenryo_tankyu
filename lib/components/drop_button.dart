@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kenryo_tankyu/models/models.dart';
 import 'package:kenryo_tankyu/providers/search_provider.dart';
 
 class SearchDropButton extends ConsumerWidget {
@@ -53,10 +54,14 @@ class SearchDropButton extends ConsumerWidget {
     name == '期間'
         ? notifier.selectedYear(int.parse(value!))
         : name == 'イベント名'
-            ? notifier.selectedEventName(value!)
+            ? notifier.selectedEventName(EventName.values.firstWhere(
+                (element) => element.displayName == value,orElse: () => EventName.undefined))
             : name == '学科指定'
-                ? notifier.selectedCourse(value!)
-                : notifier.selectedCategory(value!);
+                ? notifier.selectedCourse(Course.values.firstWhere(
+                    (element) => element.displayName == value,orElse: () => Course.undefined))
+                : notifier.selectedCategory(Category.values.firstWhere(
+                    (element) => element.displayName == value,orElse: () => Category.none));
+
     ///todo : こんな書き方したくないよーーー笑
   }
 }

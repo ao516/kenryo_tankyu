@@ -29,7 +29,7 @@ class SearchedHistoryController {
         onCreate: (db, version) {
           return db.execute(
             'CREATE TABLE searched_history('
-            'documentID TEXT PRIMARY KEY NOT NULL, '
+            'documentID INTEGER PRIMARY KEY NOT NULL, '
             'isFavorite INTEGER NOT NULL, '
             'title TEXT NOT NULL, '
             'category1 TEXT NOT NULL, '
@@ -45,7 +45,7 @@ class SearchedHistoryController {
             ');',
           );
         },
-        version: 3,
+        version: 4,
       );
     } catch (error, stackTrace) {
       return Future.error(error, stackTrace);
@@ -75,7 +75,7 @@ class SearchedHistoryController {
   }
 
   Future<void> changeFavoriteState(
-      String documentID, int nextIsFavorite) async {
+      int documentID, int nextIsFavorite) async {
     try {
       final Database db = await database;
       await db.update(
@@ -89,7 +89,7 @@ class SearchedHistoryController {
     }
   }
 
-  Future<List<String>?>? getSomeFavoriteState(List<String> documentIDs) async {
+  Future<List<String>?>? getSomeFavoriteState(List<int> documentIDs) async {
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('searched_history',
         where:
@@ -102,7 +102,7 @@ class SearchedHistoryController {
     return List.generate(maps.length, (index) => maps[index]['documentID']);
   }
 
-  Future<int?> getFavoriteState(String documentID) async {
+  Future<int?> getFavoriteState(int documentID) async {
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('searched_history',
         where: 'documentID = ? AND isFavorite = ?', whereArgs: [documentID, 1]);
@@ -121,7 +121,7 @@ class SearchedHistoryController {
     );
   }
 
-  Future<void> deleteHistory(String documentID) async {
+  Future<void> deleteHistory(int documentID) async {
     final Database db = await database;
     await db.delete(
       'searched_history',

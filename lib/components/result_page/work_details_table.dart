@@ -25,7 +25,7 @@ class WorkDetailsTable extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(
                 left: 16.0, top: 8.0, bottom: 8.0),
-            child: Text('${searched.course} ／ ${searched.author}',
+            child: Text('${searched.course.displayName} ／ ${searched.author}',
                 style: const TextStyle(fontSize: 16)),
           ),
         ]),
@@ -37,7 +37,7 @@ class WorkDetailsTable extends StatelessWidget {
             padding: const EdgeInsets.only(
                 left: 16.0, top: 8.0, bottom: 8.0),
             child: Text(
-                '${searched.category1} > ${searched.subCategory1}',
+                '${searched.category1.displayName} > ${searched.subCategory1.displayName}',
                 style: const TextStyle(fontSize: 16)),
           ),
         ]),
@@ -49,7 +49,7 @@ class WorkDetailsTable extends StatelessWidget {
             padding: const EdgeInsets.only(
                 left: 16.0, top: 8.0, bottom: 8.0),
             child: Text(
-                '${searched.category2} > ${searched.subCategory2}',
+                '${searched.category2.displayName} > ${searched.subCategory2.displayName}',
                 style: const TextStyle(fontSize: 16)),
           ),
         ]),

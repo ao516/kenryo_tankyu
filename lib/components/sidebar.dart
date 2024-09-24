@@ -5,37 +5,7 @@ import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:kenryo_tankyu/constant/value.dart';
 import 'package:kenryo_tankyu/providers/search_provider.dart';
 import 'package:kenryo_tankyu/service/service.dart';
-
-//todo enumでメソッドやコンストラクタを引数に取りたいと思ってるができなくて葛藤中
-enum SearchType {
-  category('カテゴリ', [
-    '社会・地域',
-    '人文・歴史',
-    '人権・ジェンダー',
-    '国際',
-    'ビジネス・経済',
-    '一次産業',
-    'スポーツ・教育',
-    '自然環境',
-    '科学・数学',
-    'テクノロジー・工学',
-    '健康・医療',
-    'デザイン・アート',
-    'くらし',
-    'その他'
-  ]),
-  year('年度', ['2018', '2019', '2020', '2021', '2022']),
-  eventName('イベント名', ['信州学', '個人探究']),
-  course('学科指定', ['普通科', '探究科']),
-  ;
-
-  const SearchType(
-    this.name,
-    this.choices,
-  );
-  final String name;
-  final List<String> choices;
-}
+import 'package:kenryo_tankyu/models/models.dart';
 
 class SideBar extends ConsumerWidget {
   const SideBar({super.key});
@@ -72,24 +42,24 @@ class SideBar extends ConsumerWidget {
                       const SizedBox(height: 10.0),
                       SearchDropButton(
                           name: 'カテゴリ',
-                          selectedText: data.category,
-                          choices: categoryList),
+                          selectedText: data.category.displayName,
+                          choices: Category.values.map((e) => e.displayName).toList()),
                       const SizedBox(height: 15.0),
                       SearchDropButton(
                           name: '期間', selectedText: data.year?.toString(), choices: yearList.map((e)=> e.toString()).toList()),
                       const SizedBox(height: 15.0),
                       SearchDropButton(
                           name: 'イベント名',
-                          selectedText: data.eventName,
-                          choices: eventNameList),
+                          selectedText: data.eventName.displayName,
+                          choices: EventName.values.map((e) => e.displayName).toList()),
                       const SizedBox(height: 15.0),
                       SearchDropButton(
                           name: '学科指定',
-                          selectedText: data.course,
-                          choices: departmentList),
+                          selectedText: data.course.displayName,
+                          choices: Course.values.map((e) => e.displayName).toList()),
                       const SizedBox(height: 15.0),
                       const Text('サブカテゴリを選択'),
-                      data.category != null
+                      data.category != Category.none
                           ? const SubCategoryChip()
                           : const Text('カテゴリを選択してください',style: TextStyle(fontSize: 20),),
                     ],

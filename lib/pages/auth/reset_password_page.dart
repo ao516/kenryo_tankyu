@@ -25,8 +25,14 @@ class ResetPasswordPage extends ConsumerWidget {
                 const Text('パスワードをリセット',
                     style:
                         TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
-                Image.asset('assets/images/appIcon.png',
-                    width: 100, height: 100),
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Image.asset('assets/images/appIcon.png',
+                      width: 80, height: 80),
+                ),
                 const SizedBox(height: 20),
                 Card(
                   shape: RoundedRectangleBorder(

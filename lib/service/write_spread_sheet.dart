@@ -31,7 +31,7 @@ class EditSpreadSheet {
   }
 
   Future<void> addDataToSheet(String range, List<String> values,
-      String userEmail, String documentID) async {
+      String userEmail, int documentID) async {
     // 認証情報ファイルの読み込み
     final credentials = await rootBundle
         .loadString('assets/your_service_account_credentials.json');
@@ -48,7 +48,7 @@ class EditSpreadSheet {
     // スプレッドシートのIDと範囲を指定
     const spreadsheetId = '1g9kG-6wlBxWQ-kq4tyFtWjRJvJbWqLNLoJ_C67WYmaw';
 
-    values = [userEmail, documentID, ...values];
+    values = [userEmail, documentID.toString(), ...values];
     var request = ValueRange(values: [values]);
 
     // スプレッドシートにデータを追加
@@ -76,10 +76,10 @@ class EditSpreadSheet {
     switch (number) {
       case 0: //カテゴリの分類が不適切
         int selectedRadioNumber = ref.watch(selectedRadioProvider).index;
-        String selectedBeforeCategory = selectedRadioNumber == 0 ? searched.category1 : searched.category2;
-        String selectedBeforeSubCategory = selectedRadioNumber == 0 ? searched.subCategory1 : searched.subCategory2;
-        String? selectedCategory = ref.watch(selectedCategoryProvider);
-        String? selectedSubCategory = ref.watch(selectedSubCategoryProvider);
+        String selectedBeforeCategory = selectedRadioNumber == 0 ? searched.category1.displayName : searched.category2.displayName;
+        String selectedBeforeSubCategory = selectedRadioNumber == 0 ? searched.subCategory1.displayName : searched.subCategory2.displayName;
+        String? selectedCategory = ref.watch(selectedCategoryProvider).name == 'none' ? null : ref.watch(selectedCategoryProvider).displayName;
+        String? selectedSubCategory = ref.watch(selectedSubCategoryProvider).name == 'none' ? null : ref.watch(selectedSubCategoryProvider).displayName;
         return [
           selectedBeforeCategory,
           selectedBeforeSubCategory,
@@ -90,12 +90,12 @@ class EditSpreadSheet {
         String selectedTitle = ref.watch(selectedTitleControllerProvider).text;
         String selectedAuthor =
             ref.watch(selectedAuthorControllerProvider).text;
-        String selectedDepartment = ref.watch(selectedDepartmentProvider);
+        Course selectedCourse = ref.watch(selectedCourseProvider);
         String selectedYear = ref.watch(selectedYearProvider).toString();
         return [
           selectedTitle,
           selectedAuthor,
-          selectedDepartment,
+          selectedCourse.displayName,
           selectedYear
         ];
       case 2: //PDFが閲覧できない

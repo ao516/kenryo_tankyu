@@ -67,11 +67,11 @@ class SearchHistoryList extends ConsumerWidget {
   String connectWord(Search search) {
     final List<String> searchList = [];
     search.searchWord != null ? searchList.addAll(search.searchWord!) : null;
-    search.category != null ? searchList.add(search.category!) : null;
-    search.subCategory != null ? searchList.add(search.subCategory!) : null;
+    searchList.add(search.category.name);
+    searchList.add(search.subCategory.name);
     search.year != null ? searchList.add(search.year.toString()) : null;
-    search.eventName != null ? searchList.add(search.eventName!) : null;
-    search.course != null ? searchList.add(search.course!) : null;
+    searchList.add(search.eventName.name);
+    searchList.add(search.course.name);
     return searchList.join(', ');
   }
 }

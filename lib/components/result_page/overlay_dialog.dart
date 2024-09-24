@@ -37,7 +37,7 @@ class OverlayDialog extends ModalRoute<void> {
       width: 300,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFFFFDAD7),
+        color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(
