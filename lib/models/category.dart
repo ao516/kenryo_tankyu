@@ -126,6 +126,7 @@ enum Category {
       SubCategory.mechanics,
       SubCategory.ictAndDX,
       SubCategory.aiAndProgramming,
+      SubCategory.energy,
       SubCategory.architecture,
       SubCategory.socialMediaAndGame,
       SubCategory.other,

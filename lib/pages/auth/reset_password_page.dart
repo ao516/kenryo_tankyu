@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 
+import '../../constant/constant.dart';
 import '../../providers/providers.dart';
 
 class ResetPasswordPage extends ConsumerWidget {
@@ -30,7 +31,7 @@ class ResetPasswordPage extends ConsumerWidget {
                     color: Colors.white,
                     shape: BoxShape.circle,
                   ),
-                  child: Image.asset('assets/images/appIcon.png',
+                  child: Image.asset(appIcon,
                       width: 80, height: 80),
                 ),
                 const SizedBox(height: 20),

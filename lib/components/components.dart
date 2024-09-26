@@ -27,8 +27,8 @@ export 'content_carousel.dart';
 export 'favorite.dart';
 export 'history_list.dart';
 export 'show_dialog.dart';
-export 'notification/notification.dart';
 export 'search_history_list.dart';
+export 'notification_list.dart';
 
 export 'auth/input_email.dart';
 export 'auth/input_password.dart';

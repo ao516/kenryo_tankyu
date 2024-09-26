@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
+import 'package:kenryo_tankyu/constant/constant.dart';
 
 import '../../providers/providers.dart';
 
@@ -27,7 +28,7 @@ class CreateAccountPage extends ConsumerWidget {
                     color: Colors.white,
                     shape: BoxShape.circle,
                   ),
-                  child: Image.asset('assets/images/appIcon.png',
+                  child: Image.asset(appIcon,
                       width: 80, height: 80),
                 ),
                 Card(

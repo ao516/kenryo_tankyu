@@ -35,6 +35,17 @@ class _MainAppState extends ConsumerState<MainApp> {
   void initState() {
     super.initState();
     _loadThemeMode();
+
+    // アプリがフォアグラウンドにあるときにメッセージを受信したときの処理
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      debugPrint('フォアグラウンドでメッセージを受信: ${message.notification?.title}');
+    });
+
+    // 通知をタップしてアプリがバックグラウンドから復帰したときの処理
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      debugPrint('通知をタップしてアプリを開いた: ${message.notification?.title}');
+    });
+
   }
   @override
   Widget build(BuildContext context) {

@@ -10,28 +10,20 @@ class NotificationList extends StatelessWidget {
       separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (context, index) {
         return GestureDetector(
-          child: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16.0,right: 16.0,top:4.0,bottom: 8.0),
+            child: Row(
               children: [
-                Row(
+                const Icon(Icons.notifications_active_outlined),
+                const SizedBox(width: 16.0),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('2024/05/16'),
-                    SizedBox(width: 8),
-                    Chip(
-                        label: Text('システム',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold)),
-                        labelPadding: EdgeInsets.zero,
-                        backgroundColor: Colors.red,
-                        visualDensity:
-                            VisualDensity(horizontal: 0.0, vertical: -4)),
+                    Text('Title', style: Theme.of(context).textTheme.bodyLarge),
+                    Text('subtitle', style: Theme.of(context).textTheme.bodyMedium),
+                    Text('2021/01/01 12:34', style: Theme.of(context).textTheme.bodySmall),
                   ],
                 ),
-                Text('Title', style: TextStyle(fontSize: 20)),
-                Text('subtitle'),
               ],
             ),
           ),

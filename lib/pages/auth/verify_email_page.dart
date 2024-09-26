@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../constant/constant.dart';
 import '../../providers/providers.dart';
 
 class CheckEmailPage extends ConsumerWidget {
@@ -19,7 +21,7 @@ class CheckEmailPage extends ConsumerWidget {
                 const Text('メール認証',
                     style:
                     TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
-                Image.asset('assets/images/appIcon.png',
+                Image.asset(appIcon,
                     width: 100, height: 100),
                Card(
                   shape: RoundedRectangleBorder(
@@ -92,5 +94,9 @@ class CheckEmailPage extends ConsumerWidget {
 
   _reload(BuildContext context, WidgetRef ref) async{
     await FirebaseAuth.instance.currentUser?.reload();
+    // ログイン成功時にFCMトークンを取得
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    String? fcmToken = await messaging.getToken();
+    debugPrint('FCMトークン: $fcmToken');
   }
 }
