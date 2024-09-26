@@ -1,103 +1,158 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/components/components.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../constant/constant.dart';
 import '../../providers/providers.dart';
+import '../../service/service.dart';
 
 class WelcomePage extends ConsumerWidget {
   const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider);
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                const Text('Welcome to 探究アーカイブ',
-                    style:
-                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Image.asset('assets/images/appIcon.png',
-                      width: 80, height: 80),
-                ),
-                const Text('新規作成',
-                    style:
-                    TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 20),
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  elevation: 10.0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        const Text('縣陵生であることを確認',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.left),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        const SizedBox(height: 60),
+                        Image.asset(appIcon, width: 80),
                         const SizedBox(height: 10),
-                        const Text(
-                            'このアプリは松本県ヶ丘高校に在籍する生徒のみが利用できます。\nまずは、あなたの学年と縣陵アカウントのメールアドレスを入力してください。'),
-                        const SizedBox(height: 20),
-                        const InputYear(),
-                        const SizedBox(height: 20),
-                        InputEmail(ref.read(authProvider).email?? '',true),
-                        const SizedBox(height: 20),
-                        Consumer(builder: (context, ref, child) {
-                          final limit =
-                              ref.watch(authProvider).limit;
-                          if (limit == 5) {
-                            return const SizedBox();
-                          }
-                          return Text(
-                              'メールアドレスが存在しないか、学年が間違っています。もう一度入力してください。\n残り$limit回',
-                              style: const TextStyle(color: Colors.red));
-                        }),
-                        const SizedBox(height: 20),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () => _checkEmail(context, ref),
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
+                        themeMode == ThemeMode.dark
+                            ? Image.asset(
+                                'assets/images/text/archive_white.png',
+                                width: 200,
+                              )
+                            : Image.asset(
+                                'assets/images/text/archive_black.png',
+                                width: 200,
                               ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 40, vertical: 15),
-                            ),
-                            child: const Text('送信'),
-                          ),
-                        ),
                       ],
                     ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const Text('すでにアカウントをお持ちの場合',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    const SizedBox(width: 10),
-                    InkWell(
-                        child: const Text('ログイン',
-                            style: TextStyle(color: Colors.blue)),
-                        onTap: () => context.push('/welcome/login')),
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('松本県ケ丘高校生であることを確認',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.left),
+                          const SizedBox(height: 5),
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            elevation: 10.0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                children: [
+                                  const InputYear(),
+                                  const SizedBox(height: 20),
+                                  InputEmail(
+                                      ref.read(authProvider).email ?? '', true),
+                                  Consumer(builder: (context, ref, child) {
+                                    final limit = ref.watch(authProvider).limit;
+                                    if (limit == 5) {
+                                      return const SizedBox();
+                                    }
+                                    return Text(
+                                        'メールアドレスが存在しないか、学年が間違っています。もう一度入力してください。\n残り$limit回',
+                                        style: const TextStyle(color: Colors.red));
+                                  }),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: () => _checkEmail(context, ref),
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: Theme.of(context).dividerColor),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 40, vertical: 15),
+                              ),
+                              child: const Text('新規登録'),
+                            ),
+                          ),
+                          //またはログイン
+                          const SizedBox(height: 20),
+                          const Center(child: Text('既に登録済みの場合は')),
+                          const SizedBox(height: 10),
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: () => context.push('/welcome/login'),
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                      color: Theme.of(context).dividerColor),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 40, vertical: 15),
+                              ),
+                              child: const Text('ログイン'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
                   ],
                 ),
-              ],
+              ),
             ),
-          ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: RichText(
+                  text: TextSpan(children: [
+                TextSpan(
+                    text: '探究アーカイブを利用することで、',
+                    style: Theme.of(context).textTheme.bodySmall),
+                TextSpan(
+                  text: 'プライバシーポリシー',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(color: Colors.blue),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => launchUrl(privacyPolicyLink),
+                ),
+                TextSpan(
+                  text: 'および',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                TextSpan(
+                  text: '利用規約',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .copyWith(color: Colors.blue),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => launchUrl(termsOfServiceLink),
+                ),
+                TextSpan(
+                    text: 'に同意することとします。',
+                    style: Theme.of(context).textTheme.bodySmall),
+              ])),
+            ),
+          ],
         ),
       ),
     );

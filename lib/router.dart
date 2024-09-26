@@ -54,6 +54,10 @@ final routesProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const SettingsPage(),
       ),
       GoRoute(
+        path:  '/notifications',
+        builder: (context, state) => const NotificationPage(),
+      ),
+      GoRoute(
         path: '/result',
         builder: (context, state) =>
             ResultPage(beforeSearched: state.extra as Searched),

@@ -15,7 +15,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final profileName = FirebaseAuth.instance.currentUser?.displayName ?? 'ゲスト';
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(16.0),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,9 +77,21 @@ class HomePage extends ConsumerWidget {
             const SizedBox(height: 8),
             const ContentCarousel(),
             const SizedBox(height: 16),
-            const Text('お知らせ',
-                style:
-                    TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('お知らせ',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                TextButton(
+                    onPressed: () => context.push('/notifications'),
+                  style: TextButton.styleFrom(
+                    side: const BorderSide(color: Colors.grey)
+                  ),
+                    child: const Text('もっと見る'),
+                )
+              ],
+            ),
             const SizedBox(height: 8),
             const Card(
               margin: EdgeInsets.symmetric(horizontal: 8.0),

@@ -4,6 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/providers/auth_provider.dart';
 
+import '../../constant/constant.dart';
+
 class LoginPage extends ConsumerWidget {
 
   const LoginPage({super.key});
@@ -18,17 +20,12 @@ class LoginPage extends ConsumerWidget {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                const Text('探究アーカイブにログイン',
+                const Text('ログイン',
                     style:
                         TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Image.asset('assets/images/appIcon.png',
-                      width: 80, height: 80),
-                ),
+                const SizedBox(height:10),
+                Image.asset(appIcon,
+                    width: 80, height: 80),
                 const SizedBox(height: 20),
                 Card(
                   shape: RoundedRectangleBorder(

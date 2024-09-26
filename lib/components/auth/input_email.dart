@@ -43,7 +43,7 @@ class _InputEmailState extends ConsumerState<InputEmail> {
       controller: _controller,
       decoration: InputDecoration(
         suffixText: '@kenryo.ed.jp',
-        labelText: 'メールアドレス',
+        labelText: '学内メールアドレス',
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),

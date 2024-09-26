@@ -39,13 +39,13 @@ class _LibraryPageState extends State<LibraryPage>
             decoration: BoxDecoration(
                 color: Colors.grey.shade300, borderRadius: BorderRadius.circular(25.0)),
             child: TabBar(
+              indicatorWeight: 3.0,
               controller: _tabController,
               indicator: BoxDecoration(
                 borderRadius: BorderRadius.circular(25.0),
-                color: Colors.red,
+                color: Theme.of(context).primaryColor,
               ),
               labelColor: Colors.white,
-              unselectedLabelColor: Colors.black,
               tabs: [
                 _tab(label: '閲覧履歴', icon: const Icon(Icons.history)),
                 _tab(label: 'お気に入り', icon: const Icon(Icons.favorite)),

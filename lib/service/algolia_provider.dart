@@ -129,6 +129,7 @@ final randomAlgoliaSearchProvider =
 
   int randomNumber1 =
       Random().nextInt(4); //0~3の乱数を生成。この数はalgoliaに入っているデータの数に合わせる。
+  //TODO
   int randomNumber2;
   do {
     randomNumber2 = Random().nextInt(4);

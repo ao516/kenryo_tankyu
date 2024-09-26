@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -84,6 +85,10 @@ class _InputPasswordForLoginState extends ConsumerState<InputPasswordForLogin> {
     final email = '${ref.watch(authProvider).email!}@kenryo.ed.jp';
     try {
       await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      // ログイン成功時にFCMトークンを取得
+      FirebaseMessaging messaging = FirebaseMessaging.instance;
+      String? fcmToken = await messaging.getToken();
+      debugPrint('FCMトークン: $fcmToken');
       if (!context.mounted) return;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
