@@ -55,8 +55,12 @@ mixin _$Searched {
   @DateTimeConverter()
   DateTime? get savedAt => throw _privateConstructorUsedError;
 
+  /// Serializes this Searched to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Searched
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SearchedCopyWith<Searched> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -109,6 +113,8 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Searched
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -257,6 +263,8 @@ class __$$SearchedImplCopyWithImpl<$Res>
       _$SearchedImpl _value, $Res Function(_$SearchedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Searched
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -491,7 +499,7 @@ class _$SearchedImpl extends _Searched {
             (identical(other.savedAt, savedAt) || other.savedAt == savedAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -514,7 +522,9 @@ class _$SearchedImpl extends _Searched {
       existsPoster,
       savedAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Searched
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SearchedImplCopyWith<_$SearchedImpl> get copyWith =>
@@ -617,8 +627,11 @@ abstract class _Searched extends Searched {
   @override
   @DateTimeConverter()
   DateTime? get savedAt;
+
+  /// Create a copy of Searched
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SearchedImplCopyWith<_$SearchedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

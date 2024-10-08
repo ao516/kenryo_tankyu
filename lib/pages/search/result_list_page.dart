@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/constant/constant.dart';
-import 'package:kenryo_tankyu/service/search_history_db_provider.dart';
+import 'package:kenryo_tankyu/db/search_history_db.dart';
 import 'package:kenryo_tankyu/service/service.dart';
 
 import '../../providers/providers.dart';

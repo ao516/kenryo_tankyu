@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 import 'package:kenryo_tankyu/service/service.dart';
 import '../constant/constant.dart';
+import '../db/db.dart';
 
 final selectedTeacherProvider =
     StateProvider<Teacher>((ref) => teacherList[0]);

@@ -27,8 +27,12 @@ mixin _$Auth {
   bool get confirmVerifyEmail => throw _privateConstructorUsedError;
   int get limit => throw _privateConstructorUsedError;
 
+  /// Serializes this Auth to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Auth
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AuthCopyWith<Auth> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -56,6 +60,8 @@ class _$AuthCopyWithImpl<$Res, $Val extends Auth>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Auth
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -118,6 +124,8 @@ class __$$AuthImplCopyWithImpl<$Res>
   __$$AuthImplCopyWithImpl(_$AuthImpl _value, $Res Function(_$AuthImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Auth
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -207,12 +215,14 @@ class _$AuthImpl implements _Auth {
             (identical(other.limit, limit) || other.limit == limit));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, year, email, password, userName, confirmVerifyEmail, limit);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Auth
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AuthImplCopyWith<_$AuthImpl> get copyWith =>
@@ -249,8 +259,11 @@ abstract class _Auth implements Auth {
   bool get confirmVerifyEmail;
   @override
   int get limit;
+
+  /// Create a copy of Auth
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AuthImplCopyWith<_$AuthImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

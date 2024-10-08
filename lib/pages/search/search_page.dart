@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kenryo_tankyu/service/search_history_db_provider.dart';
+import 'package:kenryo_tankyu/db/search_history_db.dart';
 
 class SearchPage extends ConsumerWidget {
   const SearchPage({super.key});

@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 import 'package:kenryo_tankyu/service/service.dart';
 
+import '../db/db.dart';
+
 ///ボタン連打防止を管理するProvider
 final ableChangeFavoriteProvider =
     StateProvider.autoDispose<bool>((ref) => true);

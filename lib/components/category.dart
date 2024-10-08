@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/models/category.dart';
 
+import '../db/db.dart';
 import '../providers/search_provider.dart';
-import '../service/service.dart';
 
 class CategoryList extends ConsumerWidget {
   const CategoryList({super.key});

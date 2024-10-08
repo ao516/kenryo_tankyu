@@ -23,13 +23,16 @@ mixin _$Notification {
   @NotificationTypeEnumConverter()
   NotificationType get type => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  String get subtitle => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   @DateTimeConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
 
+  /// Serializes this Notification to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Notification
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $NotificationCopyWith<Notification> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -43,7 +46,6 @@ abstract class $NotificationCopyWith<$Res> {
   $Res call(
       {@NotificationTypeEnumConverter() NotificationType type,
       String title,
-      String subtitle,
       String content,
       @DateTimeConverter() DateTime createdAt});
 }
@@ -58,12 +60,13 @@ class _$NotificationCopyWithImpl<$Res, $Val extends Notification>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Notification
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? type = null,
     Object? title = null,
-    Object? subtitle = null,
     Object? content = null,
     Object? createdAt = null,
   }) {
@@ -75,10 +78,6 @@ class _$NotificationCopyWithImpl<$Res, $Val extends Notification>
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      subtitle: null == subtitle
-          ? _value.subtitle
-          : subtitle // ignore: cast_nullable_to_non_nullable
               as String,
       content: null == content
           ? _value.content
@@ -103,7 +102,6 @@ abstract class _$$NotificationImplCopyWith<$Res>
   $Res call(
       {@NotificationTypeEnumConverter() NotificationType type,
       String title,
-      String subtitle,
       String content,
       @DateTimeConverter() DateTime createdAt});
 }
@@ -116,12 +114,13 @@ class __$$NotificationImplCopyWithImpl<$Res>
       _$NotificationImpl _value, $Res Function(_$NotificationImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Notification
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? type = null,
     Object? title = null,
-    Object? subtitle = null,
     Object? content = null,
     Object? createdAt = null,
   }) {
@@ -133,10 +132,6 @@ class __$$NotificationImplCopyWithImpl<$Res>
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      subtitle: null == subtitle
-          ? _value.subtitle
-          : subtitle // ignore: cast_nullable_to_non_nullable
               as String,
       content: null == content
           ? _value.content
@@ -156,7 +151,6 @@ class _$NotificationImpl extends _Notification {
   const _$NotificationImpl(
       {@NotificationTypeEnumConverter() required this.type,
       required this.title,
-      required this.subtitle,
       required this.content,
       @DateTimeConverter() required this.createdAt})
       : super._();
@@ -170,8 +164,6 @@ class _$NotificationImpl extends _Notification {
   @override
   final String title;
   @override
-  final String subtitle;
-  @override
   final String content;
   @override
   @DateTimeConverter()
@@ -179,7 +171,7 @@ class _$NotificationImpl extends _Notification {
 
   @override
   String toString() {
-    return 'Notification(type: $type, title: $title, subtitle: $subtitle, content: $content, createdAt: $createdAt)';
+    return 'Notification(type: $type, title: $title, content: $content, createdAt: $createdAt)';
   }
 
   @override
@@ -189,19 +181,18 @@ class _$NotificationImpl extends _Notification {
             other is _$NotificationImpl &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.title, title) || other.title == title) &&
-            (identical(other.subtitle, subtitle) ||
-                other.subtitle == subtitle) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, type, title, subtitle, content, createdAt);
+  int get hashCode => Object.hash(runtimeType, type, title, content, createdAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Notification
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$NotificationImplCopyWith<_$NotificationImpl> get copyWith =>
@@ -219,7 +210,6 @@ abstract class _Notification extends Notification {
   const factory _Notification(
       {@NotificationTypeEnumConverter() required final NotificationType type,
       required final String title,
-      required final String subtitle,
       required final String content,
       @DateTimeConverter()
       required final DateTime createdAt}) = _$NotificationImpl;
@@ -234,14 +224,15 @@ abstract class _Notification extends Notification {
   @override
   String get title;
   @override
-  String get subtitle;
-  @override
   String get content;
   @override
   @DateTimeConverter()
   DateTime get createdAt;
+
+  /// Create a copy of Notification
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$NotificationImplCopyWith<_$NotificationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

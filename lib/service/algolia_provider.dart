@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:kenryo_tankyu/models/models.dart';
-import 'package:kenryo_tankyu/service/random_recommended_cache.dart';
-import 'package:kenryo_tankyu/service/searched_history_db_provider.dart';
+import 'package:kenryo_tankyu/db/random_recommended_cache.dart';
+import 'package:kenryo_tankyu/db/searched_history_db.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'algolia.dart';
 

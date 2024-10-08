@@ -8,6 +8,8 @@ import 'package:kenryo_tankyu/theme.dart';
 import 'package:kenryo_tankyu/service/service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
+import 'db/db.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(

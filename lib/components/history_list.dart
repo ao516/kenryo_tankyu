@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kenryo_tankyu/components/components.dart';
-import '../service/searched_history_db_provider.dart';
+import '../db/searched_history_db.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LibraryList extends ConsumerWidget {
