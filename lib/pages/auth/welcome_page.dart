@@ -8,7 +8,6 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../constant/constant.dart';
 import '../../db/db.dart';
 import '../../providers/providers.dart';
-import '../../service/service.dart';
 
 class WelcomePage extends ConsumerWidget {
   const WelcomePage({super.key});

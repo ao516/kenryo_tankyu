@@ -14,7 +14,6 @@ final searchedHistoryProvider = FutureProvider.family
 
 class SearchedHistoryController {
   //シングルトンインスタンスを作成
-  //TODO この辺よくわかってないよーう。
   //外部からこのコンストラクタを呼び出すことはできません (`_` を接頭辞につけることでプライベートにします)
   static final SearchedHistoryController _instance = SearchedHistoryController._();
   SearchedHistoryController._();
@@ -89,7 +88,7 @@ class SearchedHistoryController {
     }
   }
 
-  Future<List<String>?>? getSomeFavoriteState(List<int> documentIDs) async {
+  Future<List<int>?>? getSomeFavoriteState(List<int> documentIDs) async {
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('searched_history',
         where:

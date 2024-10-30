@@ -4,8 +4,8 @@ import 'package:sqflite/sqflite.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
 
-
-final searchHistoryProvider = FutureProvider.autoDispose<List<Search>?>((ref) async {
+final searchHistoryProvider =
+    FutureProvider.autoDispose<List<Search>?>((ref) async {
   return await SearchHistoryController.instance.getAllHistory();
 });
 
@@ -22,20 +22,20 @@ class SearchHistoryController {
           return db.execute(
             'CREATE TABLE search_history('
             'id INTEGER PRIMARY KEY AUTOINCREMENT,'
-            'category TEXT NOT NULL, '
-            'subCategory TEXT NOT NULL, '
-            'year INTEGER DEFAULT 0, '
-            'eventName TEXT NOT NULL, '
-            'course TEXT NOT NULL, '
-            'searchWord TEXT DEFAULT "", '
+            'category TEXT NOT NULL DEFAULT "", '
+            'subCategory TEXT NOT NULL DEFAULT "", '
+            'year INTEGER NOT NULL DEFAULT 0, '
+            'eventName TEXT NOT NULL DEFAULT "", '
+            'course TEXT NOT NULL DEFAULT "", '
+            'searchWord TEXT NOT NULL DEFAULT "", '
             'savedAt TEXT NOT NULL, '
             'numberOfHits INTEGER, '
             'CHECK(category != "" OR subCategory != "" OR year != 0 OR eventName != "" OR course != "" OR searchWord != "") '
             'UNIQUE(category, subCategory, year, eventName, course, searchWord) '
-            ');',
+            ');'
           );
         },
-        version: 16,
+        version: 21,
       );
     } catch (error, stackTrace) {
       return Future.error(error, stackTrace);
@@ -46,7 +46,6 @@ class SearchHistoryController {
     final Database db = await database;
     await db.delete('search_history');
   }
-
 
   Future<void> insertHistory(Search search) async {
     final Database db = await database;

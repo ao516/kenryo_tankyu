@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/models/models.dart';
-import 'package:kenryo_tankyu/service/service.dart';
 
 import '../db/db.dart';
 
@@ -42,7 +41,7 @@ class ChangeFavoriteStateNotifier extends StateNotifier<int> {
 
 ///documentIDごとにFavoriteの数を管理するProvider
 final favoriteCountProvider = StateNotifierProvider.family
-    .autoDispose<ChangeFavoriteCountNotifier, int, Searched>((ref, searched) {
+    <ChangeFavoriteCountNotifier, int, Searched>((ref, searched) {
   return ChangeFavoriteCountNotifier(searched.exactLikes ?? searched.vagueLikes ?? 0);
 });
 

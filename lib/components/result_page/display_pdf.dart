@@ -35,7 +35,7 @@ class DisplayPdf extends ConsumerWidget {
                       PDFView(
                         pdfData: snapshot.data!,
                         enableSwipe: true,
-                        autoSpacing: false,
+                        autoSpacing: true,
                         pageFling: false,
                         pageSnap: false,
                       ),
