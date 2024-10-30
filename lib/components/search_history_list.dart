@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/models/models.dart';
-import 'package:kenryo_tankyu/service/search_history_db_provider.dart';
+import 'package:kenryo_tankyu/db/search_history_db.dart';
 import '../providers/providers.dart';
 
 class SearchHistoryList extends ConsumerWidget {
@@ -24,38 +24,38 @@ class SearchHistoryList extends ConsumerWidget {
                         child: const Text('リロードする')),
                   ],
                 )
-              : Expanded(
-                  child: ListView.separated(
-                    itemBuilder: (BuildContext context, int index) {
-                      final search = searches[index];
-                      final String word = connectWord(search);
-                      return ListTile(
-                          trailing: const Icon(Icons.navigate_next),
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(word,
-                                  maxLines: 1, overflow: TextOverflow.ellipsis),
-                              Text(' ${search.numberOfHits}件',
-                                  style: const TextStyle(fontSize: 12)),
-                            ],
+              : ListView.separated(
+                itemBuilder: (BuildContext context, int index) {
+                  final search = searches[index];
+                  final String word = _connectWord(search);
+                  return ListTile(
+                      trailing: const Icon(Icons.navigate_next),
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(word,
+                                maxLines: 1, overflow: TextOverflow.ellipsis),
                           ),
-                          onTap: () {
-                            ref
-                                .read(searchProvider.notifier)
-                                .setParameters(search);
-                            context.pushReplacement('/resultList');
-                          });
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return const Divider(
-                        height: 1,
-                        color: Colors.grey,
-                      );
-                    },
-                    itemCount: searches.length,
-                  ),
-                );
+                          Text(' ${search.numberOfHits}件',
+                              style: const TextStyle(fontSize: 12)),
+                        ],
+                      ),
+                      onTap: () {
+                        ref
+                            .read(searchProvider.notifier)
+                            .setParameters(search);
+                        context.pushReplacement('/resultList');
+                      });
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const Divider(
+                    height: 1,
+                    color: Colors.grey,
+                  );
+                },
+                itemCount: searches.length,
+              );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (Object error, StackTrace stackTrace) {
@@ -64,14 +64,14 @@ class SearchHistoryList extends ConsumerWidget {
         });
   }
 
-  String connectWord(Search search) {
+  String _connectWord(Search search) {
     final List<String> searchList = [];
-    search.searchWord != null ? searchList.addAll(search.searchWord!) : null;
-    searchList.add(search.category.name);
-    searchList.add(search.subCategory.name);
-    search.year != null ? searchList.add(search.year.toString()) : null;
-    searchList.add(search.eventName.name);
-    searchList.add(search.course.name);
+    //searchList.addAll(search.searchWord!);
+    searchList.add(search.category.displayName);
+    searchList.add(search.subCategory.displayName);
+    searchList.add(search.year.toString());
+    searchList.add(search.eventName.displayName);
+    searchList.add(search.course.displayName);
     return searchList.join(', ');
   }
 }

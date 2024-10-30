@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
-import '../../constant/constant.dart';
 
 class WorkImageChip extends StatelessWidget {
   final Searched searched;

@@ -12,7 +12,6 @@ class Notification with _$Notification {
   const factory Notification({
     @NotificationTypeEnumConverter() required NotificationType type,
     required String title,
-    required String subtitle,
     required String content,
     @DateTimeConverter() required DateTime createdAt,
   }) = _Notification;

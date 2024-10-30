@@ -8,6 +8,8 @@ import 'package:kenryo_tankyu/models/models.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:kenryo_tankyu/service/service.dart';
 
+import '../../db/db.dart';
+
 class ShowTeacherPdfPage extends ConsumerWidget {
   const ShowTeacherPdfPage({super.key});
 

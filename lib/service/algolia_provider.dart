@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:kenryo_tankyu/models/models.dart';
-import 'package:kenryo_tankyu/service/random_recommended_cache.dart';
-import 'package:kenryo_tankyu/service/searched_history_db_provider.dart';
+import 'package:kenryo_tankyu/db/random_recommended_cache.dart';
+import 'package:kenryo_tankyu/db/searched_history_db.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'algolia.dart';
 
@@ -33,18 +33,17 @@ final algoliaSearchProvider =
 
     final AlgoliaQuerySnapshot snap = await algoliaQuery.getObjects();
     final List<AlgoliaObjectSnapshot> objects = snap.hits;
-    debugPrint('ヒットしてます。内容: ${objects.toString()}');
     if (objects.isEmpty) {
-      debugPrint('検索結果がありません');
+      //検索してもヒットしなかった場合
       return null;
     } else {
-
       ///ヒットしたデータがユーザーがお気に入りに登録しているかどうかをローカルDBから取得する。
       ///ある場合は、favoriteListにそのデータのdocumentIDを入手、ない場合はnullをいれる。
+      
       final List<int> documentIDs = objects.map((e) => int.parse(e.objectID)).toList();
-      final List<String>? favoriteList =
+      final List<int>? favoriteList =
           await SearchedHistoryController.instance.getSomeFavoriteState(documentIDs);
-
+      
       ///Algoliaから取得したデータをSearched型に変換する。
       ///この際、favoriteListにidが含まれているかどうかを検証しながらstateに渡すdataを作成している。
       if (favoriteList == null) {

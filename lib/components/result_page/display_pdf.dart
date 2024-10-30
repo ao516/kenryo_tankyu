@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import '../../service/pdf_db.dart';
+import '../../db/pdf_db.dart';
 
 
 
@@ -35,7 +35,7 @@ class DisplayPdf extends ConsumerWidget {
                       PDFView(
                         pdfData: snapshot.data!,
                         enableSwipe: true,
-                        autoSpacing: false,
+                        autoSpacing: true,
                         pageFling: false,
                         pageSnap: false,
                       ),

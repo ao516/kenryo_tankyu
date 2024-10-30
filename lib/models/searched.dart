@@ -60,6 +60,7 @@ class Searched with _$Searched {
   ///Algoliaから取得したsnapshotは、objectIDとisFavoriteのみjson形式ではないため、無理やりcopyWithで変換して付け加えている。
   factory Searched.fromAlgolia(AlgoliaObjectSnapshot doc, int isFavorite) {
     final Map<String, dynamic> data = doc.data;
+    debugPrint('通るよー⭐️ data: $data');
     return Searched.fromJson(data)
         .copyWith(documentID: int.parse(doc.objectID), isFavorite: isFavorite);
   }
