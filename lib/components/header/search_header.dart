@@ -24,8 +24,8 @@ class _SearchHeaderState extends ConsumerState<SearchHeader> {
   @override
   Widget build(BuildContext context) {
     final notifier = ref.read(searchProvider.notifier);
-    final List<String>? searchWord = ref.watch(searchProvider).searchWord;
-    final controller = TextEditingController(text: searchWord?.join(' '));
+    final List<String> searchWord = ref.watch(searchProvider).searchWord;
+    final controller = TextEditingController(text: searchWord.join(' '));
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
       titleSpacing: 0,

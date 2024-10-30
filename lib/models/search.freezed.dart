@@ -24,14 +24,15 @@ mixin _$Search {
   Category get category => throw _privateConstructorUsedError;
   @SubCategoryEnumConverter()
   SubCategory get subCategory => throw _privateConstructorUsedError;
-  int? get year => throw _privateConstructorUsedError;
+  @EnterYearEnumConverter()
+  EnterYear get enterYear => throw _privateConstructorUsedError;
   @EventNameEnumConverter()
   EventName get eventName => throw _privateConstructorUsedError;
   @CourseEnumConverter()
   Course get course => throw _privateConstructorUsedError;
   @SearchWordConverter()
-  List<String>? get searchWord => throw _privateConstructorUsedError;
-  int? get numberOfHits => throw _privateConstructorUsedError;
+  List<String> get searchWord => throw _privateConstructorUsedError;
+  int get numberOfHits => throw _privateConstructorUsedError;
   @DateTimeConverter()
   DateTime? get savedAt => throw _privateConstructorUsedError;
 
@@ -52,11 +53,11 @@ abstract class $SearchCopyWith<$Res> {
   $Res call(
       {@CategoryEnumConverter() Category category,
       @SubCategoryEnumConverter() SubCategory subCategory,
-      int? year,
+      @EnterYearEnumConverter() EnterYear enterYear,
       @EventNameEnumConverter() EventName eventName,
       @CourseEnumConverter() Course course,
-      @SearchWordConverter() List<String>? searchWord,
-      int? numberOfHits,
+      @SearchWordConverter() List<String> searchWord,
+      int numberOfHits,
       @DateTimeConverter() DateTime? savedAt});
 }
 
@@ -77,11 +78,11 @@ class _$SearchCopyWithImpl<$Res, $Val extends Search>
   $Res call({
     Object? category = null,
     Object? subCategory = null,
-    Object? year = freezed,
+    Object? enterYear = null,
     Object? eventName = null,
     Object? course = null,
-    Object? searchWord = freezed,
-    Object? numberOfHits = freezed,
+    Object? searchWord = null,
+    Object? numberOfHits = null,
     Object? savedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -93,10 +94,10 @@ class _$SearchCopyWithImpl<$Res, $Val extends Search>
           ? _value.subCategory
           : subCategory // ignore: cast_nullable_to_non_nullable
               as SubCategory,
-      year: freezed == year
-          ? _value.year
-          : year // ignore: cast_nullable_to_non_nullable
-              as int?,
+      enterYear: null == enterYear
+          ? _value.enterYear
+          : enterYear // ignore: cast_nullable_to_non_nullable
+              as EnterYear,
       eventName: null == eventName
           ? _value.eventName
           : eventName // ignore: cast_nullable_to_non_nullable
@@ -105,14 +106,14 @@ class _$SearchCopyWithImpl<$Res, $Val extends Search>
           ? _value.course
           : course // ignore: cast_nullable_to_non_nullable
               as Course,
-      searchWord: freezed == searchWord
+      searchWord: null == searchWord
           ? _value.searchWord
           : searchWord // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      numberOfHits: freezed == numberOfHits
+              as List<String>,
+      numberOfHits: null == numberOfHits
           ? _value.numberOfHits
           : numberOfHits // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       savedAt: freezed == savedAt
           ? _value.savedAt
           : savedAt // ignore: cast_nullable_to_non_nullable
@@ -131,11 +132,11 @@ abstract class _$$SearchImplCopyWith<$Res> implements $SearchCopyWith<$Res> {
   $Res call(
       {@CategoryEnumConverter() Category category,
       @SubCategoryEnumConverter() SubCategory subCategory,
-      int? year,
+      @EnterYearEnumConverter() EnterYear enterYear,
       @EventNameEnumConverter() EventName eventName,
       @CourseEnumConverter() Course course,
-      @SearchWordConverter() List<String>? searchWord,
-      int? numberOfHits,
+      @SearchWordConverter() List<String> searchWord,
+      int numberOfHits,
       @DateTimeConverter() DateTime? savedAt});
 }
 
@@ -154,11 +155,11 @@ class __$$SearchImplCopyWithImpl<$Res>
   $Res call({
     Object? category = null,
     Object? subCategory = null,
-    Object? year = freezed,
+    Object? enterYear = null,
     Object? eventName = null,
     Object? course = null,
-    Object? searchWord = freezed,
-    Object? numberOfHits = freezed,
+    Object? searchWord = null,
+    Object? numberOfHits = null,
     Object? savedAt = freezed,
   }) {
     return _then(_$SearchImpl(
@@ -170,10 +171,10 @@ class __$$SearchImplCopyWithImpl<$Res>
           ? _value.subCategory
           : subCategory // ignore: cast_nullable_to_non_nullable
               as SubCategory,
-      year: freezed == year
-          ? _value.year
-          : year // ignore: cast_nullable_to_non_nullable
-              as int?,
+      enterYear: null == enterYear
+          ? _value.enterYear
+          : enterYear // ignore: cast_nullable_to_non_nullable
+              as EnterYear,
       eventName: null == eventName
           ? _value.eventName
           : eventName // ignore: cast_nullable_to_non_nullable
@@ -182,14 +183,14 @@ class __$$SearchImplCopyWithImpl<$Res>
           ? _value.course
           : course // ignore: cast_nullable_to_non_nullable
               as Course,
-      searchWord: freezed == searchWord
+      searchWord: null == searchWord
           ? _value._searchWord
           : searchWord // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
-      numberOfHits: freezed == numberOfHits
+              as List<String>,
+      numberOfHits: null == numberOfHits
           ? _value.numberOfHits
           : numberOfHits // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       savedAt: freezed == savedAt
           ? _value.savedAt
           : savedAt // ignore: cast_nullable_to_non_nullable
@@ -204,11 +205,11 @@ class _$SearchImpl extends _Search {
   const _$SearchImpl(
       {@CategoryEnumConverter() required this.category,
       @SubCategoryEnumConverter() required this.subCategory,
-      this.year,
+      @EnterYearEnumConverter() required this.enterYear,
       @EventNameEnumConverter() required this.eventName,
       @CourseEnumConverter() required this.course,
-      @SearchWordConverter() final List<String>? searchWord,
-      this.numberOfHits,
+      @SearchWordConverter() final List<String> searchWord = const [],
+      this.numberOfHits = 0,
       @DateTimeConverter() this.savedAt})
       : _searchWord = searchWord,
         super._();
@@ -223,33 +224,34 @@ class _$SearchImpl extends _Search {
   @SubCategoryEnumConverter()
   final SubCategory subCategory;
   @override
-  final int? year;
+  @EnterYearEnumConverter()
+  final EnterYear enterYear;
   @override
   @EventNameEnumConverter()
   final EventName eventName;
   @override
   @CourseEnumConverter()
   final Course course;
-  final List<String>? _searchWord;
+  final List<String> _searchWord;
   @override
+  @JsonKey()
   @SearchWordConverter()
-  List<String>? get searchWord {
-    final value = _searchWord;
-    if (value == null) return null;
+  List<String> get searchWord {
     if (_searchWord is EqualUnmodifiableListView) return _searchWord;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_searchWord);
   }
 
   @override
-  final int? numberOfHits;
+  @JsonKey()
+  final int numberOfHits;
   @override
   @DateTimeConverter()
   final DateTime? savedAt;
 
   @override
   String toString() {
-    return 'Search(category: $category, subCategory: $subCategory, year: $year, eventName: $eventName, course: $course, searchWord: $searchWord, numberOfHits: $numberOfHits, savedAt: $savedAt)';
+    return 'Search(category: $category, subCategory: $subCategory, enterYear: $enterYear, eventName: $eventName, course: $course, searchWord: $searchWord, numberOfHits: $numberOfHits, savedAt: $savedAt)';
   }
 
   @override
@@ -261,7 +263,8 @@ class _$SearchImpl extends _Search {
                 other.category == category) &&
             (identical(other.subCategory, subCategory) ||
                 other.subCategory == subCategory) &&
-            (identical(other.year, year) || other.year == year) &&
+            (identical(other.enterYear, enterYear) ||
+                other.enterYear == enterYear) &&
             (identical(other.eventName, eventName) ||
                 other.eventName == eventName) &&
             (identical(other.course, course) || other.course == course) &&
@@ -278,7 +281,7 @@ class _$SearchImpl extends _Search {
       runtimeType,
       category,
       subCategory,
-      year,
+      enterYear,
       eventName,
       course,
       const DeepCollectionEquality().hash(_searchWord),
@@ -305,11 +308,11 @@ abstract class _Search extends Search {
   const factory _Search(
       {@CategoryEnumConverter() required final Category category,
       @SubCategoryEnumConverter() required final SubCategory subCategory,
-      final int? year,
+      @EnterYearEnumConverter() required final EnterYear enterYear,
       @EventNameEnumConverter() required final EventName eventName,
       @CourseEnumConverter() required final Course course,
-      @SearchWordConverter() final List<String>? searchWord,
-      final int? numberOfHits,
+      @SearchWordConverter() final List<String> searchWord,
+      final int numberOfHits,
       @DateTimeConverter() final DateTime? savedAt}) = _$SearchImpl;
   const _Search._() : super._();
 
@@ -322,7 +325,8 @@ abstract class _Search extends Search {
   @SubCategoryEnumConverter()
   SubCategory get subCategory;
   @override
-  int? get year;
+  @EnterYearEnumConverter()
+  EnterYear get enterYear;
   @override
   @EventNameEnumConverter()
   EventName get eventName;
@@ -331,9 +335,9 @@ abstract class _Search extends Search {
   Course get course;
   @override
   @SearchWordConverter()
-  List<String>? get searchWord;
+  List<String> get searchWord;
   @override
-  int? get numberOfHits;
+  int get numberOfHits;
   @override
   @DateTimeConverter()
   DateTime? get savedAt;

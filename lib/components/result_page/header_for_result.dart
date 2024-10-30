@@ -50,7 +50,7 @@ class HeaderForResultPage extends ConsumerWidget
 
   String _setClipboard(Searched searched) {
     final String text =
-        '『${searched.title}』\n${searched.year}年度入学／${searched.course.displayName}\n名前：${searched.author}\n'
+        '『${searched.title}』\n${searched.enterYear.displayName}年度入学／${searched.course.displayName}\n名前：${searched.author}\n'
         '---------\nカテゴリ1：${searched.category1}>${searched.subCategory1}\n'
         'カテゴリ2：${searched.category2}>${searched.subCategory2}';
     return text;

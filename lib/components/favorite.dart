@@ -42,7 +42,7 @@ class ChangeFavoriteStateNotifier extends StateNotifier<int> {
 ///documentIDごとにFavoriteの数を管理するProvider
 final favoriteCountProvider = StateNotifierProvider.family
     <ChangeFavoriteCountNotifier, int, Searched>((ref, searched) {
-  return ChangeFavoriteCountNotifier(searched.exactLikes ?? searched.vagueLikes ?? 0);
+  return ChangeFavoriteCountNotifier(searched.exactLikes);
 });
 
 class ChangeFavoriteCountNotifier extends StateNotifier<int> {
@@ -54,7 +54,7 @@ class ChangeFavoriteCountNotifier extends StateNotifier<int> {
     required bool needToChangeAlgoliaValue,
   }) async {
     final int beforeIsFavorite = searched.isFavorite;
-    final int beforeExactLikes = searched.exactLikes ?? 0;
+    final int beforeExactLikes = searched.exactLikes;
 
     //beforeIsFavoriteは、データを表示させた時点でのユーザーがお気に入り状態だったかどうか。
     //        →Algoliaからリスト取得した際にローカルDBを参照したときにsearchedに一緒に組み込んであるためそこから取得。

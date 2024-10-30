@@ -49,19 +49,31 @@ class SearchDropButton extends ConsumerWidget {
     );
   }
 
-  _onChanged(String? value, WidgetRef ref) {
+  void _onChanged(String? value, WidgetRef ref) {
     final notifier = ref.read(searchProvider.notifier);
-    name == '期間'
-        ? notifier.selectedYear(int.parse(value!))
-        : name == 'イベント名'
-            ? notifier.selectedEventName(EventName.values.firstWhere(
-                (element) => element.displayName == value,orElse: () => EventName.undefined))
-            : name == '学科指定'
-                ? notifier.selectedCourse(Course.values.firstWhere(
-                    (element) => element.displayName == value,orElse: () => Course.undefined))
-                : notifier.selectedCategory(Category.values.firstWhere(
-                    (element) => element.displayName == value,orElse: () => Category.none));
+    final selectedValue = value ?? '';
 
-    ///todo : こんな書き方したくないよーーー笑
+    switch (name) {
+      case '期間':
+        notifier.selectedYear(EnterYear.values.firstWhere(
+            (element) => element.displayName.toString() == selectedValue,
+            orElse: () => EnterYear.undefined));
+        break;
+      case 'イベント名':
+        notifier.selectedEventName(EventName.values.firstWhere(
+            (element) => element.displayName == selectedValue,
+            orElse: () => EventName.undefined));
+        break;
+      case '学科指定':
+        notifier.selectedCourse(Course.values.firstWhere(
+            (element) => element.displayName == selectedValue,
+            orElse: () => Course.undefined));
+        break;
+      default:
+        notifier.selectedCategory(Category.values.firstWhere(
+            (element) => element.displayName == selectedValue,
+            orElse: () => Category.none));
+        break;
+    }
   }
 }

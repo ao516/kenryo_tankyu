@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../db/db.dart';
-import '../service/service.dart';
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});

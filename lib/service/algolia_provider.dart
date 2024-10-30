@@ -16,9 +16,8 @@ final algoliaSearchProvider =
     FutureProvider.autoDispose<List<Searched>?>((ref) async {
   final search =
       ref.read(searchProvider); //ref.readにすると、watchと違って値が変更されたときに再ビルドされない！
-  final String searchWord = search.searchWord != null
-      ? search.searchWord!.map<String>((String value) => value).join(',')
-      : '';
+  final String searchWord = 
+    search.searchWord.map<String>((String value) => value).join(',');
   final String filter = _filter(search); //フィルターに使う文字列を決定する関数。
 
   debugPrint('filter : $filter');
@@ -50,7 +49,7 @@ final algoliaSearchProvider =
         return objects.map((e) => Searched.fromAlgolia(e, 0)).toList();
       } else {
         return objects.map((object) {
-          return favoriteList.contains(object.objectID)
+          return favoriteList.contains(int.parse(object.objectID))
               ? Searched.fromAlgolia(object, 1)
               : Searched.fromAlgolia(object, 0);
         }).toList();
@@ -70,7 +69,7 @@ String _filter(Search searchState) {
           ? str +=
               'AND (category1:${searchState.category.name} OR category2:${searchState.category.name})'
           : null;
-  searchState.year != null ? str += ' AND year:${searchState.year}' : null;
+  searchState.enterYear.name  != 'undefined' ? str += ' AND year:${searchState.enterYear}' : null;
   searchState.course.name != 'undefined'
       ? str += ' AND course:${searchState.course}'
       : null;
@@ -92,16 +91,16 @@ class SortedListNotifier extends StateNotifier<List<Searched>> {
   void sortList(SortType sortType) {
     switch (sortType) {
       case SortType.newOrder:
-        state = [...state]..sort((a, b) => b.year.compareTo(a.year));
+        state = [...state]..sort((a, b) => b.enterYear.displayName.compareTo(a.enterYear.displayName));
         debugPrint('新しい順で並び替えます');
         break;
       case SortType.oldOrder:
-        state = [...state]..sort((a, b) => a.year.compareTo(b.year));
+        state = [...state]..sort((a, b) => a.enterYear.displayName.compareTo(b.enterYear.displayName));
         debugPrint('古い順で並び替えます');
         break;
       case SortType.likeOrder:
         state = [...state]
-          ..sort((a, b) => b.vagueLikes?.compareTo(a.vagueLikes as num) ?? 0);
+          ..sort((a, b) => b.vagueLikes.compareTo(a.vagueLikes));
         debugPrint('いいね順で並び替えます');
         break;
     }

@@ -11,13 +11,15 @@ _$SearchImpl _$$SearchImplFromJson(Map<String, dynamic> json) => _$SearchImpl(
           const CategoryEnumConverter().fromJson(json['category'] as String),
       subCategory: const SubCategoryEnumConverter()
           .fromJson(json['subCategory'] as String),
-      year: (json['year'] as num?)?.toInt(),
+      enterYear: const EnterYearEnumConverter()
+          .fromJson((json['enterYear'] as num).toInt()),
       eventName:
           const EventNameEnumConverter().fromJson(json['eventName'] as String),
       course: const CourseEnumConverter().fromJson(json['course'] as String),
-      searchWord: _$JsonConverterFromJson<String, List<String>>(
-          json['searchWord'], const SearchWordConverter().fromJson),
-      numberOfHits: (json['numberOfHits'] as num?)?.toInt(),
+      searchWord: json['searchWord'] == null
+          ? const []
+          : const SearchWordConverter().fromJson(json['searchWord'] as String),
+      numberOfHits: (json['numberOfHits'] as num?)?.toInt() ?? 0,
       savedAt: _$JsonConverterFromJson<String, DateTime>(
           json['savedAt'], const DateTimeConverter().fromJson),
     );
@@ -27,11 +29,10 @@ Map<String, dynamic> _$$SearchImplToJson(_$SearchImpl instance) =>
       'category': const CategoryEnumConverter().toJson(instance.category),
       'subCategory':
           const SubCategoryEnumConverter().toJson(instance.subCategory),
-      'year': instance.year,
+      'enterYear': const EnterYearEnumConverter().toJson(instance.enterYear),
       'eventName': const EventNameEnumConverter().toJson(instance.eventName),
       'course': const CourseEnumConverter().toJson(instance.course),
-      'searchWord': _$JsonConverterToJson<String, List<String>>(
-          instance.searchWord, const SearchWordConverter().toJson),
+      'searchWord': const SearchWordConverter().toJson(instance.searchWord),
       'numberOfHits': instance.numberOfHits,
       'savedAt': _$JsonConverterToJson<String, DateTime>(
           instance.savedAt, const DateTimeConverter().toJson),

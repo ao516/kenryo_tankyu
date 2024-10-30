@@ -32,26 +32,20 @@ mixin _$Searched {
   Category get category2 => throw _privateConstructorUsedError;
   @SubCategoryEnumConverter()
   SubCategory get subCategory2 => throw _privateConstructorUsedError;
-  int get year => throw _privateConstructorUsedError;
+  @EnterYearEnumConverter()
+  EnterYear get enterYear => throw _privateConstructorUsedError;
   @EventNameEnumConverter()
   EventName get eventName => throw _privateConstructorUsedError;
   @CourseEnumConverter()
   Course get course => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
-  String? get author => throw _privateConstructorUsedError;
-  @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
-  int? get vagueLikes => throw _privateConstructorUsedError;
-  @JsonKey(name: 'exactLikes', includeFromJson: true, includeToJson: false)
-  int? get exactLikes => throw _privateConstructorUsedError;
-  @JsonKey(name: 'existsSlide', includeFromJson: true, includeToJson: false)
-  bool? get existsSlide => throw _privateConstructorUsedError;
-  @JsonKey(name: 'existsReport', includeFromJson: true, includeToJson: false)
-  bool? get existsReport => throw _privateConstructorUsedError;
-  @JsonKey(name: 'existsThesis', includeFromJson: true, includeToJson: false)
-  bool? get existsThesis => throw _privateConstructorUsedError;
-  @JsonKey(name: 'existsPoster', includeFromJson: true, includeToJson: false)
-  bool? get existsPoster => throw _privateConstructorUsedError;
+  String get author => throw _privateConstructorUsedError;
+  int get vagueLikes => throw _privateConstructorUsedError;
+  int get exactLikes => throw _privateConstructorUsedError;
+  bool get existsSlide => throw _privateConstructorUsedError;
+  bool get existsReport => throw _privateConstructorUsedError;
+  bool get existsThesis => throw _privateConstructorUsedError;
+  bool get existsPoster => throw _privateConstructorUsedError;
   @DateTimeConverter()
   DateTime? get savedAt => throw _privateConstructorUsedError;
 
@@ -79,27 +73,17 @@ abstract class $SearchedCopyWith<$Res> {
       @SubCategoryEnumConverter() SubCategory subCategory1,
       @CategoryEnumConverter() Category category2,
       @SubCategoryEnumConverter() SubCategory subCategory2,
-      int year,
+      @EnterYearEnumConverter() EnterYear enterYear,
       @EventNameEnumConverter() EventName eventName,
       @CourseEnumConverter() Course course,
       String title,
-      @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
-      String? author,
-      @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
-      int? vagueLikes,
-      @JsonKey(name: 'exactLikes', includeFromJson: true, includeToJson: false)
-      int? exactLikes,
-      @JsonKey(name: 'existsSlide', includeFromJson: true, includeToJson: false)
-      bool? existsSlide,
-      @JsonKey(
-          name: 'existsReport', includeFromJson: true, includeToJson: false)
-      bool? existsReport,
-      @JsonKey(
-          name: 'existsThesis', includeFromJson: true, includeToJson: false)
-      bool? existsThesis,
-      @JsonKey(
-          name: 'existsPoster', includeFromJson: true, includeToJson: false)
-      bool? existsPoster,
+      String author,
+      int vagueLikes,
+      int exactLikes,
+      bool existsSlide,
+      bool existsReport,
+      bool existsThesis,
+      bool existsPoster,
       @DateTimeConverter() DateTime? savedAt});
 }
 
@@ -124,17 +108,17 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
     Object? subCategory1 = null,
     Object? category2 = null,
     Object? subCategory2 = null,
-    Object? year = null,
+    Object? enterYear = null,
     Object? eventName = null,
     Object? course = null,
     Object? title = null,
-    Object? author = freezed,
-    Object? vagueLikes = freezed,
-    Object? exactLikes = freezed,
-    Object? existsSlide = freezed,
-    Object? existsReport = freezed,
-    Object? existsThesis = freezed,
-    Object? existsPoster = freezed,
+    Object? author = null,
+    Object? vagueLikes = null,
+    Object? exactLikes = null,
+    Object? existsSlide = null,
+    Object? existsReport = null,
+    Object? existsThesis = null,
+    Object? existsPoster = null,
     Object? savedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -162,10 +146,10 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
           ? _value.subCategory2
           : subCategory2 // ignore: cast_nullable_to_non_nullable
               as SubCategory,
-      year: null == year
-          ? _value.year
-          : year // ignore: cast_nullable_to_non_nullable
-              as int,
+      enterYear: null == enterYear
+          ? _value.enterYear
+          : enterYear // ignore: cast_nullable_to_non_nullable
+              as EnterYear,
       eventName: null == eventName
           ? _value.eventName
           : eventName // ignore: cast_nullable_to_non_nullable
@@ -178,34 +162,34 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      author: freezed == author
+      author: null == author
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
-              as String?,
-      vagueLikes: freezed == vagueLikes
+              as String,
+      vagueLikes: null == vagueLikes
           ? _value.vagueLikes
           : vagueLikes // ignore: cast_nullable_to_non_nullable
-              as int?,
-      exactLikes: freezed == exactLikes
+              as int,
+      exactLikes: null == exactLikes
           ? _value.exactLikes
           : exactLikes // ignore: cast_nullable_to_non_nullable
-              as int?,
-      existsSlide: freezed == existsSlide
+              as int,
+      existsSlide: null == existsSlide
           ? _value.existsSlide
           : existsSlide // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      existsReport: freezed == existsReport
+              as bool,
+      existsReport: null == existsReport
           ? _value.existsReport
           : existsReport // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      existsThesis: freezed == existsThesis
+              as bool,
+      existsThesis: null == existsThesis
           ? _value.existsThesis
           : existsThesis // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      existsPoster: freezed == existsPoster
+              as bool,
+      existsPoster: null == existsPoster
           ? _value.existsPoster
           : existsPoster // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       savedAt: freezed == savedAt
           ? _value.savedAt
           : savedAt // ignore: cast_nullable_to_non_nullable
@@ -231,27 +215,17 @@ abstract class _$$SearchedImplCopyWith<$Res>
       @SubCategoryEnumConverter() SubCategory subCategory1,
       @CategoryEnumConverter() Category category2,
       @SubCategoryEnumConverter() SubCategory subCategory2,
-      int year,
+      @EnterYearEnumConverter() EnterYear enterYear,
       @EventNameEnumConverter() EventName eventName,
       @CourseEnumConverter() Course course,
       String title,
-      @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
-      String? author,
-      @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
-      int? vagueLikes,
-      @JsonKey(name: 'exactLikes', includeFromJson: true, includeToJson: false)
-      int? exactLikes,
-      @JsonKey(name: 'existsSlide', includeFromJson: true, includeToJson: false)
-      bool? existsSlide,
-      @JsonKey(
-          name: 'existsReport', includeFromJson: true, includeToJson: false)
-      bool? existsReport,
-      @JsonKey(
-          name: 'existsThesis', includeFromJson: true, includeToJson: false)
-      bool? existsThesis,
-      @JsonKey(
-          name: 'existsPoster', includeFromJson: true, includeToJson: false)
-      bool? existsPoster,
+      String author,
+      int vagueLikes,
+      int exactLikes,
+      bool existsSlide,
+      bool existsReport,
+      bool existsThesis,
+      bool existsPoster,
       @DateTimeConverter() DateTime? savedAt});
 }
 
@@ -274,17 +248,17 @@ class __$$SearchedImplCopyWithImpl<$Res>
     Object? subCategory1 = null,
     Object? category2 = null,
     Object? subCategory2 = null,
-    Object? year = null,
+    Object? enterYear = null,
     Object? eventName = null,
     Object? course = null,
     Object? title = null,
-    Object? author = freezed,
-    Object? vagueLikes = freezed,
-    Object? exactLikes = freezed,
-    Object? existsSlide = freezed,
-    Object? existsReport = freezed,
-    Object? existsThesis = freezed,
-    Object? existsPoster = freezed,
+    Object? author = null,
+    Object? vagueLikes = null,
+    Object? exactLikes = null,
+    Object? existsSlide = null,
+    Object? existsReport = null,
+    Object? existsThesis = null,
+    Object? existsPoster = null,
     Object? savedAt = freezed,
   }) {
     return _then(_$SearchedImpl(
@@ -312,10 +286,10 @@ class __$$SearchedImplCopyWithImpl<$Res>
           ? _value.subCategory2
           : subCategory2 // ignore: cast_nullable_to_non_nullable
               as SubCategory,
-      year: null == year
-          ? _value.year
-          : year // ignore: cast_nullable_to_non_nullable
-              as int,
+      enterYear: null == enterYear
+          ? _value.enterYear
+          : enterYear // ignore: cast_nullable_to_non_nullable
+              as EnterYear,
       eventName: null == eventName
           ? _value.eventName
           : eventName // ignore: cast_nullable_to_non_nullable
@@ -328,34 +302,34 @@ class __$$SearchedImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
-      author: freezed == author
+      author: null == author
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
-              as String?,
-      vagueLikes: freezed == vagueLikes
+              as String,
+      vagueLikes: null == vagueLikes
           ? _value.vagueLikes
           : vagueLikes // ignore: cast_nullable_to_non_nullable
-              as int?,
-      exactLikes: freezed == exactLikes
+              as int,
+      exactLikes: null == exactLikes
           ? _value.exactLikes
           : exactLikes // ignore: cast_nullable_to_non_nullable
-              as int?,
-      existsSlide: freezed == existsSlide
+              as int,
+      existsSlide: null == existsSlide
           ? _value.existsSlide
           : existsSlide // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      existsReport: freezed == existsReport
+              as bool,
+      existsReport: null == existsReport
           ? _value.existsReport
           : existsReport // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      existsThesis: freezed == existsThesis
+              as bool,
+      existsThesis: null == existsThesis
           ? _value.existsThesis
           : existsThesis // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      existsPoster: freezed == existsPoster
+              as bool,
+      existsPoster: null == existsPoster
           ? _value.existsPoster
           : existsPoster // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       savedAt: freezed == savedAt
           ? _value.savedAt
           : savedAt // ignore: cast_nullable_to_non_nullable
@@ -376,27 +350,17 @@ class _$SearchedImpl extends _Searched {
       @SubCategoryEnumConverter() required this.subCategory1,
       @CategoryEnumConverter() required this.category2,
       @SubCategoryEnumConverter() required this.subCategory2,
-      required this.year,
+      @EnterYearEnumConverter() required this.enterYear,
       @EventNameEnumConverter() required this.eventName,
       @CourseEnumConverter() required this.course,
-      required this.title,
-      @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
-      this.author,
-      @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
-      this.vagueLikes,
-      @JsonKey(name: 'exactLikes', includeFromJson: true, includeToJson: false)
-      this.exactLikes,
-      @JsonKey(name: 'existsSlide', includeFromJson: true, includeToJson: false)
-      this.existsSlide,
-      @JsonKey(
-          name: 'existsReport', includeFromJson: true, includeToJson: false)
-      this.existsReport,
-      @JsonKey(
-          name: 'existsThesis', includeFromJson: true, includeToJson: false)
-      this.existsThesis,
-      @JsonKey(
-          name: 'existsPoster', includeFromJson: true, includeToJson: false)
-      this.existsPoster,
+      this.title = '',
+      this.author = '',
+      this.vagueLikes = 0,
+      this.exactLikes = 0,
+      this.existsSlide = false,
+      this.existsReport = false,
+      this.existsThesis = false,
+      this.existsPoster = false,
       @DateTimeConverter() this.savedAt})
       : super._();
 
@@ -422,7 +386,8 @@ class _$SearchedImpl extends _Searched {
   @SubCategoryEnumConverter()
   final SubCategory subCategory2;
   @override
-  final int year;
+  @EnterYearEnumConverter()
+  final EnterYear enterYear;
   @override
   @EventNameEnumConverter()
   final EventName eventName;
@@ -430,35 +395,36 @@ class _$SearchedImpl extends _Searched {
   @CourseEnumConverter()
   final Course course;
   @override
+  @JsonKey()
   final String title;
   @override
-  @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
-  final String? author;
+  @JsonKey()
+  final String author;
   @override
-  @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
-  final int? vagueLikes;
+  @JsonKey()
+  final int vagueLikes;
   @override
-  @JsonKey(name: 'exactLikes', includeFromJson: true, includeToJson: false)
-  final int? exactLikes;
+  @JsonKey()
+  final int exactLikes;
   @override
-  @JsonKey(name: 'existsSlide', includeFromJson: true, includeToJson: false)
-  final bool? existsSlide;
+  @JsonKey()
+  final bool existsSlide;
   @override
-  @JsonKey(name: 'existsReport', includeFromJson: true, includeToJson: false)
-  final bool? existsReport;
+  @JsonKey()
+  final bool existsReport;
   @override
-  @JsonKey(name: 'existsThesis', includeFromJson: true, includeToJson: false)
-  final bool? existsThesis;
+  @JsonKey()
+  final bool existsThesis;
   @override
-  @JsonKey(name: 'existsPoster', includeFromJson: true, includeToJson: false)
-  final bool? existsPoster;
+  @JsonKey()
+  final bool existsPoster;
   @override
   @DateTimeConverter()
   final DateTime? savedAt;
 
   @override
   String toString() {
-    return 'Searched(documentID: $documentID, isFavorite: $isFavorite, category1: $category1, subCategory1: $subCategory1, category2: $category2, subCategory2: $subCategory2, year: $year, eventName: $eventName, course: $course, title: $title, author: $author, vagueLikes: $vagueLikes, exactLikes: $exactLikes, existsSlide: $existsSlide, existsReport: $existsReport, existsThesis: $existsThesis, existsPoster: $existsPoster, savedAt: $savedAt)';
+    return 'Searched(documentID: $documentID, isFavorite: $isFavorite, category1: $category1, subCategory1: $subCategory1, category2: $category2, subCategory2: $subCategory2, enterYear: $enterYear, eventName: $eventName, course: $course, title: $title, author: $author, vagueLikes: $vagueLikes, exactLikes: $exactLikes, existsSlide: $existsSlide, existsReport: $existsReport, existsThesis: $existsThesis, existsPoster: $existsPoster, savedAt: $savedAt)';
   }
 
   @override
@@ -478,7 +444,8 @@ class _$SearchedImpl extends _Searched {
                 other.category2 == category2) &&
             (identical(other.subCategory2, subCategory2) ||
                 other.subCategory2 == subCategory2) &&
-            (identical(other.year, year) || other.year == year) &&
+            (identical(other.enterYear, enterYear) ||
+                other.enterYear == enterYear) &&
             (identical(other.eventName, eventName) ||
                 other.eventName == eventName) &&
             (identical(other.course, course) || other.course == course) &&
@@ -509,7 +476,7 @@ class _$SearchedImpl extends _Searched {
       subCategory1,
       category2,
       subCategory2,
-      year,
+      enterYear,
       eventName,
       course,
       title,
@@ -548,27 +515,17 @@ abstract class _Searched extends Searched {
       @SubCategoryEnumConverter() required final SubCategory subCategory1,
       @CategoryEnumConverter() required final Category category2,
       @SubCategoryEnumConverter() required final SubCategory subCategory2,
-      required final int year,
+      @EnterYearEnumConverter() required final EnterYear enterYear,
       @EventNameEnumConverter() required final EventName eventName,
       @CourseEnumConverter() required final Course course,
-      required final String title,
-      @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
-      final String? author,
-      @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
-      final int? vagueLikes,
-      @JsonKey(name: 'exactLikes', includeFromJson: true, includeToJson: false)
-      final int? exactLikes,
-      @JsonKey(name: 'existsSlide', includeFromJson: true, includeToJson: false)
-      final bool? existsSlide,
-      @JsonKey(
-          name: 'existsReport', includeFromJson: true, includeToJson: false)
-      final bool? existsReport,
-      @JsonKey(
-          name: 'existsThesis', includeFromJson: true, includeToJson: false)
-      final bool? existsThesis,
-      @JsonKey(
-          name: 'existsPoster', includeFromJson: true, includeToJson: false)
-      final bool? existsPoster,
+      final String title,
+      final String author,
+      final int vagueLikes,
+      final int exactLikes,
+      final bool existsSlide,
+      final bool existsReport,
+      final bool existsThesis,
+      final bool existsPoster,
       @DateTimeConverter() final DateTime? savedAt}) = _$SearchedImpl;
   const _Searched._() : super._();
 
@@ -594,7 +551,8 @@ abstract class _Searched extends Searched {
   @SubCategoryEnumConverter()
   SubCategory get subCategory2;
   @override
-  int get year;
+  @EnterYearEnumConverter()
+  EnterYear get enterYear;
   @override
   @EventNameEnumConverter()
   EventName get eventName;
@@ -604,26 +562,19 @@ abstract class _Searched extends Searched {
   @override
   String get title;
   @override
-  @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
-  String? get author;
+  String get author;
   @override
-  @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
-  int? get vagueLikes;
+  int get vagueLikes;
   @override
-  @JsonKey(name: 'exactLikes', includeFromJson: true, includeToJson: false)
-  int? get exactLikes;
+  int get exactLikes;
   @override
-  @JsonKey(name: 'existsSlide', includeFromJson: true, includeToJson: false)
-  bool? get existsSlide;
+  bool get existsSlide;
   @override
-  @JsonKey(name: 'existsReport', includeFromJson: true, includeToJson: false)
-  bool? get existsReport;
+  bool get existsReport;
   @override
-  @JsonKey(name: 'existsThesis', includeFromJson: true, includeToJson: false)
-  bool? get existsThesis;
+  bool get existsThesis;
   @override
-  @JsonKey(name: 'existsPoster', includeFromJson: true, includeToJson: false)
-  bool? get existsPoster;
+  bool get existsPoster;
   @override
   @DateTimeConverter()
   DateTime? get savedAt;

@@ -1,5 +1,3 @@
-const List<int> yearList = [2018, 2019, 2020, 2021, 2022];
-
 const String version = '1.0.0';
 const String appName = '探究アーカイブ';
 const String appIcon = 'assets/images/app_icon.png';

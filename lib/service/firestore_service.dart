@@ -10,82 +10,82 @@ class FireStoreService {
   Future<void> create() async {
     final db = FirebaseFirestore.instance;
 
-    await db.collection('users').doc('2022').collection('users').add({
-      'email': 'goto.aoi.516@gmail.com',
-      'name': '後藤碧生',
-    });
-    await db.collection('users').doc('2024').collection('users').add({
-      'email': 'aoi-goto@kenryo.ed.jp',
-      'name': '後藤碧生',
-    });
+    // await db.collection('users').doc('2022').collection('users').add({
+    //   'email': 'goto.aoi.516@gmail.com',
+    //   'name': '後藤碧生',
+    // });
+    // await db.collection('users').doc('2024').collection('users').add({
+    //   'email': 'aoi-goto@kenryo.ed.jp',
+    //   'name': '後藤碧生',
+    // });
 
-    // await db.collection('works').doc('20202150').set({
-    //   'title': 'コミュニケーション×SNS 〜僕たちは原始人に戻るべきか?〜',
-    //   'category1': 'テクノロジー・工学',
-    //   'subCategory1': 'スマートフォン',
-    //   'category2': '地域・社会',
-    //   'subCategory2': 'コミュニケーション',
-    //   'year': 2020,
-    //   'eventName': '個人探究',
-    //   'course': '探究科',
-    //   'existsSlide': true,
-    //   'existsReport': true,
-    //   'existsThesis': true,
-    //   'existsPoster': true,
-    //   'author': '後藤碧生',
-    //   'vagueLikes': 0,
-    //   'exactLikes': 0,
-    // });
-    // await db.collection('works').doc('20202290').set({
-    //   'title': 'みんなのぶしつ 〜高校生の放課後の居場所に挑む〜',
-    //   'category1': '地域・社会',
-    //   'subCategory1': 'コミュニティ',
-    //   'category2': 'くらし',
-    //   'subCategory2': '学校生活',
-    //   'year': 2020,
-    //   'eventName': '個人探究',
-    //   'course': '探究科',
-    //   'existsSlide': false,
-    //   'existsReport': true,
-    //   'existsThesis': false,
-    //   'existsPoster': false,
-    //   'author': '田口壱星',
-    //   'vagueLikes': 0,
-    //   'exactLikes': 0,
-    // });
-    // await db.collection('works').doc('22201290').set({
-    //   'title': 'そのWikipedia記事、信頼できそうですか︖〜Pythonを⽤いた信頼度評価〜',
-    //   'category1': 'テクノロジー・工学',
-    //   'subCategory1': 'プログラミング',
-    //   'category2': '社会・地域 ',
-    //   'subCategory2': '法律',
-    //   'year': 2022,
-    //   'eventName': '個人探究',
-    //   'course': '探究科',
-    //   'existsSlide': true,
-    //   'existsReport': false,
-    //   'existsThesis': false,
-    //   'existsPoster': true,
-    //   'author': '橋本昂賢',
-    //   'vagueLikes': 0,
-    //   'exactLikes': 0,
-    // });
-    // await db.collection('works').doc('22202360').set({
-    //   'title': 'リップ大革命！〜不要なリップからマーカーペンを作成する〜！',
-    //   'category1': '科学・数学',
-    //   'category2': '自然環境',
-    //   'subCategory1': '化学',
-    //   'subCategory2': 'エシカル',
-    //   'year': 2022,
-    //   'eventName': '個人探究',
-    //   'course': '探究科',
-    //   'existsSlide': false,
-    //   'existsReport': false,
-    //   'existsThesis': false,
-    //   'existsPoster': true,
-    //   'author': '升田陽美',
-    //   'vagueLikes': 0,
-    //   'exactLikes': 0,
-    // });
+    await db.collection('works').doc('20202150').set({
+      'title': 'コミュニケーション×SNS 〜僕たちは原始人に戻るべきか?〜',
+      'category1': 'テクノロジー・工学',
+      'subCategory1': 'スマートフォン',
+      'category2': '地域・社会',
+      'subCategory2': 'コミュニケーション',
+      'enterYear': 2020,
+      'eventName': '個人探究',
+      'course': '探究科',
+      'existsSlide': true,
+      'existsReport': true,
+      'existsThesis': true,
+      'existsPoster': true,
+      'author': '後藤碧生',
+      'vagueLikes': 0,
+      'exactLikes': 0,
+    });
+    await db.collection('works').doc('20202290').set({
+      'title': 'みんなのぶしつ 〜高校生の放課後の居場所に挑む〜',
+      'category1': '地域・社会',
+      'subCategory1': 'コミュニティ',
+      'category2': 'くらし',
+      'subCategory2': '学校生活',
+      'enterYear': 2020,
+      'eventName': '個人探究',
+      'course': '探究科',
+      'existsSlide': false,
+      'existsReport': true,
+      'existsThesis': false,
+      'existsPoster': false,
+      'author': '田口壱星',
+      'vagueLikes': 0,
+      'exactLikes': 0,
+    });
+    await db.collection('works').doc('22201290').set({
+      'title': 'そのWikipedia記事、信頼できそうですか︖〜Pythonを⽤いた信頼度評価〜',
+      'category1': 'テクノロジー・工学',
+      'subCategory1': 'プログラミング',
+      'category2': '社会・地域 ',
+      'subCategory2': '法律',
+      'enterYear': 2022,
+      'eventName': '個人探究',
+      'course': '探究科',
+      'existsSlide': true,
+      'existsReport': false,
+      'existsThesis': false,
+      'existsPoster': true,
+      'author': '橋本昂賢',
+      'vagueLikes': 0,
+      'exactLikes': 0,
+    });
+    await db.collection('works').doc('22202360').set({
+      'title': 'リップ大革命！〜不要なリップからマーカーペンを作成する〜！',
+      'category1': '科学・数学',
+      'category2': '自然環境',
+      'subCategory1': '化学',
+      'subCategory2': 'エシカル',
+      'enterYear': 2022,
+      'eventName': '個人探究',
+      'course': '探究科',
+      'existsSlide': false,
+      'existsReport': false,
+      'existsThesis': false,
+      'existsPoster': true,
+      'author': '升田陽美',
+      'vagueLikes': 0,
+      'exactLikes': 0,
+    });
   }
 }

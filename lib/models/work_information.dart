@@ -1,5 +1,29 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+enum EnterYear {
+  year2020(displayName: 2020),
+  year2021(displayName: 2021),
+  year2022(displayName: 2022),
+  year2023(displayName: 2023),
+  undefined(displayName: 0);
+
+  final int displayName;
+  const EnterYear({required this.displayName});
+}
+
+class EnterYearEnumConverter implements JsonConverter<EnterYear, int> {
+  const EnterYearEnumConverter();
+  @override
+  EnterYear fromJson(int json) {
+    final EnterYear enterYear = EnterYear.values.firstWhere(
+        (element) => element.displayName == json,
+        orElse: () => EnterYear.undefined);
+    return enterYear;
+  }
+  @override
+  int toJson(EnterYear object) => object.displayName;
+}
+
 enum EventName {
   localLearning(
     displayName: '信州学',
@@ -51,10 +75,10 @@ class CourseEnumConverter implements JsonConverter<Course, String> {
 
   @override
   Course fromJson(String json) {
-    final Course department = Course.values.firstWhere(
+    final Course course = Course.values.firstWhere(
         (element) => element.name == json,
         orElse: () => Course.undefined);
-    return department;
+    return course;
   }
 
   @override

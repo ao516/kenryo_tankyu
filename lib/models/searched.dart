@@ -7,6 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
 part 'searched.freezed.dart';
+
 part 'searched.g.dart';
 
 ///ルール
@@ -33,24 +34,17 @@ class Searched with _$Searched {
     @SubCategoryEnumConverter() required SubCategory subCategory1,
     @CategoryEnumConverter() required Category category2,
     @SubCategoryEnumConverter() required SubCategory subCategory2,
-    required int year,
+    @EnterYearEnumConverter() required EnterYear enterYear,
     @EventNameEnumConverter() required EventName eventName,
     @CourseEnumConverter() required Course course,
-    required String title,
-    @JsonKey(name: 'author', includeFromJson: true, includeToJson: false)
-    String? author,
-    @JsonKey(name: 'vagueLikes', includeFromJson: true, includeToJson: false)
-    int? vagueLikes,
-    @JsonKey(name: 'exactLikes', includeFromJson: true, includeToJson: false)
-    int? exactLikes,
-    @JsonKey(name: 'existsSlide', includeFromJson: true, includeToJson: false)
-    bool? existsSlide,
-    @JsonKey(name: 'existsReport', includeFromJson: true, includeToJson: false)
-    bool? existsReport,
-    @JsonKey(name: 'existsThesis', includeFromJson: true, includeToJson: false)
-    bool? existsThesis,
-    @JsonKey(name: 'existsPoster', includeFromJson: true, includeToJson: false)
-    bool? existsPoster,
+    @Default('') String title,
+    @Default('') String author,
+    @Default(0) int vagueLikes,
+    @Default(0) int exactLikes,
+    @Default(false)bool  existsSlide,
+    @Default(false)bool  existsReport,
+    @Default(false)bool  existsThesis,
+    @Default(false)bool  existsPoster,
     @DateTimeConverter() DateTime? savedAt,
   }) = _Searched;
 

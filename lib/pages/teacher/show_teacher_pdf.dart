@@ -6,7 +6,6 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
-import 'package:kenryo_tankyu/service/service.dart';
 
 import '../../db/db.dart';
 

@@ -1,7 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/models/models.dart';
-import 'package:kenryo_tankyu/service/service.dart';
 import '../constant/constant.dart';
 import '../db/db.dart';
 
