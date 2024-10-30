@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/firebase_options.dart';
 import 'package:kenryo_tankyu/router.dart';
 import 'package:kenryo_tankyu/theme.dart';
-import 'package:kenryo_tankyu/service/service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'db/db.dart';

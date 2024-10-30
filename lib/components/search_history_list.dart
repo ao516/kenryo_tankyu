@@ -26,7 +26,7 @@ class SearchHistoryList extends ConsumerWidget {
                 )
               : ListView.separated(
                 itemBuilder: (BuildContext context, int index) {
-                  final search = searches[index];
+                  final Search search = searches[index];
                   final String word = _connectWord(search);
                   return ListTile(
                       trailing: const Icon(Icons.navigate_next),
@@ -69,7 +69,7 @@ class SearchHistoryList extends ConsumerWidget {
     //searchList.addAll(search.searchWord!);
     searchList.add(search.category.displayName);
     searchList.add(search.subCategory.displayName);
-    searchList.add(search.year.toString());
+    searchList.add(search.enterYear.displayName.toString());
     searchList.add(search.eventName.displayName);
     searchList.add(search.course.displayName);
     return searchList.join(', ');

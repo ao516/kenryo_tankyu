@@ -18,12 +18,13 @@ class SearchChipList extends ConsumerWidget {
           final displaySubCategory = data.subCategory.name != 'none' ? data.subCategory.displayName : '';
           final displayEventName = data.eventName.name != 'undefined' ? data.eventName.displayName : '';
           final displayCourse = data.course.name != 'undefined' ? data.course.displayName : '';
-          final List<String> items = data.searchWord ?? [];
+          final displayEnterYear = data.enterYear.name != 'undefined' ? data.enterYear.displayName : 0;
+          final List<String> items = data.searchWord;
 
           final List<List<String>> searchList = [
             ['category', displayCategory],
             ['subCategory', displaySubCategory],
-            ['year', data.year?.toString() ?? ''],
+            ['year', displayEnterYear.toString()],
             ['eventName', displayEventName],
             ['course', displayCourse],
           ];

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 import 'package:sqflite/sqflite.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 
 
@@ -35,7 +36,7 @@ class SearchedHistoryController {
             'subCategory1 TEXT NOT NULL, '
             'category2 TEXT NOT NULL, '
             'subCategory2 TEXT NOT NULL, '
-            'year INTEGER NOT NULL, '
+            'enterYear INTEGER NOT NULL, '
             'course TEXT NOT NULL, '
             'eventName TEXT NOT NULL, '
             'savedAt TEXT NOT NULL, '

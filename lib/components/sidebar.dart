@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
-import 'package:kenryo_tankyu/constant/constant.dart';
-import 'package:kenryo_tankyu/constant/value.dart';
 import 'package:kenryo_tankyu/providers/search_provider.dart';
 import 'package:kenryo_tankyu/service/service.dart';
 import 'package:kenryo_tankyu/models/models.dart';
@@ -46,7 +44,7 @@ class SideBar extends ConsumerWidget {
                           choices: Category.values.map((e) => e.displayName).toList()),
                       const SizedBox(height: 15.0),
                       SearchDropButton(
-                          name: '期間', selectedText: data.year?.toString(), choices: yearList.map((e)=> e.toString()).toList()),
+                          name: '期間', selectedText: data.enterYear.displayName.toString(), choices: EnterYear.values.map((e) => e.displayName.toString()).toList()),
                       const SizedBox(height: 15.0),
                       SearchDropButton(
                           name: 'イベント名',

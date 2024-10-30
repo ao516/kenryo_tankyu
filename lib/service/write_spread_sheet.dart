@@ -91,7 +91,7 @@ class EditSpreadSheet {
         String selectedAuthor =
             ref.watch(selectedAuthorControllerProvider).text;
         Course selectedCourse = ref.watch(selectedCourseProvider);
-        String selectedYear = ref.watch(selectedYearProvider).toString();
+        String selectedYear = ref.watch(selectedEnterYearProvider).toString();
         return [
           selectedTitle,
           selectedAuthor,

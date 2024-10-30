@@ -5,7 +5,7 @@ final searchProvider =
     StateNotifierProvider<SearchNotifier, Search>((ref) => SearchNotifier());
 
 class SearchNotifier extends StateNotifier<Search> {
-  SearchNotifier() : super(const Search(category: Category.none, subCategory: SubCategory.none, eventName: EventName.undefined, course: Course.undefined));
+  SearchNotifier() : super(const Search(category: Category.none, subCategory: SubCategory.none, eventName: EventName.undefined, course: Course.undefined,enterYear: EnterYear.undefined));
 
   void reloadSearch(Category value) {
     state = state.copyWith(category: value);
@@ -15,8 +15,8 @@ class SearchNotifier extends StateNotifier<Search> {
     state = state.copyWith(category: selectCategoryName, subCategory: SubCategory.none);
   }
 
-  void selectedYear(int selectYear) {
-    state = state.copyWith(year: selectYear);
+  void selectedYear(EnterYear selectYear) {
+    state = state.copyWith(enterYear: selectYear);
   }
 
   void selectedEventName(EventName selectEventName) {
@@ -32,13 +32,13 @@ class SearchNotifier extends StateNotifier<Search> {
   }
 
   void deleteAllParameters(){
-    state = state.copyWith(year: null,eventName: EventName.undefined,course: Course.undefined,subCategory: SubCategory.none,category: Category.none,searchWord: null);
+    state = state.copyWith(enterYear: EnterYear.undefined,eventName: EventName.undefined,course: Course.undefined,subCategory: SubCategory.none,category: Category.none,searchWord: []);
   }
 
   void deleteParameter(String parameterName){
     switch(parameterName){
       case 'year':
-        state = state.copyWith(year: null);
+        state = state.copyWith(enterYear: EnterYear.undefined);
         break;
       case 'eventName':
         state = state.copyWith(eventName: EventName.undefined);
@@ -53,7 +53,7 @@ class SearchNotifier extends StateNotifier<Search> {
         state = state.copyWith(category: Category.none, subCategory: SubCategory.none);
         break;
       case 'searchWord':
-        state = state.copyWith(searchWord: null);
+        state = state.copyWith(searchWord: []);
         break;
     }
   }
@@ -67,7 +67,7 @@ class SearchNotifier extends StateNotifier<Search> {
   }
 
   void deleteWord(int index){
-    final List<String> word = state.searchWord!.where((content) => state.searchWord!.indexOf(content) != index).toList();
+    final List<String> word = state.searchWord.where((content) => state.searchWord.indexOf(content) != index).toList();
     state = state.copyWith(searchWord: word);
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 
 final searchHistoryProvider =
@@ -24,14 +25,14 @@ class SearchHistoryController {
             'id INTEGER PRIMARY KEY AUTOINCREMENT,'
             'category TEXT NOT NULL DEFAULT "", '
             'subCategory TEXT NOT NULL DEFAULT "", '
-            'year INTEGER NOT NULL DEFAULT 0, '
+            'enterYear INTEGER NOT NULL DEFAULT 0, '
             'eventName TEXT NOT NULL DEFAULT "", '
             'course TEXT NOT NULL DEFAULT "", '
             'searchWord TEXT NOT NULL DEFAULT "", '
             'savedAt TEXT NOT NULL, '
-            'numberOfHits INTEGER, '
-            'CHECK(category != "" OR subCategory != "" OR year != 0 OR eventName != "" OR course != "" OR searchWord != "") '
-            'UNIQUE(category, subCategory, year, eventName, course, searchWord) '
+            'numberOfHits INTEGER NOT NULL DEFAULT 0, '
+            'CHECK(category != "" OR subCategory != "" OR enterYear != 0 OR eventName != "" OR course != "" OR searchWord != "") '
+            'UNIQUE(category, subCategory, enterYear, eventName, course, searchWord) '
             ');'
           );
         },

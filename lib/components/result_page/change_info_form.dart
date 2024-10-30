@@ -26,8 +26,8 @@ final selectedSubCategoryProvider =
 ///「作品の情報が間違っている」の際に使うProvider等
 final selectedCourseProvider = StateProvider.autoDispose<Course>(
     (ref) => ref.watch(searchedProvider).course);
-final selectedYearProvider =
-    StateProvider.autoDispose<int>((ref) => ref.watch(searchedProvider).year);
+final selectedEnterYearProvider =
+    StateProvider.autoDispose<EnterYear>((ref) => ref.watch(searchedProvider).enterYear);
 final selectedAuthorControllerProvider =
     StateProvider.autoDispose<TextEditingController>((ref) =>
         TextEditingController(text: ref.watch(searchedProvider).author));
@@ -215,9 +215,9 @@ class ChangeInfoForm extends ConsumerWidget {
 
   Widget suggestWorksInfo(WidgetRef ref, Searched searched) {
     final Course selectedCourse = ref.watch(selectedCourseProvider);
-    final int selectedYear = ref.watch(selectedYearProvider);
+    final EnterYear selectedYear = ref.watch(selectedEnterYearProvider);
     final courseNotifier = ref.read(selectedCourseProvider.notifier);
-    final yearNotifier = ref.read(selectedYearProvider.notifier);
+    final yearNotifier = ref.read(selectedEnterYearProvider.notifier);
     final enabledChangeInfoButtonNotifier =
         ref.read(enabledChangeInfoButtonProvider.notifier);
     return Column(
@@ -262,7 +262,7 @@ class ChangeInfoForm extends ConsumerWidget {
           onChanged: (value) {
             enabledChangeInfoButtonNotifier.state = true;
             courseNotifier.state = Course.values.firstWhere(
-                (element) => element.displayName == value,
+                (element) => element == value,
                 orElse: () => Course.undefined);
           },
         ),
@@ -274,13 +274,15 @@ class ChangeInfoForm extends ConsumerWidget {
             isDense: true,
           ),
           value: selectedYear.toString(),
-          items: yearList
-              .map<DropdownMenuItem<String>>((int value) => DropdownMenuItem(
-                  value: value.toString(), child: Text(value.toString())))
+          items: EnterYear.values
+              .map<DropdownMenuItem<EnterYear>>((EnterYear value) => DropdownMenuItem(
+                  value: value, child: Text(value.displayName.toString())))
               .toList(),
           onChanged: (value) {
             enabledChangeInfoButtonNotifier.state = true;
-            yearNotifier.state = int.parse(value!);
+            yearNotifier.state = EnterYear.values.firstWhere(
+                (element) => element.displayName.toString() == value,
+                orElse: () => EnterYear.undefined);
           },
         ),
       ],
