@@ -20,9 +20,9 @@ Searched _$SearchedFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Searched {
-  @JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
+  @JsonKey(includeFromJson: false, includeToJson: true)
   int get documentID => throw _privateConstructorUsedError;
-  @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
+  @JsonKey(includeFromJson: false, includeToJson: true)
   int get isFavorite => throw _privateConstructorUsedError;
   @CategoryEnumConverter()
   Category get category1 => throw _privateConstructorUsedError;
@@ -42,9 +42,13 @@ mixin _$Searched {
   String get author => throw _privateConstructorUsedError;
   int get vagueLikes => throw _privateConstructorUsedError;
   int get exactLikes => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsSlide => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsReport => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsThesis => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsPoster => throw _privateConstructorUsedError;
   @DateTimeConverter()
   DateTime? get savedAt => throw _privateConstructorUsedError;
@@ -65,10 +69,8 @@ abstract class $SearchedCopyWith<$Res> {
       _$SearchedCopyWithImpl<$Res, Searched>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
-      int documentID,
-      @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
-      int isFavorite,
+      {@JsonKey(includeFromJson: false, includeToJson: true) int documentID,
+      @JsonKey(includeFromJson: false, includeToJson: true) int isFavorite,
       @CategoryEnumConverter() Category category1,
       @SubCategoryEnumConverter() SubCategory subCategory1,
       @CategoryEnumConverter() Category category2,
@@ -80,10 +82,10 @@ abstract class $SearchedCopyWith<$Res> {
       String author,
       int vagueLikes,
       int exactLikes,
-      bool existsSlide,
-      bool existsReport,
-      bool existsThesis,
-      bool existsPoster,
+      @JsonKey(includeFromJson: true, includeToJson: false) bool existsSlide,
+      @JsonKey(includeFromJson: true, includeToJson: false) bool existsReport,
+      @JsonKey(includeFromJson: true, includeToJson: false) bool existsThesis,
+      @JsonKey(includeFromJson: true, includeToJson: false) bool existsPoster,
       @DateTimeConverter() DateTime? savedAt});
 }
 
@@ -207,10 +209,8 @@ abstract class _$$SearchedImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
-      int documentID,
-      @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
-      int isFavorite,
+      {@JsonKey(includeFromJson: false, includeToJson: true) int documentID,
+      @JsonKey(includeFromJson: false, includeToJson: true) int isFavorite,
       @CategoryEnumConverter() Category category1,
       @SubCategoryEnumConverter() SubCategory subCategory1,
       @CategoryEnumConverter() Category category2,
@@ -222,10 +222,10 @@ abstract class _$$SearchedImplCopyWith<$Res>
       String author,
       int vagueLikes,
       int exactLikes,
-      bool existsSlide,
-      bool existsReport,
-      bool existsThesis,
-      bool existsPoster,
+      @JsonKey(includeFromJson: true, includeToJson: false) bool existsSlide,
+      @JsonKey(includeFromJson: true, includeToJson: false) bool existsReport,
+      @JsonKey(includeFromJson: true, includeToJson: false) bool existsThesis,
+      @JsonKey(includeFromJson: true, includeToJson: false) bool existsPoster,
       @DateTimeConverter() DateTime? savedAt});
 }
 
@@ -342,10 +342,9 @@ class __$$SearchedImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SearchedImpl extends _Searched {
   const _$SearchedImpl(
-      {@JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
+      {@JsonKey(includeFromJson: false, includeToJson: true)
       this.documentID = 0,
-      @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
-      this.isFavorite = 0,
+      @JsonKey(includeFromJson: false, includeToJson: true) this.isFavorite = 0,
       @CategoryEnumConverter() required this.category1,
       @SubCategoryEnumConverter() required this.subCategory1,
       @CategoryEnumConverter() required this.category2,
@@ -357,9 +356,13 @@ class _$SearchedImpl extends _Searched {
       this.author = '',
       this.vagueLikes = 0,
       this.exactLikes = 0,
+      @JsonKey(includeFromJson: true, includeToJson: false)
       this.existsSlide = false,
+      @JsonKey(includeFromJson: true, includeToJson: false)
       this.existsReport = false,
+      @JsonKey(includeFromJson: true, includeToJson: false)
       this.existsThesis = false,
+      @JsonKey(includeFromJson: true, includeToJson: false)
       this.existsPoster = false,
       @DateTimeConverter() this.savedAt})
       : super._();
@@ -368,10 +371,10 @@ class _$SearchedImpl extends _Searched {
       _$$SearchedImplFromJson(json);
 
   @override
-  @JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
+  @JsonKey(includeFromJson: false, includeToJson: true)
   final int documentID;
   @override
-  @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
+  @JsonKey(includeFromJson: false, includeToJson: true)
   final int isFavorite;
   @override
   @CategoryEnumConverter()
@@ -407,16 +410,16 @@ class _$SearchedImpl extends _Searched {
   @JsonKey()
   final int exactLikes;
   @override
-  @JsonKey()
+  @JsonKey(includeFromJson: true, includeToJson: false)
   final bool existsSlide;
   @override
-  @JsonKey()
+  @JsonKey(includeFromJson: true, includeToJson: false)
   final bool existsReport;
   @override
-  @JsonKey()
+  @JsonKey(includeFromJson: true, includeToJson: false)
   final bool existsThesis;
   @override
-  @JsonKey()
+  @JsonKey(includeFromJson: true, includeToJson: false)
   final bool existsPoster;
   @override
   @DateTimeConverter()
@@ -507,9 +510,9 @@ class _$SearchedImpl extends _Searched {
 
 abstract class _Searched extends Searched {
   const factory _Searched(
-      {@JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
+      {@JsonKey(includeFromJson: false, includeToJson: true)
       final int documentID,
-      @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
+      @JsonKey(includeFromJson: false, includeToJson: true)
       final int isFavorite,
       @CategoryEnumConverter() required final Category category1,
       @SubCategoryEnumConverter() required final SubCategory subCategory1,
@@ -522,9 +525,13 @@ abstract class _Searched extends Searched {
       final String author,
       final int vagueLikes,
       final int exactLikes,
+      @JsonKey(includeFromJson: true, includeToJson: false)
       final bool existsSlide,
+      @JsonKey(includeFromJson: true, includeToJson: false)
       final bool existsReport,
+      @JsonKey(includeFromJson: true, includeToJson: false)
       final bool existsThesis,
+      @JsonKey(includeFromJson: true, includeToJson: false)
       final bool existsPoster,
       @DateTimeConverter() final DateTime? savedAt}) = _$SearchedImpl;
   const _Searched._() : super._();
@@ -533,10 +540,10 @@ abstract class _Searched extends Searched {
       _$SearchedImpl.fromJson;
 
   @override
-  @JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
+  @JsonKey(includeFromJson: false, includeToJson: true)
   int get documentID;
   @override
-  @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
+  @JsonKey(includeFromJson: false, includeToJson: true)
   int get isFavorite;
   @override
   @CategoryEnumConverter()
@@ -568,12 +575,16 @@ abstract class _Searched extends Searched {
   @override
   int get exactLikes;
   @override
+  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsSlide;
   @override
+  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsReport;
   @override
+  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsThesis;
   @override
+  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsPoster;
   @override
   @DateTimeConverter()

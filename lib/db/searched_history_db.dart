@@ -37,6 +37,9 @@ class SearchedHistoryController {
             'category2 TEXT NOT NULL, '
             'subCategory2 TEXT NOT NULL, '
             'enterYear INTEGER NOT NULL, '
+            'author TEXT NOT NULL, '
+            'exactLikes INTEGER NOT NULL, '
+            'vagueLikes INTEGER NOT NULL, '
             'course TEXT NOT NULL, '
             'eventName TEXT NOT NULL, '
             'savedAt TEXT NOT NULL, '
@@ -45,7 +48,7 @@ class SearchedHistoryController {
             ');',
           );
         },
-        version: 4,
+        version: 5,
       );
     } catch (error, stackTrace) {
       return Future.error(error, stackTrace);

@@ -50,10 +50,6 @@ Map<String, dynamic> _$$SearchedImplToJson(_$SearchedImpl instance) =>
       'author': instance.author,
       'vagueLikes': instance.vagueLikes,
       'exactLikes': instance.exactLikes,
-      'existsSlide': instance.existsSlide,
-      'existsReport': instance.existsReport,
-      'existsThesis': instance.existsThesis,
-      'existsPoster': instance.existsPoster,
       'savedAt': _$JsonConverterToJson<String, DateTime>(
           instance.savedAt, const DateTimeConverter().toJson),
     };

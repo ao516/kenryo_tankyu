@@ -29,7 +29,7 @@ class SideBar extends ConsumerWidget {
                     ElevatedButton(
                         onPressed: () =>
                             ref.read(searchProvider.notifier).deleteAllParameters(),
-                        child: const Text('条件をクリア')), //TODO
+                        child: const Text('条件をクリア')), 
                   ],
                 ),
                 Consumer(builder: (context, ref, child) {
@@ -71,7 +71,7 @@ class SideBar extends ConsumerWidget {
                         Navigator.of(context).pop();
                         ref.invalidate(algoliaSearchProvider);
                       }, child: const Text('再検索する')),
-                ), //TODO
+                ),
               ],
             ),
           ),

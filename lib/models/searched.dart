@@ -7,9 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
 part 'searched.freezed.dart';
-
 part 'searched.g.dart';
-
 ///ルール
 ///この「Searched」型では、探究作品を検索したときのデータの保管、検索結果のfirestoreのデータの保管、ローカルDBとしてのデータの保管、ユーザーがいいねしているかどうかなど、全てを管理しています。
 ///ローカルDBとしての保管としても利用するので、保守がちょいめんどくさいです。
@@ -24,10 +22,10 @@ class Searched with _$Searched {
   const Searched._();
 
   const factory Searched({
-    @JsonKey(name: 'documentID', includeFromJson: false, includeToJson: true)
+    @JsonKey(includeFromJson: false, includeToJson: true)
     @Default(0)
     int documentID,
-    @JsonKey(name: 'isFavorite', includeFromJson: false, includeToJson: true)
+    @JsonKey(includeFromJson: false, includeToJson: true)
     @Default(0)
     int isFavorite,
     @CategoryEnumConverter() required Category category1,
@@ -41,10 +39,18 @@ class Searched with _$Searched {
     @Default('') String author,
     @Default(0) int vagueLikes,
     @Default(0) int exactLikes,
-    @Default(false)bool  existsSlide,
-    @Default(false)bool  existsReport,
-    @Default(false)bool  existsThesis,
-    @Default(false)bool  existsPoster,
+    @JsonKey(includeFromJson: true, includeToJson: false)
+    @Default(false)
+    bool existsSlide,
+    @JsonKey(includeFromJson: true, includeToJson: false)
+    @Default(false)
+    bool existsReport,
+    @JsonKey(includeFromJson: true, includeToJson: false)
+    @Default(false)
+    bool existsThesis,
+    @JsonKey(includeFromJson: true, includeToJson: false)
+    @Default(false)
+    bool existsPoster,
     @DateTimeConverter() DateTime? savedAt,
   }) = _Searched;
 

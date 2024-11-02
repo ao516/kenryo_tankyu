@@ -5,7 +5,8 @@ enum SubCategory {
   //地域・社会
   disaster('災害'),
   sightseeing('観光'),
-  administration('司法・行政'),
+  administration('市政・行政'),
+  law('司法・立法'),
   traffic('交通'),
   communication('場づくり'),
   regionalRevitalization('地域活性化'),
@@ -16,8 +17,10 @@ enum SubCategory {
   geography('地理'),
   psychology('心理'),
   philosophy('哲学'),
-  cultureAndTradition('文化・伝統'),
+  culture('文化・伝統'),
   words('ことば'),
+  literature('映像・文学'),
+  subculture('サブカル'),
 
   //人権・社会福祉
   gender('ジェンダー'),
@@ -33,7 +36,7 @@ enum SubCategory {
   compareOtherCountries('海外比較'),
 
   //ビジネス・経済
-  businessAndMoney('ビジネス・お金'),
+  business('ビジネス・お金'),
   marketing('マーケティング'),
   economy('経済'),
   tax('税金'),
@@ -46,7 +49,7 @@ enum SubCategory {
 
   //スポーツ・教育
   sports('スポーツ'),
-  earlyChildhoodEducation('幼児教育'),
+  preschoolEducation('幼児教育'),
   education('学校教育'),
   study('学習・勉強'),
 
@@ -54,6 +57,7 @@ enum SubCategory {
   waterResource('水資源'),
   forestResource('森林資源'),
   eco('エコ'),
+  environmentProblem('環境問題'),
   plastic('プラスチック'),
 
   //科学・数学
@@ -67,9 +71,9 @@ enum SubCategory {
   mechanics('機械工学'),
   ictAndDX('ICT・DX'),
   energy('エネルギー'),
-  aiAndProgramming('AI・プログラミング'),
+  programming('AI・プログラミング'),
   architecture('建築'),
-  socialMediaAndGame('SNS・ゲーム'),
+  app('SNS・ゲーム'),
 
   //健康・医療
   health('健康'),
@@ -93,6 +97,9 @@ enum SubCategory {
   fragrance('匂い・香り'),
   pet('ペット'),
   home('家庭'),
+  
+  //その他のカテゴリ
+  selfDevelopment('自己啓発'),
 
   //その他
   other('その他'),
