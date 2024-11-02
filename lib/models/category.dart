@@ -4,8 +4,8 @@ import 'package:kenryo_tankyu/models/models.dart';
 
 enum Category {
   society(
-    displayName: '社会・地域',
-    nameForExplore: '社会・地域',
+    displayName: '地域・社会',
+    nameForExplore: '地域・社会',
     color: Color(0xFFd73c00),
     subCategories: [
       SubCategory.disaster,
@@ -15,6 +15,7 @@ enum Category {
       SubCategory.communication,
       SubCategory.regionalRevitalization,
       SubCategory.other,
+      
     ],
   ),
   history(
@@ -27,8 +28,10 @@ enum Category {
       SubCategory.geography,
       SubCategory.psychology,
       SubCategory.philosophy,
-      SubCategory.cultureAndTradition,
+      SubCategory.culture,
       SubCategory.words,
+      SubCategory.literature,
+      SubCategory.subculture,
       SubCategory.other,
     ],
   ),
@@ -62,7 +65,7 @@ enum Category {
     nameForExplore: 'ビジネス\n経済',
     color: Color(0xFF00d89c),
     subCategories: [
-      SubCategory.businessAndMoney,
+      SubCategory.business,
       SubCategory.marketing,
       SubCategory.economy,
       SubCategory.tax,
@@ -87,7 +90,7 @@ enum Category {
     color: Color(0xFFd80040),
     subCategories: [
       SubCategory.sports,
-      SubCategory.earlyChildhoodEducation,
+      SubCategory.preschoolEducation,
       SubCategory.education,
       SubCategory.study,
       SubCategory.other,
@@ -102,6 +105,7 @@ enum Category {
       SubCategory.forestResource,
       SubCategory.eco,
       SubCategory.plastic,
+      SubCategory.environmentProblem,
       SubCategory.other,
     ],
   ),
@@ -125,10 +129,10 @@ enum Category {
     subCategories: [
       SubCategory.mechanics,
       SubCategory.ictAndDX,
-      SubCategory.aiAndProgramming,
+      SubCategory.programming,
       SubCategory.energy,
       SubCategory.architecture,
-      SubCategory.socialMediaAndGame,
+      SubCategory.app,
       SubCategory.other,
     ],
   ),
@@ -177,7 +181,9 @@ enum Category {
     displayName: 'その他',
     nameForExplore: 'その他',
     color: Colors.grey,
-    subCategories: [SubCategory.other],
+    subCategories: [
+      SubCategory.selfDevelopment,
+      SubCategory.other,],
   ),
   none(
     displayName: '未設定',

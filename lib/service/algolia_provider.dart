@@ -69,7 +69,7 @@ String _filter(Search searchState) {
           ? str +=
               'AND (category1:${searchState.category.name} OR category2:${searchState.category.name})'
           : null;
-  searchState.enterYear.name  != 'undefined' ? str += ' AND year:${searchState.enterYear}' : null;
+  searchState.enterYear.name  != 'undefined' ? str += ' AND enterYear:${searchState.enterYear.displayName}' : null;
   searchState.course.name != 'undefined'
       ? str += ' AND course:${searchState.course}'
       : null;

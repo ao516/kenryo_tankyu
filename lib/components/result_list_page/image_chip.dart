@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
-
 class WorkImageChip extends StatelessWidget {
   final Searched searched;
   const WorkImageChip({super.key, required this.searched});
 
   @override
   Widget build(BuildContext context) {
+    return searched.category2.name != 'none' ? _twoCategoryChip() : _oneCategoryChip();
+  }
+
+  Widget _twoCategoryChip() {
     return Stack(
       children: [
         SizedBox(
@@ -23,13 +26,22 @@ class WorkImageChip extends StatelessWidget {
         Positioned(
           top: 25,
           left: 25,
-          child:SizedBox(
+          child: SizedBox(
               height: 25,
               width: 25,
               child: Image.asset(
                   'assets/images/categories/${searched.category2.name}.png')),
         ),
       ],
+    );
+  }
+
+  _oneCategoryChip() {
+    return SizedBox(
+      height: 40,
+      width: 40,
+      child: Image.asset(
+          'assets/images/categories/${searched.category1.name}.png'),
     );
   }
 }

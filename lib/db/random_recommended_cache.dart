@@ -20,11 +20,14 @@ class RandomRecommendedCacheController {
             'documentID INTEGER NOT NULL, '
             'isFavorite INTEGER NOT NULL, '
             'title TEXT NOT NULL, '
+            'vagueLikes INTEGER NOT NULL, '
+            'exactLikes INTEGER NOT NULL, '
+            'author TEXT NOT NULL, '
             'category1 TEXT NOT NULL, '
             'subCategory1 TEXT NOT NULL, '
             'category2 TEXT NOT NULL, '
             'subCategory2 TEXT NOT NULL, '
-            'year INTEGER NOT NULL, '
+            'enterYear INTEGER NOT NULL, '
             'course TEXT NOT NULL, '
             'eventName TEXT NOT NULL, '
             'savedAt TEXT NOT NULL, '
@@ -32,7 +35,7 @@ class RandomRecommendedCacheController {
             ');',
           );
         },
-        version: 4,
+        version: 7,
 
         ///recommendedNumberには1か2しか入らない。homePageでの表示順で保管されてます。
       );
