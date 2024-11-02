@@ -21,13 +21,13 @@ final selectedRadioProvider =
 final selectedCategoryProvider =
     StateProvider.autoDispose<Category>((ref) => Category.none);
 final selectedSubCategoryProvider =
-    StateProvider.autoDispose<SubCategory>((ref) => SubCategory.none);
+    StateProvider.autoDispose<SubCategory>((ref) => SubCategory.other);
 
 ///「作品の情報が間違っている」の際に使うProvider等
 final selectedCourseProvider = StateProvider.autoDispose<Course>(
     (ref) => ref.watch(searchedProvider).course);
-final selectedEnterYearProvider =
-    StateProvider.autoDispose<EnterYear>((ref) => ref.watch(searchedProvider).enterYear);
+final selectedEnterYearProvider = StateProvider.autoDispose<EnterYear>(
+    (ref) => ref.watch(searchedProvider).enterYear);
 final selectedAuthorControllerProvider =
     StateProvider.autoDispose<TextEditingController>((ref) =>
         TextEditingController(text: ref.watch(searchedProvider).author));
@@ -135,30 +135,28 @@ class ChangeInfoForm extends ConsumerWidget {
       children: [
         const Text('どちらのカテゴリを修正しますか',
             style: TextStyle(fontWeight: FontWeight.bold)),
-
-        //todo この２つのradioListTileは、ListTile.builderを使った方がパフォーマンスが良いかも。（pdfが閲覧できない、の方では採用している）
-        RadioListTile<RadioValue>(
-          contentPadding: EdgeInsets.zero,
-          title: Text(
-              '${searched.category1.displayName}\n>${searched.subCategory1.displayName}'),
-          value: RadioValue.category1,
-          groupValue: selectedRadio,
-          onChanged: (RadioValue? value) {
-            if (value != null) {
-              radioNotifier.state = value;
-            }
-          },
-        ),
-        RadioListTile<RadioValue>(
-          contentPadding: EdgeInsets.zero,
-          title: Text(
-              '${searched.category2.displayName}\n>${searched.subCategory2.displayName}'),
-          value: RadioValue.category2,
-          groupValue: selectedRadio,
-          onChanged: (RadioValue? value) {
-            if (value != null) {
-              radioNotifier.state = value;
-            }
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: 2,
+          itemBuilder: (context, index) {
+            final category =
+                index == 0 ? searched.category1 : searched.category2;
+            final subCategory =
+                index == 0 ? searched.subCategory1 : searched.subCategory2;
+            final radioValue =
+                index == 0 ? RadioValue.category1 : RadioValue.category2;
+            return RadioListTile<RadioValue>(
+              contentPadding: EdgeInsets.zero,
+              title:
+                  Text('${category.displayName}\n>${subCategory.displayName}'),
+              value: radioValue,
+              groupValue: selectedRadio,
+              onChanged: (RadioValue? value) {
+                if (value != null) {
+                  radioNotifier.state = value;
+                }
+              },
+            );
           },
         ),
         const SizedBox(height: 16),
@@ -177,38 +175,29 @@ class ChangeInfoForm extends ConsumerWidget {
                 value: value, child: Text(value.displayName));
           }).toList(),
           onChanged: (value) {
+            subCategoryNotifier.state = SubCategory.other;
             categoryNotifier.state = value!;
             ref.read(enabledChangeInfoButtonProvider.notifier).state = false;
           },
         ),
         const SizedBox(height: 16),
-        DropdownButtonFormField(
-            decoration: const InputDecoration(
-              hintText: 'サブカテゴリ',
-              border: OutlineInputBorder(),
-              isDense: true,
-            ),
-            value: selectedSubCategory,
-            items: selectedCategory == Category.none
-                ? [
-                    const DropdownMenuItem(
-                      enabled: false,
-                      value: SubCategory.none,
-                      child:
-                          Text('メインカテゴリを先に選択', overflow: TextOverflow.ellipsis),
-                    )
-                  ]
-                : selectedCategory.subCategories
-                    .where((e) =>
-                        e != SubCategory.none) // Exclude SubCategory.none
-                    .map((e) {
-                    return DropdownMenuItem(
-                        value: e, child: Text(e.displayName));
-                  }).toList(),
-            onChanged: (value) {
-              subCategoryNotifier.state = value!;
-              ref.read(enabledChangeInfoButtonProvider.notifier).state = true;
-            }),
+        selectedCategory == Category.none
+            ? const SizedBox()
+            : DropdownButtonFormField(
+                decoration: const InputDecoration(
+                  hintText: 'サブカテゴリ',
+                  border: OutlineInputBorder(),
+                  isDense: true,
+                ),
+                value: selectedSubCategory,
+                items: selectedCategory.subCategories.map((e) {
+                  return DropdownMenuItem(value: e, child: Text(e.displayName));
+                }).toList(),
+                onChanged: (value) {
+                  subCategoryNotifier.state = value!;
+                  ref.read(enabledChangeInfoButtonProvider.notifier).state =
+                      true;
+                }),
       ],
     );
   }
@@ -273,10 +262,10 @@ class ChangeInfoForm extends ConsumerWidget {
             border: OutlineInputBorder(),
             isDense: true,
           ),
-          value: selectedYear.toString(),
+          value: selectedYear,
           items: EnterYear.values
-              .map<DropdownMenuItem<EnterYear>>((EnterYear value) => DropdownMenuItem(
-                  value: value, child: Text(value.displayName.toString())))
+              .map<DropdownMenuItem<EnterYear>>((EnterYear value) =>
+                  DropdownMenuItem(value: value, child: Text(value.displayName.toString())))
               .toList(),
           onChanged: (value) {
             enabledChangeInfoButtonNotifier.state = true;

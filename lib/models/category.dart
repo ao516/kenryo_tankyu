@@ -183,7 +183,7 @@ enum Category {
     color: Colors.grey,
     subCategories: [
       SubCategory.selfDevelopment,
-      SubCategory.other,],
+      SubCategory.other]
   ),
   none(
     displayName: '未設定',
