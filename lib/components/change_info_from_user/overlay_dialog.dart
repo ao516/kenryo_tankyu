@@ -37,8 +37,15 @@ class OverlayDialog extends ModalRoute<void> {
       width: 300,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -58,8 +65,7 @@ class OverlayDialog extends ModalRoute<void> {
             ],
           ),
           const SizedBox(height: 8),
-          ChangeInfoForm(searched),
-
+          ChangeInfoFromUser(searched),
         ],
       ),
     );

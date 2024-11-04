@@ -6,13 +6,28 @@ final termsOfServiceLink = Uri.parse('https://sites.google.com/view/tankyu-terms
 final privacyPolicyLink = Uri.parse('https://sites.google.com/view/tankyu-privacy-policy');
 
 
-const List<String> changeInfoList = [
-  'カテゴリの分類が不適切',
-  '作品の情報が間違っている',
-  'PDFが閲覧できない',
-  'その他',
-];
 
+enum ChangeInfoFromUserType {
+  editCategory(displayName: 'カテゴリの分類が不適切'),
+  editWorkInfo(displayName: '作品の情報が間違っている'),
+  cannotViewPdf(displayName: 'PDFが閲覧できない'),
+  otherReason(displayName: 'その他'),
+  ;
+  const ChangeInfoFromUserType({required this.displayName});
+  final String displayName;
+}
+
+enum PdfChoice {
+  slide(displayName: 'スライド'),
+  repor(displayName: 'レポート'),
+  poster(displayName: 'ポスター'),
+  paper(displayName: '論文'),
+  ;
+  const PdfChoice({required this.displayName});
+  final String displayName;
+}
+
+//todo いつか消す
 const List<String> pdfChoiceList = [
   'スライド',
   'レポート',

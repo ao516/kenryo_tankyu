@@ -5,8 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:googleapis/sheets/v4.dart';
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:kenryo_tankyu/components/components.dart';
-import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
 class EditSpreadSheet {
@@ -23,9 +21,9 @@ class EditSpreadSheet {
 
   Future<void> editSpreadSheet(BuildContext context, WidgetRef ref,
       Searched searched, String? selected) async {
-    int number = lookUpType(selected);
+    int number = 0;
     String? userEmail =  FirebaseAuth.instance.currentUser?.email;
-    List<String> values = decideValues(number, ref, searched);
+    List<String> values = [];
     await addDataToSheet(
         sheetListRange[number], values, userEmail?? 'guest', searched.documentID);
   }
@@ -54,62 +52,5 @@ class EditSpreadSheet {
     // スプレッドシートにデータを追加
     await sheetsApi.spreadsheets.values
         .append(request, spreadsheetId, range, valueInputOption: 'RAW');
-  }
-
-  int lookUpType(String? selected) {
-    switch (changeInfoList.indexOf(selected ?? '')) {
-      case 0: //カテゴリの分類が不適切
-        return 0;
-      case 1: //作品の情報が間違っている
-        return 1;
-      case 2: //PDFが閲覧できない
-        return 2;
-      case 3: //その他
-        return 3;
-      case -1:
-        return -1;
-    }
-    return 1;
-  }
-
-  List<String> decideValues(int number, WidgetRef ref,Searched searched) {
-    switch (number) {
-      case 0: //カテゴリの分類が不適切
-        int selectedRadioNumber = ref.watch(selectedRadioProvider).index;
-        String selectedBeforeCategory = selectedRadioNumber == 0 ? searched.category1.displayName : searched.category2.displayName;
-        String selectedBeforeSubCategory = selectedRadioNumber == 0 ? searched.subCategory1.displayName : searched.subCategory2.displayName;
-        String? selectedCategory = ref.watch(selectedCategoryProvider).name == 'none' ? null : ref.watch(selectedCategoryProvider).displayName;
-        String? selectedSubCategory = ref.watch(selectedSubCategoryProvider).name == 'none' ? null : ref.watch(selectedSubCategoryProvider).displayName;
-        return [
-          selectedBeforeCategory,
-          selectedBeforeSubCategory,
-          selectedCategory ?? '',
-          selectedSubCategory ?? ''
-        ];
-      case 1: //作品の情報が間違っている
-        String selectedTitle = ref.watch(selectedTitleControllerProvider).text;
-        String selectedAuthor =
-            ref.watch(selectedAuthorControllerProvider).text;
-        Course selectedCourse = ref.watch(selectedCourseProvider);
-        String selectedYear = ref.watch(selectedEnterYearProvider).toString();
-        return [
-          selectedTitle,
-          selectedAuthor,
-          selectedCourse.displayName,
-          selectedYear
-        ];
-      case 2: //PDFが閲覧できない
-        List<bool> selectedCannotViewPdf =
-            ref.watch(selectedCannotViewPdfProvider);
-        List<String> selectedCannotViewPdfString = selectedCannotViewPdf
-            .map((e) => e ? '問題あり' : '問題なし').toList();
-        String freeDescription = ref.watch(freeDescriptionControllerProviderForCannotViewPdf).text;
-        return [...selectedCannotViewPdfString, freeDescription];
-      case 3: //その他
-        String freeDescription = ref.watch(freeDescriptionControllerProviderForOtherReason).text;
-        return [freeDescription];
-      default:
-        return [];
-    }
   }
 }
