@@ -9,8 +9,9 @@ export 'result_page/work_title.dart';
 export 'result_page/pdf_choice_chip.dart';
 export 'result_page/display_pdf.dart';
 export 'result_page/header_for_result.dart';
-export 'result_page/overlay_dialog.dart';
-export 'result_page/change_info_form.dart';
+export 'change_info_from_user/overlay_dialog.dart';
+export 'change_info_from_user/change_info_from_user.dart';
+export 'change_info_from_user/edit_work_info.dart';
 
 
 export 'category.dart';

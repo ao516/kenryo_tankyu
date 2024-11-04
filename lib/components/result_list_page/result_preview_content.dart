@@ -16,7 +16,7 @@ class ResultPreviewContent extends ConsumerWidget {
     return GestureDetector(
       onTap: () async {
         ///詳細画面への遷移と、履歴の追加
-        context.push('/result', extra: searched);
+        context.push('/result/${searched.documentID}');
         SearchedHistoryController.instance.insertHistory(
           Searched(
               documentID: searched.documentID,

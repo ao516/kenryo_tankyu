@@ -105,12 +105,12 @@ class SearchedHistoryController {
     return List.generate(maps.length, (index) => maps[index]['documentID']);
   }
 
-  Future<int?> getFavoriteState(int documentID) async {
+  Future<int> getFavoriteState(int documentID) async {
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('searched_history',
         where: 'documentID = ? AND isFavorite = ?', whereArgs: [documentID, 1]);
     if (maps.isEmpty) {
-      return null;
+      return 0;
     }
     return maps[0]['isFavorite'];
   }
