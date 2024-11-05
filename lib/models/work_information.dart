@@ -20,8 +20,44 @@ class EnterYearEnumConverter implements JsonConverter<EnterYear, int> {
         orElse: () => EnterYear.undefined);
     return enterYear;
   }
+
   @override
   int toJson(EnterYear object) => object.displayName;
+}
+
+enum DocumentType {
+  slide,
+  report,
+  poster,
+  thesis,
+}
+
+extension DocumentTypeExtension on DocumentType {
+  String get displayName {
+    switch (this) {
+      case DocumentType.slide:
+        return 'スライド';
+      case DocumentType.report:
+        return 'レポート';
+      case DocumentType.poster:
+        return 'ポスター';
+      case DocumentType.thesis:
+        return '論文';
+    }
+  }
+
+  String get idSuffix {
+    switch (this) {
+      case DocumentType.slide:
+        return '1';
+      case DocumentType.report:
+        return '2';
+      case DocumentType.poster:
+        return '3';
+      case DocumentType.thesis:
+        return '4';
+    }
+  }
 }
 
 enum EventName {

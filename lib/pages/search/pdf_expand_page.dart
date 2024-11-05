@@ -11,19 +11,21 @@ class PdfExpandPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isFullScreen = ref.watch(isFullScreenProvider);
-     return PopScope(
-      canPop: !isFullScreen,
-      onPopInvoked: (bool isPop) {
-        ref.read(isFullScreenProvider.notifier).state = false;
+    return PopScope(
+      onPopInvokedWithResult: (popInvoked, result) {
+        if (isFullScreen) {
+          ref.read(isFullScreenProvider.notifier).state = false;
+        }
       },
       child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: PdfChoiceChip(searched: searched),
-          ),
-          body: Column(children: [
-            DisplayPdf(searched: searched),
-          ])),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: PdfChoiceChip(searched: searched),
+        ),
+        body: Column(children: [
+          DisplayPdf(searched: searched),
+        ]),
+      ),
     );
   }
 }

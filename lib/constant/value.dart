@@ -17,23 +17,7 @@ enum ChangeInfoFromUserType {
   final String displayName;
 }
 
-enum PdfChoice {
-  slide(displayName: 'スライド'),
-  repor(displayName: 'レポート'),
-  poster(displayName: 'ポスター'),
-  paper(displayName: '論文'),
-  ;
-  const PdfChoice({required this.displayName});
-  final String displayName;
-}
 
-//todo いつか消す
-const List<String> pdfChoiceList = [
-  'スライド',
-  'レポート',
-  'ポスター',
-  '論文',
-];
 
 const List<String> krgpYearList = [
   '2019',

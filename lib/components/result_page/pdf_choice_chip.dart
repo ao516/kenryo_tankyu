@@ -3,40 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 
-enum DocumentType {
-  slide,
-  report,
-  poster,
-  thesis,
-}
 
-extension DocumentTypeExtension on DocumentType {
-  String get label {
-    switch (this) {
-      case DocumentType.slide:
-        return 'スライド';
-      case DocumentType.report:
-        return 'レポート';
-      case DocumentType.poster:
-        return 'ポスター';
-      case DocumentType.thesis:
-        return '論文';
-    }
-  }
-
-  String get idSuffix {
-    switch (this) {
-      case DocumentType.slide:
-        return '1';
-      case DocumentType.report:
-        return '2';
-      case DocumentType.poster:
-        return '3';
-      case DocumentType.thesis:
-        return '4';
-    }
-  }
-}
 
 class PdfChoiceChip extends ConsumerWidget {
   final Searched searched;
@@ -68,17 +35,15 @@ class PdfChoiceChip extends ConsumerWidget {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: ChoiceChip(
-                avatar: Container(),
+                showCheckmark: false,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
-                label: Text(choice.label),
+                label: Text(choice.displayName),
                 selected: list.indexOf(choice) == ref.watch(intProvider),
                 onSelected: (bool selected) {
                   if (!selected) return; //同じチップを押した場合はなにもしない
                   ref.read(intProvider.notifier).state = list.indexOf(choice);
                   stringProviderNotifier.state = '$partOfId${choice.idSuffix}';
-                  debugPrint('選択されたチップは${choice.label}です。');
-                  debugPrint('選択されたチップのidは$partOfId${choice.idSuffix}です。');
                 },
               ),
             );

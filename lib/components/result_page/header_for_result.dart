@@ -16,9 +16,9 @@ class HeaderForResultPage extends ConsumerWidget
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isCached = ref.watch(isCachedProvider);
+    final isCached = ref.watch(isGetDataFromCache);
     final data = ref.watch(getFirestoreSearchedProvider(searched.documentID));
-    final String cachedText = isCached ? '(キャッシュを表示中)' : '(最新版を表示中)';
+    final String cachedText = isCached ? '(オフラインから取得)' : '(オンラインから取得)';
     return AppBar(
       actions: [
         data.when(data: (searched){
@@ -27,6 +27,7 @@ class HeaderForResultPage extends ConsumerWidget
               return [
                 PopupMenuItem(
                   onTap: (){
+                    ref.read(isGetDataFromCache.notifier).state = false;
                     ref.invalidate(getFirestoreSearchedProvider(searched.documentID));
                   },
                   child: Text('リロードする$cachedText'),

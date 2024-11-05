@@ -26,7 +26,9 @@ class _ResultPageMainState extends ConsumerState<ResultPage> {
     screenListener.addScreenShotListener((filePath) {
       _showAlertDialog();
     });
-    screenListener.watch();
+    Future.delayed(Duration.zero, () {
+      screenListener.watch();
+    });
   }
 
   @override
@@ -68,7 +70,10 @@ class _ResultPageMainState extends ConsumerState<ResultPage> {
           ],
         );
       },
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => Scaffold(
+        appBar: AppBar(),
+        body: Center(child: const CircularProgressIndicator()),
+      ),
       error: (error, stack) => Scaffold(
         appBar: AppBar(),
         body: Center(child: Text(error.toString())),
