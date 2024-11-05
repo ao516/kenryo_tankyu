@@ -141,22 +141,16 @@ final randomAlgoliaSearchProvider =
       .getFavoriteState(int.parse(data1.objectID));
   final isFavorite2 = await SearchedHistoryController.instance
       .getFavoriteState(int.parse(data2.objectID));
-  if (isFavorite1 == null && isFavorite2 == null) {
-    RandomRecommendedCacheController.instance.insertMultipleCache(
-        Searched.fromAlgolia(data1, 0), Searched.fromAlgolia(data2, 0));
-    return [Searched.fromAlgolia(data1, 0), Searched.fromAlgolia(data2, 0)];
-  } else {
-    RandomRecommendedCacheController.instance.insertMultipleCache(
-        Searched.fromAlgolia(data1, 0), Searched.fromAlgolia(data2, 0));
-    return [
-      isFavorite1 == 1
-          ? Searched.fromAlgolia(data1, 1)
-          : Searched.fromAlgolia(data1, 0),
-      isFavorite2 == 1
-          ? Searched.fromAlgolia(data2, 1)
-          : Searched.fromAlgolia(data2, 0)
-    ];
-  }
+  RandomRecommendedCacheController.instance.insertMultipleCache(
+      Searched.fromAlgolia(data1, 0), Searched.fromAlgolia(data2, 0));
+  return [
+    isFavorite1 == 1
+        ? Searched.fromAlgolia(data1, 1)
+        : Searched.fromAlgolia(data1, 0),
+    isFavorite2 == 1
+        ? Searched.fromAlgolia(data2, 1)
+        : Searched.fromAlgolia(data2, 0)
+  ];
 });
 
 Future<AlgoliaObjectSnapshot> _getQuery(

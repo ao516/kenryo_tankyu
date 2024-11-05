@@ -32,16 +32,13 @@ class ChangeFavoriteStateNotifier extends StateNotifier<int> {
     await SearchedHistoryController.instance
         .changeFavoriteState(documentID, newFavoriteState);
     state = newFavoriteState;
-
-    //todo この辺り、トランザクションとか意識しないといけないかも。
-    //参考：https://zenn.dev/pressedkonbu/articles/random-get-from-firestore かな？
-    //https://zenn.dev/yucatio/articles/7c4ba0d0138ca9
   }
 }
 
 ///documentIDごとにFavoriteの数を管理するProvider
-final favoriteCountProvider = StateNotifierProvider.family
-    <ChangeFavoriteCountNotifier, int, Searched>((ref, searched) {
+final favoriteCountProvider =
+    StateNotifierProvider.family<ChangeFavoriteCountNotifier, int, Searched>(
+        (ref, searched) {
   return ChangeFavoriteCountNotifier(searched.exactLikes);
 });
 
@@ -51,46 +48,30 @@ class ChangeFavoriteCountNotifier extends StateNotifier<int> {
   Future<void> changeFavoriteCount({
     required Searched searched,
     required int nowIsFavorite,
-    required bool needToChangeAlgoliaValue,
   }) async {
     final int beforeIsFavorite = searched.isFavorite;
     final int beforeExactLikes = searched.exactLikes;
-
-    //beforeIsFavoriteは、データを表示させた時点でのユーザーがお気に入り状態だったかどうか。
-    //        →Algoliaからリスト取得した際にローカルDBを参照したときにsearchedに一緒に組み込んであるためそこから取得。
-    //nowIsFavoriteは、現在のユーザーのお気に入り状態かどうかを取得。  →userIsFavoriteStateProvider(family:documentID)で取得。
-    //beforeExactLikesは、データを表示させた時点でのお気に入り数。  →画面を開いたときのfirestoreからのデータで取得。
-    //この３つの値から、いいねボタンを押したときの数値の変動を計算できる。
-
-
-
-    final int nextFavoriteValue = nowIsFavorite == beforeIsFavorite
+    // 新しいお気に入りの数を計算
+        final int nextFavoriteValue = nowIsFavorite == beforeIsFavorite
         ? nowIsFavorite == 1
             ? beforeExactLikes - 1
             : beforeExactLikes + 1
         : beforeExactLikes;
     //ここ頭使ってるよー、合ってるかな。
+    
+    //TODO Algoliaのデータを更新するかどうかの判定。今は入れてないけど、将来的にコスト削減のために入れるかもしれない。
+    //final bool needToChangeAlgolia = nextFavoriteValue < 5 || nextFavoriteValue % 5 == 0;
 
-    debugPrint('beforeIsFavorite: $beforeIsFavorite\n'
-        'nowIsFavorite: $nowIsFavorite\n'
-        'beforeExactLikes: $beforeExactLikes\n'
-        'nextFavoriteValue: $nextFavoriteValue\n');
-
-    //algoliaの変更を計
-    int nextAlgoliaFavoriteValue = 0;
-    if (nextFavoriteValue <= 5 || nextFavoriteValue % 5 == 0) {
-      nextAlgoliaFavoriteValue = nextFavoriteValue;
-    }
-    final firestore =
-        FirebaseFirestore.instance.collection('works').doc(searched.documentID.toString());
-    if (needToChangeAlgoliaValue) {
-      await firestore.update({
-        'exactLikes': nextFavoriteValue,
-        'vagueLikes': nextAlgoliaFavoriteValue
-      });
+    // Firestoreのlikeの値を更新
+    final firestore = FirebaseFirestore.instance
+        .collection('works')
+        .doc(searched.documentID.toString());
+    if (nowIsFavorite == 1) {
+      await firestore.update({'exactLikes': FieldValue.increment(-1),'vagueLikes': FieldValue.increment(-1)});
     } else {
-      await firestore.update({'exactLikes': nextFavoriteValue});
+      await firestore.update({'exactLikes': FieldValue.increment(1),'vagueLikes': FieldValue.increment(1)});
     }
+
     state = nextFavoriteValue;
   }
 }
@@ -111,14 +92,19 @@ class FavoriteForResultPage extends ConsumerWidget {
 
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: isFavorite == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface),
+        border: Border.all(
+            color: isFavorite == 1
+                ? Colors.red
+                : Theme.of(context).colorScheme.onSurface),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(children: [
         IconButton(
           icon: Icon(
             isFavorite == 1 ? Icons.favorite : Icons.favorite_border,
-            color: isFavorite == 1 ? Colors.red :Theme.of(context).colorScheme.onSurface,
+            color: isFavorite == 1
+                ? Colors.red
+                : Theme.of(context).colorScheme.onSurface,
           ),
           onPressed: () async {
             if (ableChangeFavorite) {
@@ -130,12 +116,13 @@ class FavoriteForResultPage extends ConsumerWidget {
               ref
                   .read(favoriteCountProvider(searched).notifier)
                   .changeFavoriteCount(
-                needToChangeAlgoliaValue: true,
                     searched: searched,
                     nowIsFavorite: isFavorite,
                   );
               await Future.delayed(const Duration(seconds: 2));
-              ableChangeFavoriteNotifier.state = true; //ボタン連打防止
+              if (context.mounted) {
+                ableChangeFavoriteNotifier.state = true; //ボタン連打防止
+              }
             } else {
               const snackBar = SnackBar(
                   content: Text('データ保存中です。'),
@@ -148,7 +135,10 @@ class FavoriteForResultPage extends ConsumerWidget {
         const SizedBox(height: 4),
         Text(
           likes.toString(),
-          style: TextStyle(color: isFavorite == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface),
+          style: TextStyle(
+              color: isFavorite == 1
+                  ? Colors.red
+                  : Theme.of(context).colorScheme.onSurface),
         ),
       ]),
     );
@@ -168,11 +158,16 @@ class FavoriteForResultListPage extends ConsumerWidget {
     return Column(children: [
       Icon(
         isFavorite == 1 ? Icons.favorite : Icons.favorite_border,
-        color: isFavorite == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface,
+        color: isFavorite == 1
+            ? Colors.red
+            : Theme.of(context).colorScheme.onSurface,
       ),
       Text(
         likes.toString(),
-        style: TextStyle(color: isFavorite == 1 ? Colors.red : Theme.of(context).colorScheme.onSurface),
+        style: TextStyle(
+            color: isFavorite == 1
+                ? Colors.red
+                : Theme.of(context).colorScheme.onSurface),
       ),
     ]);
   }
@@ -194,13 +189,10 @@ class FavoriteForHistory extends ConsumerWidget {
         ref
             .read(userIsFavoriteStateProvider(searched.documentID).notifier)
             .changeUserFavoriteState(searched.documentID, isFavorite);
-        ref
-            .read(favoriteCountProvider(searched).notifier)
-            .changeFavoriteCount(
-          needToChangeAlgoliaValue: false,
-          searched: searched,
-          nowIsFavorite: isFavorite,
-        );
+        ref.read(favoriteCountProvider(searched).notifier).changeFavoriteCount(
+              searched: searched,
+              nowIsFavorite: isFavorite,
+            );
       },
     );
   }

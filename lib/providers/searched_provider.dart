@@ -1,11 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kenryo_tankyu/db/searched_history_db.dart';
 import 'package:kenryo_tankyu/models/models.dart';
-
-//調べている探究作品がキャッシュから取得したものかどうかを管理するProvider
-final isCachedProvider = StateProvider.autoDispose<bool>((ref) => false);
 
 //全画面表示ボタンを表示するかしないかを管理するprovider
 final showFullScreenButtonProvider =
@@ -18,33 +14,52 @@ final isFullScreenProvider = StateProvider.autoDispose<bool>((ref) => false);
 //このproviderを導入することによって、全画面に切り替えたときに不用意な再ビルドを防ぐ。
 final isSameScreenProvider = StateProvider.autoDispose<bool>((ref) => false);
 
-//firestoreからデータを取得するProvider
-final getFirestoreSearchedProvider = FutureProvider.family
-    .autoDispose<Searched, int>((ref, documentID) async {
-  final firestore = FirebaseFirestore.instance;
+//調べている探究作品がキャッシュから取得したものかどうかを管理するProvider
+final isGetDataFromCache = StateProvider.autoDispose<bool>((ref) => false);
+//todo ほんとはここはtrueにしないといけないけど、エラーが起きてしまっているため一時的にfalseにしている。
 
-  ///todo まだキャッシュに関しての理解が薄い。また書き直したい。
-  //まずはキャッシュから取得してみる
+//firestoreからデータを取得するProvider
+final getFirestoreSearchedProvider =
+    FutureProvider.family.autoDispose<Searched, int>((ref, documentID) async {
+  final firestore = FirebaseFirestore.instance;
+  final isFavorite =
+      await SearchedHistoryController.instance.getFavoriteState(documentID);
+  final cacheNotifier = ref.read(isGetDataFromCache.notifier);
+  final getDataFromCache = ref.watch(isGetDataFromCache);
   try {
-    final DocumentSnapshot snapshot = await firestore
-        .collection('works')
-        .doc(documentID.toString())
-        .get(const GetOptions(source: Source.cache));
-    final isFavorite = await SearchedHistoryController.instance
-        .getFavoriteState(int.parse(documentID.toString()));
-    final data = Searched.fromFirestore(snapshot, isFavorite);
-    ref.read(isCachedProvider.notifier).state = true;
-    return data;
+    if (getDataFromCache) {
+      //キャッシュから取得
+      final snapshot = await firestore
+          .collection('works')
+          .doc(documentID.toString())
+          .get(const GetOptions(source: Source.cache));
+      if (snapshot.exists) {
+        cacheNotifier.state = true;
+        final data = Searched.fromFirestore(snapshot, isFavorite);
+        return data;
+      } else {
+        //キャッシュに存在しない場合はサーバーから取得
+        final serverSnapshot = await firestore
+            .collection('works')
+            .doc(documentID.toString())
+            .get(const GetOptions(source: Source.server));
+        cacheNotifier.state = false;
+        final data = Searched.fromFirestore(serverSnapshot, isFavorite);
+        return data;
+      }
+    } else {
+      //サーバーから取得
+      final snapshot = await firestore
+          .collection('works')
+          .doc(documentID.toString())
+          .get(const GetOptions(source: Source.server));
+      cacheNotifier.state = false;
+      final data = Searched.fromFirestore(snapshot, isFavorite);
+      return data;
+    }
   } catch (e) {
-    //キャッシュがない場合はサーバーから取得
-    final DocumentSnapshot snapshot = await firestore
-        .collection('works')
-        .doc(documentID.toString())
-        .get(const GetOptions(source: Source.server));
-    final isFavorite = await SearchedHistoryController.instance
-        .getFavoriteState(documentID);
-    final data = Searched.fromFirestore(snapshot, isFavorite);
-    return data;
+    // エラーハンドリング
+    throw Exception('Failed to fetch data: $e');
   }
 });
 

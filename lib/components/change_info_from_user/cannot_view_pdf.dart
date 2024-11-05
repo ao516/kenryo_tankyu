@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kenryo_tankyu/constant/constant.dart';
+import 'package:kenryo_tankyu/models/models.dart';
 
 class CannotViewPdf extends StatefulWidget {
   const CannotViewPdf({super.key});
@@ -10,7 +10,7 @@ class CannotViewPdf extends StatefulWidget {
 
 class _CannotViewPdfState extends State<CannotViewPdf> {
   List<bool> _selectedCannotViewPdf =
-      List.generate(PdfChoice.values.length, (index) => false);
+      List.generate(DocumentType.values.length, (index) => false);
   TextEditingController _freeDescriptionController = TextEditingController();
 
   @override
@@ -23,12 +23,12 @@ class _CannotViewPdfState extends State<CannotViewPdf> {
         ListView.builder(
             shrinkWrap: true,
             padding: EdgeInsets.zero,
-            itemCount: PdfChoice.values.length,
+            itemCount: DocumentType.values.length,
             itemBuilder: (context, index) {
               return CheckboxListTile(
           contentPadding: EdgeInsets.zero,
           controlAffinity: ListTileControlAffinity.leading,
-          title: Text(PdfChoice.values[index].displayName),
+          title: Text(DocumentType.values[index].displayName),
           value: _selectedCannotViewPdf[index],
           onChanged: (bool? value) {
             setState(() {
