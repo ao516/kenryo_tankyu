@@ -22,8 +22,7 @@ Searched _$SearchedFromJson(Map<String, dynamic> json) {
 mixin _$Searched {
   @JsonKey(includeFromJson: false, includeToJson: true)
   int get documentID => throw _privateConstructorUsedError;
-  @JsonKey(includeFromJson: false, includeToJson: true)
-  int get isFavorite => throw _privateConstructorUsedError;
+  bool get isFavorite => throw _privateConstructorUsedError;
   @CategoryEnumConverter()
   Category get category1 => throw _privateConstructorUsedError;
   @SubCategoryEnumConverter()
@@ -42,13 +41,9 @@ mixin _$Searched {
   String get author => throw _privateConstructorUsedError;
   int get vagueLikes => throw _privateConstructorUsedError;
   int get exactLikes => throw _privateConstructorUsedError;
-  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsSlide => throw _privateConstructorUsedError;
-  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsReport => throw _privateConstructorUsedError;
-  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsThesis => throw _privateConstructorUsedError;
-  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsPoster => throw _privateConstructorUsedError;
   @DateTimeConverter()
   DateTime? get savedAt => throw _privateConstructorUsedError;
@@ -70,7 +65,7 @@ abstract class $SearchedCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(includeFromJson: false, includeToJson: true) int documentID,
-      @JsonKey(includeFromJson: false, includeToJson: true) int isFavorite,
+      bool isFavorite,
       @CategoryEnumConverter() Category category1,
       @SubCategoryEnumConverter() SubCategory subCategory1,
       @CategoryEnumConverter() Category category2,
@@ -82,10 +77,10 @@ abstract class $SearchedCopyWith<$Res> {
       String author,
       int vagueLikes,
       int exactLikes,
-      @JsonKey(includeFromJson: true, includeToJson: false) bool existsSlide,
-      @JsonKey(includeFromJson: true, includeToJson: false) bool existsReport,
-      @JsonKey(includeFromJson: true, includeToJson: false) bool existsThesis,
-      @JsonKey(includeFromJson: true, includeToJson: false) bool existsPoster,
+      bool existsSlide,
+      bool existsReport,
+      bool existsThesis,
+      bool existsPoster,
       @DateTimeConverter() DateTime? savedAt});
 }
 
@@ -131,7 +126,7 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
       isFavorite: null == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
-              as int,
+              as bool,
       category1: null == category1
           ? _value.category1
           : category1 // ignore: cast_nullable_to_non_nullable
@@ -210,7 +205,7 @@ abstract class _$$SearchedImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(includeFromJson: false, includeToJson: true) int documentID,
-      @JsonKey(includeFromJson: false, includeToJson: true) int isFavorite,
+      bool isFavorite,
       @CategoryEnumConverter() Category category1,
       @SubCategoryEnumConverter() SubCategory subCategory1,
       @CategoryEnumConverter() Category category2,
@@ -222,10 +217,10 @@ abstract class _$$SearchedImplCopyWith<$Res>
       String author,
       int vagueLikes,
       int exactLikes,
-      @JsonKey(includeFromJson: true, includeToJson: false) bool existsSlide,
-      @JsonKey(includeFromJson: true, includeToJson: false) bool existsReport,
-      @JsonKey(includeFromJson: true, includeToJson: false) bool existsThesis,
-      @JsonKey(includeFromJson: true, includeToJson: false) bool existsPoster,
+      bool existsSlide,
+      bool existsReport,
+      bool existsThesis,
+      bool existsPoster,
       @DateTimeConverter() DateTime? savedAt});
 }
 
@@ -269,7 +264,7 @@ class __$$SearchedImplCopyWithImpl<$Res>
       isFavorite: null == isFavorite
           ? _value.isFavorite
           : isFavorite // ignore: cast_nullable_to_non_nullable
-              as int,
+              as bool,
       category1: null == category1
           ? _value.category1
           : category1 // ignore: cast_nullable_to_non_nullable
@@ -344,7 +339,7 @@ class _$SearchedImpl extends _Searched {
   const _$SearchedImpl(
       {@JsonKey(includeFromJson: false, includeToJson: true)
       this.documentID = 0,
-      @JsonKey(includeFromJson: false, includeToJson: true) this.isFavorite = 0,
+      this.isFavorite = false,
       @CategoryEnumConverter() required this.category1,
       @SubCategoryEnumConverter() required this.subCategory1,
       @CategoryEnumConverter() required this.category2,
@@ -356,13 +351,9 @@ class _$SearchedImpl extends _Searched {
       this.author = '',
       this.vagueLikes = 0,
       this.exactLikes = 0,
-      @JsonKey(includeFromJson: true, includeToJson: false)
       this.existsSlide = false,
-      @JsonKey(includeFromJson: true, includeToJson: false)
       this.existsReport = false,
-      @JsonKey(includeFromJson: true, includeToJson: false)
       this.existsThesis = false,
-      @JsonKey(includeFromJson: true, includeToJson: false)
       this.existsPoster = false,
       @DateTimeConverter() this.savedAt})
       : super._();
@@ -374,8 +365,8 @@ class _$SearchedImpl extends _Searched {
   @JsonKey(includeFromJson: false, includeToJson: true)
   final int documentID;
   @override
-  @JsonKey(includeFromJson: false, includeToJson: true)
-  final int isFavorite;
+  @JsonKey()
+  final bool isFavorite;
   @override
   @CategoryEnumConverter()
   final Category category1;
@@ -410,16 +401,16 @@ class _$SearchedImpl extends _Searched {
   @JsonKey()
   final int exactLikes;
   @override
-  @JsonKey(includeFromJson: true, includeToJson: false)
+  @JsonKey()
   final bool existsSlide;
   @override
-  @JsonKey(includeFromJson: true, includeToJson: false)
+  @JsonKey()
   final bool existsReport;
   @override
-  @JsonKey(includeFromJson: true, includeToJson: false)
+  @JsonKey()
   final bool existsThesis;
   @override
-  @JsonKey(includeFromJson: true, includeToJson: false)
+  @JsonKey()
   final bool existsPoster;
   @override
   @DateTimeConverter()
@@ -512,8 +503,7 @@ abstract class _Searched extends Searched {
   const factory _Searched(
       {@JsonKey(includeFromJson: false, includeToJson: true)
       final int documentID,
-      @JsonKey(includeFromJson: false, includeToJson: true)
-      final int isFavorite,
+      final bool isFavorite,
       @CategoryEnumConverter() required final Category category1,
       @SubCategoryEnumConverter() required final SubCategory subCategory1,
       @CategoryEnumConverter() required final Category category2,
@@ -525,13 +515,9 @@ abstract class _Searched extends Searched {
       final String author,
       final int vagueLikes,
       final int exactLikes,
-      @JsonKey(includeFromJson: true, includeToJson: false)
       final bool existsSlide,
-      @JsonKey(includeFromJson: true, includeToJson: false)
       final bool existsReport,
-      @JsonKey(includeFromJson: true, includeToJson: false)
       final bool existsThesis,
-      @JsonKey(includeFromJson: true, includeToJson: false)
       final bool existsPoster,
       @DateTimeConverter() final DateTime? savedAt}) = _$SearchedImpl;
   const _Searched._() : super._();
@@ -543,8 +529,7 @@ abstract class _Searched extends Searched {
   @JsonKey(includeFromJson: false, includeToJson: true)
   int get documentID;
   @override
-  @JsonKey(includeFromJson: false, includeToJson: true)
-  int get isFavorite;
+  bool get isFavorite;
   @override
   @CategoryEnumConverter()
   Category get category1;
@@ -575,16 +560,12 @@ abstract class _Searched extends Searched {
   @override
   int get exactLikes;
   @override
-  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsSlide;
   @override
-  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsReport;
   @override
-  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsThesis;
   @override
-  @JsonKey(includeFromJson: true, includeToJson: false)
   bool get existsPoster;
   @override
   @DateTimeConverter()

@@ -31,24 +31,29 @@ class SearchedHistoryController {
             'CREATE TABLE searched_history('
             'documentID INTEGER PRIMARY KEY NOT NULL, '
             'isFavorite INTEGER NOT NULL, '
-            'title TEXT NOT NULL, '
             'category1 TEXT NOT NULL, '
             'subCategory1 TEXT NOT NULL, '
             'category2 TEXT NOT NULL, '
             'subCategory2 TEXT NOT NULL, '
             'enterYear INTEGER NOT NULL, '
-            'author TEXT NOT NULL, '
-            'exactLikes INTEGER NOT NULL, '
-            'vagueLikes INTEGER NOT NULL, '
-            'course TEXT NOT NULL, '
             'eventName TEXT NOT NULL, '
+            'course TEXT NOT NULL, '
+            'title TEXT NOT NULL, '
+            'author TEXT NOT NULL, '
+            'vagueLikes INTEGER NOT NULL, '
+            'exactLikes INTEGER NOT NULL, '
+            'existsSlide INTEGER NOT NULL, '
+            'existsReport INTEGER NOT NULL, '
+            'existsThesis INTEGER NOT NULL, '
+            'existsPoster INTEGER NOT NULL, '
             'savedAt TEXT NOT NULL, '
+            'recommendedNumber INTEGER NOT NULL DEFAULT 0, '
             'CHECK(LENGTH(documentID) == 8),'
             'CHECK(savedAt != null) '
             ');',
           );
         },
-        version: 5,
+        version: 6,
       );
     } catch (error, stackTrace) {
       return Future.error(error, stackTrace);
@@ -78,12 +83,13 @@ class SearchedHistoryController {
   }
 
   Future<void> changeFavoriteState(
-      int documentID, int nextIsFavorite) async {
+      int documentID, bool nextIsFavorite) async {
+        final int isFavorite = nextIsFavorite ? 1 : 0;
     try {
       final Database db = await database;
       await db.update(
         'searched_history',
-        {'isFavorite':nextIsFavorite},
+        {'isFavorite':isFavorite},
         where: 'documentID = ?',
         whereArgs: [documentID],
       );
@@ -105,21 +111,23 @@ class SearchedHistoryController {
     return List.generate(maps.length, (index) => maps[index]['documentID']);
   }
 
-  Future<int> getFavoriteState(int documentID) async {
+  Future<bool> getFavoriteState(int documentID) async {
     final Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query('searched_history',
         where: 'documentID = ? AND isFavorite = ?', whereArgs: [documentID, 1]);
     if (maps.isEmpty) {
-      return 0;
+      return false;
     }
-    return maps[0]['isFavorite'];
+    final bool isFavorite = maps[0]['isFavorite'] == 1;
+    return isFavorite;
   }
 
   Future<void> insertHistory(Searched searched) async {
     final Database db = await database;
+    final json = SQLiteJsonConverter().toJson(searched);
     await db.insert(
       'searched_history',
-      searched.toJson(),
+      json,
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
@@ -131,5 +139,36 @@ class SearchedHistoryController {
       where: 'documentID = ?',
       whereArgs: [documentID],
     );
+  }
+
+  Future<void> insertMultipleRecommendCache(
+      Searched searched1, Searched searched2) async {
+    final Database db = await database;
+    final json1 =SQLiteJsonConverter().toJson(searched1);
+    final json2 = SQLiteJsonConverter().toJson(searched2);
+    json1['recommendedNumber'] = 1;
+    json2['recommendedNumber'] = 2;
+    
+    final List<Map<String, dynamic>> maps = [
+      json1,
+      json2,
+    ];
+    await db.transaction((txn) async {
+      for (final map in maps) {
+        await txn.insert('searched_history', map,
+            conflictAlgorithm: ConflictAlgorithm.replace);
+      }
+    });
+  }
+
+  Future<List<Searched>?> getAllRecommendedCache() async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> maps =
+        await db.query('searched_history');
+    if (maps.isEmpty) {
+      return null;
+    }
+    return List.generate(
+        maps.length, (index) => Searched.fromSQLite(maps[index]));
   }
 }

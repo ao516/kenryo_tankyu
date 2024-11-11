@@ -25,6 +25,18 @@ class EnterYearEnumConverter implements JsonConverter<EnterYear, int> {
   int toJson(EnterYear object) => object.displayName;
 }
 
+class IntBoolConverter implements JsonConverter<bool, int> {
+  const IntBoolConverter();
+  @override
+  bool fromJson(int json) {
+    return json == 1;
+  }
+
+  @override
+  int toJson(bool object) => object ? 1 : 0;
+}
+
+
 enum DocumentType {
   slide,
   report,

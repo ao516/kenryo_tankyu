@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:kenryo_tankyu/models/models.dart';
-import 'package:kenryo_tankyu/db/random_recommended_cache.dart';
 import 'package:kenryo_tankyu/db/searched_history_db.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'algolia.dart';
@@ -36,24 +35,14 @@ final algoliaSearchProvider =
       //検索してもヒットしなかった場合
       return null;
     } else {
-      ///ヒットしたデータがユーザーがお気に入りに登録しているかどうかをローカルDBから取得する。
-      ///ある場合は、favoriteListにそのデータのdocumentIDを入手、ない場合はnullをいれる。
-      
+      // ヒットしたデータがユーザーのお気に入りに登録されているかをローカルDBから取得
       final List<int> documentIDs = objects.map((e) => int.parse(e.objectID)).toList();
-      final List<int>? favoriteList =
-          await SearchedHistoryController.instance.getSomeFavoriteState(documentIDs);
-      
-      ///Algoliaから取得したデータをSearched型に変換する。
-      ///この際、favoriteListにidが含まれているかどうかを検証しながらstateに渡すdataを作成している。
-      if (favoriteList == null) {
-        return objects.map((e) => Searched.fromAlgolia(e, 0)).toList();
-      } else {
-        return objects.map((object) {
-          return favoriteList.contains(int.parse(object.objectID))
-              ? Searched.fromAlgolia(object, 1)
-              : Searched.fromAlgolia(object, 0);
-        }).toList();
-      }
+      final List<int>? favoriteList = await SearchedHistoryController.instance.getSomeFavoriteState(documentIDs);
+      // Algoliaから取得したデータをSearched型に変換し、favoriteListに基づいてお気に入り状態を設定
+      return objects.map((object) {
+      final isFavorite = favoriteList?.contains(int.parse(object.objectID)) ?? false;
+      return Searched.fromAlgolia(object, isFavorite);
+      }).toList();
     }
   } catch (error, stackTrace) {
     return Future.error(error, stackTrace);
@@ -111,7 +100,7 @@ class SortedListNotifier extends StateNotifier<List<Searched>> {
 final randomAlgoliaSearchProvider =
     FutureProvider.autoDispose<List<Searched>?>((ref) async {
   final isForce = ref.watch(forceRefreshProvider);
-  final data = await RandomRecommendedCacheController.instance.getAllCache();
+  final data = await SearchedHistoryController.instance.getAllRecommendedCache();
   if (isForce == false &&
       data != null &&
       data.isNotEmpty &&
@@ -137,20 +126,12 @@ final randomAlgoliaSearchProvider =
   final data1 = await _getQuery(algoliaQuery, randomNumber1);
   final data2 = await _getQuery(algoliaQuery, randomNumber2);
 
-  final isFavorite1 = await SearchedHistoryController.instance
-      .getFavoriteState(int.parse(data1.objectID));
-  final isFavorite2 = await SearchedHistoryController.instance
-      .getFavoriteState(int.parse(data2.objectID));
-  RandomRecommendedCacheController.instance.insertMultipleCache(
-      Searched.fromAlgolia(data1, 0), Searched.fromAlgolia(data2, 0));
-  return [
-    isFavorite1 == 1
-        ? Searched.fromAlgolia(data1, 1)
-        : Searched.fromAlgolia(data1, 0),
-    isFavorite2 == 1
-        ? Searched.fromAlgolia(data2, 1)
-        : Searched.fromAlgolia(data2, 0)
+  final favoriteList = await SearchedHistoryController.instance.getSomeFavoriteState([int.parse(data1.objectID), int.parse(data2.objectID)]);
+  final List<Searched> result = [
+    Searched.fromAlgolia(data1, favoriteList?.contains(int.parse(data1.objectID)) ?? false),
+    Searched.fromAlgolia(data2, favoriteList?.contains(int.parse(data2.objectID)) ?? false)
   ];
+  return result;
 });
 
 Future<AlgoliaObjectSnapshot> _getQuery(

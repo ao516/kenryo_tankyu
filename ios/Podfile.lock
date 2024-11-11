@@ -311,7 +311,7 @@ SPEC CHECKSUMS:
   screen_capture_event: bcf965bb31968a51c08ad3698725c5ad8c597124
   screenshot_callback: b173e7f4bd8d2ef14a9a5e5a77c0ac6a47578608
   shared_preferences_foundation: fcdcbc04712aee1108ac7fda236f363274528f78
-  sqflite_darwin: a553b1fd6fe66f53bbb0fe5b4f5bab93f08d7a13
+  sqflite_darwin: 5a7236e3b501866c1c9befc6771dfd73ffb8702d
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
 
 PODFILE CHECKSUM: 029afedb4587b486b4745d776070b99686a21022
