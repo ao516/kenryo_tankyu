@@ -26,40 +26,35 @@ final getFirestoreSearchedProvider =
       await SearchedHistoryController.instance.getFavoriteState(documentID);
   final cacheNotifier = ref.read(isGetDataFromCache.notifier);
   final getDataFromCache = ref.watch(isGetDataFromCache);
-  try {
-    if (getDataFromCache) {
-      //キャッシュから取得
-      final snapshot = await firestore
-          .collection('works')
-          .doc(documentID.toString())
-          .get(const GetOptions(source: Source.cache));
-      if (snapshot.exists) {
-        cacheNotifier.state = true;
-        final data = Searched.fromFirestore(snapshot, isFavorite);
-        return data;
-      } else {
-        //キャッシュに存在しない場合はサーバーから取得
-        final serverSnapshot = await firestore
-            .collection('works')
-            .doc(documentID.toString())
-            .get(const GetOptions(source: Source.server));
-        cacheNotifier.state = false;
-        final data = Searched.fromFirestore(serverSnapshot, isFavorite);
-        return data;
-      }
+  if (getDataFromCache) {
+    //キャッシュから取得
+    final snapshot = await firestore
+        .collection('works')
+        .doc(documentID.toString())
+        .get(const GetOptions(source: Source.cache));
+    if (snapshot.exists) {
+      cacheNotifier.state = true;
+      final data = Searched.fromFirestore(snapshot, isFavorite);
+      return data;
     } else {
-      //サーバーから取得
-      final snapshot = await firestore
+      //キャッシュに存在しない場合はサーバーから取得
+      final serverSnapshot = await firestore
           .collection('works')
           .doc(documentID.toString())
           .get(const GetOptions(source: Source.server));
       cacheNotifier.state = false;
-      final data = Searched.fromFirestore(snapshot, isFavorite);
+      final data = Searched.fromFirestore(serverSnapshot, isFavorite);
       return data;
     }
-  } catch (e) {
-    // エラーハンドリング
-    throw Exception('Failed to fetch data: $e');
+  } else {
+    //サーバーから取得
+    final snapshot = await firestore
+        .collection('works')
+        .doc(documentID.toString())
+        .get(const GetOptions(source: Source.server));
+    cacheNotifier.state = false;
+    final data = Searched.fromFirestore(snapshot, isFavorite);
+    return data;
   }
 });
 

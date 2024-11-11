@@ -17,20 +17,7 @@ class ResultPreviewContent extends ConsumerWidget {
       onTap: () async {
         ///詳細画面への遷移と、履歴の追加
         context.push('/result/${searched.documentID}');
-        SearchedHistoryController.instance.insertHistory(
-          Searched(
-              documentID: searched.documentID,
-              isFavorite: searched.isFavorite,
-              category1: searched.category1,
-              subCategory1: searched.subCategory1,
-              category2: searched.category2,
-              subCategory2: searched.subCategory2,
-              enterYear: searched.enterYear,
-              course: searched.course,
-              title: searched.title,
-              eventName: searched.eventName,
-              savedAt: DateTime.now()),
-        );
+        SearchedHistoryController.instance.insertHistory(searched);
       },
       onLongPress: forLibrary ? () async {
         ///履歴の消去

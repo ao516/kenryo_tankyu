@@ -25,9 +25,7 @@ class Searched with _$Searched {
     @JsonKey(includeFromJson: false, includeToJson: true)
     @Default(0)
     int documentID,
-    @JsonKey(includeFromJson: false, includeToJson: true)
-    @Default(0)
-    int isFavorite,
+    @Default(false) bool isFavorite,
     @CategoryEnumConverter() required Category category1,
     @SubCategoryEnumConverter() required SubCategory subCategory1,
     @CategoryEnumConverter() required Category category2,
@@ -39,18 +37,10 @@ class Searched with _$Searched {
     @Default('') String author,
     @Default(0) int vagueLikes,
     @Default(0) int exactLikes,
-    @JsonKey(includeFromJson: true, includeToJson: false)
-    @Default(false)
-    bool existsSlide,
-    @JsonKey(includeFromJson: true, includeToJson: false)
-    @Default(false)
-    bool existsReport,
-    @JsonKey(includeFromJson: true, includeToJson: false)
-    @Default(false)
-    bool existsThesis,
-    @JsonKey(includeFromJson: true, includeToJson: false)
-    @Default(false)
-    bool existsPoster,
+    @Default(false) bool existsSlide,
+    @Default(false) bool existsReport,
+    @Default(false) bool existsThesis,
+    @Default(false) bool existsPoster,
     @DateTimeConverter() DateTime? savedAt,
   }) = _Searched;
 
@@ -58,20 +48,25 @@ class Searched with _$Searched {
       _$SearchedFromJson(json);
 
   ///Algoliaから取得したsnapshotは、objectIDとisFavoriteのみjson形式ではないため、無理やりcopyWithで変換して付け加えている。
-  factory Searched.fromAlgolia(AlgoliaObjectSnapshot doc, int isFavorite) {
+  factory Searched.fromAlgolia(AlgoliaObjectSnapshot doc, bool isFavorite) {
     final Map<String, dynamic> data = doc.data;
     debugPrint('通るよー⭐️ data: $data');
     return Searched.fromJson(data)
         .copyWith(documentID: int.parse(doc.objectID), isFavorite: isFavorite);
   }
-  factory Searched.fromFirestore(DocumentSnapshot doc, int isFavorite) {
+  factory Searched.fromFirestore(DocumentSnapshot doc, bool isFavorite) {
     final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return Searched.fromJson(data)
         .copyWith(documentID: int.parse(doc.id), isFavorite: isFavorite);
   }
-  factory Searched.fromSQLite(Map<String, dynamic> searched) {
-    return Searched.fromJson(searched).copyWith(
-        documentID: searched['documentID'], isFavorite: searched['isFavorite']);
+  factory Searched.fromSQLite(Map<String,dynamic> json) {
+    return Searched.fromJson(json).copyWith(
+      isFavorite: json['isFavorite'] == 1,
+      existsSlide: json['existsSlide'] == 1,
+      existsReport: json['existsReport'] == 1,
+      existsThesis: json['existsThesis'] == 1,
+      existsPoster: json['existsPoster'] == 1,
+    );
   }
 }
 
@@ -89,5 +84,31 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
   @override
   String toJson(DateTime object) {
     return object.toIso8601String();
+  }
+}
+
+class SQLiteJsonConverter implements JsonConverter<Searched, Map<String, dynamic>> {
+  const SQLiteJsonConverter();
+
+  @override
+  Searched fromJson(Map<String, dynamic> json) {
+    return Searched.fromJson(json).copyWith(
+      isFavorite: json['isFavorite'] == 1,
+      existsSlide: json['existsSlide'] == 1,
+      existsReport: json['existsReport'] == 1,
+      existsThesis: json['existsThesis'] == 1,
+      existsPoster: json['existsPoster'] == 1,
+    );
+  }
+  @override
+  Map<String, dynamic> toJson(Searched object) {
+    final json = object.toJson();
+    json['isFavorite'] = object.isFavorite ? 1 : 0;
+    json['existsSlide'] = object.existsSlide ? 1 : 0;
+    json['existsReport'] = object.existsReport ? 1 : 0;
+    json['existsThesis'] = object.existsThesis ? 1 : 0;
+    json['existsPoster'] = object.existsPoster ? 1 : 0;
+    json['savedAt'] = DateTime.now().toIso8601String();
+    return json;
   }
 }

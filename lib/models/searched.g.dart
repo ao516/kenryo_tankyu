@@ -8,6 +8,7 @@ part of 'searched.dart';
 
 _$SearchedImpl _$$SearchedImplFromJson(Map<String, dynamic> json) =>
     _$SearchedImpl(
+      isFavorite: json['isFavorite'] as bool? ?? false,
       category1:
           const CategoryEnumConverter().fromJson(json['category1'] as String),
       subCategory1: const SubCategoryEnumConverter()
@@ -50,6 +51,10 @@ Map<String, dynamic> _$$SearchedImplToJson(_$SearchedImpl instance) =>
       'author': instance.author,
       'vagueLikes': instance.vagueLikes,
       'exactLikes': instance.exactLikes,
+      'existsSlide': instance.existsSlide,
+      'existsReport': instance.existsReport,
+      'existsThesis': instance.existsThesis,
+      'existsPoster': instance.existsPoster,
       'savedAt': _$JsonConverterToJson<String, DateTime>(
           instance.savedAt, const DateTimeConverter().toJson),
     };
