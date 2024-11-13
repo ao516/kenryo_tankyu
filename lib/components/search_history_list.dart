@@ -24,37 +24,39 @@ class SearchHistoryList extends ConsumerWidget {
                         child: const Text('リロードする')),
                   ],
                 )
-              : ListView.separated(
-                itemBuilder: (BuildContext context, int index) {
-                  final Search search = searches[index];
-                  final String word = _connectWord(search);
-                  return ListTile(
-                      trailing: const Icon(Icons.navigate_next),
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Text(word,
-                                maxLines: 1, overflow: TextOverflow.ellipsis),
-                          ),
-                          Text(' ${search.numberOfHits}件',
-                              style: const TextStyle(fontSize: 12)),
-                        ],
-                      ),
-                      onTap: () {
-                        ref
-                            .read(searchProvider.notifier)
-                            .setParameters(search);
-                        context.pushReplacement('/resultList');
-                      });
-                },
-                separatorBuilder: (BuildContext context, int index) {
-                  return const Divider(
-                    height: 1,
-                    color: Colors.grey,
-                  );
-                },
-                itemCount: searches.length,
+              : Expanded(
+                child: ListView.separated(
+                  itemBuilder: (BuildContext context, int index) {
+                    final Search search = searches[index];
+                    final String word = _connectWord(search);
+                    return ListTile(
+                        trailing: const Icon(Icons.navigate_next),
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(word,
+                                  maxLines: 1, overflow: TextOverflow.ellipsis),
+                            ),
+                            Text(' ${search.numberOfHits}件',
+                                style: const TextStyle(fontSize: 12)),
+                          ],
+                        ),
+                        onTap: () {
+                          ref
+                              .read(searchProvider.notifier)
+                              .setParameters(search);
+                          context.pushReplacement('/resultList');
+                        });
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const Divider(
+                      height: 1,
+                      color: Colors.grey,
+                    );
+                  },
+                  itemCount: searches.length,
+                ),
               );
         },
         loading: () => const Center(child: CircularProgressIndicator()),

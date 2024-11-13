@@ -23,7 +23,11 @@ class PdfChoiceChip extends ConsumerWidget {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (isSameScreen) return;
-      stringProviderNotifier.state = '$partOfId${list[0].idSuffix}';
+      if(list.isEmpty){
+        stringProviderNotifier.state = '$partOfId${DocumentType.slide.idSuffix}';
+      } else {
+        stringProviderNotifier.state = '$partOfId${list[0].idSuffix}';
+      }
       isSameScreenNotifier.state = true;
     }); //最初に表示されるpdfのidを決定
 

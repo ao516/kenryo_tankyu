@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kenryo_tankyu/db/searched_history_db.dart';
@@ -14,51 +15,42 @@ final isFullScreenProvider = StateProvider.autoDispose<bool>((ref) => false);
 //このproviderを導入することによって、全画面に切り替えたときに不用意な再ビルドを防ぐ。
 final isSameScreenProvider = StateProvider.autoDispose<bool>((ref) => false);
 
-//調べている探究作品がキャッシュから取得したものかどうかを管理するProvider
-final isGetDataFromCache = StateProvider.autoDispose<bool>((ref) => false);
-//todo ほんとはここはtrueにしないといけないけど、エラーが起きてしまっているため一時的にfalseにしている。
+final forceReloadProvider = StateProvider.autoDispose<bool>((ref) => false);
 
-//firestoreからデータを取得するProvider
+//作品データを取得するProvider
 final getFirestoreSearchedProvider =
     FutureProvider.family.autoDispose<Searched, int>((ref, documentID) async {
   final firestore = FirebaseFirestore.instance;
-  final isFavorite =
-      await SearchedHistoryController.instance.getFavoriteState(documentID);
-  final cacheNotifier = ref.read(isGetDataFromCache.notifier);
-  final getDataFromCache = ref.watch(isGetDataFromCache);
-  if (getDataFromCache) {
-    //キャッシュから取得
-    final snapshot = await firestore
-        .collection('works')
-        .doc(documentID.toString())
-        .get(const GetOptions(source: Source.cache));
-    if (snapshot.exists) {
-      cacheNotifier.state = true;
-      final data = Searched.fromFirestore(snapshot, isFavorite);
+  final forceReload = ref.watch(forceReloadProvider);
+  if (forceReload) {
+    final serverSnapshot =
+        await firestore.collection('works').doc(documentID.toString()).get();
+    final isFavorite =
+        await SearchedHistoryController.instance.getFavoriteState(documentID);
+    final data = Searched.fromFirestore(serverSnapshot, isFavorite);
+    ref.read(forceReloadProvider.notifier).state = false;
+    //firestoreから取得した時のみ、履歴に追加
+    SearchedHistoryController.instance.insertHistory(data);
+    return data;
+  } else {
+    final Searched? data =
+        await SearchedHistoryController.instance.getHistory(documentID);
+    if (data != null) {
       return data;
     } else {
-      //キャッシュに存在しない場合はサーバーから取得
-      final serverSnapshot = await firestore
-          .collection('works')
-          .doc(documentID.toString())
-          .get(const GetOptions(source: Source.server));
-      cacheNotifier.state = false;
+      final serverSnapshot =
+          await firestore.collection('works').doc(documentID.toString()).get();
+      final isFavorite =
+          await SearchedHistoryController.instance.getFavoriteState(documentID);
       final data = Searched.fromFirestore(serverSnapshot, isFavorite);
+      //firestoreから取得した時のみ、履歴に追加
+      SearchedHistoryController.instance.insertHistory(data);
       return data;
     }
-  } else {
-    //サーバーから取得
-    final snapshot = await firestore
-        .collection('works')
-        .doc(documentID.toString())
-        .get(const GetOptions(source: Source.server));
-    cacheNotifier.state = false;
-    final data = Searched.fromFirestore(snapshot, isFavorite);
-    return data;
   }
 });
 
 //choiceChipの選択肢を管理する簡易的なProvider
 final intProvider = StateProvider.autoDispose((ref) => 0);
 final stringProvider =
-    StateProvider.autoDispose((ref) => '22202363'); //TODO 初期値これ升田さんのやつ。
+    StateProvider.autoDispose<String>((ref) => '22202363'); //TODO 初期値これ升田さんのやつ。

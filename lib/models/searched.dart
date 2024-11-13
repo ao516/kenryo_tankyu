@@ -22,9 +22,7 @@ class Searched with _$Searched {
   const Searched._();
 
   const factory Searched({
-    @JsonKey(includeFromJson: false, includeToJson: true)
-    @Default(0)
-    int documentID,
+    @Default(00000000) int documentID,
     @Default(false) bool isFavorite,
     @CategoryEnumConverter() required Category category1,
     @SubCategoryEnumConverter() required SubCategory subCategory1,
@@ -42,6 +40,7 @@ class Searched with _$Searched {
     @Default(false) bool existsThesis,
     @Default(false) bool existsPoster,
     @DateTimeConverter() DateTime? savedAt,
+    @Default(true) bool isCached,
   }) = _Searched;
 
   factory Searched.fromJson(Map<String, dynamic> json) =>
@@ -52,21 +51,36 @@ class Searched with _$Searched {
     final Map<String, dynamic> data = doc.data;
     debugPrint('通るよー⭐️ data: $data');
     return Searched.fromJson(data)
-        .copyWith(documentID: int.parse(doc.objectID), isFavorite: isFavorite);
+        .copyWith(documentID: int.parse(doc.objectID), isFavorite: isFavorite,isCached: false);
   }
   factory Searched.fromFirestore(DocumentSnapshot doc, bool isFavorite) {
     final Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     return Searched.fromJson(data)
-        .copyWith(documentID: int.parse(doc.id), isFavorite: isFavorite);
+        .copyWith(documentID: int.parse(doc.id), isFavorite: isFavorite, isCached: false);
   }
   factory Searched.fromSQLite(Map<String,dynamic> json) {
-    return Searched.fromJson(json).copyWith(
-      isFavorite: json['isFavorite'] == 1,
-      existsSlide: json['existsSlide'] == 1,
-      existsReport: json['existsReport'] == 1,
-      existsThesis: json['existsThesis'] == 1,
-      existsPoster: json['existsPoster'] == 1,
-    );
+    final mutableJson = Map<String, dynamic>.from(json);
+    //SQLiteから取得したデータは、0,1で保存されているため、bool型に変換する。
+    //searchedはimmutableなので、mutableJsonを作成してから新たなインスタンスを生成している。
+    mutableJson['isFavorite'] = mutableJson['isFavorite'] == 1;
+    mutableJson['existsSlide'] = mutableJson['existsSlide'] == 1;
+    mutableJson['existsReport'] = mutableJson['existsReport'] == 1;
+    mutableJson['existsThesis'] = mutableJson['existsThesis'] == 1;
+    mutableJson['existsPoster'] = mutableJson['existsPoster'] == 1;
+    final searched = Searched.fromJson(mutableJson);
+    return searched;
+  }
+
+  Map<String, dynamic> toSQLite() {
+    final json = this.toJson();
+    json.remove('isCached');
+    json['isFavorite'] = this.isFavorite ? 1 : 0;
+    json['existsSlide'] = this.existsSlide ? 1 : 0;
+    json['existsReport'] = this.existsReport ? 1 : 0;
+    json['existsThesis'] = this.existsThesis ? 1 : 0;
+    json['existsPoster'] = this.existsPoster ? 1 : 0;
+    json['savedAt'] = DateTime.now().toIso8601String();
+    return json;
   }
 }
 
@@ -77,7 +91,6 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
 
   @override
   DateTime fromJson(String json) {
-    debugPrint('DateTimeConverter fromJson: $json');
     return DateTime.parse(json).toLocal();
   }
 
@@ -87,28 +100,3 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
   }
 }
 
-class SQLiteJsonConverter implements JsonConverter<Searched, Map<String, dynamic>> {
-  const SQLiteJsonConverter();
-
-  @override
-  Searched fromJson(Map<String, dynamic> json) {
-    return Searched.fromJson(json).copyWith(
-      isFavorite: json['isFavorite'] == 1,
-      existsSlide: json['existsSlide'] == 1,
-      existsReport: json['existsReport'] == 1,
-      existsThesis: json['existsThesis'] == 1,
-      existsPoster: json['existsPoster'] == 1,
-    );
-  }
-  @override
-  Map<String, dynamic> toJson(Searched object) {
-    final json = object.toJson();
-    json['isFavorite'] = object.isFavorite ? 1 : 0;
-    json['existsSlide'] = object.existsSlide ? 1 : 0;
-    json['existsReport'] = object.existsReport ? 1 : 0;
-    json['existsThesis'] = object.existsThesis ? 1 : 0;
-    json['existsPoster'] = object.existsPoster ? 1 : 0;
-    json['savedAt'] = DateTime.now().toIso8601String();
-    return json;
-  }
-}

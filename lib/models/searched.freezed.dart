@@ -20,7 +20,6 @@ Searched _$SearchedFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Searched {
-  @JsonKey(includeFromJson: false, includeToJson: true)
   int get documentID => throw _privateConstructorUsedError;
   bool get isFavorite => throw _privateConstructorUsedError;
   @CategoryEnumConverter()
@@ -47,6 +46,7 @@ mixin _$Searched {
   bool get existsPoster => throw _privateConstructorUsedError;
   @DateTimeConverter()
   DateTime? get savedAt => throw _privateConstructorUsedError;
+  bool get isCached => throw _privateConstructorUsedError;
 
   /// Serializes this Searched to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -64,7 +64,7 @@ abstract class $SearchedCopyWith<$Res> {
       _$SearchedCopyWithImpl<$Res, Searched>;
   @useResult
   $Res call(
-      {@JsonKey(includeFromJson: false, includeToJson: true) int documentID,
+      {int documentID,
       bool isFavorite,
       @CategoryEnumConverter() Category category1,
       @SubCategoryEnumConverter() SubCategory subCategory1,
@@ -81,7 +81,8 @@ abstract class $SearchedCopyWith<$Res> {
       bool existsReport,
       bool existsThesis,
       bool existsPoster,
-      @DateTimeConverter() DateTime? savedAt});
+      @DateTimeConverter() DateTime? savedAt,
+      bool isCached});
 }
 
 /// @nodoc
@@ -117,6 +118,7 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
     Object? existsThesis = null,
     Object? existsPoster = null,
     Object? savedAt = freezed,
+    Object? isCached = null,
   }) {
     return _then(_value.copyWith(
       documentID: null == documentID
@@ -191,6 +193,10 @@ class _$SearchedCopyWithImpl<$Res, $Val extends Searched>
           ? _value.savedAt
           : savedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      isCached: null == isCached
+          ? _value.isCached
+          : isCached // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -204,7 +210,7 @@ abstract class _$$SearchedImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(includeFromJson: false, includeToJson: true) int documentID,
+      {int documentID,
       bool isFavorite,
       @CategoryEnumConverter() Category category1,
       @SubCategoryEnumConverter() SubCategory subCategory1,
@@ -221,7 +227,8 @@ abstract class _$$SearchedImplCopyWith<$Res>
       bool existsReport,
       bool existsThesis,
       bool existsPoster,
-      @DateTimeConverter() DateTime? savedAt});
+      @DateTimeConverter() DateTime? savedAt,
+      bool isCached});
 }
 
 /// @nodoc
@@ -255,6 +262,7 @@ class __$$SearchedImplCopyWithImpl<$Res>
     Object? existsThesis = null,
     Object? existsPoster = null,
     Object? savedAt = freezed,
+    Object? isCached = null,
   }) {
     return _then(_$SearchedImpl(
       documentID: null == documentID
@@ -329,6 +337,10 @@ class __$$SearchedImplCopyWithImpl<$Res>
           ? _value.savedAt
           : savedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      isCached: null == isCached
+          ? _value.isCached
+          : isCached // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -337,8 +349,7 @@ class __$$SearchedImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SearchedImpl extends _Searched {
   const _$SearchedImpl(
-      {@JsonKey(includeFromJson: false, includeToJson: true)
-      this.documentID = 0,
+      {this.documentID = 00000000,
       this.isFavorite = false,
       @CategoryEnumConverter() required this.category1,
       @SubCategoryEnumConverter() required this.subCategory1,
@@ -355,14 +366,15 @@ class _$SearchedImpl extends _Searched {
       this.existsReport = false,
       this.existsThesis = false,
       this.existsPoster = false,
-      @DateTimeConverter() this.savedAt})
+      @DateTimeConverter() this.savedAt,
+      this.isCached = true})
       : super._();
 
   factory _$SearchedImpl.fromJson(Map<String, dynamic> json) =>
       _$$SearchedImplFromJson(json);
 
   @override
-  @JsonKey(includeFromJson: false, includeToJson: true)
+  @JsonKey()
   final int documentID;
   @override
   @JsonKey()
@@ -415,10 +427,13 @@ class _$SearchedImpl extends _Searched {
   @override
   @DateTimeConverter()
   final DateTime? savedAt;
+  @override
+  @JsonKey()
+  final bool isCached;
 
   @override
   String toString() {
-    return 'Searched(documentID: $documentID, isFavorite: $isFavorite, category1: $category1, subCategory1: $subCategory1, category2: $category2, subCategory2: $subCategory2, enterYear: $enterYear, eventName: $eventName, course: $course, title: $title, author: $author, vagueLikes: $vagueLikes, exactLikes: $exactLikes, existsSlide: $existsSlide, existsReport: $existsReport, existsThesis: $existsThesis, existsPoster: $existsPoster, savedAt: $savedAt)';
+    return 'Searched(documentID: $documentID, isFavorite: $isFavorite, category1: $category1, subCategory1: $subCategory1, category2: $category2, subCategory2: $subCategory2, enterYear: $enterYear, eventName: $eventName, course: $course, title: $title, author: $author, vagueLikes: $vagueLikes, exactLikes: $exactLikes, existsSlide: $existsSlide, existsReport: $existsReport, existsThesis: $existsThesis, existsPoster: $existsPoster, savedAt: $savedAt, isCached: $isCached)';
   }
 
   @override
@@ -457,31 +472,35 @@ class _$SearchedImpl extends _Searched {
                 other.existsThesis == existsThesis) &&
             (identical(other.existsPoster, existsPoster) ||
                 other.existsPoster == existsPoster) &&
-            (identical(other.savedAt, savedAt) || other.savedAt == savedAt));
+            (identical(other.savedAt, savedAt) || other.savedAt == savedAt) &&
+            (identical(other.isCached, isCached) ||
+                other.isCached == isCached));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      documentID,
-      isFavorite,
-      category1,
-      subCategory1,
-      category2,
-      subCategory2,
-      enterYear,
-      eventName,
-      course,
-      title,
-      author,
-      vagueLikes,
-      exactLikes,
-      existsSlide,
-      existsReport,
-      existsThesis,
-      existsPoster,
-      savedAt);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        documentID,
+        isFavorite,
+        category1,
+        subCategory1,
+        category2,
+        subCategory2,
+        enterYear,
+        eventName,
+        course,
+        title,
+        author,
+        vagueLikes,
+        exactLikes,
+        existsSlide,
+        existsReport,
+        existsThesis,
+        existsPoster,
+        savedAt,
+        isCached
+      ]);
 
   /// Create a copy of Searched
   /// with the given fields replaced by the non-null parameter values.
@@ -501,8 +520,7 @@ class _$SearchedImpl extends _Searched {
 
 abstract class _Searched extends Searched {
   const factory _Searched(
-      {@JsonKey(includeFromJson: false, includeToJson: true)
-      final int documentID,
+      {final int documentID,
       final bool isFavorite,
       @CategoryEnumConverter() required final Category category1,
       @SubCategoryEnumConverter() required final SubCategory subCategory1,
@@ -519,14 +537,14 @@ abstract class _Searched extends Searched {
       final bool existsReport,
       final bool existsThesis,
       final bool existsPoster,
-      @DateTimeConverter() final DateTime? savedAt}) = _$SearchedImpl;
+      @DateTimeConverter() final DateTime? savedAt,
+      final bool isCached}) = _$SearchedImpl;
   const _Searched._() : super._();
 
   factory _Searched.fromJson(Map<String, dynamic> json) =
       _$SearchedImpl.fromJson;
 
   @override
-  @JsonKey(includeFromJson: false, includeToJson: true)
   int get documentID;
   @override
   bool get isFavorite;
@@ -570,6 +588,8 @@ abstract class _Searched extends Searched {
   @override
   @DateTimeConverter()
   DateTime? get savedAt;
+  @override
+  bool get isCached;
 
   /// Create a copy of Searched
   /// with the given fields replaced by the non-null parameter values.

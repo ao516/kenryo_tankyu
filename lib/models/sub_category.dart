@@ -120,7 +120,6 @@ class SubCategoryEnumConverter implements JsonConverter<SubCategory, String> {
       (element) => element.name == json,
       orElse: () => SubCategory.none,
     );
-    debugPrint('SubCategoryEnumConverter fromJson: $subCategory');
     return subCategory;
   }
 

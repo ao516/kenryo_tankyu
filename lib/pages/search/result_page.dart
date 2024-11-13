@@ -6,9 +6,6 @@ import 'package:kenryo_tankyu/pages/pages.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:screen_capture_event/screen_capture_event.dart';
 
-///ResultPageにデータがしっかり格納されているときに表示されるメイン画面。
-///スクリーンショットを禁止するためにstatefulWidgetを使い、結果画面に出てくるそれぞれのWidgetを呼び出している。
-
 class ResultPage extends ConsumerStatefulWidget {
   final int documentID;
   const ResultPage({super.key, required this.documentID});

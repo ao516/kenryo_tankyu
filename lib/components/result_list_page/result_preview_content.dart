@@ -17,7 +17,6 @@ class ResultPreviewContent extends ConsumerWidget {
       onTap: () async {
         ///詳細画面への遷移と、履歴の追加
         context.push('/result/${searched.documentID}');
-        SearchedHistoryController.instance.insertHistory(searched);
       },
       onLongPress: forLibrary ? () async {
         ///履歴の消去

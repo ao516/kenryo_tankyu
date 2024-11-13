@@ -8,6 +8,7 @@ part of 'searched.dart';
 
 _$SearchedImpl _$$SearchedImplFromJson(Map<String, dynamic> json) =>
     _$SearchedImpl(
+      documentID: (json['documentID'] as num?)?.toInt() ?? 00000000,
       isFavorite: json['isFavorite'] as bool? ?? false,
       category1:
           const CategoryEnumConverter().fromJson(json['category1'] as String),
@@ -32,6 +33,7 @@ _$SearchedImpl _$$SearchedImplFromJson(Map<String, dynamic> json) =>
       existsPoster: json['existsPoster'] as bool? ?? false,
       savedAt: _$JsonConverterFromJson<String, DateTime>(
           json['savedAt'], const DateTimeConverter().fromJson),
+      isCached: json['isCached'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$$SearchedImplToJson(_$SearchedImpl instance) =>
@@ -57,6 +59,7 @@ Map<String, dynamic> _$$SearchedImplToJson(_$SearchedImpl instance) =>
       'existsPoster': instance.existsPoster,
       'savedAt': _$JsonConverterToJson<String, DateTime>(
           instance.savedAt, const DateTimeConverter().toJson),
+      'isCached': instance.isCached,
     };
 
 Value? _$JsonConverterFromJson<Json, Value>(
