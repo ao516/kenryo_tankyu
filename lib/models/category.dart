@@ -215,13 +215,11 @@ class CategoryEnumConverter implements JsonConverter<Category, String> {
           (element) => element.name == json,
       orElse: () => Category.none,
     );
-    debugPrint('CategoryEnumConverter fromJson: $category');
     return category;
   }
 
   @override
   String toJson(Category object) {
-    debugPrint('CategoryEnumConverter toJson: $object');
     return object.name;
   }
 }

@@ -1,10 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 import 'package:sqflite/sqflite.dart';
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
-
-
 
 final searchedHistoryProvider = FutureProvider.family
     .autoDispose<List<Searched>?, bool>((ref, onlyShowFavorite) async {
@@ -16,7 +15,8 @@ final searchedHistoryProvider = FutureProvider.family
 class SearchedHistoryController {
   //シングルトンインスタンスを作成
   //外部からこのコンストラクタを呼び出すことはできません (`_` を接頭辞につけることでプライベートにします)
-  static final SearchedHistoryController _instance = SearchedHistoryController._();
+  static final SearchedHistoryController _instance =
+      SearchedHistoryController._();
   SearchedHistoryController._();
   // シングルトンインスタンスにアクセスするための公開メソッド↓
   static SearchedHistoryController get instance => _instance;
@@ -67,8 +67,9 @@ class SearchedHistoryController {
     if (maps.isEmpty) {
       return null;
     }
-    return List.generate(
+    final List<Searched> searchedList = List.generate(
         maps.length, (index) => Searched.fromSQLite(maps[index]));
+    return searchedList;
   }
 
   Future<List<Searched>?> getFavoriteHistory() async {
@@ -82,14 +83,13 @@ class SearchedHistoryController {
         maps.length, (index) => Searched.fromSQLite(maps[index]));
   }
 
-  Future<void> changeFavoriteState(
-      int documentID, bool nextIsFavorite) async {
-        final int isFavorite = nextIsFavorite ? 1 : 0;
+  Future<void> changeFavoriteState(int documentID, bool nextIsFavorite) async {
+    final int isFavorite = nextIsFavorite ? 1 : 0;
     try {
       final Database db = await database;
       await db.update(
         'searched_history',
-        {'isFavorite':isFavorite},
+        {'isFavorite': isFavorite},
         where: 'documentID = ?',
         whereArgs: [documentID],
       );
@@ -124,12 +124,22 @@ class SearchedHistoryController {
 
   Future<void> insertHistory(Searched searched) async {
     final Database db = await database;
-    final json = SQLiteJsonConverter().toJson(searched);
+    final json = searched.toSQLite();
     await db.insert(
       'searched_history',
       json,
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+  }
+  Future<Searched?> getHistory(int documentID) async {
+    final Database db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('searched_history',
+        where: 'documentID = ?', whereArgs: [documentID]);
+    if (maps.isEmpty) {
+      return null;
+    } else {
+      return Searched.fromSQLite(maps[0]);
+    }
   }
 
   Future<void> deleteHistory(int documentID) async {
@@ -144,11 +154,11 @@ class SearchedHistoryController {
   Future<void> insertMultipleRecommendCache(
       Searched searched1, Searched searched2) async {
     final Database db = await database;
-    final json1 =SQLiteJsonConverter().toJson(searched1);
-    final json2 = SQLiteJsonConverter().toJson(searched2);
+    final json1 = searched1.toSQLite();
+    final json2 = searched2.toSQLite();
     json1['recommendedNumber'] = 1;
     json2['recommendedNumber'] = 2;
-    
+
     final List<Map<String, dynamic>> maps = [
       json1,
       json2,
@@ -164,11 +174,11 @@ class SearchedHistoryController {
   Future<List<Searched>?> getAllRecommendedCache() async {
     final Database db = await database;
     final List<Map<String, dynamic>> maps =
-        await db.query('searched_history');
+        await db.query('searched_history', where: 'recommendedNumber > 0');
     if (maps.isEmpty) {
       return null;
     }
-    return List.generate(
+    return List<Searched>.generate(
         maps.length, (index) => Searched.fromSQLite(maps[index]));
   }
 }
