@@ -22,10 +22,14 @@ Notification _$NotificationFromJson(Map<String, dynamic> json) {
 mixin _$Notification {
   @NotificationTypeEnumConverter()
   NotificationType get type => throw _privateConstructorUsedError;
+  String get headerImageUrl => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   @DateTimeConverter()
-  DateTime get createdAt => throw _privateConstructorUsedError;
+  DateTime get sendAt => throw _privateConstructorUsedError;
+  @DateTimeConverter()
+  DateTime get savedAt => throw _privateConstructorUsedError;
+  bool get isRead => throw _privateConstructorUsedError;
 
   /// Serializes this Notification to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,9 +49,12 @@ abstract class $NotificationCopyWith<$Res> {
   @useResult
   $Res call(
       {@NotificationTypeEnumConverter() NotificationType type,
+      String headerImageUrl,
       String title,
       String content,
-      @DateTimeConverter() DateTime createdAt});
+      @DateTimeConverter() DateTime sendAt,
+      @DateTimeConverter() DateTime savedAt,
+      bool isRead});
 }
 
 /// @nodoc
@@ -66,15 +73,22 @@ class _$NotificationCopyWithImpl<$Res, $Val extends Notification>
   @override
   $Res call({
     Object? type = null,
+    Object? headerImageUrl = null,
     Object? title = null,
     Object? content = null,
-    Object? createdAt = null,
+    Object? sendAt = null,
+    Object? savedAt = null,
+    Object? isRead = null,
   }) {
     return _then(_value.copyWith(
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as NotificationType,
+      headerImageUrl: null == headerImageUrl
+          ? _value.headerImageUrl
+          : headerImageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -83,10 +97,18 @@ class _$NotificationCopyWithImpl<$Res, $Val extends Notification>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
+      sendAt: null == sendAt
+          ? _value.sendAt
+          : sendAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      savedAt: null == savedAt
+          ? _value.savedAt
+          : savedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      isRead: null == isRead
+          ? _value.isRead
+          : isRead // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -101,9 +123,12 @@ abstract class _$$NotificationImplCopyWith<$Res>
   @useResult
   $Res call(
       {@NotificationTypeEnumConverter() NotificationType type,
+      String headerImageUrl,
       String title,
       String content,
-      @DateTimeConverter() DateTime createdAt});
+      @DateTimeConverter() DateTime sendAt,
+      @DateTimeConverter() DateTime savedAt,
+      bool isRead});
 }
 
 /// @nodoc
@@ -120,15 +145,22 @@ class __$$NotificationImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? type = null,
+    Object? headerImageUrl = null,
     Object? title = null,
     Object? content = null,
-    Object? createdAt = null,
+    Object? sendAt = null,
+    Object? savedAt = null,
+    Object? isRead = null,
   }) {
     return _then(_$NotificationImpl(
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as NotificationType,
+      headerImageUrl: null == headerImageUrl
+          ? _value.headerImageUrl
+          : headerImageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -137,10 +169,18 @@ class __$$NotificationImplCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
+      sendAt: null == sendAt
+          ? _value.sendAt
+          : sendAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      savedAt: null == savedAt
+          ? _value.savedAt
+          : savedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      isRead: null == isRead
+          ? _value.isRead
+          : isRead // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -150,9 +190,12 @@ class __$$NotificationImplCopyWithImpl<$Res>
 class _$NotificationImpl extends _Notification {
   const _$NotificationImpl(
       {@NotificationTypeEnumConverter() required this.type,
+      required this.headerImageUrl,
       required this.title,
       required this.content,
-      @DateTimeConverter() required this.createdAt})
+      @DateTimeConverter() required this.sendAt,
+      @DateTimeConverter() required this.savedAt,
+      required this.isRead})
       : super._();
 
   factory _$NotificationImpl.fromJson(Map<String, dynamic> json) =>
@@ -162,16 +205,23 @@ class _$NotificationImpl extends _Notification {
   @NotificationTypeEnumConverter()
   final NotificationType type;
   @override
+  final String headerImageUrl;
+  @override
   final String title;
   @override
   final String content;
   @override
   @DateTimeConverter()
-  final DateTime createdAt;
+  final DateTime sendAt;
+  @override
+  @DateTimeConverter()
+  final DateTime savedAt;
+  @override
+  final bool isRead;
 
   @override
   String toString() {
-    return 'Notification(type: $type, title: $title, content: $content, createdAt: $createdAt)';
+    return 'Notification(type: $type, headerImageUrl: $headerImageUrl, title: $title, content: $content, sendAt: $sendAt, savedAt: $savedAt, isRead: $isRead)';
   }
 
   @override
@@ -180,15 +230,19 @@ class _$NotificationImpl extends _Notification {
         (other.runtimeType == runtimeType &&
             other is _$NotificationImpl &&
             (identical(other.type, type) || other.type == type) &&
+            (identical(other.headerImageUrl, headerImageUrl) ||
+                other.headerImageUrl == headerImageUrl) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.content, content) || other.content == content) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+            (identical(other.sendAt, sendAt) || other.sendAt == sendAt) &&
+            (identical(other.savedAt, savedAt) || other.savedAt == savedAt) &&
+            (identical(other.isRead, isRead) || other.isRead == isRead));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, type, title, content, createdAt);
+  int get hashCode => Object.hash(runtimeType, type, headerImageUrl, title,
+      content, sendAt, savedAt, isRead);
 
   /// Create a copy of Notification
   /// with the given fields replaced by the non-null parameter values.
@@ -209,10 +263,12 @@ class _$NotificationImpl extends _Notification {
 abstract class _Notification extends Notification {
   const factory _Notification(
       {@NotificationTypeEnumConverter() required final NotificationType type,
+      required final String headerImageUrl,
       required final String title,
       required final String content,
-      @DateTimeConverter()
-      required final DateTime createdAt}) = _$NotificationImpl;
+      @DateTimeConverter() required final DateTime sendAt,
+      @DateTimeConverter() required final DateTime savedAt,
+      required final bool isRead}) = _$NotificationImpl;
   const _Notification._() : super._();
 
   factory _Notification.fromJson(Map<String, dynamic> json) =
@@ -222,12 +278,19 @@ abstract class _Notification extends Notification {
   @NotificationTypeEnumConverter()
   NotificationType get type;
   @override
+  String get headerImageUrl;
+  @override
   String get title;
   @override
   String get content;
   @override
   @DateTimeConverter()
-  DateTime get createdAt;
+  DateTime get sendAt;
+  @override
+  @DateTimeConverter()
+  DateTime get savedAt;
+  @override
+  bool get isRead;
 
   /// Create a copy of Notification
   /// with the given fields replaced by the non-null parameter values.

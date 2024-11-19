@@ -4,6 +4,7 @@ import 'package:algolia/algolia.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/constant/constant.dart';
+import 'package:kenryo_tankyu/db/recommended_works_db.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 import 'package:kenryo_tankyu/db/searched_history_db.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
@@ -15,8 +16,8 @@ final algoliaSearchProvider =
     FutureProvider.autoDispose<List<Searched>?>((ref) async {
   final search =
       ref.read(searchProvider); //ref.readにすると、watchと違って値が変更されたときに再ビルドされない！
-  final String searchWord = 
-    search.searchWord.map<String>((String value) => value).join(',');
+  final String searchWord =
+      search.searchWord.map<String>((String value) => value).join(',');
   final String filter = _filter(search); //フィルターに使う文字列を決定する関数。
 
   debugPrint('filter : $filter');
@@ -36,12 +37,15 @@ final algoliaSearchProvider =
       return null;
     } else {
       // ヒットしたデータがユーザーのお気に入りに登録されているかをローカルDBから取得
-      final List<int> documentIDs = objects.map((e) => int.parse(e.objectID)).toList();
-      final List<int>? favoriteList = await SearchedHistoryController.instance.getSomeFavoriteState(documentIDs);
+      final List<int> documentIDs =
+          objects.map((e) => int.parse(e.objectID)).toList();
+      final List<int>? favoriteList = await SearchedHistoryController.instance
+          .getSomeFavoriteState(documentIDs);
       // Algoliaから取得したデータをSearched型に変換し、favoriteListに基づいてお気に入り状態を設定
       return objects.map((object) {
-      final isFavorite = favoriteList?.contains(int.parse(object.objectID)) ?? false;
-      return Searched.fromAlgolia(object, isFavorite);
+        final isFavorite =
+            favoriteList?.contains(int.parse(object.objectID)) ?? false;
+        return Searched.fromAlgolia(object, isFavorite);
       }).toList();
     }
   } catch (error, stackTrace) {
@@ -58,7 +62,9 @@ String _filter(Search searchState) {
           ? str +=
               'AND (category1:${searchState.category.name} OR category2:${searchState.category.name})'
           : null;
-  searchState.enterYear.name  != 'undefined' ? str += ' AND enterYear:${searchState.enterYear.displayName}' : null;
+  searchState.enterYear.name != 'undefined'
+      ? str += ' AND enterYear:${searchState.enterYear.displayName}'
+      : null;
   searchState.course.name != 'undefined'
       ? str += ' AND course:${searchState.course}'
       : null;
@@ -80,11 +86,13 @@ class SortedListNotifier extends StateNotifier<List<Searched>> {
   void sortList(SortType sortType) {
     switch (sortType) {
       case SortType.newOrder:
-        state = [...state]..sort((a, b) => b.enterYear.displayName.compareTo(a.enterYear.displayName));
+        state = [...state]..sort((a, b) =>
+            b.enterYear.displayName.compareTo(a.enterYear.displayName));
         debugPrint('新しい順で並び替えます');
         break;
       case SortType.oldOrder:
-        state = [...state]..sort((a, b) => a.enterYear.displayName.compareTo(b.enterYear.displayName));
+        state = [...state]..sort((a, b) =>
+            a.enterYear.displayName.compareTo(b.enterYear.displayName));
         debugPrint('古い順で並び替えます');
         break;
       case SortType.likeOrder:
@@ -98,11 +106,11 @@ class SortedListNotifier extends StateNotifier<List<Searched>> {
 }
 
 final randomAlgoliaSearchProvider =
-    FutureProvider.autoDispose<List<Searched>?>((ref) async {
-  final isForce = ref.watch(forceRefreshProvider);
-  final data = await SearchedHistoryController.instance.getAllRecommendedCache();
+    FutureProvider.autoDispose<List<Searched>>((ref) async {
+  final isForce = ref.read(forceRefreshProvider);
+  final data = await RecommendedWork.load();
+  debugPrint(data.toString());
   if (isForce == false &&
-      data != null &&
       data.isNotEmpty &&
       data[0].savedAt != null &&
       data[0].savedAt!.difference(DateTime.now()).inDays < 3) {
@@ -110,28 +118,33 @@ final randomAlgoliaSearchProvider =
     debugPrint('キャッシュから取得します');
     ref.read(forceRefreshProvider.notifier).state = false;
     return data;
+  } else {
+    debugPrint('Algoliaから取得します');
+
+    int randomNumber1 =
+        Random().nextInt(4); //0~3の乱数を生成。この数はalgoliaに入っているデータの数に合わせる。
+    //TODO　この乱数の生成方法は、Algoliaに入っているデータの数に合わせる必要がある。最終調整必須。
+    int randomNumber2;
+    do {
+      randomNumber2 = Random().nextInt(4);
+    } while (randomNumber1 == randomNumber2);
+
+    AlgoliaQuery algoliaQuery = Application.algolia.instance.index('firestore');
+    final data1 = await _getQuery(algoliaQuery, randomNumber1);
+    final data2 = await _getQuery(algoliaQuery, randomNumber2);
+
+    final favoriteList = await SearchedHistoryController.instance
+        .getSomeFavoriteState(
+            [int.parse(data1.objectID), int.parse(data2.objectID)]);
+    final List<Searched> result = [
+      Searched.fromAlgolia(
+          data1, favoriteList?.contains(int.parse(data1.objectID)) ?? false),
+      Searched.fromAlgolia(
+          data2, favoriteList?.contains(int.parse(data2.objectID)) ?? false)
+    ];
+    await RecommendedWork.save(result[0], result[1]);
+    return result;
   }
-
-  debugPrint('Algoliaから取得します');
-
-  int randomNumber1 =
-      Random().nextInt(4); //0~3の乱数を生成。この数はalgoliaに入っているデータの数に合わせる。
-  //TODO
-  int randomNumber2;
-  do {
-    randomNumber2 = Random().nextInt(4);
-  } while (randomNumber1 == randomNumber2);
-
-  AlgoliaQuery algoliaQuery = Application.algolia.instance.index('firestore');
-  final data1 = await _getQuery(algoliaQuery, randomNumber1);
-  final data2 = await _getQuery(algoliaQuery, randomNumber2);
-
-  final favoriteList = await SearchedHistoryController.instance.getSomeFavoriteState([int.parse(data1.objectID), int.parse(data2.objectID)]);
-  final List<Searched> result = [
-    Searched.fromAlgolia(data1, favoriteList?.contains(int.parse(data1.objectID)) ?? false),
-    Searched.fromAlgolia(data2, favoriteList?.contains(int.parse(data2.objectID)) ?? false)
-  ];
-  return result;
 });
 
 Future<AlgoliaObjectSnapshot> _getQuery(

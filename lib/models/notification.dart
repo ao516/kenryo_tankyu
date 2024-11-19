@@ -11,13 +11,29 @@ class Notification with _$Notification {
 
   const factory Notification({
     @NotificationTypeEnumConverter() required NotificationType type,
+    required String headerImageUrl,
     required String title,
     required String content,
-    @DateTimeConverter() required DateTime createdAt,
+    @DateTimeConverter() required DateTime sendAt,
+    @DateTimeConverter() required DateTime savedAt,
+    required bool isRead,
   }) = _Notification;
 
   factory Notification.fromJson(Map<String, dynamic> json) =>
       _$NotificationFromJson(json);
+  
+  factory Notification.fromSQLite(Map<String,dynamic> json) {
+    final mutableJson = Map<String,dynamic>.from(json);
+    mutableJson['isRead'] = mutableJson['isRead'] == 1;
+    final notification = Notification.fromJson(mutableJson);
+    return notification;
+  }
+
+  Map<String,dynamic> toSQLite() {
+    final json = toJson();
+    json['isRead'] = json['isRead'] ? 1 : 0;
+    return json;
+  }
 }
 
 enum NotificationType {

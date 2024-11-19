@@ -54,7 +54,7 @@ class PdfDbController {
     if (maps.isEmpty) {
       return null;
     }
-    debugPrint('ローカルに保管されたpdfを取得しました。');
+    debugPrint('ローカルからpdfを取得しました。 id: $id');
     return maps[0]['pdfData'];
   }
 
@@ -67,7 +67,7 @@ class PdfDbController {
     remoteData != null
         ? await PdfDbController.instance.insertPdf(id, remoteData)
         : null;
-    debugPrint('リモートに保管されたpdfを取得しました。');
+    debugPrint('リモートからpdfを取得しました。 id: $id');
     return remoteData;
   }
 
