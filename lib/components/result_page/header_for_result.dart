@@ -18,6 +18,7 @@ class HeaderForResultPage extends ConsumerWidget
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(getFirestoreSearchedProvider(searched.documentID));
     final String cachedText = searched.isCached ? '(オフラインから取得)' : '(オンラインから取得)';
+    debugPrint(cachedText);
     return AppBar(
       actions: [
         data.when(data: (searched){
@@ -26,6 +27,7 @@ class HeaderForResultPage extends ConsumerWidget
               return [
                 PopupMenuItem(
                   onTap: (){
+                    //forceReloadProviderをtrueにして、再取得させる
                     ref.read(forceReloadProvider.notifier).state = true;
                     ref.invalidate(getFirestoreSearchedProvider(searched.documentID));
                   },

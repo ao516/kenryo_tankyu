@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/models/models.dart';
+import 'package:kenryo_tankyu/providers/providers.dart';
 
 import '../db/db.dart';
 
@@ -37,13 +38,13 @@ class ChangeFavoriteStateNotifier extends StateNotifier<bool> {
         .doc(documentID.toString());
     if (newFavoriteState) {
       await firestore.update({
-        'exactLikes': FieldValue.increment(-1),
-        'vagueLikes': FieldValue.increment(-1)
+        'exactLikes': FieldValue.increment(1),
+        'vagueLikes': FieldValue.increment(1)
       });
     } else {
       await firestore.update({
-        'exactLikes': FieldValue.increment(1),
-        'vagueLikes': FieldValue.increment(1)
+        'exactLikes': FieldValue.increment(-1),
+        'vagueLikes': FieldValue.increment(-1)
       });
     }
     state = newFavoriteState;
@@ -61,20 +62,15 @@ class FavoriteForResultPage extends ConsumerStatefulWidget {
 }
 
 class _FavoriteForResultPageState extends ConsumerState<FavoriteForResultPage> {
-  int likes = 0;
+  late int likes;
 
   @override
   void initState() {
     super.initState();
+    debugPrint("現在のlikesは${widget.searched.vagueLikes}");
     likes = widget.searched.vagueLikes;
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final searched = widget.searched;
     final ableChangeFavorite = ref.watch(ableChangeFavoriteProvider);
@@ -82,6 +78,16 @@ class _FavoriteForResultPageState extends ConsumerState<FavoriteForResultPage> {
         ref.read(ableChangeFavoriteProvider.notifier);
     final isFavorite =
         ref.watch(userIsFavoriteStateProvider(searched.documentID));
+
+    //強制リロードをした時に、likesの値を更新している。initStateだとリロード時に反映されないため。
+    ref.listen<AsyncValue<Searched>>(
+        getFirestoreSearchedProvider(searched.documentID), (previous, next) {
+      next.whenData((searched) {
+        setState(() {
+          likes = searched.vagueLikes;
+        });
+      });
+    });
 
     return Container(
       decoration: BoxDecoration(
@@ -152,13 +158,15 @@ class FavoriteForResultListPage extends ConsumerWidget {
         color:
             isFavorite ? Colors.red : Theme.of(context).colorScheme.onSurface,
       ),
-      Text(
-        searched.vagueLikes.toString(),
-        style: TextStyle(
-            color: isFavorite
-                ? Colors.red
-                : Theme.of(context).colorScheme.onSurface),
-      ),
+      searched.isCached
+          ? const SizedBox()
+          : Text(
+              searched.vagueLikes.toString(),
+              style: TextStyle(
+                  color: isFavorite
+                      ? Colors.red
+                      : Theme.of(context).colorScheme.onSurface),
+            ),
     ]);
   }
 }

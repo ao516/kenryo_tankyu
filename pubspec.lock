@@ -605,6 +605,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
+  gson:
+    dependency: "direct main"
+    description:
+      name: gson
+      sha256: "2ffa7e188cf0375a35ee640d877d4a8ef9d7f5f55cef671da9f43dfbca005ea6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.6-dev"
   html:
     dependency: transitive
     description:

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 import 'package:sqflite/sqflite.dart';
@@ -47,13 +46,12 @@ class SearchedHistoryController {
             'existsThesis INTEGER NOT NULL, '
             'existsPoster INTEGER NOT NULL, '
             'savedAt TEXT NOT NULL, '
-            'recommendedNumber INTEGER NOT NULL DEFAULT 0, '
             'CHECK(LENGTH(documentID) == 8),'
             'CHECK(savedAt != null) '
             ');',
           );
         },
-        version: 6,
+        version: 7,
       );
     } catch (error, stackTrace) {
       return Future.error(error, stackTrace);
@@ -149,36 +147,5 @@ class SearchedHistoryController {
       where: 'documentID = ?',
       whereArgs: [documentID],
     );
-  }
-
-  Future<void> insertMultipleRecommendCache(
-      Searched searched1, Searched searched2) async {
-    final Database db = await database;
-    final json1 = searched1.toSQLite();
-    final json2 = searched2.toSQLite();
-    json1['recommendedNumber'] = 1;
-    json2['recommendedNumber'] = 2;
-
-    final List<Map<String, dynamic>> maps = [
-      json1,
-      json2,
-    ];
-    await db.transaction((txn) async {
-      for (final map in maps) {
-        await txn.insert('searched_history', map,
-            conflictAlgorithm: ConflictAlgorithm.replace);
-      }
-    });
-  }
-
-  Future<List<Searched>?> getAllRecommendedCache() async {
-    final Database db = await database;
-    final List<Map<String, dynamic>> maps =
-        await db.query('searched_history', where: 'recommendedNumber > 0');
-    if (maps.isEmpty) {
-      return null;
-    }
-    return List<Searched>.generate(
-        maps.length, (index) => Searched.fromSQLite(maps[index]));
   }
 }
