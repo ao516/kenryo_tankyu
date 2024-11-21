@@ -48,32 +48,32 @@ class HomePage extends ConsumerWidget {
               builder: (context, ref, child) {
                 final asyncValue = ref.watch(randomAlgoliaSearchProvider);
                 return asyncValue.when(
-                  loading: () => const Center(child: CircularProgressIndicator()),
-                  error: (error, stackTrace) => Text('Error: $error'),
-                  data: (data) {
-                    if (data == null) {
-                      return const Text('No data');
-                    } else {
+                    loading: () =>
+                        const Center(child: CircularProgressIndicator()),
+                    error: (error, stackTrace) => Text('Error: $error'),
+                    data: (data) {
                       return Column(
                         children: [
                           Card(
-                            child:ResultPreviewContent(searched: data[0], forLibrary: false,),
+                            child: ResultPreviewContent(
+                              searched: data[0],
+                              forLibrary: false,
+                            ),
                           ),
                           Card(
-                            child:ResultPreviewContent(searched: data[1], forLibrary: false,),
+                            child: ResultPreviewContent(
+                              searched: data[1],
+                              forLibrary: false,
+                            ),
                           ),
                         ],
                       );
-
-                    }
-                  },
-                );
+                    });
               },
             ),
             const SizedBox(height: 16),
             const Text('コンテンツ',
-                style:
-                    TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             const ContentCarousel(),
             const SizedBox(height: 16),
@@ -84,11 +84,10 @@ class HomePage extends ConsumerWidget {
                     style:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 TextButton(
-                    onPressed: () => context.push('/notifications'),
+                  onPressed: () => context.push('/notifications'),
                   style: TextButton.styleFrom(
-                    side: const BorderSide(color: Colors.grey)
-                  ),
-                    child: const Text('もっと見る'),
+                      side: const BorderSide(color: Colors.grey)),
+                  child: const Text('もっと見る'),
                 )
               ],
             ),
