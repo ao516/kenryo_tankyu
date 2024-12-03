@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kenryo_tankyu/models/models.dart';
@@ -10,10 +11,11 @@ class Notification with _$Notification {
   const Notification._();
 
   const factory Notification({
+    required int id,
     @NotificationTypeEnumConverter() required NotificationType type,
     required String headerImageUrl,
     required String title,
-    required String content,
+    required String contents,
     @DateTimeConverter() required DateTime sendAt,
     @DateTimeConverter() required DateTime savedAt,
     required bool isRead,
@@ -25,6 +27,15 @@ class Notification with _$Notification {
   factory Notification.fromSQLite(Map<String,dynamic> json) {
     final mutableJson = Map<String,dynamic>.from(json);
     mutableJson['isRead'] = mutableJson['isRead'] == 1;
+    final notification = Notification.fromJson(mutableJson);
+    return notification;
+  }
+
+  factory Notification.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    final mutableJson = Map<String,dynamic>.from(data);
+    mutableJson['isRead'] = false;
+    mutableJson['savedAt'] = DateTime.now();
     final notification = Notification.fromJson(mutableJson);
     return notification;
   }

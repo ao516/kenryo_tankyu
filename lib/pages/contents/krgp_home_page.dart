@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:kenryo_tankyu/constant/constant.dart';
 
 class KrgpPage extends StatelessWidget {
   const KrgpPage({super.key});
@@ -11,23 +9,25 @@ class KrgpPage extends StatelessWidget {
       appBar: AppBar(title: const Text('KRGPグランプリ優秀作品')),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('ここでは過去のKRGPグランプリの優秀作品を閲覧できます。'),
-            Expanded(
-              child: ListView.separated(
-                itemCount: krgpYearList.length,
-                separatorBuilder: (context, index) => const Divider(),
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(krgpYearList[index]),
-                    onTap: () {
-                      context.push(
-                        '/krgp/year',extra: krgpYearList[index]);
-                    },
-                  );
-                },
-              ),
-            ),
+            Text('今後のアップデートをお待ちください！'),
+            // Expanded(
+            //   child: ListView.separated(
+            //     itemCount: krgpYearList.length,
+            //     separatorBuilder: (context, index) => const Divider(),
+            //     itemBuilder: (context, index) {
+            //       return ListTile(
+            //         title: Text(krgpYearList[index]),
+            //         onTap: () {
+            //           context.push(
+            //             '/krgp/year',extra: krgpYearList[index]);
+            //         },
+            //       );
+            //     },
+            //   ),
+            // ),
           ],
         ), //todo
       ),
