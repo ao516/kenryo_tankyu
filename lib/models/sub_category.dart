@@ -49,7 +49,7 @@ enum SubCategory {
   //スポーツ・教育
   sports('スポーツ'),
   preschoolEducation('幼児教育'),
-  education('学校教育'),
+  education('教育'),
   study('学習・勉強'),
 
   //自然環境

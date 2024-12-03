@@ -39,11 +39,26 @@ class NotificationDbController {
   }
 
   static Future<List<Notification>?> read(int paging) async {
-    //TODO pagingは未実装
     final Database db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('notification');
+    final int offset = (paging - 1) * 4;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'notification',
+      orderBy: 'sendAt DESC',
+      limit: 4,
+      offset: offset,
+    );
     return List.generate(maps.length, (i) {
       return Notification.fromSQLite(maps[i]);
     });
+  }
+
+  static Future<void> markAsRead(int id) async {
+    final Database db = await database;
+    await db.update(
+      'notification',
+      {'isRead': 1},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 }

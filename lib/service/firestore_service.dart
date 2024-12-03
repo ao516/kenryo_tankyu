@@ -19,12 +19,12 @@ class FireStoreService {
     //   'name': '後藤碧生',
     // });
 
-    await db.collection('works').doc('12345678').set({
-      'title': 'コミュニケーション×SNS 〜僕たちは原始人に戻るべきか?〜',
-      'category1': 'technology',
-      'subCategory1': 'game',
-      'category2': 'society',
-      'subCategory2': 'communication',
+    await db.collection('works').doc('11111111').set({
+      'title': 'あなたの探究、サポートします！',
+      'category1': 'life',
+      'subCategory1': 'schoolLife',
+      'category2': 'education',
+      'subCategory2': 'education',
       'enterYear': 2020,
       'eventName': 'individualTankyu',
       'course': 'tankyu',
@@ -32,9 +32,9 @@ class FireStoreService {
       'existsReport': true,
       'existsThesis': true,
       'existsPoster': true,
-      'author': '後藤碧生',
-      'vagueLikes': 0,
-      'exactLikes': 0,
+      'author': '縣陵太郎',
+      'vagueLikes': 1921,
+      'exactLikes': 1921,
     });
     // await db.collection('works').doc('20202290').set({
     //   'title': 'みんなのぶしつ 〜高校生の放課後の居場所に挑む〜',

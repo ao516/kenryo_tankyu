@@ -7,7 +7,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'search.freezed.dart';
 part 'search.g.dart';
-
 //ファイルが生成されなくてキレそうな時は…。笑
 //①'search.g.dart'を書き直す
 //②pabspec.lockファイルを消去
