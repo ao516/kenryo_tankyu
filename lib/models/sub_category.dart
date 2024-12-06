@@ -1,104 +1,100 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 enum SubCategory {
-  //地域・社会
-  disaster('災害'),
+  // 地域
+  disasterPrevention('防災'),
   sightseeing('観光'),
-  administration('市政・行政'),
-  law('司法・立法'),
   traffic('交通'),
   communication('場づくり'),
-  regionalRevitalization('地域活性化'),
+  regionalRevitalization('地域おこし'),
 
-  //人文・歴史
+  // 人文・歴史
   history('歴史'),
-  foreignLanguage('言語'),
-  geography('地理'),
-  psychology('心理'),
+  foreignLanguage('外国語'),
+  religion('宗教'),
+  psychology('心理・意識'),
   philosophy('哲学'),
   culture('文化・伝統'),
-  words('ことば'),
   literature('映像・文学'),
   subculture('サブカル'),
+  words('ことば'),
 
-  //人権・社会福祉
+  // 人権・社会福祉
   gender('ジェンダー'),
-  childrenRights('子供の権利'),
+  rights('人権'),
   poverty('貧困'),
+  peace('平和'),
   diversity('多様性'),
-  humanRights('人権'),
   difficulties('障がい'),
+  nursing('介護'),
 
-  //国際
-  internationalCooperation('国際協力'),
-  internationalIssues('国際問題'),
+  // 国際
+  international('国際関連'),
   compareOtherCountries('海外比較'),
 
-  //ビジネス・経済
-  business('ビジネス・お金'),
-  marketing('マーケティング'),
-  economy('経済'),
-  tax('税金'),
+  // 社会・経済
+  marketing('商学'),
+  business('経済'),
+  administration('市政・行政'),
+  law('司法・立法'),
 
-  //産業
+  // 産業
   agriculture('農業'),
-  waterIndustry('水産業'),
+  aquaCulture('水産業'),
   forestry('林業'),
   secondaryIndustry('二次産業'),
 
-  //スポーツ・教育
+  // スポーツ・教育
   sports('スポーツ'),
-  preschoolEducation('幼児教育'),
+  childCare('保育'),
   education('教育'),
-  study('学習・勉強'),
+  studies('学習・勉強'),
 
-  //自然環境
-  waterResource('水資源'),
-  forestResource('森林資源'),
-  eco('エコ'),
-  environmentProblem('環境問題'),
-  plastic('プラスチック'),
+  // 環境問題
+  ecosystem('生態系'),
+  climateChange('気候変動'),
+  pollution('環境汚染'),
+  recycle('再利用・リサイクル'),
+  otherProblem('その他環境問題'),
 
-  //科学・数学
+  // 数学・理科
   mathematics('数学'),
   chemistry('化学'),
   physics('物理'),
   ecology('生物'),
-  geographyScience('地学'),
+  geology('地学'),
 
-  //テクノロジー・工学
-  mechanics('機械工学'),
-  ictAndDX('ICT・DX'),
-  energy('エネルギー'),
-  programming('AI・プログラミング'),
-  architecture('建築'),
+  // テクノロジー・工学
   app('SNS・ゲーム'),
+  architecture('建築'),
+  manufacturing('ものづくり'),
+  ictAndAI('ICT・AI'),
+  energy('エネルギー'),
 
-  //健康・医療
+  // 健康・医療
   health('健康'),
   beauty('美容'),
   medicalCare('医療'),
   sleep('睡眠'),
-  mentalHealth('メンタルヘルス'),
-  welfare('福祉'),
+  mentalHealth('こころの健康'),
 
-  //デザイン・アート
+  // デザイン・アート
   art('アート'),
   industryDesign('産業デザイン'),
-  music('音楽'),
+  music('音楽・音'),
   fashion('ファッション'),
 
-  //くらし
+  // くらし
   food('食・料理'),
   schoolLife('学校生活'),
   book('本・書籍'),
   lifeHack('ライフハック'),
   fragrance('匂い・香り'),
   pet('ペット'),
-  home('家庭'),
-  
-  //その他のカテゴリ
-  selfDevelopment('自己啓発'),
+  love('恋愛'),
+
+  // その他
+  enlightenment('啓発・啓蒙'),
 
   //その他
   other('その他'),
