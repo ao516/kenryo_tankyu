@@ -20,7 +20,7 @@ class CategoryList extends ConsumerWidget {
         itemCount: Category.values.length -1,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(6.0),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(20),
@@ -68,7 +68,7 @@ class CategoryList extends ConsumerWidget {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           //横方向のアイテム数を画面の幅によって変える。スマホなら2、タブレットなら3
           crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
-          childAspectRatio: 3,
+          childAspectRatio: 2,
         ),
       ),
     );
