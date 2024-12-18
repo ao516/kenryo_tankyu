@@ -122,11 +122,11 @@ final randomAlgoliaSearchProvider =
     debugPrint('Algoliaから取得します');
 
     int randomNumber1 =
-        Random().nextInt(4); //0~3の乱数を生成。この数はalgoliaに入っているデータの数に合わせる。
+        Random().nextInt(250); //0~3の乱数を生成。この数はalgoliaに入っているデータの数に合わせる。
     //TODO　この乱数の生成方法は、Algoliaに入っているデータの数に合わせる必要がある。最終調整必須。
     int randomNumber2;
     do {
-      randomNumber2 = Random().nextInt(4);
+      randomNumber2 = Random().nextInt(250);
     } while (randomNumber1 == randomNumber2);
 
     AlgoliaQuery algoliaQuery = Application.algolia.instance.index('firestore');

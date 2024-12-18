@@ -2,6 +2,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kenryo_tankyu/firebase_options.dart';
 import 'package:kenryo_tankyu/router.dart';
 import 'package:kenryo_tankyu/theme.dart';
@@ -31,7 +32,6 @@ class MainApp extends ConsumerStatefulWidget {
 }
 
 class _MainAppState extends ConsumerState<MainApp> {
-
   @override
   void initState() {
     super.initState();
@@ -46,23 +46,27 @@ class _MainAppState extends ConsumerState<MainApp> {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       debugPrint('通知をタップしてアプリを開いた: ${message.notification?.title}');
     });
-
   }
+
   @override
   Widget build(BuildContext context) {
     final routerConfig = ref.watch(routesProvider);
     final themeMode = ref.watch(themeModeProvider);
-    return DynamicColorBuilder(
-      builder: (lightDynamic, darkDynamic) {
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      //幅と高さの最小値に応じてテキストサイズを可変させるか
+      minTextAdapt: true,
+      //split screenに対応するかどうか？
+      splitScreenMode: true,
+      child: DynamicColorBuilder(builder: (lightDynamic, darkDynamic) {
         ColorScheme lightColorScheme;
         ColorScheme darkColorScheme;
 
         if (lightDynamic != null && darkDynamic != null) {
           lightColorScheme = lightDynamic.harmonized();
           darkColorScheme = darkDynamic.harmonized();
-        }
-        else {
-          lightColorScheme =  MaterialTheme.lightScheme();
+        } else {
+          lightColorScheme = MaterialTheme.lightScheme();
           darkColorScheme = MaterialTheme.darkScheme();
         }
 
@@ -70,16 +74,19 @@ class _MainAppState extends ConsumerState<MainApp> {
           debugShowCheckedModeBanner: false,
           routerConfig: routerConfig,
           themeMode: themeMode,
-          darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
-          theme: ThemeData(useMaterial3: true, colorScheme:lightColorScheme,
+          darkTheme:
+              ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+          theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: lightColorScheme,
           ),
         );
-      }
+      }),
     );
   }
 
-  void _loadThemeMode() async{
-   final themeMode = await ThemePreferences().loadThemeMode();
+  void _loadThemeMode() async {
+    final themeMode = await ThemePreferences().loadThemeMode();
     ref.read(themeModeProvider.notifier).state = themeMode;
   }
 }

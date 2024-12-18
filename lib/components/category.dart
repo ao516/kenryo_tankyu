@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/models/category.dart';
 
@@ -64,9 +65,10 @@ class CategoryList extends ConsumerWidget {
             ),
           );
         },
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 2,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          //横方向のアイテム数を画面の幅によって変える。スマホなら2、タブレットなら3
+          crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
+          childAspectRatio: 3,
         ),
       ),
     );
