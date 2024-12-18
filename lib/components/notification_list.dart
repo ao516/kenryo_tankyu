@@ -33,7 +33,7 @@ class NotificationList extends StatelessWidget {
               builder: (context) {
                 return AlertDialog(
                   title: const Text('Title'),
-                  content: const Text('これから作っていくよ！'),
+                  content: const Text('Content(リリース時に反映されます。)'),
                   actions: [
                     TextButton(
                       onPressed: () {

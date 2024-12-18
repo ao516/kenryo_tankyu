@@ -32,7 +32,7 @@ enum Category {
       SubCategory.other,
     ],
   ),
-  right(
+  rights(
     displayName: '人権・社会福祉',
     nameForExplore: '人権\n社会福祉',
     color: Color(0xFF492456),

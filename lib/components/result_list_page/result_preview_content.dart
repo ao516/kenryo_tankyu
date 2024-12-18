@@ -59,7 +59,7 @@ class ResultPreviewContent extends ConsumerWidget {
                   padding: const EdgeInsets.only(top: 8.0, right: 8.0),
                   child: SizedBox(width: 50, height: 50, child: WorkImageChip(searched: searched)),
                 ),
-                Flexible(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

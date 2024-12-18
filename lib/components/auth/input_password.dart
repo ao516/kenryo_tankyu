@@ -78,6 +78,7 @@ class _InputPasswordState extends ConsumerState<InputPassword> {
           ),
           const SizedBox(height: 20),
           TextFormField(
+            autofillHints: const [AutofillHints.password],
             controller: _passwordController,
             obscureText: _obscurePassword,
             decoration: InputDecoration(

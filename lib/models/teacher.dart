@@ -111,10 +111,12 @@ class Teacher {
     required this.nameKana,
     required this.subject,
     required this.grade,
+    this.exitst = true,
   });
   final String id;
   final String name;
   final String nameKana;
   final SubjectType subject;
   final GradeInCharge grade;
+  final bool exitst;
 }
