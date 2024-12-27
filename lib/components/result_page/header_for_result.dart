@@ -41,6 +41,9 @@ class HeaderForResultPage extends ConsumerWidget
                   onTap: () async {
                     final data = ClipboardData(text: _setClipboard(searched));
                     await Clipboard.setData(data);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('クリップボードにコピーしました')),
+                    );
                   },
                   child: const Text('情報をクリップボードにコピー'),
                 ),

@@ -1,17 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'notification.dart';
+part of 'notification_content.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$NotificationImpl _$$NotificationImplFromJson(Map<String, dynamic> json) =>
-    _$NotificationImpl(
-      id: (json['id'] as num).toInt(),
+_$NotificationContentImpl _$$NotificationContentImplFromJson(
+        Map<String, dynamic> json) =>
+    _$NotificationContentImpl(
+      id: json['id'] as String,
       type: const NotificationTypeEnumConverter()
           .fromJson(json['type'] as String),
-      headerImageUrl: json['headerImageUrl'] as String,
+      headerImagePath: json['headerImagePath'] as String,
       title: json['title'] as String,
       contents: json['contents'] as String,
       sendAt: const DateTimeConverter().fromJson(json['sendAt'] as String),
@@ -19,11 +20,12 @@ _$NotificationImpl _$$NotificationImplFromJson(Map<String, dynamic> json) =>
       isRead: json['isRead'] as bool,
     );
 
-Map<String, dynamic> _$$NotificationImplToJson(_$NotificationImpl instance) =>
+Map<String, dynamic> _$$NotificationContentImplToJson(
+        _$NotificationContentImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'type': const NotificationTypeEnumConverter().toJson(instance.type),
-      'headerImageUrl': instance.headerImageUrl,
+      'headerImagePath': instance.headerImagePath,
       'title': instance.title,
       'contents': instance.contents,
       'sendAt': const DateTimeConverter().toJson(instance.sendAt),

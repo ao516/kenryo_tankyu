@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/db/notification_db.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
-class NotificationNotifier extends StateNotifier<List<Notification>> {
+class NotificationNotifier extends StateNotifier<List<NotificationContent>> {
   NotificationNotifier() : super([]) {
     _fetchNotifications();
   }
@@ -20,7 +20,7 @@ class NotificationNotifier extends StateNotifier<List<Notification>> {
           .limit(4)
           .get(const GetOptions(source: Source.server));
       state = snapshot.docs
-          .map((doc) => Notification.fromJson(doc.data()))
+          .map((doc) => NotificationContent.fromJson(doc.data()))
           .toList();
     }
   }
@@ -36,6 +36,6 @@ class NotificationNotifier extends StateNotifier<List<Notification>> {
   }
 }
 
-final notificationProvider = StateNotifierProvider<NotificationNotifier, List<Notification>>(
+final notificationProvider = StateNotifierProvider<NotificationNotifier, List<NotificationContent>>(
   (ref) => NotificationNotifier(),
 );

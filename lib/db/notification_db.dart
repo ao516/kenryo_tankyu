@@ -1,8 +1,27 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
 class NotificationDbController {
+  //特定の日付以降のデータを取得する（多分使わない？？）
+  static Future<List<NotificationContent>> readFromFirestore(DateTime fromWhen) async {
+    final QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('notification')
+        .where('sendAt', isGreaterThanOrEqualTo: fromWhen).limit(4)
+        .get();
+    return snapshot.docs.map((doc) => NotificationContent.fromFirestore(doc)).toList();
+  } 
+
+  //最新順に取得する
+  static Future<List<NotificationContent>> readFromFirestoreLatest() async {
+    final QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('notification')
+        .orderBy('sendAt', descending: true).limit(4)
+        .get();
+    return snapshot.docs.map((doc) => NotificationContent.fromFirestore(doc)).toList();
+  }
+
   static Future<Database> get database async {
     try {
       return openDatabase(
@@ -12,24 +31,24 @@ class NotificationDbController {
             'CREATE TABLE notification('
             'id INTEGER PRIMARY KEY AUTOINCREMENT,'
             'type TEXT NOT NULL, '
-            'headerImageUrl TEXT NOT NULL, '
             'title TEXT NOT NULL, '
             'contents TEXT NOT NULL, '
             'sendAt TEXT NOT NULL, '
             'savedAt TEXT NOT NULL, '
             'isRead INTEGER NOT NULL, '
+            'headerImage BLOB, '
             'CHECK(title != "" OR contents != "") '
             ');',
           );
         },
-        version: 1,
+        version: 2,
       );
     } catch (error, stackTrace) {
       return Future.error(error, stackTrace);
     }
   }
 
-  static Future<void> insert(Notification notification) async {
+  static Future<void> insert(NotificationContent notification) async {
     final Database db = await database;
     await db.insert(
       'notification',
@@ -38,7 +57,7 @@ class NotificationDbController {
     );
   }
 
-  static Future<List<Notification>?> read(int paging) async {
+  static Future<List<NotificationContent>?> read(int paging) async {
     final Database db = await database;
     final int offset = (paging - 1) * 4;
     final List<Map<String, dynamic>> maps = await db.query(
@@ -48,7 +67,7 @@ class NotificationDbController {
       offset: offset,
     );
     return List.generate(maps.length, (i) {
-      return Notification.fromSQLite(maps[i]);
+      return NotificationContent.fromSQLite(maps[i]);
     });
   }
 
@@ -59,6 +78,14 @@ class NotificationDbController {
       {'isRead': 1},
       where: 'id = ?',
       whereArgs: [id],
+    );
+  }
+
+  static Future<void> markAsReadAll() async {
+    final Database db = await database;
+    await db.update(
+      'notification',
+      {'isRead': 1},
     );
   }
 }

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:kenryo_tankyu/pages/pages.dart';
 
 class NotificationList extends StatelessWidget {
-  const NotificationList({super.key});
+  final int displayCount;
+  const NotificationList({super.key, required this.displayCount});
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      itemCount: 10,
+      itemCount: displayCount,
       separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (context, index) {
-        return GestureDetector(
+        return InkWell(
           child: Padding(
             padding: const EdgeInsets.only(left: 16.0,right: 16.0,top:4.0,bottom: 8.0),
             child: Row(
@@ -28,23 +30,10 @@ class NotificationList extends StatelessWidget {
             ),
           ),
           onTap: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: const Text('Title'),
-                  content: const Text('Content(リリース時に反映されます。)'),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('OK'),
-                    ),
-                  ],
-                );
-              },
-            );
+            //popUpのページに遷移
+            showDialog(context: context, builder: (context) {
+              return NotificationPopup(notification: testValue);
+            });
           },
         );
       },

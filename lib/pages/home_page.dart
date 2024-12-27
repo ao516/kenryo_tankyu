@@ -23,7 +23,7 @@ class HomePage extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text('ようこそ、ゲストさん'),
+                Text('ようこそ、${profileName}さん'),
                 IconButton(
                     onPressed: () => context.push('/settings'),
                     icon: const Icon(Icons.settings)),
@@ -96,7 +96,7 @@ class HomePage extends ConsumerWidget {
               margin: EdgeInsets.symmetric(horizontal: 8.0),
               child: SizedBox(
                 height: 400,
-                child: NotificationList(),
+                child: NotificationList(displayCount: 4),
               ),
             ),
           ],

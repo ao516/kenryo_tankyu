@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../db/db.dart';
@@ -77,6 +78,20 @@ class SettingsPage extends ConsumerWidget {
             leading: const Icon(Icons.privacy_tip),
             onTap: () {
               launchUrl(privacyPolicyLink);
+            },
+          ),
+          ListTile(
+            title: const Text('お問い合わせ'),
+            leading: const Icon(Icons.contact_support),
+            onTap: () {
+              launchUrl(contactFormLink);
+            },
+          ),
+          ListTile(
+            title: const Text('Developer Mode'),
+            leading: const Icon(Icons.developer_mode),
+            onTap: () {
+              context.go('/testSelect/aoi');
             },
           ),
           ListTile(

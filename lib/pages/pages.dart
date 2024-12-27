@@ -13,7 +13,8 @@ export 'teacher/teacher.dart';
 export 'contents/krgp_home_page.dart';
 export 'contents/krgp_year_page.dart';
 export 'settings_page.dart';
-export 'notification_page.dart';
+export 'notification/notification_page.dart';
+export 'notification/notification_popup.dart';
 
 export 'auth/welcome_page.dart';
 export 'auth/create_account_page.dart';

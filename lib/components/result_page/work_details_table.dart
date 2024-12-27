@@ -25,7 +25,7 @@ class WorkDetailsTable extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(
                 left: 16.0, top: 8.0, bottom: 8.0),
-            child: Text('${searched.course.displayName} ／ サンプル',
+            child: Text('${searched.course.displayName} ／ ${searched.author}',
                 style: const TextStyle(fontSize: 16)),
           ),
         ]),
