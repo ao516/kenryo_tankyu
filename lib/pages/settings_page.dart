@@ -87,13 +87,15 @@ class SettingsPage extends ConsumerWidget {
               launchUrl(contactFormLink);
             },
           ),
-          ListTile(
-            title: const Text('Developer Mode'),
-            leading: const Icon(Icons.developer_mode),
-            onTap: () {
-              context.go('/testSelect/aoi');
-            },
-          ),
+          developer_mode
+              ? ListTile(
+                  title: const Text('開発者モード'),
+                  leading: const Icon(Icons.developer_mode),
+                  onTap: () {
+                    context.go('/testSelect/aoi');
+                  },
+                )
+              : const SizedBox(),
           ListTile(
               title: const Text('ログアウト'),
               leading: const Icon(Icons.logout),

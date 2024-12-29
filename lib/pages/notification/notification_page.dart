@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
+import 'package:kenryo_tankyu/pages/test/tests.dart';
 
 class NotificationPage extends ConsumerWidget {
   const NotificationPage({super.key});
@@ -33,7 +34,7 @@ class NotificationPage extends ConsumerWidget {
           },
         ),
       ],),
-      body: const NotificationList(displayCount: 10),
+      body: NotificationList(notifications: [testNotificationValue]),
     );
   }
 }

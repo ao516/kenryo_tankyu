@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kenryo_tankyu/pages/test/tests.dart';
 import 'package:kenryo_tankyu/service/algolia_provider.dart';
 
 import '../components/components.dart';
@@ -92,11 +93,11 @@ class HomePage extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 8),
-            const Card(
+            Card(
               margin: EdgeInsets.symmetric(horizontal: 8.0),
               child: SizedBox(
                 height: 400,
-                child: NotificationList(displayCount: 4),
+                child: NotificationList(notifications: [testNotificationValue]),
               ),
             ),
           ],

@@ -1,4 +1,5 @@
 const String version = '1.0.0';
+const bool developer_mode = false;
 const String appName = '探究アーカイブ';
 const String appIcon = 'assets/images/app_icon.png';
 

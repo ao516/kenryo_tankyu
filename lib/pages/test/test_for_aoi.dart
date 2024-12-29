@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:kenryo_tankyu/service/firestore_service.dart';
 import 'tests.dart';
 
 class TestForAoi extends StatelessWidget {

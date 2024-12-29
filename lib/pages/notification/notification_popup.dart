@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kenryo_tankyu/models/models.dart';
+import 'package:kenryo_tankyu/service/service.dart';
 
 class NotificationPopup extends StatelessWidget {
   final NotificationContent notification;
@@ -88,16 +89,14 @@ class NotificationPopup extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            notification.sendAt.toString(),
+                            '${notification.sendAt.month}/${notification.sendAt.day} ${notification.sendAt.hour}:${notification.sendAt.minute.toString().padLeft(2, '0')}',
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 12,
                             ),
                           ),
                           const SizedBox(height: 16),
-                          Text(
-                            notification.contents,
-                          ),
+                          TextWithUrl(text: notification.contents), // text:取得した文字列
                         ],
                       ),
                     ),

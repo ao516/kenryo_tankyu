@@ -89,6 +89,9 @@ class ResultPreviewContent extends ConsumerWidget {
                       visualDensity: const VisualDensity(vertical: -4),
                       padding: EdgeInsets.zero),
                   const SizedBox(width: 8),
+                  searched.category2 == Category.none
+                      ? const SizedBox.shrink()
+                      :
                   Chip(
                       label: Text(
                           '${searched.category2.displayName} > ${searched.subCategory2.displayName}',
