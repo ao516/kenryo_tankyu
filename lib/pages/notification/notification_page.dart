@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
-import 'package:kenryo_tankyu/pages/test/tests.dart';
+import 'package:kenryo_tankyu/test/tests.dart';
 
 class NotificationPage extends ConsumerWidget {
   const NotificationPage({super.key});

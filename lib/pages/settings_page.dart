@@ -123,7 +123,39 @@ class SettingsPage extends ConsumerWidget {
                             ),
                           ]);
                     });
-              }),
+              },
+              ),
+              ListTile(
+                title: const Text('アカウント削除'),
+                leading: const Icon(Icons.delete),
+                onTap: () async {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      final profileName =
+                          FirebaseAuth.instance.currentUser?.displayName ?? 'ゲスト';
+                      return AlertDialog(
+                        title: Text('待って！ $profileNameさん'),
+                        content: const Text('アカウントを削除してよろしいですか？'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('いいえ'),
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              await FirebaseAuth.instance.currentUser?.delete();
+                            },
+                            child: const Text('はい'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
         ],
       ),
     );

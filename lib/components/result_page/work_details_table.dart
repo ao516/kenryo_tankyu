@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
 class WorkDetailsTable extends StatelessWidget {
   final Searched searched;
   const WorkDetailsTable({super.key, required this.searched});
+  String get author => developer_mode ? 'サンプル' : searched.author;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class WorkDetailsTable extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(
                 left: 16.0, top: 8.0, bottom: 8.0),
-            child: Text('${searched.course.displayName} ／ ${searched.author}',
+            child: Text('${searched.course.displayName} ／ ${author}',
                 style: const TextStyle(fontSize: 16)),
           ),
         ]),
