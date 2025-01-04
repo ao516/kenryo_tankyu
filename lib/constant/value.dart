@@ -1,9 +1,11 @@
 const String version = '1.0.0';
+const bool developer_mode = false;
 const String appName = '探究アーカイブ';
 const String appIcon = 'assets/images/app_icon.png';
 
 final termsOfServiceLink = Uri.parse('https://sites.google.com/view/tankyu-terms-of-service');
 final privacyPolicyLink = Uri.parse('https://sites.google.com/view/tankyu-privacy-policy');
+final contactFormLink = Uri.parse('https://forms.gle/xUXX88MJ5fLsVtAk9');
 
 
 

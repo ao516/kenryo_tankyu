@@ -3,40 +3,41 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
-part 'notification.freezed.dart';
-part 'notification.g.dart';
+part 'notification_content.freezed.dart';
+part 'notification_content.g.dart';
 
 @freezed
-class Notification with _$Notification {
-  const Notification._();
+class NotificationContent with _$NotificationContent {
+  const NotificationContent._();
 
-  const factory Notification({
-    required int id,
+  const factory NotificationContent({
+    required String id, //firestoreで自動で割り振られるID
     @NotificationTypeEnumConverter() required NotificationType type,
-    required String headerImageUrl,
+    required String headerImagePath, //firestore databaseに保存されているpngファイル名（.pngを抜いて）
     required String title,
     required String contents,
     @DateTimeConverter() required DateTime sendAt,
     @DateTimeConverter() required DateTime savedAt,
     required bool isRead,
-  }) = _Notification;
+  }) = _NotificationContent;
 
-  factory Notification.fromJson(Map<String, dynamic> json) =>
-      _$NotificationFromJson(json);
+  factory NotificationContent.fromJson(Map<String, dynamic> json) =>
+      _$NotificationContentFromJson(json);
   
-  factory Notification.fromSQLite(Map<String,dynamic> json) {
+  factory NotificationContent.fromSQLite(Map<String,dynamic> json) {
     final mutableJson = Map<String,dynamic>.from(json);
     mutableJson['isRead'] = mutableJson['isRead'] == 1;
-    final notification = Notification.fromJson(mutableJson);
+    final notification = NotificationContent.fromJson(mutableJson);
     return notification;
   }
 
-  factory Notification.fromFirestore(DocumentSnapshot doc) {
+  factory NotificationContent.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
     final mutableJson = Map<String,dynamic>.from(data);
     mutableJson['isRead'] = false;
     mutableJson['savedAt'] = DateTime.now();
-    final notification = Notification.fromJson(mutableJson);
+    mutableJson['id'] = doc.id;
+    final notification = NotificationContent.fromJson(mutableJson);
     return notification;
   }
 
@@ -47,8 +48,8 @@ class Notification with _$Notification {
   }
 }
 
-enum NotificationType {
-  system(icon: Icons.abc),
+enum NotificationType { //TODO アイコン吟味
+  system(icon: Icons.notifications_active_rounded),
   update(icon: Icons.update),
   info(icon: Icons.info),
   warning(icon: Icons.warning),

@@ -1,50 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:kenryo_tankyu/models/notification_content.dart';
+import 'package:kenryo_tankyu/pages/pages.dart';
 
 class NotificationList extends StatelessWidget {
-  const NotificationList({super.key});
+  final List<NotificationContent> notifications;
+  const NotificationList({super.key,  required this.notifications});
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      itemCount: 10,
+      itemCount: notifications.length,
       separatorBuilder: (context, index) => const Divider(),
       itemBuilder: (context, index) {
-        return GestureDetector(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 16.0,right: 16.0,top:4.0,bottom: 8.0),
-            child: Row(
-              children: [
-                const Icon(Icons.notifications_active_outlined),
-                const SizedBox(width: 16.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Title', style: Theme.of(context).textTheme.bodyLarge),
-                    Text('subtitle', style: Theme.of(context).textTheme.bodyMedium),
-                    Text('2021/01/01 12:34', style: Theme.of(context).textTheme.bodySmall),
-                  ],
-                ),
-              ],
-            ),
-          ),
+        final notification = notifications[index];
+        return ListTile(
+          leading: Icon(notification.type.icon),
+          title: Text(notification.title),
+            subtitle: Text('${DateTime.now().difference(notification.sendAt).inDays}日前  ${notification.sendAt.month}/${notification.sendAt.day} ${notification.sendAt.hour}:${notification.sendAt.minute.toString().padLeft(2, '0')}'),
           onTap: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: const Text('Title'),
-                  content: const Text('Content(リリース時に反映されます。)'),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('OK'),
-                    ),
-                  ],
-                );
-              },
-            );
+            //popUpのページに遷移
+            showDialog(context: context, builder: (context) {
+              return NotificationPopup(notification: testNotificationValue);
+            });
           },
         );
       },

@@ -5,4 +5,4 @@ export 'search.dart';
 export 'category.dart';
 export 'sub_category.dart';
 export 'work_information.dart';
-export 'notification.dart';
+export 'notification_content.dart';

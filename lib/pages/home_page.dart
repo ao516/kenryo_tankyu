@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kenryo_tankyu/constant/constant.dart';
+import 'package:kenryo_tankyu/test/tests.dart';
 import 'package:kenryo_tankyu/service/algolia_provider.dart';
 
 import '../components/components.dart';
@@ -13,7 +15,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileName = FirebaseAuth.instance.currentUser?.displayName ?? 'ゲスト';
+    final profileName = developer_mode ? 'ゲスト' : FirebaseAuth.instance.currentUser?.displayName ?? 'ゲスト';
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SingleChildScrollView(
@@ -23,7 +25,7 @@ class HomePage extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text('ようこそ、ゲストさん'),
+                Text('ようこそ、${profileName}さん'),
                 IconButton(
                     onPressed: () => context.push('/settings'),
                     icon: const Icon(Icons.settings)),
@@ -92,11 +94,11 @@ class HomePage extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 8),
-            const Card(
+            Card(
               margin: EdgeInsets.symmetric(horizontal: 8.0),
               child: SizedBox(
                 height: 400,
-                child: NotificationList(),
+                child: NotificationList(notifications: [testNotificationValue]),
               ),
             ),
           ],

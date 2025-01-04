@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../db/db.dart';
@@ -80,6 +81,22 @@ class SettingsPage extends ConsumerWidget {
             },
           ),
           ListTile(
+            title: const Text('お問い合わせ'),
+            leading: const Icon(Icons.contact_support),
+            onTap: () {
+              launchUrl(contactFormLink);
+            },
+          ),
+          developer_mode
+              ? ListTile(
+                  title: const Text('開発者モード'),
+                  leading: const Icon(Icons.developer_mode),
+                  onTap: () {
+                    context.go('/testSelect/aoi');
+                  },
+                )
+              : const SizedBox(),
+          ListTile(
               title: const Text('ログアウト'),
               leading: const Icon(Icons.logout),
               onTap: () async {
@@ -106,7 +123,39 @@ class SettingsPage extends ConsumerWidget {
                             ),
                           ]);
                     });
-              }),
+              },
+              ),
+              ListTile(
+                title: const Text('アカウント削除'),
+                leading: const Icon(Icons.delete),
+                onTap: () async {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      final profileName =
+                          FirebaseAuth.instance.currentUser?.displayName ?? 'ゲスト';
+                      return AlertDialog(
+                        title: Text('待って！ $profileNameさん'),
+                        content: const Text('アカウントを削除してよろしいですか？'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('いいえ'),
+                          ),
+                          TextButton(
+                            onPressed: () async {
+                              await FirebaseAuth.instance.currentUser?.delete();
+                            },
+                            child: const Text('はい'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ),
         ],
       ),
     );
