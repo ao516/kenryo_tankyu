@@ -5,8 +5,8 @@ import 'package:kenryo_tankyu/constant/constant.dart';
 
 import '../../providers/providers.dart';
 
-class CreateAccountPage extends ConsumerWidget {
-  const CreateAccountPage({super.key});
+class CreatePassWordPage extends ConsumerWidget {
+  const CreatePassWordPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

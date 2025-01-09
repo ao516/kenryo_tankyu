@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kenryo_tankyu/db/db.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
 class WorkImageChip extends StatelessWidget {
   final Searched searched;
-  const WorkImageChip({super.key, required this.searched});
+  final WidgetRef ref;
+  const WorkImageChip({super.key, required this.searched, required this.ref});
 
   @override
   Widget build(BuildContext context) {
-    return searched.category2.name != 'none' ? _twoCategoryChip() : _oneCategoryChip();
+    final themeMode = ref.watch(themeModeProvider);
+    return searched.category2 != Category.none ? _twoCategoryChip(themeMode) : _oneCategoryChip(themeMode);
   }
 
-  Widget _twoCategoryChip() {
+  Widget _twoCategoryChip(ThemeMode themeMode) {
     return Stack(
       children: [
         SizedBox(
             height: 25,
             width: 25,
-            child: Image.asset(
-                'assets/images/categories/${searched.category1.name}.png')),
+            child: Image.asset(_filePathName(searched.category1, themeMode))),
         SizedBox(
             height: 50,
             width: 50,
@@ -30,18 +33,27 @@ class WorkImageChip extends StatelessWidget {
               height: 25,
               width: 25,
               child: Image.asset(
-                  'assets/images/categories/${searched.category2.name}.png')),
+                  _filePathName(searched.category2, themeMode))),
         ),
       ],
     );
   }
 
-  _oneCategoryChip() {
+  _oneCategoryChip(ThemeMode themeMode) {
     return SizedBox(
       height: 40,
       width: 40,
       child: Image.asset(
-          'assets/images/categories/${searched.category1.name}.png'),
+          _filePathName(searched.category1, themeMode)),
     );
+  }
+
+  String _filePathName(Category category, ThemeMode themeMode) {
+    if (category == Category.other) {
+      return themeMode == ThemeMode.dark
+          ? 'assets/images/categories/other_for_dark.png'
+          : 'assets/images/categories/other_for_light.png';
+    }
+    return 'assets/images/categories/${category.name}.png';
   }
 }

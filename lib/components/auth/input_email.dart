@@ -29,21 +29,20 @@ class _InputEmailState extends ConsumerState<InputEmail> {
     _controller.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     final notifier = ref.read(authProvider.notifier);
 
-
     return TextField(
+      textInputAction: TextInputAction.done,
       enabled: widget.isEdit,
+      keyboardType: TextInputType.emailAddress,
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9_.+-]')),  //メールアドレスの入力制限
       ],
       controller: _controller,
       decoration: InputDecoration(
         suffixText: '@kenryo.ed.jp',
-        labelText: '学内メールアドレス',
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),

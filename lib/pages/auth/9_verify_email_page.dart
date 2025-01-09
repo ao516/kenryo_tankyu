@@ -96,7 +96,11 @@ class CheckEmailPage extends ConsumerWidget {
     await FirebaseAuth.instance.currentUser?.reload();
     // ログイン成功時にFCMトークンを取得
     FirebaseMessaging messaging = FirebaseMessaging.instance;
-    String? fcmToken = await messaging.getToken();
-    debugPrint('FCMトークン: $fcmToken');
+    try {
+      String? fcmToken = await messaging.getToken();
+      debugPrint('FCMトークン: $fcmToken');
+    } catch (e) {
+      debugPrint('FCMトークンの取得に失敗しました: $e');
+    }
   }
 }

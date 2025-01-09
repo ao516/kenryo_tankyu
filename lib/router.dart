@@ -31,9 +31,14 @@ final routesProvider = Provider<GoRouter>((ref) {
           builder: (context, state) => const WelcomePage(),
           routes: [
             GoRoute(
-              path: 'create_account',
-              builder: (context, state) => const CreateAccountPage(),
-            ),
+                path: 'verify_name',
+                builder: (context, state) => const VerifyNamePage(),
+                routes: [
+                  GoRoute(
+                    path: 'create_password',
+                    builder: (context, state) => const CreatePassWordPage(),
+                  ),
+                ]),
             GoRoute(
                 path: 'login',
                 builder: (context, state) => const LoginPage(),
@@ -53,7 +58,7 @@ final routesProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const SettingsPage(),
       ),
       GoRoute(
-        path:  '/notifications',
+        path: '/notifications',
         builder: (context, state) => const NotificationPage(),
       ),
       GoRoute(

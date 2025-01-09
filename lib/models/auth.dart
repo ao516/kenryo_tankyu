@@ -1,13 +1,15 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:kenryo_tankyu/constant/constant.dart';
 
 part 'auth.freezed.dart';
+
 part 'auth.g.dart';
 
 @freezed
 class Auth with _$Auth {
   const factory Auth({
-    int? year,
+    @AffiliationConverter() Affiliation? affiliation,
     String? email,
     String? password,
     String? userName,
@@ -15,4 +17,18 @@ class Auth with _$Auth {
     @Default(5)int limit,
   }) = _Auth;
   factory Auth.fromJson(Map<String, dynamic> json) => _$AuthFromJson(json);
+}
+
+class AffiliationConverter implements JsonConverter<Affiliation,String> {
+  const AffiliationConverter();
+
+  @override
+  Affiliation fromJson(String json) {
+    return Affiliation.values.firstWhere((e) => e.toString() == json);
+  }
+
+  @override
+  String toJson(Affiliation object) {
+    return object.toString();
+  }
 }
