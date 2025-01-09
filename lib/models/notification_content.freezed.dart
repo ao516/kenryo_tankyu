@@ -20,10 +20,11 @@ NotificationContent _$NotificationContentFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$NotificationContent {
-  String get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError; //firestoreで自動で割り振られるID
   @NotificationTypeEnumConverter()
   NotificationType get type => throw _privateConstructorUsedError;
-  String get headerImagePath => throw _privateConstructorUsedError;
+  String get headerImagePath =>
+      throw _privateConstructorUsedError; //firestore databaseに保存されているpngファイル名（.pngを抜いて）
   String get title => throw _privateConstructorUsedError;
   String get contents => throw _privateConstructorUsedError;
   @DateTimeConverter()
@@ -217,11 +218,13 @@ class _$NotificationContentImpl extends _NotificationContent {
 
   @override
   final String id;
+//firestoreで自動で割り振られるID
   @override
   @NotificationTypeEnumConverter()
   final NotificationType type;
   @override
   final String headerImagePath;
+//firestore databaseに保存されているpngファイル名（.pngを抜いて）
   @override
   final String title;
   @override
@@ -295,12 +298,12 @@ abstract class _NotificationContent extends NotificationContent {
       _$NotificationContentImpl.fromJson;
 
   @override
-  String get id;
+  String get id; //firestoreで自動で割り振られるID
   @override
   @NotificationTypeEnumConverter()
   NotificationType get type;
   @override
-  String get headerImagePath;
+  String get headerImagePath; //firestore databaseに保存されているpngファイル名（.pngを抜いて）
   @override
   String get title;
   @override

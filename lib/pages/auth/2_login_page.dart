@@ -51,13 +51,13 @@ class LoginPage extends ConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const Text('アカウントをお持ちでない場合',
+                    const Text('初めてアプリを使う場合',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     const SizedBox(width: 10),
                     InkWell(
                         child: const Text('新規作成',
                             style: TextStyle(color: Colors.blue)),
-                        onTap: () => context.push('/welcome')),
+                        onTap: () => context.push('/welcome/verify_name')),
                   ],
                 ),
                 Row(

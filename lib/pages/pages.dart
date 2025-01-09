@@ -16,8 +16,9 @@ export 'settings_page.dart';
 export 'notification/notification_page.dart';
 export 'notification/notification_popup.dart';
 
-export 'auth/welcome_page.dart';
-export 'auth/create_account_page.dart';
-export 'auth/verify_email_page.dart';
-export 'auth/login_page.dart';
-export 'auth/reset_password_page.dart';
+export 'auth/0_welcome_page.dart';
+export 'auth/1_create_password_page.dart';
+export 'auth/1_verify_name_page.dart';
+export 'auth/9_verify_email_page.dart';
+export 'auth/2_login_page.dart';
+export 'auth/2_reset_password_page.dart';

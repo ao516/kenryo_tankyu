@@ -20,7 +20,8 @@ Auth _$AuthFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Auth {
-  int? get year => throw _privateConstructorUsedError;
+  @AffiliationConverter()
+  Affiliation? get affiliation => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get password => throw _privateConstructorUsedError;
   String? get userName => throw _privateConstructorUsedError;
@@ -42,7 +43,7 @@ abstract class $AuthCopyWith<$Res> {
       _$AuthCopyWithImpl<$Res, Auth>;
   @useResult
   $Res call(
-      {int? year,
+      {@AffiliationConverter() Affiliation? affiliation,
       String? email,
       String? password,
       String? userName,
@@ -65,7 +66,7 @@ class _$AuthCopyWithImpl<$Res, $Val extends Auth>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? year = freezed,
+    Object? affiliation = freezed,
     Object? email = freezed,
     Object? password = freezed,
     Object? userName = freezed,
@@ -73,10 +74,10 @@ class _$AuthCopyWithImpl<$Res, $Val extends Auth>
     Object? limit = null,
   }) {
     return _then(_value.copyWith(
-      year: freezed == year
-          ? _value.year
-          : year // ignore: cast_nullable_to_non_nullable
-              as int?,
+      affiliation: freezed == affiliation
+          ? _value.affiliation
+          : affiliation // ignore: cast_nullable_to_non_nullable
+              as Affiliation?,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -109,7 +110,7 @@ abstract class _$$AuthImplCopyWith<$Res> implements $AuthCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int? year,
+      {@AffiliationConverter() Affiliation? affiliation,
       String? email,
       String? password,
       String? userName,
@@ -129,7 +130,7 @@ class __$$AuthImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? year = freezed,
+    Object? affiliation = freezed,
     Object? email = freezed,
     Object? password = freezed,
     Object? userName = freezed,
@@ -137,10 +138,10 @@ class __$$AuthImplCopyWithImpl<$Res>
     Object? limit = null,
   }) {
     return _then(_$AuthImpl(
-      year: freezed == year
-          ? _value.year
-          : year // ignore: cast_nullable_to_non_nullable
-              as int?,
+      affiliation: freezed == affiliation
+          ? _value.affiliation
+          : affiliation // ignore: cast_nullable_to_non_nullable
+              as Affiliation?,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -169,7 +170,7 @@ class __$$AuthImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AuthImpl implements _Auth {
   const _$AuthImpl(
-      {this.year,
+      {@AffiliationConverter() this.affiliation,
       this.email,
       this.password,
       this.userName,
@@ -180,7 +181,8 @@ class _$AuthImpl implements _Auth {
       _$$AuthImplFromJson(json);
 
   @override
-  final int? year;
+  @AffiliationConverter()
+  final Affiliation? affiliation;
   @override
   final String? email;
   @override
@@ -196,7 +198,7 @@ class _$AuthImpl implements _Auth {
 
   @override
   String toString() {
-    return 'Auth(year: $year, email: $email, password: $password, userName: $userName, confirmVerifyEmail: $confirmVerifyEmail, limit: $limit)';
+    return 'Auth(affiliation: $affiliation, email: $email, password: $password, userName: $userName, confirmVerifyEmail: $confirmVerifyEmail, limit: $limit)';
   }
 
   @override
@@ -204,7 +206,8 @@ class _$AuthImpl implements _Auth {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AuthImpl &&
-            (identical(other.year, year) || other.year == year) &&
+            (identical(other.affiliation, affiliation) ||
+                other.affiliation == affiliation) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
                 other.password == password) &&
@@ -217,8 +220,8 @@ class _$AuthImpl implements _Auth {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, year, email, password, userName, confirmVerifyEmail, limit);
+  int get hashCode => Object.hash(runtimeType, affiliation, email, password,
+      userName, confirmVerifyEmail, limit);
 
   /// Create a copy of Auth
   /// with the given fields replaced by the non-null parameter values.
@@ -238,7 +241,7 @@ class _$AuthImpl implements _Auth {
 
 abstract class _Auth implements Auth {
   const factory _Auth(
-      {final int? year,
+      {@AffiliationConverter() final Affiliation? affiliation,
       final String? email,
       final String? password,
       final String? userName,
@@ -248,7 +251,8 @@ abstract class _Auth implements Auth {
   factory _Auth.fromJson(Map<String, dynamic> json) = _$AuthImpl.fromJson;
 
   @override
-  int? get year;
+  @AffiliationConverter()
+  Affiliation? get affiliation;
   @override
   String? get email;
   @override

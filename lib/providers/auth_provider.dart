@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kenryo_tankyu/constant/constant.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
 final authStateChangesProvider = StreamProvider<User?>((ref) {
@@ -22,8 +23,8 @@ class AuthNotifier extends StateNotifier<Auth> {
     state = state.copyWith(userName: userName);
   }
 
-  void changeYear(int year) {
-    state = state.copyWith(year: year);
+  void changeAffiliation(Affiliation affiliation) {
+    state = state.copyWith(affiliation: affiliation);
   }
 
   void changeEmail(String email) {

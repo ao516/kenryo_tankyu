@@ -66,7 +66,7 @@ String _filter(Search searchState) {
       ? str += ' AND enterYear:${searchState.enterYear.displayName}'
       : null;
   searchState.course.name != 'undefined'
-      ? str += ' AND course:${searchState.course}'
+      ? str += ' AND course:${searchState.course.name}'
       : null;
   str != '' ? str = str.substring(4, str.length) : null;
   return str;

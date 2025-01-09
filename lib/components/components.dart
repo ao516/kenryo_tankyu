@@ -35,3 +35,4 @@ export 'auth/input_email.dart';
 export 'auth/input_password.dart';
 export 'auth/input_year.dart';
 export 'auth/input_password_for_login.dart';
+export 'auth/auth_app_bar.dart';

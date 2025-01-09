@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../constant/constant.dart';
+import 'package:kenryo_tankyu/constant/constant.dart';
 import '../../providers/providers.dart';
 
 class InputYear extends ConsumerWidget {
@@ -12,7 +11,6 @@ class InputYear extends ConsumerWidget {
     return InputDecorator(
       decoration: InputDecoration(
         isDense: true,
-        labelText: '学年',
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
@@ -24,13 +22,30 @@ class InputYear extends ConsumerWidget {
           hint: const Text('選択してください'),
           icon: const Icon(Icons.expand_more),
           borderRadius: BorderRadius.circular(8.0),
-          value: ref.watch(authProvider).year,
-          items: enterYears.map<DropdownMenuItem<int>>((int value) {
-            return DropdownMenuItem<int>(
-                value: value, child: Text(value.toString(), maxLines: 1));
+          value: ref.watch(authProvider).affiliation,
+          items: Affiliation.values
+              .map<DropdownMenuItem<Affiliation>>((Affiliation value) {
+            String name = value.displayName;
+            if (value.enterYear != null) {
+              final now = DateTime(2025, 1, 9);
+              final pre = now.month < 4 ? "新" : "現";
+              final differences = now.year - value.enterYear! + 1;
+              switch (differences) {
+                case < 1:
+                  name = '未来の人';
+                  break;
+                case < 4:
+                  name = '$name（$pre$differences年生）';
+                  break;
+                default:
+                  name = '$name（OB・OG${differences - 3}年目）';
+              }
+            }
+            return DropdownMenuItem<Affiliation>(
+                value: value, child: Text(name, maxLines: 1));
           }).toList(),
           onChanged: (value) =>
-              ref.read(authProvider.notifier).changeYear(value!),
+              ref.read(authProvider.notifier).changeAffiliation(value!),
         ),
       ),
     );
