@@ -1,9 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../providers/providers.dart';
 
 class InputPasswordForLogin extends ConsumerStatefulWidget {
@@ -11,11 +11,11 @@ class InputPasswordForLogin extends ConsumerStatefulWidget {
   const InputPasswordForLogin(this.password, {super.key});
 
   @override
-  ConsumerState<InputPasswordForLogin> createState() => _InputPasswordForLoginState();
+  ConsumerState<InputPasswordForLogin> createState() =>
+      _InputPasswordForLoginState();
 }
 
 class _InputPasswordForLoginState extends ConsumerState<InputPasswordForLogin> {
-
   late TextEditingController _controller;
   bool _obscureText = true;
   String? _passwordError;
@@ -61,7 +61,9 @@ class _InputPasswordForLoginState extends ConsumerState<InputPasswordForLogin> {
         const SizedBox(height: 20),
         Center(
           child: ElevatedButton(
-            onPressed: _passwordError == null && ref.watch(authProvider).email != null
+            onPressed: _passwordError == null &&
+                    ref.watch(authProvider).email != null &&
+                    _controller.text != ''
                 ? () async {
                     await _login(context, ref, _controller.text);
                   }
@@ -70,8 +72,7 @@ class _InputPasswordForLoginState extends ConsumerState<InputPasswordForLogin> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 40, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
             ),
             child: const Text('認証'),
           ),
@@ -80,38 +81,57 @@ class _InputPasswordForLoginState extends ConsumerState<InputPasswordForLogin> {
     );
   }
 
-  Future<void> _login(BuildContext context, WidgetRef ref, String password) async{
+  Future<void> _login(
+      BuildContext context, WidgetRef ref, String password) async {
     final firebaseAuth = FirebaseAuth.instance;
     final email = '${ref.watch(authProvider).email!}@kenryo.ed.jp';
     try {
-      await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      await firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
       // ログイン成功時にFCMトークンを取得
       FirebaseMessaging messaging = FirebaseMessaging.instance;
       String? fcmToken = await messaging.getToken();
       debugPrint('FCMトークン: $fcmToken');
-      if (!context.mounted) return;
+
+      // ユーザー情報を更新
+      final firestore = FirebaseFirestore.instance;
+      final term = firestore
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .limit(1);
+      await term.get().then((value) async {
+        if (value.docs.isNotEmpty) {
+          await value.docs.first.reference.update({
+            'registered': true,
+          });
+        }
+      });
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('ユーザーが見つかりませんでした'),
+            content: Text('メールアドレスが見つかりませんでした'),
           ),
         );
       } else if (e.code == 'wrong-password') {
         ScaffoldMessenger.of(context).showSnackBar(
-           SnackBar(
-            content: Column(
-              children: [
-                const Text('パスワードが間違っています'),
-                ElevatedButton(onPressed: ()=> context.go('/welcome/login/reset_password'), child: const Text('パスワードを変更する')),
-              ],
-            ),
-            ),
+          SnackBar(
+        content: Column(
+          children: [
+            const Text('パスワードが間違っています'),
+            ElevatedButton(
+            onPressed: () =>
+            context.go('/welcome/login/reset_password'),
+            child: const Text('パスワードをリセットする')),
+          ],
+        ),
+          ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('何か別のエラーが発生しました。'),
+          SnackBar(
+            content: Text('エラーが発生しました: ${e.message}'),
           ),
         );
       }
@@ -119,7 +139,7 @@ class _InputPasswordForLoginState extends ConsumerState<InputPasswordForLogin> {
   }
 
   void _validatePassword(String value) {
-    if( value.length <= 8){
+    if (value.length < 8) {
       setState(() {
         _passwordError = 'パスワードは8桁以上です';
       });

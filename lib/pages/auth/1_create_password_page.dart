@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
-import 'package:kenryo_tankyu/constant/constant.dart';
 
 import '../../providers/providers.dart';
 
@@ -12,50 +11,49 @@ class CreatePassWordPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userName = ref.watch(authProvider).userName;
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                Text('ようこそ $userName さん!',
-                    style: const TextStyle(
-                        fontSize: 20.0, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 20),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Image.asset(appIcon,
-                      width: 80, height: 80),
+      appBar: AuthAppBar(percent: 0.66),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height -
+              MediaQuery.of(context).padding.top,
+          child: Column(
+            children: [
+              const Spacer(flex: 1),
+              Text('ようこそ $userName さん!',
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontWeight: FontWeight.bold)),
+              Card(
+                margin: const EdgeInsets.all(20),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
                 ),
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  elevation: 10.0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const Text('アカウントを作成しましょう',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.left),
-                        const SizedBox(height: 20),
-                        InputEmail(ref.watch(authProvider).email!, false),
-                        const SizedBox(height: 20),
-                        const InputPassword(),
-                        const SizedBox(height: 20),
-                      ],
-                    ),
+                elevation: 10.0,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'アカウントを作成しましょう',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(fontWeight: FontWeight.bold)
+                      ),
+                      const SizedBox(height: 5),
+                      InputEmail(ref.watch(authProvider).email!, false),
+                      const SizedBox(height: 20),
+                      const InputPassword(),
+                      const SizedBox(height: 20),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 20),
-              ],
-            ),
+              ),
+              const Spacer(flex: 2),
+            ],
           ),
         ),
       ),
