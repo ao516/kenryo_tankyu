@@ -5,19 +5,18 @@ import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 
-
 class VerifyNamePage extends ConsumerWidget {
   const VerifyNamePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final auth = ref.watch(authProvider);
     return Scaffold(
-      appBar: AuthAppBar(),
-      body: Builder(builder: (context) {
-        return SingleChildScrollView(
+        appBar: AuthAppBar(percent: 0.33),
+        body: SingleChildScrollView(
           child: SizedBox(
             height: MediaQuery.of(context).size.height -
-                (Scaffold.of(context).appBarMaxHeight ?? 0),
+                MediaQuery.of(context).padding.top,
             child: Column(
               children: [
                 const Spacer(flex: 1),
@@ -52,24 +51,35 @@ class VerifyNamePage extends ConsumerWidget {
                                 .bodyMedium!
                                 .copyWith(fontWeight: FontWeight.bold)),
                         const SizedBox(height: 5),
-                        InputEmail(
-                            ref.read(authProvider).email ?? '', true),
+                        InputEmail(ref.read(authProvider).email ?? '', true),
                         Consumer(builder: (context, ref, child) {
-                          final limit = ref.watch(authProvider).limit;
-                          if (limit == 5) {
-                            return const SizedBox();
+                          final limit = auth.limit;
+                          switch (limit) {
+                            case >= 5:
+                              return const SizedBox();
+                            default:
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: limit > 0
+                                    ? Text(
+                                        'メールアドレスが存在しないか、所属が間違っています。もう一度入力してください。\n残り$limit回',
+                                        style:
+                                            const TextStyle(color: Colors.red))
+                                    : Text(
+                                        '試行回数の上限に達しました。\nもう一度アプリを落としやり直してください。\nまたは問い合わせる',
+                                        style:
+                                            const TextStyle(color: Colors.red)),
+                              );
                           }
-                          return Text(
-                              'メールアドレスが存在しないか、学年が間違っています。もう一度入力してください。\n残り$limit回',
-                              style: const TextStyle(color: Colors.red));
                         }),
                       ],
                     ),
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: ref.watch(authProvider).email != null &&
-                          ref.watch(authProvider).affiliation != null
+                  onPressed: auth.email != null &&
+                          auth.affiliation != null &&
+                          auth.limit > 0
                       ? () => _verifyName(context, ref)
                       : null,
                   style: ElevatedButton.styleFrom(
@@ -85,9 +95,7 @@ class VerifyNamePage extends ConsumerWidget {
               ],
             ),
           ),
-        );
-      }),
-    );
+        ));
   }
 
   _verifyName(BuildContext context, WidgetRef ref) async {
@@ -95,16 +103,13 @@ class VerifyNamePage extends ConsumerWidget {
     final notifier = ref.read(authProvider.notifier);
     final emailAddress = '${auth.email}@kenryo.ed.jp';
     final firestore = FirebaseFirestore.instance;
-    debugPrint('emailAddress: $emailAddress\nyear: ${auth.affiliation} ');
     final searchTerms = firestore
         .collection('users')
-        .doc('${auth.affiliation?.displayName}')
-        .collection('users')
-        .where('email', isEqualTo: emailAddress); //自分の入学年度に自分のメールアドレスが存在するかを確認
+        .where('email', isEqualTo: emailAddress)
+        .where('affiliation', isEqualTo: auth.affiliation?.name);
     await searchTerms.get().then((value) async {
       if (value.docs.isNotEmpty) {
         final userName = value.docs[0].get('name');
-
         //登録済みかどうかを確認。登録済みならログイン画面への誘導をする。未登録ならアカウント作成画面へ。
         final alreadyRegistered = value.docs[0].get('registered');
         if (alreadyRegistered) {
@@ -121,12 +126,10 @@ class VerifyNamePage extends ConsumerWidget {
             ),
           );
         } else {
+          debugPrint("ここまで来てるよー");
           notifier.changeUserName(userName);
-          context.go('/welcome/create_password');
+          context.go('/welcome/verify_name/create_password');
         }
-
-        notifier.changeUserName(userName);
-        context.go('/welcome/create_password');
       } else {
         notifier.decrementLimit();
       }

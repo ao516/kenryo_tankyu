@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -105,7 +106,8 @@ class SettingsPage extends ConsumerWidget {
                     context: context,
                     builder: (context) {
                       final profileName =
-                          FirebaseAuth.instance.currentUser?.displayName ?? 'ゲスト';
+                          FirebaseAuth.instance.currentUser?.displayName ??
+                              'ゲスト';
                       return AlertDialog(
                           title: Text('待って！ $profileNameさん'),
                           content: const Text('ログアウトしてよろしいですか？'),
@@ -147,9 +149,24 @@ class SettingsPage extends ConsumerWidget {
                         ),
                         TextButton(
                           onPressed: () async {
+                            // ユーザー情報を更新
+                            final email =
+                                FirebaseAuth.instance.currentUser?.email;
+                            final firestore = FirebaseFirestore.instance;
+                            final term = firestore
+                                .collection('users')
+                                .where('email', isEqualTo: email)
+                                .limit(1);
                             try {
                               await reauthenticateUser();
                               await FirebaseAuth.instance.currentUser?.delete();
+                              await term.get().then((value) async {
+                                if (value.docs.isNotEmpty) {
+                                  await value.docs.first.reference.update({
+                                    'registered': false,
+                                  });
+                                }
+                              });
                               Navigator.of(context).pop();
                             } on FirebaseAuthException catch (e) {
                               if (e.code == 'requires-recent-login') {

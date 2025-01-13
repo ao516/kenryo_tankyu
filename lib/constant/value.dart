@@ -1,4 +1,12 @@
-const String version = '1.0.0';
+//バージョンアップデートの時にやること
+//1. pubspec.yamlのversionを変更
+//2. lib/constant/value.dartのversionを変更
+//ターミナルで以下を実行
+//flutter pub get
+//flutter build ios
+
+const String version = '1.0.2';
+
 const bool developer_mode = false;
 const String appName = '探究アーカイブ';
 const String appIcon = 'assets/images/app_icon.png';
@@ -42,6 +50,8 @@ enum Affiliation {
   enter2023(displayName: '2023年度入学生',enterYear: 2023),
   enter2024(displayName: '2024年度入学生',enterYear: 2024),
   enter2025(displayName: '2025年度入学生',enterYear: 2025),
+  enter2026(displayName: '2026年度入学生',enterYear: 2026),
+
   teacher(displayName: '教職員'),
   developer(displayName: 'デベロッパー'),
   ;

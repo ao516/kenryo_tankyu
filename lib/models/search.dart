@@ -19,6 +19,7 @@ part 'search.g.dart';
 @freezed
 class Search with _$Search {
 
+
   @JsonSerializable(explicitToJson: true)
   const Search._();
 
