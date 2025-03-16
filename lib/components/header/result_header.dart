@@ -1,12 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/components/components.dart';
+import 'package:kenryo_tankyu/models/models.dart';
 
 import '../../providers/search_provider.dart';
 
-class ResultHeader extends ConsumerStatefulWidget implements PreferredSizeWidget{
+class ResultHeader extends ConsumerStatefulWidget
+    implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
   const ResultHeader({super.key});
@@ -24,10 +25,15 @@ class ResultHeaderState extends ConsumerState<ResultHeader> {
 
   @override
   Widget build(BuildContext context) {
-    return  AppBar(
-      actions: [Container()], ///drawerを開くボタンを消している
-      backgroundColor:Theme.of(context).colorScheme.surfaceContainerHigh,
+    return AppBar(
+      actions: [Container()],
+
+      ///drawerを開くボタンを消している
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
       titleSpacing: 0,
+      leading: BackButton(
+        onPressed: () => _backTo(context),
+      ),
       title: Padding(
         padding: const EdgeInsets.only(right: 16.0),
         child: SizedBox(
@@ -39,13 +45,13 @@ class ResultHeaderState extends ConsumerState<ResultHeader> {
                 color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              child:  const Row(
+              child: const Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(width: 16),
                   Icon(Icons.search),
                   SizedBox(width: 8),
-                  SearchChipList(),
+                  Expanded(child: SearchChipList(true)),
                   SizedBox(width: 16),
                 ],
               ),
@@ -54,5 +60,29 @@ class ResultHeaderState extends ConsumerState<ResultHeader> {
         ),
       ),
     );
+  }
+
+  void _backTo(BuildContext context) {
+    final notifier = ref.read(searchProvider.notifier);
+    final footerNotifier = ref.read(footerProvider.notifier);
+    final Search searchStatus = ref.watch(searchProvider);
+    //優先順位は上から順
+    //ユーザーが入力した単語が入っている場合→キーワード入力画面(/search)まで戻る
+    //サブカテゴリーが入っている場合→サブカテゴリ選択画面(/subCategory)まで戻る
+    //カテゴリのみ選択されている場合→カテゴリ選択画面(/explore)まで戻る
+    if(searchStatus.searchWord.isNotEmpty){
+      context.go('/search');
+    } else if(searchStatus.subCategory != SubCategory.none){
+      notifier.deleteParameter('subCategory');
+      context.go('/subCategory');
+    }
+    else if(searchStatus.category != Category.none){
+      notifier.deleteAllParameters();
+      footerNotifier.state = 1;
+      context.go('/explore');
+    } else {
+      footerNotifier.state = 0;
+      context.go('/home');
+    }
   }
 }

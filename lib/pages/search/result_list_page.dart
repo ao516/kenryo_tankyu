@@ -78,6 +78,7 @@ class ResultListPage extends ConsumerWidget {
                               padding: const EdgeInsets.only(
                                   left: 8.0, top: 4.0, bottom: 4.0),
                               child: Text(
+                                data.length == 20? '20件以上ヒットしました':
                                 '${data.length.toString()}件ヒットしました',
                                 style: const TextStyle(fontSize: 16),
                               ),
