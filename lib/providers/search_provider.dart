@@ -1,6 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
+final suggestCategoryProvider = StateProvider<Category>((ref) => Category.none);
+final suggestSubCategoryProvider = StateProvider<SubCategory>((ref) => SubCategory.none);
+
 final searchProvider =
     StateNotifierProvider<SearchNotifier, Search>((ref) => SearchNotifier());
 

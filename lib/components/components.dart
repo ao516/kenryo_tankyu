@@ -3,6 +3,7 @@ export 'footer.dart';
 export 'header/initial_header.dart';
 export 'header/result_header.dart';
 export 'header/search_header.dart';
+export 'header/sub_category_select_header.dart';
 
 export 'result_page/work_details_table.dart';
 export 'result_page/work_title.dart';

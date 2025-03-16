@@ -4,37 +4,46 @@ import 'package:kenryo_tankyu/models/models.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 
 class SearchChipList extends ConsumerWidget {
-  const SearchChipList({super.key});
+  final bool forHeader; //ヘッダー用かどうか。キーワード入力画面でも使用しているため、そこではfalse
+  const SearchChipList(this.forHeader, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6.0),
-        child: Consumer(builder: (context, ref, child) {
-          final notifier = ref.read(searchProvider.notifier);
-          final Search data = ref.watch(searchProvider);
-          final displayCategory = data.category.name != 'none' ? data.category.displayName : '';
-          final displaySubCategory = data.subCategory.name != 'none' ? data.subCategory.displayName : '';
-          final displayEventName = data.eventName.name != 'undefined' ? data.eventName.displayName : '';
-          final displayCourse = data.course.name != 'undefined' ? data.course.displayName : '';
-          final displayEnterYear = data.enterYear.name != 'undefined' ? data.enterYear.displayName : '';
-          final List<String> items = data.searchWord;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: Consumer(builder: (context, ref, child) {
+        final notifier = ref.read(searchProvider.notifier);
+        final Search data = ref.watch(searchProvider);
+        final displayCategory =
+            data.category != Category.none ? data.category.displayName : '';
+        final displaySubCategory = data.subCategory != SubCategory.none
+            ? data.subCategory.displayName
+            : '';
+        final displayEventName = data.eventName != EventName.undefined
+            ? data.eventName.displayName
+            : '';
+        final displayCourse =
+            data.course != Course.undefined ? data.course.displayName : '';
+        final displayEnterYear = data.enterYear != EnterYear.undefined
+            ? data.enterYear.displayName
+            : '';
+        final List<String> items = data.searchWord;
 
-          final List<List<String>> searchList = [
-            ['category', displayCategory],
-            ['subCategory', displaySubCategory],
-            ['year', displayEnterYear.toString()],
-            ['eventName', displayEventName],
-            ['course', displayCourse],
-          ];
-          final bool isAllEmpty =
-              searchList.every((e) => e[1] == '') && items.isEmpty;
+        final List<List<String>> searchList = [
+          ['category', displayCategory],
+          ['subCategory', displaySubCategory],
+          ['year', displayEnterYear.toString()],
+          ['eventName', displayEventName],
+          ['course', displayCourse],
+        ];
+        final bool isAllEmpty =
+            searchList.every((e) => e[1] == '') && items.isEmpty;
 
-          return isAllEmpty
-              ? const Text('キーワードを入力',
-                  style: TextStyle(fontSize: 16, color: Colors.black54))
-              : ListView.separated(
+        return isAllEmpty
+            ? const SizedBox()
+            : SizedBox(
+                height: 28,
+                child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
@@ -55,7 +64,7 @@ class SearchChipList extends ConsumerWidget {
                                       .toList()[index - items.length][1],
                               style: const TextStyle(fontSize: 14)),
                           SizedBox(
-                            width: 25,
+                            width: 20,
                             child: IconButton(
                                 padding: EdgeInsets.zero,
                                 constraints: const BoxConstraints(),
@@ -77,9 +86,9 @@ class SearchChipList extends ConsumerWidget {
                   },
                   itemCount: items.length +
                       searchList.where((e) => e[1] != '').toList().length,
-                );
-        }),
-      ),
+                ),
+              );
+      }),
     );
   }
 }
