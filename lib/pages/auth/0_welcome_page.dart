@@ -13,8 +13,7 @@ class WelcomePage extends ConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40),
           child: Column(
             children: [
               const Spacer(flex: 1),
@@ -30,10 +29,7 @@ class WelcomePage extends ConsumerWidget {
               const SizedBox(height: 10),
               Text(
                   'このアプリは松本県ケ丘高等学校に在籍する生徒および職員が利用できる探究活動サポートアプリです。\n生徒のプライバシー保護のため、他の方はご利用いただけませんのでご了承ください。',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      ),
+                  style: Theme.of(context).textTheme.bodySmall!),
               const Spacer(flex: 1),
               const Text('初めてアプリを使う方は'),
               const SizedBox(height: 10),
@@ -43,8 +39,8 @@ class WelcomePage extends ConsumerWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 40, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 ),
                 child: const Text('新規登録'),
               ),
@@ -57,15 +53,13 @@ class WelcomePage extends ConsumerWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 40, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                 ),
                 child: const Text('ログイン'),
               ),
               Spacer(flex: 2),
-              Text(
-                'Version: $version',
-              )
+              Text('Version: $version')
             ],
           ),
         ),
@@ -81,7 +75,7 @@ class WelcomePage extends ConsumerWidget {
       builder: (context) {
         return AlertDialog(
           title: Text('このアプリは、\n松本県ヶ丘高校の生徒および職員がご利用できます。',
-          style: Theme.of(context).textTheme.titleLarge),
+              style: Theme.of(context).textTheme.titleLarge),
           content: SingleChildScrollView(
             child: Column(
               children: [
