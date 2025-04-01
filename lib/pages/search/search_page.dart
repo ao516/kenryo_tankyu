@@ -57,7 +57,9 @@ class SearchPage extends ConsumerWidget {
                   return ListTile(
                     title: const Text('またはカテゴリから選ぶ'),
                     trailing: const Icon(Icons.navigate_next),
-                    onTap: () => context.go('/explore'),
+                    onTap: () { 
+                      ref.read(footerProvider.notifier).state = 1;
+                      context.go('/explore');},
                   );
                 }
               },

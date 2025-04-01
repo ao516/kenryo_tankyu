@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
 
@@ -21,6 +22,7 @@ class SubCategorySelectHeader extends ConsumerWidget implements PreferredSizeWid
           ref.read(suggestCategoryProvider.notifier).state = Category.none;
           ref.read(suggestSubCategoryProvider.notifier).state = SubCategory.none;
           ref.read(searchProvider.notifier).deleteAllParameters();
+          ref.read(footerProvider.notifier).state = 1;
           context.go('/explore');
         },
       ),

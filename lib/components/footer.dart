@@ -2,17 +2,20 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/components/header/initial_header.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Footer extends StatefulWidget {
+//現在のフッターの状態を管理するproider
+final footerProvider = StateProvider<int>((ref) => 0);
+
+class Footer extends ConsumerStatefulWidget {
   final Widget child;
   const Footer({super.key, required this.child});
 
   @override
-  State<Footer> createState() => _FooterState();
+  ConsumerState<Footer> createState() => _FooterState();
 }
 
-class _FooterState extends State<Footer> {
-  int _selectedIndex = 0;
+class _FooterState extends ConsumerState<Footer> {
   @override
   void initState() {
     super.initState();
@@ -33,6 +36,8 @@ class _FooterState extends State<Footer> {
 
   @override
   Widget build(BuildContext context) {
+    final _selectedIndex = ref.watch(footerProvider);
+    final notifier = ref.read(footerProvider.notifier);
     return Scaffold(
       appBar: const InitialHeader(),
       body: widget.child,
@@ -47,19 +52,19 @@ class _FooterState extends State<Footer> {
         onDestinationSelected: (index) {
           switch (index) {
             case 0:
-              _selectedIndex = 0;
+              notifier.state = 0;
               context.push('/home');
               break;
             case 1:
-              _selectedIndex = 1;
+              notifier.state = 1;
               context.push('/explore');
               break;
             case 2:
-              _selectedIndex = 2;
+              notifier.state = 2;
               context.push('/library');
               break;
             default:
-              _selectedIndex = 0;
+              notifier.state = 0;
               context.push('/home');
           }
           setState(() {});

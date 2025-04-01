@@ -64,8 +64,8 @@ class ResultHeaderState extends ConsumerState<ResultHeader> {
 
   void _backTo(BuildContext context) {
     final notifier = ref.read(searchProvider.notifier);
+    final footerNotifier = ref.read(footerProvider.notifier);
     final Search searchStatus = ref.watch(searchProvider);
-    //TODO どのページに戻るかを判定する
     //優先順位は上から順
     //ユーザーが入力した単語が入っている場合→キーワード入力画面(/search)まで戻る
     //サブカテゴリーが入っている場合→サブカテゴリ選択画面(/subCategory)まで戻る
@@ -78,6 +78,10 @@ class ResultHeaderState extends ConsumerState<ResultHeader> {
     }
     else if(searchStatus.category != Category.none){
       notifier.deleteAllParameters();
+      footerNotifier.state = 1;
+      context.go('/explore');
+    } else {
+      footerNotifier.state = 0;
       context.go('/explore');
     } else {
       context.go('/home');
