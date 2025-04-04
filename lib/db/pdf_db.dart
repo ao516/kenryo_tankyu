@@ -3,14 +3,15 @@ import 'dart:typed_data';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:kenryo_tankyu/models/models.dart';
 import 'package:sqflite/sqflite.dart';
-// ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 
 class PdfDbController {
   static final PdfDbController _instance = PdfDbController._();
   PdfDbController._();
   static PdfDbController get instance => _instance;
+  final firestore = FirebaseStorage.instance;
 
   Future<Database> get database async {
     try {
@@ -54,12 +55,15 @@ class PdfDbController {
     if (maps.isEmpty) {
       return null;
     }
-    debugPrint('ローカルからpdfを取得しました。 id: $id');
     return maps[0]['pdfData'];
   }
 
-  Future<Uint8List?> getRemotePdf(String id) async {
-    final pathReference = FirebaseStorage.instance.ref().child('works/$id.pdf');
+  Future<Uint8List?> getRemotePdf(String id,EnterYear enterYear) async {
+    //idからpdfの種類を取得する
+    final DocumentType documentType =
+        DocumentType.values.firstWhere((e) => e.idSuffix == id.substring(7));
+    debugPrint('path: ${enterYear.name}/${documentType.name}/$id.pdf');
+    final pathReference = firestore.ref().child('works_2025_latest/${enterYear.name}/${documentType.name}/$id.pdf');
     const storage = 1024 * 1024 * 3;
 
     ///これ以上のサイズ（3MB）のファイルは読み込めないように設定してあります。
@@ -67,12 +71,12 @@ class PdfDbController {
     remoteData != null
         ? await PdfDbController.instance.insertPdf(id, remoteData)
         : null;
-    debugPrint('リモートからpdfを取得しました。 id: $id');
+    debugPrint(id);
     return remoteData;
   }
 
   Future<Uint8List?> getRemotePdfForTeacher(String id) async {
-    final pathReference = FirebaseStorage.instance.ref().child('teachers/$id.pdf');
+    final pathReference = firestore.ref().child('teachers/$id.pdf');
     const storage = 1024 * 1024 * 3;
 
     ///これ以上のサイズ（3MB）のファイルは読み込めないように設定してあります。
