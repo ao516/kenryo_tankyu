@@ -15,7 +15,7 @@ final getPdfProvider = FutureProvider.autoDispose<Uint8List?>((ref) async {
     return localData;
   }
   final remoteData =
-      await PdfDbController.instance.getRemotePdf(selectedTeacher.id);
+      await PdfDbController.instance.getRemotePdfForTeacher(selectedTeacher.id);
   return remoteData;
 });
 

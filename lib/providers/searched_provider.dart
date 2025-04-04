@@ -47,9 +47,6 @@ final getFirestoreSearchedProvider =
       final isFavorite =
           await SearchedHistoryController.instance.getFavoriteState(documentID);
       final data = Searched.fromFirestore(serverSnapshot, isFavorite);
-
-      debugPrint("ネットからはじめて取得するよー ${data.toString()}");
-      //firestoreから取得した時のみ、履歴に追加
       SearchedHistoryController.instance.insertHistory(data);
       return data;
     }

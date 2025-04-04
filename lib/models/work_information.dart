@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 enum EnterYear {
-  year2020(displayName: 2020),
-  year2021(displayName: 2021),
-  year2022(displayName: 2022),
-  year2023(displayName: 2023),
+  enter2020(displayName: 2020),
+  enter2021(displayName: 2021),
+  enter2022(displayName: 2022),
+  enter2023(displayName: 2023),
   undefined(displayName: 0);
 
   final int displayName;

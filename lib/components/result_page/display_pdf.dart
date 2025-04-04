@@ -6,8 +6,6 @@ import 'package:kenryo_tankyu/providers/providers.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import '../../db/pdf_db.dart';
 
-
-
 class DisplayPdf extends ConsumerWidget {
   final Searched searched;
   const DisplayPdf({super.key, required this.searched});
@@ -101,12 +99,15 @@ class DisplayPdf extends ConsumerWidget {
   }
 
   Future<Uint8List?> _getPdf(String id) async {
-    final Uint8List? localData = await PdfDbController.instance.getLocalPdf(id);
-    if (localData != null) {
-      return localData;
+    try {
+      final Uint8List? localData = await PdfDbController.instance.getLocalPdf(id);
+      if (localData != null) {
+        return localData;
+      }
+      return await PdfDbController.instance.getRemotePdf(id, searched.enterYear);
+    } catch (e) {
+      debugPrint('PDFの取得中にエラーが発生しました: $e');
+      rethrow;
     }
-    final Uint8List? remoteData =
-        await PdfDbController.instance.getRemotePdf(id);
-    return remoteData;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lazy_indexed_stack/flutter_lazy_indexed_stack.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/models/models.dart';
@@ -42,7 +43,7 @@ class _ResultPageMainState extends ConsumerState<ResultPage> {
 
     return searched.when(
       data: (searched) {
-        return IndexedStack(
+        return LazyIndexedStack(
           index: currentIndex,
           children: [
             //詳細画面
