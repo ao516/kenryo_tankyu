@@ -82,8 +82,6 @@ class ResultHeaderState extends ConsumerState<ResultHeader> {
       context.go('/explore');
     } else {
       footerNotifier.state = 0;
-      context.go('/explore');
-    } else {
       context.go('/home');
     }
   }
