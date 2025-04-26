@@ -32,10 +32,8 @@ class ShowTeacherPdfPage extends ConsumerWidget {
       body: Column(
         children: [
           Expanded(
-            child: selectedTeacher.exitst == false
-                ? const Center(child: Text('この先生のPDFはありません。'))
-                : FutureBuilder<Uint8List?>(
-                    future: _getPdf(selectedTeacher.id),
+            child: FutureBuilder<Uint8List?>(
+                    future: _getPdf(selectedTeacher.filename),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.hasError) {

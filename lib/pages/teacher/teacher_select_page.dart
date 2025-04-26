@@ -40,12 +40,12 @@ class TeacherSelectPage extends ConsumerWidget {
                 Chip(
                     avatar: CircleAvatar(
                       backgroundColor: sortedType == SortTypeForTeacher.gradeOrder
-                          ? sortedTeacherList[index].grade.color
+                          ? sortedTeacherList[index].gradeInCharge.color
                           : sortedTeacherList[index].subject.color,
                     ),
                     label: Text(
                         sortedType == SortTypeForTeacher.gradeOrder
-                            ? sortedTeacherList[index].grade.name
+                            ? sortedTeacherList[index].gradeInCharge.name
                             : sortedTeacherList[index].subject.name)),
               ],
             ),
