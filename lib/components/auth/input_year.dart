@@ -29,7 +29,7 @@ class InputYear extends ConsumerWidget {
             String name = value.displayName;
             if (value.enterYear != null) {
               final now = DateTime.now();
-              final pre = now.month < 4 ? "新" : "現";
+              final pre = now.month < 4 ? "新" : "";
               final differences = now.year - value.enterYear! + 1;
               switch (differences) {
                 case < 1:
