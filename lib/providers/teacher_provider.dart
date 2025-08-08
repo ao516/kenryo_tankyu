@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../constant/constant.dart';
+import '../const/const.dart';
 import '../db/db.dart';
 
 // 教師データを取得するProvider

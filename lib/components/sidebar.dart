@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
 import 'package:kenryo_tankyu/providers/search_provider.dart';
 import 'package:kenryo_tankyu/service/service.dart';
-import 'package:kenryo_tankyu/models/models.dart';
+import '../const/const.dart';
 
 class SideBar extends ConsumerWidget {
   const SideBar({super.key});

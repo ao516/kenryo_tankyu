@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kenryo_tankyu/const/const.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 import 'package:kenryo_tankyu/db/search_history_db.dart';
 import '../providers/providers.dart';

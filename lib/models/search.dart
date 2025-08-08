@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:kenryo_tankyu/const/const.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

@@ -1,6 +1,6 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kenryo_tankyu/constant/constant.dart';
+import 'package:kenryo_tankyu/const/const.dart';
 
 part 'auth.freezed.dart';
 
