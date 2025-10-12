@@ -10,6 +10,3 @@ enum ChangeInfoFromUserType {
   const ChangeInfoFromUserType({required this.displayName});
   final String displayName;
 }
-
-
-
