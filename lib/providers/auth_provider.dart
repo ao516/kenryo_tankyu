@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kenryo_tankyu/constant/constant.dart';
+import 'package:kenryo_tankyu/const/const.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
 final authStateChangesProvider = StreamProvider<User?>((ref) {

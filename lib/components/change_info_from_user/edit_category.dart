@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kenryo_tankyu/const/const.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
 enum RadioValue { category1, category2 }

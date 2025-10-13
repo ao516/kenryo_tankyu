@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kenryo_tankyu/models/models.dart';
+import 'package:kenryo_tankyu/const/const.dart';
 import 'package:kenryo_tankyu/providers/search_provider.dart';
 
 class SearchDropButton extends ConsumerWidget {

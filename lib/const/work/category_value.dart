@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kenryo_tankyu/models/models.dart';
+import 'package:kenryo_tankyu/const/const.dart';
 
 final List<String> categoryList = Category.values.map((e) => e.displayName).toList();
 

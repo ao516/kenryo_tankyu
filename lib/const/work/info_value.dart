@@ -36,7 +36,6 @@ class IntBoolConverter implements JsonConverter<bool, int> {
   int toJson(bool object) => object ? 1 : 0;
 }
 
-
 enum DocumentType {
   slide,
   report,
@@ -73,15 +72,9 @@ extension DocumentTypeExtension on DocumentType {
 }
 
 enum EventName {
-  localLearning(
-    displayName: '信州学',
-  ),
-  individualTankyu(
-    displayName: '個人探究',
-  ),
-  undefined(
-    displayName: '指定なし',
-  );
+  localLearning(displayName: '信州学'),
+  individualTankyu(displayName: '個人探究'),
+  undefined(displayName: '指定なし');
 
   final String displayName;
 
@@ -104,15 +97,9 @@ class EventNameEnumConverter implements JsonConverter<EventName, String> {
 }
 
 enum Course {
-  tankyu(
-    displayName: '探究科',
-  ),
-  general(
-    displayName: '普通科',
-  ),
-  undefined(
-    displayName: '指定なし',
-  );
+  tankyu(displayName: '探究科'),
+  general(displayName: '普通科'),
+  undefined(displayName: '指定なし');
 
   final String displayName;
   const Course({required this.displayName});

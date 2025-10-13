@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kenryo_tankyu/constant/constant.dart';
+import 'package:kenryo_tankyu/const/const.dart';
 import 'package:kenryo_tankyu/test/tests.dart';
 import 'package:kenryo_tankyu/service/algolia_provider.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kenryo_tankyu/components/change_info_from_user/export.dart';
 import 'package:kenryo_tankyu/models/models.dart';
-import '../../constant/value.dart';
+import '../../const/feature_value.dart';
 
 class ChangeInfoFromUser extends StatefulWidget {
   final Searched searched;

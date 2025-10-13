@@ -3,7 +3,7 @@
 import 'package:algolia/algolia.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kenryo_tankyu/models/models.dart';
+import 'package:kenryo_tankyu/const/const.dart';
 
 part 'searched.freezed.dart';
 part 'searched.g.dart';

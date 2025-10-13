@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/components/components.dart';
-import 'package:kenryo_tankyu/models/models.dart';
+import 'package:kenryo_tankyu/const/const.dart';
 import '../../providers/providers.dart';
 
 class SubCategorySelectPage extends ConsumerWidget {

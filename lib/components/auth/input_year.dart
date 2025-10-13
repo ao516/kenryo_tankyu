@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kenryo_tankyu/constant/constant.dart';
+import 'package:kenryo_tankyu/const/const.dart';
 import '../../providers/providers.dart';
 
 class InputYear extends ConsumerWidget {

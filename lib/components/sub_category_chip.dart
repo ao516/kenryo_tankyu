@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../models/models.dart';
+import 'package:kenryo_tankyu/const/const.dart';
 import '../providers/search_provider.dart';
 
 class SubCategoryChip extends ConsumerWidget {

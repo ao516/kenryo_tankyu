@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kenryo_tankyu/const/const.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
 final suggestCategoryProvider = StateProvider<Category>((ref) => Category.none);

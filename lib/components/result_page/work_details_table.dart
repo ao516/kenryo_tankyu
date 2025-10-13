@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kenryo_tankyu/constant/constant.dart';
+import 'package:kenryo_tankyu/const/const.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 
 class WorkDetailsTable extends StatelessWidget {

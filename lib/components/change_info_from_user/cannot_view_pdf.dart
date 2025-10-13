@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kenryo_tankyu/models/models.dart';
+import 'package:kenryo_tankyu/const/const.dart';
 
 class CannotViewPdf extends StatefulWidget {
   const CannotViewPdf({super.key});

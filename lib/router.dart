@@ -13,6 +13,7 @@ final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
 
 final routesProvider = Provider<GoRouter>((ref) {
+  // 認証状態を監視してリダイレクト先を決定する
   final authStateAsync = ref.watch(authStateChangesProvider);
   final redirection = authStateAsync.hasValue
       ? authStateAsync.value == null
@@ -21,7 +22,7 @@ final routesProvider = Provider<GoRouter>((ref) {
               ? '/verify_email'
               : '/home'
       : '/welcome';
-  // const redirection = '/home';
+
   return GoRouter(
     initialLocation: redirection,
     navigatorKey: _rootNavigatorKey,
