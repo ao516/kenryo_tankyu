@@ -59,7 +59,20 @@ class WelcomePage extends ConsumerWidget {
                 child: const Text('ログイン'),
               ),
               Spacer(flex: 2),
-              Text('Version: $version')
+              Text('Version: $version'),
+              const SizedBox(height: 10),
+              RichText(
+                text: TextSpan(
+                  text: 'デベロッパーとしてログイン',
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: Colors.blue,
+                      ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      context.push('/welcome/login', extra: true);
+                    },
+                ),
+              ),
             ],
           ),
         ),
@@ -102,7 +115,7 @@ class WelcomePage extends ConsumerWidget {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop();
-                  context.push(route);
+                  context.push(route, extra: false);
                 },
                 child: Text('同意して$title'),
               ),

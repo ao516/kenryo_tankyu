@@ -79,28 +79,28 @@ class HomePage extends ConsumerWidget {
             const SizedBox(height: 8),
             const ContentCarousel(),
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('お知らせ',
-                    style:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                TextButton(
-                  onPressed: () => context.push('/notifications'),
-                  style: TextButton.styleFrom(
-                      side: const BorderSide(color: Colors.grey)),
-                  child: const Text('もっと見る'),
-                )
-              ],
-            ),
-            const SizedBox(height: 8),
-            Card(
-              margin: EdgeInsets.symmetric(horizontal: 8.0),
-              child: SizedBox(
-                height: 400,
-                child: NotificationList(notifications: [testNotificationValue]),
-              ),
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     const Text('お知らせ',
+            //         style:
+            //             TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            //     TextButton(
+            //       onPressed: () => context.push('/notifications'),
+            //       style: TextButton.styleFrom(
+            //           side: const BorderSide(color: Colors.grey)),
+            //       child: const Text('もっと見る'),
+            //     )
+            //   ],
+            // ),
+            // const SizedBox(height: 8),
+            // Card(
+            //   margin: EdgeInsets.symmetric(horizontal: 8.0),
+            //   child: SizedBox(
+            //     height: 400,
+            //     child: NotificationList(notifications: [testNotificationValue]),
+            //   ),
+            // ),
           ],
         ),
       ),

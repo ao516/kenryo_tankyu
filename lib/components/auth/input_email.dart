@@ -7,7 +7,8 @@ import '../../providers/providers.dart';
 class InputEmail extends ConsumerStatefulWidget {
   final String email;
   final bool isEdit;
-  const InputEmail(this.email, this.isEdit, {super.key});
+  final bool isDeveloper;
+  const InputEmail(this.email, this.isEdit, this.isDeveloper, {super.key});
 
   @override
   ConsumerState<InputEmail> createState() => _InputEmailState();
@@ -42,7 +43,7 @@ class _InputEmailState extends ConsumerState<InputEmail> {
       ],
       controller: _controller,
       decoration: InputDecoration(
-        suffixText: '@kenryo.ed.jp',
+        suffixText: widget.isDeveloper ? '@developer.com': '@kenryo.ed.jp',
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),

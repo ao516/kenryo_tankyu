@@ -8,7 +8,8 @@ import '../../providers/providers.dart';
 
 class InputPasswordForLogin extends ConsumerStatefulWidget {
   final String password;
-  const InputPasswordForLogin(this.password, {super.key});
+  final bool isDeveloper; 
+  const InputPasswordForLogin(this.password, this.isDeveloper, {super.key});
 
   @override
   ConsumerState<InputPasswordForLogin> createState() =>
@@ -65,7 +66,7 @@ class _InputPasswordForLoginState extends ConsumerState<InputPasswordForLogin> {
                     ref.watch(authProvider).email != null &&
                     _controller.text != ''
                 ? () async {
-                    await _login(context, ref, _controller.text);
+                    await _login(context, ref, _controller.text, widget.isDeveloper);
                   }
                 : null,
             style: ElevatedButton.styleFrom(
@@ -82,9 +83,9 @@ class _InputPasswordForLoginState extends ConsumerState<InputPasswordForLogin> {
   }
 
   Future<void> _login(
-      BuildContext context, WidgetRef ref, String password) async {
+      BuildContext context, WidgetRef ref, String password, bool isDeveloper) async {
     final firebaseAuth = FirebaseAuth.instance;
-    final email = '${ref.watch(authProvider).email!}@kenryo.ed.jp';
+    final email = '${ref.watch(authProvider).email!}${isDeveloper ? '@developer.com' : '@kenryo.ed.jp'}';
     try {
       await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);

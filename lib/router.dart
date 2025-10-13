@@ -18,9 +18,7 @@ final routesProvider = Provider<GoRouter>((ref) {
   final redirection = authStateAsync.hasValue
       ? authStateAsync.value == null
           ? '/welcome'
-          : authStateAsync.value!.emailVerified == false
-              ? '/verify_email'
-              : '/home'
+          : '/home'
       : '/welcome';
 
   return GoRouter(
@@ -42,7 +40,7 @@ final routesProvider = Provider<GoRouter>((ref) {
                 ]),
             GoRoute(
                 path: 'login',
-                builder: (context, state) => const LoginPage(),
+                builder: (context, state) => LoginPage(isDeveloper: state.extra as bool),
                 routes: [
                   GoRoute(
                     path: 'reset_password',
