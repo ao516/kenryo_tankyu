@@ -44,7 +44,7 @@ class CreatePassWordPage extends ConsumerWidget {
                             .copyWith(fontWeight: FontWeight.bold)
                       ),
                       const SizedBox(height: 5),
-                      InputEmail(ref.watch(authProvider).email!, false),
+                      InputEmail(ref.watch(authProvider).email!, false, false),
                       const SizedBox(height: 20),
                       const InputPassword(),
                       const SizedBox(height: 20),

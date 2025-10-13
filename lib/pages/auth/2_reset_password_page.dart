@@ -44,7 +44,7 @@ class ResetPasswordPage extends ConsumerWidget {
                                 .bodyMedium!
                                 .copyWith(fontWeight: FontWeight.bold)),
                       const SizedBox(height: 5),
-                      InputEmail(ref.watch(authProvider).email ?? '', true),
+                      InputEmail(ref.watch(authProvider).email ?? '', true, false),
                       const SizedBox(height: 20),
                       Center(
                         child: ElevatedButton(

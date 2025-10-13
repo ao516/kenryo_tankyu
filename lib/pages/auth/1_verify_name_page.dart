@@ -51,7 +51,7 @@ class VerifyNamePage extends ConsumerWidget {
                                 .bodyMedium!
                                 .copyWith(fontWeight: FontWeight.bold)),
                         const SizedBox(height: 5),
-                        InputEmail(ref.read(authProvider).email ?? '', true),
+                        InputEmail(ref.read(authProvider).email ?? '', true, false),
                         Consumer(builder: (context, ref, child) {
                           final limit = auth.limit;
                           switch (limit) {

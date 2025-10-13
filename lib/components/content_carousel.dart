@@ -10,7 +10,7 @@ class ContentCarousel extends ConsumerWidget {
 
   static const List<List<String>> imageList = [
     ['縣陵先生図鑑', '/teacher'],
-    ['KRGPグランプリ優秀作品', '/krgp'],
+    //['KRGPグランプリ優秀作品', '/krgp'],
   ];
 
   @override
