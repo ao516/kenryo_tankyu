@@ -7,7 +7,7 @@
 //flutter pub get
 //flutter build ios
 
-const String version = '1.0.3';
+const String version = '1.0.4';
 
 const bool developer_mode = false;
 const String appName = '探究アーカイブ';
