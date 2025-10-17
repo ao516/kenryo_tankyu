@@ -1,4 +1,4 @@
-# 探究アーカイブ (kenryo-tankyu-archive)
+# 探究アーカイブ
 
 <p align="center">
   長野県松本県ヶ丘高等学校の「探究活動」を支援するモバイルアプリ

@@ -1,7 +1,8 @@
 // ignore_for_file: invalid_annotation_target
 
-import 'package:algolia/algolia.dart';
+import 'package:algoliasearch/algoliasearch.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:kenryo_tankyu/const/const.dart';
 
@@ -46,8 +47,9 @@ class Searched with _$Searched {
       _$SearchedFromJson(json);
 
   ///Algoliaから取得したsnapshotは、objectIDとisFavoriteのみjson形式ではないため、無理やりcopyWithで変換して付け加えている。
-  factory Searched.fromAlgolia(AlgoliaObjectSnapshot doc, bool isFavorite) {
-    final Map<String, dynamic> data = doc.data;
+  factory Searched.fromAlgolia(Hit doc, bool isFavorite) {
+    debugPrint(doc.toString());
+    final Map<String, dynamic> data = doc.map((key, value) => MapEntry(key, value));
     return Searched.fromJson(data)
         .copyWith(documentID: int.parse(doc.objectID), isFavorite: isFavorite,isCached: false);
   }

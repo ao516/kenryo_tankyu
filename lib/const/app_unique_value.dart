@@ -7,7 +7,17 @@
 //flutter pub get
 //flutter build ios
 
-const String version = '1.0.4';
+const String version = '1.0.5';
+
+
+//Module cloud_firestore not foundになる場合の対処法
+//1. Xcodeでios/Runner.xcworkspaceを開く
+/*
+cd ios
+rm -rf Pods
+rm Podfile.lock Podfile
+flutter run
+*/
 
 const bool developer_mode = false;
 const String appName = '探究アーカイブ';

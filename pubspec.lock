@@ -25,14 +25,54 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.59"
-  algolia:
-    dependency: "direct main"
+  algolia_client_core:
+    dependency: transitive
     description:
-      name: algolia
-      sha256: "0ba325344f85ac8f8351d158f0be0643e169ac0c91a43a496f8b1f3b54390066"
+      name: algolia_client_core
+      sha256: "3faa0b9f46888035e80f99bc9a12d392bcf369b49c0e00bd7d350171a09f5740"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.2"
+    version: "1.38.0"
+  algolia_client_insights:
+    dependency: transitive
+    description:
+      name: algolia_client_insights
+      sha256: e0ac27bb239adb5ca41f90460d2eaff7221055f66f92ae141cfe73ba33c07a55
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.38.0"
+  algolia_client_search:
+    dependency: transitive
+    description:
+      name: algolia_client_search
+      sha256: "018f5c5cf7415a1955375983781142f365d6bcc9898b2ee623c425d5cd74b34d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.38.0"
+  algolia_helper_flutter:
+    dependency: "direct main"
+    description:
+      name: algolia_helper_flutter
+      sha256: e4085ebb0c186d065ea986d76ab32d5c314db721adb534bc5887ed51183444b7
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
+  algolia_insights:
+    dependency: transitive
+    description:
+      name: algolia_insights
+      sha256: "1b052971675eed7519e9ccf393d658513c6d5e5b520e12190cae6d3fcc624101"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
+  algoliasearch:
+    dependency: "direct main"
+    description:
+      name: algoliasearch
+      sha256: c6632dfc6d5b35cde25dc0de294f0f3135b68fef66cb3349a3d5c0b88b8da67f
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.38.0"
   analyzer:
     dependency: transitive
     description:
@@ -289,6 +329,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+  dio:
+    dependency: transitive
+    description:
+      name: dio
+      sha256: d90ee57923d1828ac14e492ca49440f65477f4bb1263575900be731a3dac66a9
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.9.0"
+  dio_web_adapter:
+    dependency: transitive
+    description:
+      name: dio_web_adapter
+      sha256: "7586e476d70caecaf1686d21eee7247ea43ef5c345eab9e0cc3583ff13378d78"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
   dynamic_color:
     dependency: "direct main"
     description:
@@ -648,6 +704,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.6-dev"
+  hive:
+    dependency: transitive
+    description:
+      name: hive
+      sha256: "8dcf6db979d7933da8217edcec84e9df1bdb4e4edc7fc77dbd5aa74356d6d941"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.3"
   html:
     dependency: transitive
     description:

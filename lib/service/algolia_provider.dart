@@ -1,6 +1,7 @@
 import 'dart:math';
+import 'dart:convert';
 
-import 'package:algolia/algolia.dart';
+// Using algoliasearch package; responses are handled as Maps (JSON-like hits).
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/const/const.dart';
@@ -8,7 +9,8 @@ import 'package:kenryo_tankyu/db/recommended_works_db.dart';
 import 'package:kenryo_tankyu/models/models.dart';
 import 'package:kenryo_tankyu/db/searched_history_db.dart';
 import 'package:kenryo_tankyu/providers/providers.dart';
-import 'algolia.dart';
+import 'package:algoliasearch/algoliasearch.dart';
+import 'package:kenryo_tankyu/service/algolia.dart';
 
 final forceRefreshProvider = StateProvider.autoDispose<bool>((ref) => false);
 
@@ -21,30 +23,29 @@ final algoliaSearchProvider =
   final String filter = _filter(search); //フィルターに使う文字列を決定する関数。
 
   debugPrint('filter : $filter');
+  final queryHits = SearchForHits(
+    indexName: 'firestore',
+    query: searchWord,
+    filters: filter == '' ? null : filter,
+    page: 0,
+  );
 
   try {
-    AlgoliaQuery algoliaQuery = Application.algolia.instance
-        .index('firestore')
-        .setPage(0); //TODO ヒットさせるページ。あとで変更。
-    algoliaQuery = filter != ''
-        ? algoliaQuery.query(searchWord).filters(filter)
-        : algoliaQuery.query(searchWord);
-
-    final AlgoliaQuerySnapshot snap = await algoliaQuery.getObjects();
-    final List<AlgoliaObjectSnapshot> objects = snap.hits;
-    if (objects.isEmpty) {
+    final SearchResponse response = await Application.algolia.searchIndex(request: queryHits);
+    final List<Hit> hits = response.hits;
+    if (hits.isEmpty) {
       //検索してもヒットしなかった場合
       return null;
     } else {
       // ヒットしたデータがユーザーのお気に入りに登録されているかをローカルDBから取得
-      final List<int> documentIDs =
-          objects.map((e) => int.parse(e.objectID)).toList();
+      final List<int> documentIDs = hits
+          .map((e) => int.parse(e.objectID)).toList();
       final List<int>? favoriteList = await SearchedHistoryController.instance
           .getSomeFavoriteState(documentIDs);
       // Algoliaから取得したデータをSearched型に変換し、favoriteListに基づいてお気に入り状態を設定
-      return objects.map((object) {
+      return hits.map((object) {
         final isFavorite =
-            favoriteList?.contains(int.parse(object.objectID)) ?? false;
+            favoriteList?.contains(int.parse(object['objectID'])) ?? false;
         return Searched.fromAlgolia(object, isFavorite);
       }).toList();
     }
@@ -53,6 +54,8 @@ final algoliaSearchProvider =
   }
 });
 
+
+// 検索条件に応じたfilter文字列を返す関数
 String _filter(Search searchState) {
   String str = '';
   searchState.subCategory.name != 'none'
@@ -129,27 +132,31 @@ final randomAlgoliaSearchProvider =
       randomNumber2 = Random().nextInt(250);
     } while (randomNumber1 == randomNumber2);
 
-    AlgoliaQuery algoliaQuery = Application.algolia.instance.index('firestore');
-    final data1 = await _getQuery(algoliaQuery, randomNumber1);
-    final data2 = await _getQuery(algoliaQuery, randomNumber2);
+    final query1 = SearchForHits(
+      indexName: 'firestore',
+      query: '',
+      page: randomNumber1,
+      hitsPerPage: 1,
+    );
+    final query2 = SearchForHits(
+      indexName: 'firestore',
+      query: '',
+      page: randomNumber2,
+      hitsPerPage: 1,
+    );
 
-    final favoriteList = await SearchedHistoryController.instance
-        .getSomeFavoriteState(
-            [int.parse(data1.objectID), int.parse(data2.objectID)]);
-    final List<Searched> result = [
-      Searched.fromAlgolia(
-          data1, favoriteList?.contains(int.parse(data1.objectID)) ?? false),
-      Searched.fromAlgolia(
-          data2, favoriteList?.contains(int.parse(data2.objectID)) ?? false)
-    ];
-    await RecommendedWork.save(result[0], result[1]);
-    return result;
+    final SearchResponse resp1 = await Application.algolia.searchIndex(request: query1);
+    final List<Hit> hits = resp1.hits;
+    final objects = hits.map((e) => Searched.fromAlgolia(e, false)).toList();
+    if (objects.isEmpty) {
+      throw StateError('Algolia response for query1 contains no hits');
+    }
+    final SearchResponse resp2 = await Application.algolia.searchIndex(request: query2);
+    final List<Hit> hits2 = resp2.hits;
+    final List<Searched> objects2 = hits2.map((e) => Searched.fromAlgolia(e, false)).toList();
+    if (objects2.isEmpty) {
+      throw StateError('Algolia response for query2 contains no hits');
+    }
+    return [...objects, ...objects2];
   }
 });
-
-Future<AlgoliaObjectSnapshot> _getQuery(
-    AlgoliaQuery algoliaQuery, int randomNumber) async {
-  AlgoliaQuery query = algoliaQuery.setHitsPerPage(1).setPage(randomNumber);
-  final data = await query.getObjects();
-  return data.hits[0];
-}
