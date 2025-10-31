@@ -2,7 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kenryo_tankyu/src/common_widgets/components.dart';
+import 'package:kenryo_tankyu/presentation/presentation.dart';
 
 //現在のフッターの状態を管理するproider
 final footerProvider = StateProvider<int>((ref) => 0);

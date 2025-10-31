@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lazy_indexed_stack/flutter_lazy_indexed_stack.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kenryo_tankyu/presentation/pages.dart';
 import 'package:kenryo_tankyu/features/search/domain/export.dart';
+import 'package:kenryo_tankyu/features/search/presentation/presentation.dart';
 import 'package:kenryo_tankyu/features/search/presentation/widgets/display_pdf.dart';
 import 'package:kenryo_tankyu/features/search/presentation/widgets/header_for_result.dart';
 import 'package:kenryo_tankyu/features/search/presentation/widgets/pdf_choice_chip.dart';

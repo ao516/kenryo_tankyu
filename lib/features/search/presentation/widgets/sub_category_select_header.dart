@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/core/constants/const.dart';
-import 'package:kenryo_tankyu/src/common_widgets/components.dart';
+import 'package:kenryo_tankyu/presentation/presentation.dart';
 import 'package:kenryo_tankyu/features/search/providers.dart';
 
 class SubCategorySelectHeader extends ConsumerWidget implements PreferredSizeWidget {

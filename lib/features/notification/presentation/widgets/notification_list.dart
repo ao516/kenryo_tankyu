@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kenryo_tankyu/features/notification/domain/notification_content.dart';
-import 'package:kenryo_tankyu/presentation/pages.dart';
+import 'package:kenryo_tankyu/features/notification/presentation/presentation.dart';
 import 'package:kenryo_tankyu/test/test_value.dart';
 
 class NotificationList extends StatelessWidget {
