@@ -1,8 +1,8 @@
 #!/bin/sh
 
-
-echo "--- START: Running CocoaPods installation for Xcode Cloud (Final Attempt) ---"
-echo "Current directory: $(pwd)" # /Volumes/workspace/repository が表示されるはず
+echo "--- START: Running CocoaPods installation via ci_scripts/ci_post_clone.sh ---"
+# スクリプトは ci_scripts フォルダで実行されるため、親ディレクトリへ移動してから ios へ移動します
+cd .. 
 
 # Podfileがあるディレクトリ（通常はios）に移動
 cd ios 
