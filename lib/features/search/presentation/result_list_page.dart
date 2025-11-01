@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/core/constants/const.dart';
+import 'package:kenryo_tankyu/features/search/data/datasources/datasources.dart';
 import 'package:kenryo_tankyu/features/search/presentation/presentation.dart';
-import 'package:kenryo_tankyu/presentation/presentation.dart';
-import 'package:kenryo_tankyu/features/search/data/search_history_db.dart';
 
 import 'package:kenryo_tankyu/features/search/providers.dart';
-
 class ResultListPage extends ConsumerWidget {
   ResultListPage({super.key});
 

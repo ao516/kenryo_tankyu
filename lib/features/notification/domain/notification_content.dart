@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kenryo_tankyu/features/search/domain/export.dart';
+import 'package:kenryo_tankyu/core/utils/utils.dart';
 
 part 'notification_content.freezed.dart';
 part 'notification_content.g.dart';

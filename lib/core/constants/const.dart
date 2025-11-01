@@ -1,4 +1,3 @@
-export 'colors.dart';
 export 'feature_value.dart';
 export 'app_unique_value.dart';
 

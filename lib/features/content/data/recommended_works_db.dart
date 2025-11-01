@@ -1,6 +1,6 @@
 
 import 'dart:convert';
-import 'package:kenryo_tankyu/features/search/domain/export.dart';
+import 'package:kenryo_tankyu/features/research_work/domain/models/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 

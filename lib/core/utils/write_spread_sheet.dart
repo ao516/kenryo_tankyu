@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:googleapis/sheets/v4.dart';
 import 'package:googleapis_auth/auth_io.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:kenryo_tankyu/features/search/domain/export.dart';
+import 'package:flutter/services.dart';
+import 'package:kenryo_tankyu/features/research_work/domain/models/searched.dart';
 
 class EditSpreadSheet {
   static final EditSpreadSheet _instance = EditSpreadSheet._internal();

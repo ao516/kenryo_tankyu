@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:kenryo_tankyu/features/search/data/searched_history_db.dart';
-import 'package:kenryo_tankyu/features/search/domain/searched.dart';
+import 'package:kenryo_tankyu/features/research_work/domain/models/models.dart';
+import 'package:kenryo_tankyu/features/user_archive/data/datasources/datasources.dart';
+
 
 //全画面表示ボタンを表示するかしないかを管理するprovider
 final showFullScreenButtonProvider =

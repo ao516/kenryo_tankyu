@@ -7,10 +7,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/core/constants/const.dart';
 import 'package:kenryo_tankyu/features/content/data/recommended_works_db.dart';
 import 'package:algoliasearch/algoliasearch.dart';
+import 'package:kenryo_tankyu/features/research_work/domain/models/models.dart';
 import 'package:kenryo_tankyu/features/search/application/search_provider.dart';
 import 'package:kenryo_tankyu/features/search/data/algolia.dart';
-import 'package:kenryo_tankyu/features/search/data/searched_history_db.dart';
-import 'package:kenryo_tankyu/features/search/domain/export.dart';
+import 'package:kenryo_tankyu/features/search/domain/models/models.dart';
+import 'package:kenryo_tankyu/features/user_archive/data/datasources/datasources.dart';
 
 final forceRefreshProvider = StateProvider.autoDispose<bool>((ref) => false);
 

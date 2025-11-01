@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kenryo_tankyu/features/search/presentation/widgets/history_list.dart';
+import 'package:kenryo_tankyu/features/user_archive/presentation/widgets/history_list.dart';
 
 ///TODO あまり納得いってないよこのタブ
 ///あと、riverpod使わずにstateful使っちゃってるのちょっと罪悪感あるし！

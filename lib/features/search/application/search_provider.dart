@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/core/constants/const.dart';
-import 'package:kenryo_tankyu/features/search/domain/export.dart';
+import 'package:kenryo_tankyu/features/search/domain/models/models.dart';
 
 final suggestCategoryProvider = StateProvider<Category>((ref) => Category.none);
 final suggestSubCategoryProvider = StateProvider<SubCategory>((ref) => SubCategory.none);

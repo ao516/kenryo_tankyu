@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/core/constants/const.dart';
-import 'package:kenryo_tankyu/features/search/data/search_history_db.dart';
-import 'package:kenryo_tankyu/features/search/domain/export.dart';
+import 'package:kenryo_tankyu/features/search/domain/models/models.dart';
 import 'package:kenryo_tankyu/features/search/providers.dart';
+import 'package:kenryo_tankyu/features/search/data/datasources/search_history_db.dart';
 
 class SearchHistoryList extends ConsumerWidget {
   const SearchHistoryList({super.key});

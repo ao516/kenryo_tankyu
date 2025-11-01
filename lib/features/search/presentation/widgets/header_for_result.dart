@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kenryo_tankyu/features/search/domain/export.dart';
+import 'package:kenryo_tankyu/features/research_work/domain/models/models.dart';
 
 import 'package:kenryo_tankyu/features/search/providers.dart';
-import 'package:kenryo_tankyu/features/user_info/presentation/widgets/overlay_dialog.dart';
+import 'package:kenryo_tankyu/features/research_work/presentation/widgets/overlay_dialog.dart';
 
 class HeaderForResultPage extends ConsumerWidget
     implements PreferredSizeWidget {

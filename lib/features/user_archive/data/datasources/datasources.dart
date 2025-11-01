@@ -1,0 +1,1 @@
+export 'searched_history_db.dart';
