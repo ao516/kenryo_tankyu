@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/core/constants/const.dart';
 import 'package:kenryo_tankyu/features/research_work/domain/models/models.dart';
-import 'package:kenryo_tankyu/features/settings/data/settings_db.dart';
+import 'package:kenryo_tankyu/features/settings/data/repositories/settings_db.dart';
 
 class WorkImageChip extends StatelessWidget {
   final Searched searched;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/core/constants/const.dart';
 import 'package:kenryo_tankyu/features/search/domain/models/models.dart';
-import 'package:kenryo_tankyu/features/search/providers.dart';
+import 'package:kenryo_tankyu/features/search/presentation/providers/providers.dart';
 
 class SearchChipList extends ConsumerWidget {
   final bool forHeader; //ヘッダー用かどうか。キーワード入力画面でも使用しているため、そこではfalse

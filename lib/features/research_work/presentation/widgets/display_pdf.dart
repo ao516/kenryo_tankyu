@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kenryo_tankyu/features/content/data/pdf_db.dart';
 import 'package:kenryo_tankyu/features/research_work/domain/models/models.dart';
-import 'package:kenryo_tankyu/features/search/providers.dart';
+import 'package:kenryo_tankyu/features/research_work/presentation/providers/providers.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:kenryo_tankyu/features/user_archive/data/datasources/datasources.dart';
 
 class DisplayPdf extends ConsumerWidget {
   final Searched searched;

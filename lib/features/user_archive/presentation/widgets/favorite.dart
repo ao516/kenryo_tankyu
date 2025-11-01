@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/features/research_work/domain/models/models.dart';
-import 'package:kenryo_tankyu/features/search/providers.dart';
+import 'package:kenryo_tankyu/features/research_work/presentation/providers/providers.dart';
 import 'package:kenryo_tankyu/features/user_archive/data/datasources/datasources.dart';
 
 ///ボタン連打防止を管理するProvider

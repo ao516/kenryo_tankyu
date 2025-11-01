@@ -1,1 +1,0 @@
-export 'package:kenryo_tankyu/features/teacher/application/teacher_provider.dart';

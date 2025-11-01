@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/core/constants/const.dart';
+import 'package:kenryo_tankyu/features/search/presentation/providers/providers.dart';
 
-import 'package:kenryo_tankyu/features/search/providers.dart';
 
 class SearchHeader extends ConsumerStatefulWidget
     implements PreferredSizeWidget {

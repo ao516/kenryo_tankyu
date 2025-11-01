@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/core/constants/const.dart';
-import 'package:kenryo_tankyu/features/content/presentation/presentation.dart';
 import 'package:kenryo_tankyu/features/search/presentation/presentation.dart';
-import 'package:kenryo_tankyu/features/search/data/algolia_provider.dart';
-
+import 'package:kenryo_tankyu/features/search/presentation/providers/providers.dart';
+import 'package:kenryo_tankyu/presentation/widget/widget.dart';
 
 class HomePage extends ConsumerWidget {
   static HomePage builder(BuildContext context, GoRouterState state) =>

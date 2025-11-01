@@ -1,9 +1,9 @@
 export 'category.dart';
 export 'display_sub_category_list.dart';
 export 'drop_button.dart';
-export 'header_for_result.dart';
+export '../../../research_work/presentation/widgets/header_for_result.dart';
 export 'image_chip.dart';
-export 'pdf_choice_chip.dart';
+export '../../../research_work/presentation/widgets/pdf_choice_chip.dart';
 export 'result_header.dart';
 export 'result_list_preview.dart';
 export 'search_chip_list.dart';

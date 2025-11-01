@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/core/constants/work/category_value.dart';
-import 'package:kenryo_tankyu/features/settings/data/settings_db.dart';
-import 'package:kenryo_tankyu/features/search/providers.dart';
+import 'package:kenryo_tankyu/features/search/presentation/providers/providers.dart';
+import 'package:kenryo_tankyu/features/settings/data/repositories/settings_db.dart';
 
 class CategoryList extends ConsumerWidget {
   const CategoryList({super.key});

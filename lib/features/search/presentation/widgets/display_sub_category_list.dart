@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/core/constants/const.dart';
-import 'package:kenryo_tankyu/features/search/providers.dart';
+import 'package:kenryo_tankyu/features/search/presentation/providers/providers.dart';
 
 class DisplaySubCategoryList extends ConsumerWidget {
   const DisplaySubCategoryList({super.key});

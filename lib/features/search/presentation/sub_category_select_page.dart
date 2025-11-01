@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/core/constants/const.dart';
+import 'package:kenryo_tankyu/features/search/presentation/providers/providers.dart';
 import 'package:kenryo_tankyu/features/search/presentation/widgets/display_sub_category_list.dart';
 import 'package:kenryo_tankyu/features/search/presentation/widgets/sub_category_select_header.dart';
-import 'package:kenryo_tankyu/features/search/providers.dart';
+
 
 class SubCategorySelectPage extends ConsumerWidget {
   const SubCategorySelectPage({super.key});

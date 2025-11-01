@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kenryo_tankyu/features/auth/presentation/presentation.dart';
-import 'package:kenryo_tankyu/features/content/presentation/presentation.dart';
-import 'package:kenryo_tankyu/features/notification/presentation/presentation.dart';
+import 'package:kenryo_tankyu/features/auth/presentation/providers/providers.dart';
+
+import 'package:kenryo_tankyu/features/auth/presentation/screens/screens.dart';
+import 'package:kenryo_tankyu/features/krgp/presentation/screens/screens.dart';
+import 'package:kenryo_tankyu/features/notification/presentation/screens/screens.dart';
 import 'package:kenryo_tankyu/features/research_work/presentation/screens/screens.dart';
-import 'package:kenryo_tankyu/features/search/presentation/presentation.dart';
-import 'package:kenryo_tankyu/features/teacher/presentation/presentation.dart';
-import 'package:kenryo_tankyu/features/auth/providers.dart';
-import 'package:kenryo_tankyu/features/settings/presentation/settings_page.dart';
-import 'package:kenryo_tankyu/presentation/presentation.dart';
+import 'package:kenryo_tankyu/features/search/presentation/screens/screens.dart';
+import 'package:kenryo_tankyu/features/settings/presentation/screens/screens.dart';
+import 'package:kenryo_tankyu/features/teacher/presentation/screens/screens.dart';
+import 'package:kenryo_tankyu/presentation/screens/screens.dart';
+import 'package:kenryo_tankyu/presentation/widget/widget.dart';
 import 'package:kenryo_tankyu/test/test_file_select.dart';
 import 'package:kenryo_tankyu/test/test_for_aoi.dart';
 import 'package:kenryo_tankyu/test/test_for_coji.dart';

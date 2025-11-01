@@ -5,8 +5,9 @@ import 'package:kenryo_tankyu/core/constants/const.dart';
 import 'package:kenryo_tankyu/features/search/data/datasources/datasources.dart';
 import 'package:kenryo_tankyu/features/search/domain/models/models.dart';
 import 'package:kenryo_tankyu/features/search/presentation/presentation.dart';
-import 'package:kenryo_tankyu/presentation/presentation.dart';
-import 'package:kenryo_tankyu/features/search/providers.dart';
+import 'package:kenryo_tankyu/features/search/presentation/providers/providers.dart';
+import 'package:kenryo_tankyu/presentation/widget/widget.dart';
+
 
 class SearchPage extends ConsumerWidget {
   const SearchPage({super.key});

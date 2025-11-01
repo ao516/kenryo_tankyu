@@ -1,1 +1,0 @@
-export 'package:kenryo_tankyu/features/auth/application/auth_provider.dart';

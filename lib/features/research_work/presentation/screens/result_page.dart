@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lazy_indexed_stack/flutter_lazy_indexed_stack.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/features/research_work/domain/models/models.dart';
+import 'package:kenryo_tankyu/features/research_work/presentation/providers/providers.dart';
 import 'package:kenryo_tankyu/features/research_work/presentation/screens/screens.dart';
 import 'package:kenryo_tankyu/features/research_work/presentation/widgets/widgets.dart';
 import 'package:kenryo_tankyu/features/search/presentation/presentation.dart';
-import 'package:kenryo_tankyu/features/search/providers.dart';
 import 'package:screen_capture_event/screen_capture_event.dart';
 
 class ResultPage extends ConsumerStatefulWidget {
