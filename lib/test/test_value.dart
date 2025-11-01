@@ -1,4 +1,4 @@
-import 'package:kenryo_tankyu/models/notification_content.dart';
+import 'package:kenryo_tankyu/features/notification/domain/models/notification_content.dart';
 
 final NotificationContent testNotificationValue = NotificationContent(
   id: 'test',

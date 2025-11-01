@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:kenryo_tankyu/models/models.dart';
+
+import 'package:kenryo_tankyu/features/notification/domain/models/notification_content.dart';
 
 List<NotificationContent> testNotifications = [
   NotificationContent(
