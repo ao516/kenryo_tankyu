@@ -1,21 +1,30 @@
 #!/bin/sh
 
-echo "--- START: Running CocoaPods installation via ci_scripts/ci_post_clone.sh ---"
-# スクリプトは ci_scripts フォルダで実行されるため、親ディレクトリへ移動してから ios へ移動します
-cd .. 
+echo "--- START: Final pod install attempt (Flutter ready) ---"
 
-# Podfileがあるディレクトリ（通常はios）に移動
+# 1. ルートディレクトリへ移動 ($CI_PRIMARY_REPO_PATH)
+# スクリプトは ios/ci_scripts で実行されているため、親の親ディレクトリへ移動 (cd ../..)
+cd ../.. 
+
+# 2. Flutterのビルド準備 (Generated.xcconfigを生成するため)
+echo "Running Flutter pub get and clean..."
+flutter pub get
+flutter clean
+
+# 3. iosディレクトリへ移動 (Podfileがある場所)
 cd ios 
 
-# pod のフルパスを指定して実行
-echo "Executing /usr/local/bin/pod install --repo-update --clean-install..."
+echo "Current working directory is: $(pwd)"
+echo "Executing /usr/local/bin/pod install..."
+
+# 4. pod install を実行
 /usr/local/bin/pod install --repo-update --clean-install
 
-# pod install が失敗したらビルドを中断
+# 失敗チェック
 if [ $? -ne 0 ]; then
-    echo "ERROR: pod install FAILED."
+    echo "FATAL ERROR: pod install failed."
     exit 1
 fi
 
-echo "--- END: CocoaPods installation completed ---"
+echo "--- END: Pod install success ---"
 exit 0
