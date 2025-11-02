@@ -1,41 +1,7 @@
 #!/bin/sh
 
-echo "--- START: Final pod install attempt (Using Homebrew) ---"
-
-# 1. Flutterコマンドが利用可能かチェック
-if ! command -v flutter >/dev/null 2>&1; then
-    echo "INFO: Flutter not found. Installing via Homebrew..."
-    # HomebrewでFlutterをインストール
-    brew install flutter
-fi
-
-# 2. ルートディレクトリへ移動
-cd ../.. 
-
-# 3. Flutterの依存関係を解決 (Generated.xcconfigを生成)
-echo "Running flutter pub get..."
-# brewでインストールした後は、flutterコマンドがPATHに追加されているはず
-if command -v flutter >/dev/null 2>&1; then
-    flutter pub get
-else
-    echo "FATAL ERROR: Flutter command still not found after installation."
-    exit 1
-fi
-
-# 4. iosディレクトリへ移動 (Podfileがある場所)
-cd ios 
-
-echo "Current working directory is: $(pwd)"
-echo "Executing /usr/local/bin/pod install..."
-
-# 5. pod install を実行
-/usr/local/bin/pod install --repo-update --clean-install
-
-# 失敗チェック
-if [ $? -ne 0 ]; then
-    echo "FATAL ERROR: pod install failed."
-    exit 1
-fi
-
-echo "--- END: Pod install success ---"
-exit 0
+# Install CocoaPods using Homebrew.
+brew install cocoapods
+		
+# Install dependencies you manage with CocoaPods.
+pod install
