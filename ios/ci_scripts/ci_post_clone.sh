@@ -1,54 +1,57 @@
 #!/bin/sh
-# Fail this script if any subcommand fails.
-set -e
 
-echo "--- START: Final pod install attempt (Using FVM/Homebrew Logic) ---"
+echo "--- START: Final pod install attempt (CI Environment Paths) ---"
 
-# Installed Flutter version
-# 使用したいFlutterバージョンを指定 (例: 3.16.3, 最新版は 'stable')
-FLUTTER_VERSION="stable" 
+# 1. 既知の環境変数からFlutterのパスを特定し、PATHに追加
+#    ローカルパスやHomebrewのPATH設定は全て削除します
 
-# 1. Homebrewの自動アップデートを無効化して権限問題を避ける
-export HOMEBREW_NO_AUTO_UPDATE=1
-
-# 2. FVMのインストールと設定
-# brew tapは不要な場合があるため、直接fvmをインストール
-echo "Installing FVM via Homebrew..."
-if ! command -v fvm >/dev/null 2>&1; then
-    brew install fvm
+# CI環境でFlutter SDKの場所を示す可能性がある環境変数をチェック
+FLUTTER_SDK_DIR=""
+if [ -n "$FLUTTER_ROOT" ]; then
+    FLUTTER_SDK_DIR="$FLUTTER_ROOT"
+elif [ -n "$FLUTTER_HOME" ]; then
+    FLUTTER_SDK_DIR="$FLUTTER_HOME"
 fi
 
-# 3. FVMで指定バージョンのFlutterをインストールし、グローバルに設定
-echo "Installing Flutter version: ${FLUTTER_VERSION}..."
-fvm install "${FLUTTER_VERSION}"
-fvm global "${FLUTTER_VERSION}"
+# SDKのbinディレクトリをPATHに追加
+if [ -n "$FLUTTER_SDK_DIR" ]; then
+    export PATH="$PATH:$FLUTTER_SDK_DIR/bin"
+    echo "INFO: Found Flutter SDK via environment variable: $FLUTTER_SDK_DIR"
+else
+    # 環境変数が未設定の場合、一般的な場所を試す
+    export PATH="$PATH:$HOME/Library/Flutter/bin"
+    echo "INFO: Attempting common Flutter path: $HOME/Library/Flutter/bin"
+fi
 
-# FVMのパスをシェルに認識させる
-export PATH="$HOME/.fvm/fvm_shim:$PATH"
-echo "INFO: FVM path added to PATH."
 
-# 4. ルートディレクトリへ移動
+# 2. ルートディレクトリへ移動
 cd ../.. 
 
-# 5. Flutterの依存関係を解決 (Generated.xcconfigを生成)
-echo "Running fvm flutter precache and pub get..."
+# 3. Flutterの依存関係を解決 (Generated.xcconfigを生成)
+echo "Running flutter pub get..."
 
-# iOSアーティファクトの取得（ビルドを確実にする）
-fvm flutter precache --ios 
-# パッケージの取得 (Generated.xcconfigを生成)
-fvm flutter pub get
+# flutter コマンドが実行できるかチェック
+if command -v flutter >/dev/null 2>&1; then
+    flutter pub get
+else
+    echo "FATAL ERROR: Flutter command still not found. Check if Flutter SDK is set up in Xcode Cloud."
+    exit 1
+fi
 
-# 6. iosディレクトリへ移動 (Podfileがある場所)
+# 4. iosディレクトリへ移動 (Podfileがある場所)
 cd ios 
 
 echo "Current working directory is: $(pwd)"
-echo "Executing pod install..."
+echo "Executing /usr/local/bin/pod install..."
 
-# 7. CocoaPodsの依存関係を取得
-# Homebrewでインストール済みのpodを使う (必要であれば brew install cocoapods を追加)
-pod install
+# 5. pod install を実行
+/usr/local/bin/pod install --repo-update --clean-install
 
-# 失敗チェックは set -e で行われるため省略
+# 失敗チェック
+if [ $? -ne 0 ]; then
+    echo "FATAL ERROR: pod install failed."
+    exit 1
+fi
 
 echo "--- END: Pod install success ---"
 exit 0
