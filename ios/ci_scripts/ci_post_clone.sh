@@ -1,39 +1,42 @@
 #!/bin/sh
-set -e
+set -e # エラーが発生したら即座にスクリプトを終了
 
-# Flutter SDKのインストールとPATH設定
+echo "--- START: Final pod install attempt (Git Clone SDK with --depth 1) ---"
+
+# 1. Flutter SDKのダウンロード先を設定（$HOMEは安全な場所）
 FLUTTER_SDK_PATH="$HOME/flutter_sdk"
 FLUTTER_VERSION="stable"
-FLUTTER_BIN="$FLUTTER_SDK_PATH/bin"
 
-echo "--- START: Setup Flutter and Pods ---"
-
-# 1. SDKのクローン（存在しなければ実行）
+# 2. SDKが存在しない場合のみダウンロード
 if [ ! -d "$FLUTTER_SDK_PATH" ]; then
-    echo "INFO: Cloning Flutter SDK (${FLUTTER_VERSION}, depth 1)..."
+    echo "INFO: Cloning Flutter SDK version ${FLUTTER_VERSION} with depth 1..."
     git clone https://github.com/flutter/flutter.git -b ${FLUTTER_VERSION} --depth 1 "$FLUTTER_SDK_PATH"
 fi
 
-# 2. Flutter PATHを設定
-export PATH="$PATH:$FLUTTER_BIN"
-echo "INFO: PATH set for $FLUTTER_BIN"
+# 3. FlutterのPATHを設定
+export PATH="$PATH:$FLUTTER_SDK_PATH/bin"
+echo "INFO: Flutter PATH set: $FLUTTER_SDK_PATH/bin"
 
-# 3. リポジトリのルートへ移動
-cd $CI_WORKSPACE
+# 4. ルートディレクトリへ移動
+cd ../.. 
 
-# 4. Flutter依存関係の解決
-echo "INFO: Running flutter pub get and precache..."
+# 5. Flutterの依存関係を解決 (Generated.xcconfigを生成)
+echo "Running flutter pub get and precache..."
 if command -v flutter >/dev/null 2>&1; then
-    flutter precache --ios
-    flutter pub get
+    flutter precache --ios # iOSビルドにzw必要なアーティファクトをダウンロード
+    flutter pub get       # Generated.xcconfigを生成
 else
-    echo "FATAL ERROR: Flutter command not found."
+    echo "FATAL ERROR: Flutter command not found even after cloning and setting PATH."
     exit 1
 fi
 
-# 5. Podfileディレクトリへ移動し、インストール
-cd ios
-echo "INFO: Executing pod install in $(pwd)..."
+# 6. iosディレクトリへ移動 (Podfileがある場所)
+cd ios 
+
+echo "Current working directory is: $(pwd)"
+echo "Executing pod install..."
+
+# 7. pod install を実行
 /usr/local/bin/pod install --repo-update --clean-install
 
 # 6. 認証情報ファイルの生成 (ビルド時に必要なファイルを一時的に作成)
