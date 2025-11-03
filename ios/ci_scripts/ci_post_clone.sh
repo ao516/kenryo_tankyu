@@ -24,7 +24,7 @@ cd ../..
 # 5. Flutterの依存関係を解決 (Generated.xcconfigを生成)
 echo "Running flutter pub get and precache..."
 if command -v flutter >/dev/null 2>&1; then
-    flutter precache --ios # iOSビルドにzw必要なアーティファクトをダウンロード
+    flutter precache --ios # iOSビルドに必要なアーティファクトをダウンロード
     flutter pub get       # Generated.xcconfigを生成
 else
     echo "FATAL ERROR: Flutter command not found even after cloning and setting PATH."
