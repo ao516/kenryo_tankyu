@@ -38,21 +38,27 @@ echo "Executing pod install..."
 
 # 7. pod install を実行
 /usr/local/bin/pod install --repo-update --clean-install
+echo "INFO: pod install completed."
 
-# 6. 認証情報ファイルの生成 (ビルド時に必要なファイルを一時的に作成)
-echo "INFO: Creating service account credentials file from environment variable..."
+# 8. 認証情報ファイルの生成 (絶対パスで安全性を確保)
+CREDENTIALS_PATH="$CI_WORKSPACE/assets/your_service_account_credentials.json"
+echo "INFO: Target path (Absolute): $CREDENTIALS_PATH"
 
-# ファイルを作成するパス（Xcodeがアセットとして参照するパス）
-CREDENTIALS_PATH="../assets/your_service_account_credentials.json"
+# 環境変数が設定されているか確認
+if [ -z "$FIREBASE_CREDENTIALS" ]; then
+    echo "FATAL ERROR: FIREBASE_CREDENTIALS environment variable is empty or not set."
+    echo "Check Xcode Cloud Secrets settings."
+    exit 1
+fi
 
-# FIREBASE_CREDENTIALS環境変数の内容をファイルに書き込む
-# sedコマンドで改行文字を処理する必要がある場合があります
-if [ -n "$FIREBASE_CREDENTIALS" ]; then
-    echo "$FIREBASE_CREDENTIALS" | base64 -d > "$CREDENTIALS_PATH"
-    echo "SUCCESS: Credentials file created at $CREDENTIALS_PATH"
+# 変数の内容を、特殊文字をエスケープして安全にファイルに書き出す
+printf "%s" "$FIREBASE_CREDENTIALS" > "$CREDENTIALS_PATH"
+
+# ファイルが正しく作成されたか最終チェック
+if [ -f "$CREDENTIALS_PATH" ]; then
+    echo "SUCCESS: Credentials file created at $CREDENTIALS_PATH."
 else
-    # 環境変数が設定されていない場合、ビルドを失敗させる
-    echo "FATAL ERROR: FIREBASE_CREDENTIALS environment variable is not set."
+    echo "FATAL ERROR: Failed to create credentials file."
     exit 1
 fi
 
