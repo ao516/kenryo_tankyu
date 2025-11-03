@@ -55,6 +55,7 @@ fi
 
 # 変数の内容を、特殊文字をエスケープして安全にファイルに書き出す
 printf "%s" "$FIREBASE_CREDENTIALS" > "$CREDENTIALS_PATH"
+chmod 600 "$CREDENTIALS_PATH"
 
 # ファイルが正しく作成されたか最終チェック
 if [ -f "$CREDENTIALS_PATH" ]; then
