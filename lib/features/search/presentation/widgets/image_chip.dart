@@ -2,17 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/core/constants/const.dart';
 import 'package:kenryo_tankyu/features/research_work/domain/models/models.dart';
-import 'package:kenryo_tankyu/features/settings/data/repositories/settings_db.dart';
+import 'package:kenryo_tankyu/features/settings/presentation/providers/providers.dart';
 
-class WorkImageChip extends StatelessWidget {
+class WorkImageChip extends ConsumerWidget {
   final Searched searched;
-  final WidgetRef ref;
-  const WorkImageChip({super.key, required this.searched, required this.ref});
+  const WorkImageChip({super.key, required this.searched});
 
   @override
-  Widget build(BuildContext context) {
-    final themeMode = ref.watch(themeModeProvider);
-    return searched.category2 != Category.none ? _twoCategoryChip(themeMode) : _oneCategoryChip(themeMode);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeNotifierProvider);
+    return themeMode.when(
+      data: (theme) => searched.category2 != Category.none
+          ? _twoCategoryChip(theme)
+          : _oneCategoryChip(theme),
+      loading: () => const CircularProgressIndicator(),
+      error: (err, stack) => searched.category2 != Category.none
+          ? _twoCategoryChip(ThemeMode.system)
+          : _oneCategoryChip(ThemeMode.system),
+    );
   }
 
   Widget _twoCategoryChip(ThemeMode themeMode) {

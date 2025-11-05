@@ -3,9 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kenryo_tankyu/features/settings/presentation/providers/theme_providers.dart';
 import 'package:kenryo_tankyu/firebase_options.dart';
 import 'package:kenryo_tankyu/core/router/router.dart';
-import 'package:kenryo_tankyu/features/settings/data/repositories/settings_db.dart';
 import 'package:kenryo_tankyu/core/theme/theme.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -34,7 +34,6 @@ class _MainAppState extends ConsumerState<MainApp> {
   @override
   void initState() {
     super.initState();
-    _loadThemeMode();
 
     // アプリがフォアグラウンドにあるときにメッセージを受信したときの処理
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -50,7 +49,11 @@ class _MainAppState extends ConsumerState<MainApp> {
   @override
   Widget build(BuildContext context) {
     final routerConfig = ref.watch(routesProvider);
-    final themeMode = ref.watch(themeModeProvider);
+    final themeMode = ref.watch(themeModeNotifierProvider).when(
+      data: (m) => m,
+      loading: () => ThemeMode.system,
+      error: (_, __) => ThemeMode.system,
+    );
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       //幅と高さの最小値に応じてテキストサイズを可変させるか
@@ -82,10 +85,5 @@ class _MainAppState extends ConsumerState<MainApp> {
         );
       }),
     );
-  }
-
-  void _loadThemeMode() async {
-    final themeMode = await ThemePreferences().loadThemeMode();
-    ref.read(themeModeProvider.notifier).state = themeMode;
   }
 }
