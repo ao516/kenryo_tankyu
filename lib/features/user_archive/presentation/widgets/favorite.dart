@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:kenryo_tankyu/features/research_work/domain/models/models.dart';
 import 'package:kenryo_tankyu/features/research_work/presentation/providers/providers.dart';
 import 'package:kenryo_tankyu/features/user_archive/data/datasources/datasources.dart';
@@ -10,15 +11,17 @@ final ableChangeFavoriteProvider =
     StateProvider.autoDispose<bool>((ref) => true);
 
 ///documentIDごとにfavoriteかどうかを記録するProvider。
-final userIsFavoriteStateProvider = StateNotifierProvider.family
-    .autoDispose<ChangeFavoriteStateNotifier, bool, int>((ref, documentID) {
-  final notifier = ChangeFavoriteStateNotifier(false);
+final userIsFavoriteStateProvider = NotifierProvider.family
+    .autoDispose<ChangeFavoriteNotifier, bool, int>((documentID) {
+  final notifier = ChangeFavoriteNotifier();
   notifier.initialize(documentID: documentID);
   return notifier;
 });
 
-class ChangeFavoriteStateNotifier extends StateNotifier<bool> {
-  ChangeFavoriteStateNotifier(super.initialState);
+class ChangeFavoriteNotifier extends Notifier<bool> {
+  bool build() {
+    return state;
+  }
 
   Future<void> initialize({required int documentID}) async {
     final bool favoriteState =

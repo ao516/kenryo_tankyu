@@ -6,9 +6,8 @@ part of 'notification_content.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$NotificationContentImpl _$$NotificationContentImplFromJson(
-        Map<String, dynamic> json) =>
-    _$NotificationContentImpl(
+_NotificationContent _$NotificationContentFromJson(Map<String, dynamic> json) =>
+    _NotificationContent(
       id: json['id'] as String,
       type: const NotificationTypeEnumConverter()
           .fromJson(json['type'] as String),
@@ -20,8 +19,8 @@ _$NotificationContentImpl _$$NotificationContentImplFromJson(
       isRead: json['isRead'] as bool,
     );
 
-Map<String, dynamic> _$$NotificationContentImplToJson(
-        _$NotificationContentImpl instance) =>
+Map<String, dynamic> _$NotificationContentToJson(
+        _NotificationContent instance) =>
     <String, dynamic>{
       'id': instance.id,
       'type': const NotificationTypeEnumConverter().toJson(instance.type),

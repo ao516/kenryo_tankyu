@@ -8,17 +8,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'theme_providers.g.dart';
 
 @riverpod
-Future<SharedPreferences> sharedPreferences(ref) =>
+Future<SharedPreferences> sharedPreferences(Ref ref) =>
     SharedPreferences.getInstance();
 
 @riverpod
-SettingsRepository settingsRepository(SettingsRepositoryRef ref) {
+SettingsRepository settingsRepository(Ref ref) {
   final sharedPreferences = ref.watch(sharedPreferencesProvider).requireValue;
   return SettingsRepositoryImpl(sharedPreferences);
 }
 
 @riverpod
-GetThemeModeUsecase getThemeModeUsecase(ref) {
+GetThemeModeUsecase getThemeModeUsecase(Ref ref) {
   return GetThemeModeUsecase(ref.watch(settingsRepositoryProvider));
 }
 

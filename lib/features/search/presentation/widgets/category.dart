@@ -10,7 +10,7 @@ class CategoryList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themeModeNotifierProvider);
+    final themeMode = ref.watch(themeModeProvider);
     final notifier = ref.read(searchProvider.notifier);
     return SizedBox(
       width: double.infinity,

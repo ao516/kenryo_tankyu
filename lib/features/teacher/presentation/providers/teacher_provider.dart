@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:kenryo_tankyu/core/constants/work/search_value.dart';
 import 'package:kenryo_tankyu/features/teacher/domain/models/teacher.dart';
 import 'package:kenryo_tankyu/features/user_archive/data/datasources/datasources.dart';

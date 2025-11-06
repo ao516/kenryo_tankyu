@@ -6,7 +6,7 @@ part of 'search.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SearchImpl _$$SearchImplFromJson(Map<String, dynamic> json) => _$SearchImpl(
+_Search _$SearchFromJson(Map<String, dynamic> json) => _Search(
       category:
           const CategoryEnumConverter().fromJson(json['category'] as String),
       subCategory: const SubCategoryEnumConverter()
@@ -24,8 +24,7 @@ _$SearchImpl _$$SearchImplFromJson(Map<String, dynamic> json) => _$SearchImpl(
           json['savedAt'], const DateTimeConverter().fromJson),
     );
 
-Map<String, dynamic> _$$SearchImplToJson(_$SearchImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$SearchToJson(_Search instance) => <String, dynamic>{
       'category': const CategoryEnumConverter().toJson(instance.category),
       'subCategory':
           const SubCategoryEnumConverter().toJson(instance.subCategory),

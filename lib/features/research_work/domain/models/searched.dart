@@ -18,7 +18,7 @@ part 'searched.g.dart';
 ///documentIDとisFavoriteは、firestoreやalgoliaのデータから取得する際には含まれていないので、includeFromJsonをfalseにしています。
 ///後半の方（ライク数や、authorなど）は、DBには保存しないため、includeToJsonをfalseにしています。
 @freezed
-class Searched with _$Searched {
+abstract class Searched with _$Searched {
   @JsonSerializable(explicitToJson: true)
   const Searched._();
 

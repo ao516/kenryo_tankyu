@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,125 +9,67 @@ part of 'notification_content.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-NotificationContent _$NotificationContentFromJson(Map<String, dynamic> json) {
-  return _NotificationContent.fromJson(json);
-}
 
 /// @nodoc
 mixin _$NotificationContent {
-  String get id => throw _privateConstructorUsedError; //firestoreで自動で割り振られるID
+  String get id; //firestoreで自動で割り振られるID
   @NotificationTypeEnumConverter()
-  NotificationType get type => throw _privateConstructorUsedError;
-  String get headerImagePath =>
-      throw _privateConstructorUsedError; //firestore databaseに保存されているpngファイル名（.pngを抜いて）
-  String get title => throw _privateConstructorUsedError;
-  String get contents => throw _privateConstructorUsedError;
+  NotificationType get type;
+  String get headerImagePath; //firestore databaseに保存されているpngファイル名（.pngを抜いて）
+  String get title;
+  String get contents;
   @DateTimeConverter()
-  DateTime get sendAt => throw _privateConstructorUsedError;
+  DateTime get sendAt;
   @DateTimeConverter()
-  DateTime get savedAt => throw _privateConstructorUsedError;
-  bool get isRead => throw _privateConstructorUsedError;
-
-  /// Serializes this NotificationContent to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  DateTime get savedAt;
+  bool get isRead;
 
   /// Create a copy of NotificationContent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $NotificationContentCopyWith<NotificationContent> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $NotificationContentCopyWith<$Res> {
-  factory $NotificationContentCopyWith(
-          NotificationContent value, $Res Function(NotificationContent) then) =
-      _$NotificationContentCopyWithImpl<$Res, NotificationContent>;
-  @useResult
-  $Res call(
-      {String id,
-      @NotificationTypeEnumConverter() NotificationType type,
-      String headerImagePath,
-      String title,
-      String contents,
-      @DateTimeConverter() DateTime sendAt,
-      @DateTimeConverter() DateTime savedAt,
-      bool isRead});
-}
-
-/// @nodoc
-class _$NotificationContentCopyWithImpl<$Res, $Val extends NotificationContent>
-    implements $NotificationContentCopyWith<$Res> {
-  _$NotificationContentCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of NotificationContent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $NotificationContentCopyWith<NotificationContent> get copyWith =>
+      _$NotificationContentCopyWithImpl<NotificationContent>(
+          this as NotificationContent, _$identity);
+
+  /// Serializes this NotificationContent to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? id = null,
-    Object? type = null,
-    Object? headerImagePath = null,
-    Object? title = null,
-    Object? contents = null,
-    Object? sendAt = null,
-    Object? savedAt = null,
-    Object? isRead = null,
-  }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as NotificationType,
-      headerImagePath: null == headerImagePath
-          ? _value.headerImagePath
-          : headerImagePath // ignore: cast_nullable_to_non_nullable
-              as String,
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      contents: null == contents
-          ? _value.contents
-          : contents // ignore: cast_nullable_to_non_nullable
-              as String,
-      sendAt: null == sendAt
-          ? _value.sendAt
-          : sendAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      savedAt: null == savedAt
-          ? _value.savedAt
-          : savedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      isRead: null == isRead
-          ? _value.isRead
-          : isRead // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is NotificationContent &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.headerImagePath, headerImagePath) ||
+                other.headerImagePath == headerImagePath) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.contents, contents) ||
+                other.contents == contents) &&
+            (identical(other.sendAt, sendAt) || other.sendAt == sendAt) &&
+            (identical(other.savedAt, savedAt) || other.savedAt == savedAt) &&
+            (identical(other.isRead, isRead) || other.isRead == isRead));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, type, headerImagePath, title,
+      contents, sendAt, savedAt, isRead);
+
+  @override
+  String toString() {
+    return 'NotificationContent(id: $id, type: $type, headerImagePath: $headerImagePath, title: $title, contents: $contents, sendAt: $sendAt, savedAt: $savedAt, isRead: $isRead)';
   }
 }
 
 /// @nodoc
-abstract class _$$NotificationContentImplCopyWith<$Res>
-    implements $NotificationContentCopyWith<$Res> {
-  factory _$$NotificationContentImplCopyWith(_$NotificationContentImpl value,
-          $Res Function(_$NotificationContentImpl) then) =
-      __$$NotificationContentImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $NotificationContentCopyWith<$Res> {
+  factory $NotificationContentCopyWith(
+          NotificationContent value, $Res Function(NotificationContent) _then) =
+      _$NotificationContentCopyWithImpl;
   @useResult
   $Res call(
       {String id,
@@ -141,12 +83,12 @@ abstract class _$$NotificationContentImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$NotificationContentImplCopyWithImpl<$Res>
-    extends _$NotificationContentCopyWithImpl<$Res, _$NotificationContentImpl>
-    implements _$$NotificationContentImplCopyWith<$Res> {
-  __$$NotificationContentImplCopyWithImpl(_$NotificationContentImpl _value,
-      $Res Function(_$NotificationContentImpl) _then)
-      : super(_value, _then);
+class _$NotificationContentCopyWithImpl<$Res>
+    implements $NotificationContentCopyWith<$Res> {
+  _$NotificationContentCopyWithImpl(this._self, this._then);
+
+  final NotificationContent _self;
+  final $Res Function(NotificationContent) _then;
 
   /// Create a copy of NotificationContent
   /// with the given fields replaced by the non-null parameter values.
@@ -162,47 +104,255 @@ class __$$NotificationContentImplCopyWithImpl<$Res>
     Object? savedAt = null,
     Object? isRead = null,
   }) {
-    return _then(_$NotificationContentImpl(
+    return _then(_self.copyWith(
       id: null == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
       type: null == type
-          ? _value.type
+          ? _self.type
           : type // ignore: cast_nullable_to_non_nullable
               as NotificationType,
       headerImagePath: null == headerImagePath
-          ? _value.headerImagePath
+          ? _self.headerImagePath
           : headerImagePath // ignore: cast_nullable_to_non_nullable
               as String,
       title: null == title
-          ? _value.title
+          ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
       contents: null == contents
-          ? _value.contents
+          ? _self.contents
           : contents // ignore: cast_nullable_to_non_nullable
               as String,
       sendAt: null == sendAt
-          ? _value.sendAt
+          ? _self.sendAt
           : sendAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       savedAt: null == savedAt
-          ? _value.savedAt
+          ? _self.savedAt
           : savedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       isRead: null == isRead
-          ? _value.isRead
+          ? _self.isRead
           : isRead // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [NotificationContent].
+extension NotificationContentPatterns on NotificationContent {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_NotificationContent value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _NotificationContent() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_NotificationContent value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NotificationContent():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_NotificationContent value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NotificationContent() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            String id,
+            @NotificationTypeEnumConverter() NotificationType type,
+            String headerImagePath,
+            String title,
+            String contents,
+            @DateTimeConverter() DateTime sendAt,
+            @DateTimeConverter() DateTime savedAt,
+            bool isRead)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _NotificationContent() when $default != null:
+        return $default(
+            _that.id,
+            _that.type,
+            _that.headerImagePath,
+            _that.title,
+            _that.contents,
+            _that.sendAt,
+            _that.savedAt,
+            _that.isRead);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            String id,
+            @NotificationTypeEnumConverter() NotificationType type,
+            String headerImagePath,
+            String title,
+            String contents,
+            @DateTimeConverter() DateTime sendAt,
+            @DateTimeConverter() DateTime savedAt,
+            bool isRead)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NotificationContent():
+        return $default(
+            _that.id,
+            _that.type,
+            _that.headerImagePath,
+            _that.title,
+            _that.contents,
+            _that.sendAt,
+            _that.savedAt,
+            _that.isRead);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            String id,
+            @NotificationTypeEnumConverter() NotificationType type,
+            String headerImagePath,
+            String title,
+            String contents,
+            @DateTimeConverter() DateTime sendAt,
+            @DateTimeConverter() DateTime savedAt,
+            bool isRead)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _NotificationContent() when $default != null:
+        return $default(
+            _that.id,
+            _that.type,
+            _that.headerImagePath,
+            _that.title,
+            _that.contents,
+            _that.sendAt,
+            _that.savedAt,
+            _that.isRead);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 @JsonSerializable()
-class _$NotificationContentImpl extends _NotificationContent {
-  const _$NotificationContentImpl(
+class _NotificationContent extends NotificationContent {
+  const _NotificationContent(
       {required this.id,
       @NotificationTypeEnumConverter() required this.type,
       required this.headerImagePath,
@@ -212,9 +362,8 @@ class _$NotificationContentImpl extends _NotificationContent {
       @DateTimeConverter() required this.savedAt,
       required this.isRead})
       : super._();
-
-  factory _$NotificationContentImpl.fromJson(Map<String, dynamic> json) =>
-      _$$NotificationContentImplFromJson(json);
+  factory _NotificationContent.fromJson(Map<String, dynamic> json) =>
+      _$NotificationContentFromJson(json);
 
   @override
   final String id;
@@ -238,16 +387,27 @@ class _$NotificationContentImpl extends _NotificationContent {
   @override
   final bool isRead;
 
+  /// Create a copy of NotificationContent
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'NotificationContent(id: $id, type: $type, headerImagePath: $headerImagePath, title: $title, contents: $contents, sendAt: $sendAt, savedAt: $savedAt, isRead: $isRead)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$NotificationContentCopyWith<_NotificationContent> get copyWith =>
+      __$NotificationContentCopyWithImpl<_NotificationContent>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$NotificationContentToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$NotificationContentImpl &&
+            other is _NotificationContent &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.headerImagePath, headerImagePath) ||
@@ -265,62 +425,88 @@ class _$NotificationContentImpl extends _NotificationContent {
   int get hashCode => Object.hash(runtimeType, id, type, headerImagePath, title,
       contents, sendAt, savedAt, isRead);
 
-  /// Create a copy of NotificationContent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$NotificationContentImplCopyWith<_$NotificationContentImpl> get copyWith =>
-      __$$NotificationContentImplCopyWithImpl<_$NotificationContentImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$NotificationContentImplToJson(
-      this,
-    );
+  String toString() {
+    return 'NotificationContent(id: $id, type: $type, headerImagePath: $headerImagePath, title: $title, contents: $contents, sendAt: $sendAt, savedAt: $savedAt, isRead: $isRead)';
   }
 }
 
-abstract class _NotificationContent extends NotificationContent {
-  const factory _NotificationContent(
-      {required final String id,
-      @NotificationTypeEnumConverter() required final NotificationType type,
-      required final String headerImagePath,
-      required final String title,
-      required final String contents,
-      @DateTimeConverter() required final DateTime sendAt,
-      @DateTimeConverter() required final DateTime savedAt,
-      required final bool isRead}) = _$NotificationContentImpl;
-  const _NotificationContent._() : super._();
+/// @nodoc
+abstract mixin class _$NotificationContentCopyWith<$Res>
+    implements $NotificationContentCopyWith<$Res> {
+  factory _$NotificationContentCopyWith(_NotificationContent value,
+          $Res Function(_NotificationContent) _then) =
+      __$NotificationContentCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String id,
+      @NotificationTypeEnumConverter() NotificationType type,
+      String headerImagePath,
+      String title,
+      String contents,
+      @DateTimeConverter() DateTime sendAt,
+      @DateTimeConverter() DateTime savedAt,
+      bool isRead});
+}
 
-  factory _NotificationContent.fromJson(Map<String, dynamic> json) =
-      _$NotificationContentImpl.fromJson;
+/// @nodoc
+class __$NotificationContentCopyWithImpl<$Res>
+    implements _$NotificationContentCopyWith<$Res> {
+  __$NotificationContentCopyWithImpl(this._self, this._then);
 
-  @override
-  String get id; //firestoreで自動で割り振られるID
-  @override
-  @NotificationTypeEnumConverter()
-  NotificationType get type;
-  @override
-  String get headerImagePath; //firestore databaseに保存されているpngファイル名（.pngを抜いて）
-  @override
-  String get title;
-  @override
-  String get contents;
-  @override
-  @DateTimeConverter()
-  DateTime get sendAt;
-  @override
-  @DateTimeConverter()
-  DateTime get savedAt;
-  @override
-  bool get isRead;
+  final _NotificationContent _self;
+  final $Res Function(_NotificationContent) _then;
 
   /// Create a copy of NotificationContent
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$NotificationContentImplCopyWith<_$NotificationContentImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? id = null,
+    Object? type = null,
+    Object? headerImagePath = null,
+    Object? title = null,
+    Object? contents = null,
+    Object? sendAt = null,
+    Object? savedAt = null,
+    Object? isRead = null,
+  }) {
+    return _then(_NotificationContent(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: null == type
+          ? _self.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as NotificationType,
+      headerImagePath: null == headerImagePath
+          ? _self.headerImagePath
+          : headerImagePath // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _self.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      contents: null == contents
+          ? _self.contents
+          : contents // ignore: cast_nullable_to_non_nullable
+              as String,
+      sendAt: null == sendAt
+          ? _self.sendAt
+          : sendAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      savedAt: null == savedAt
+          ? _self.savedAt
+          : savedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      isRead: null == isRead
+          ? _self.isRead
+          : isRead // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
+
+// dart format on

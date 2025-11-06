@@ -4,6 +4,7 @@ import 'dart:convert';
 // Using algoliasearch package; responses are handled as Maps (JSON-like hits).
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:kenryo_tankyu/core/constants/const.dart';
 import 'package:algoliasearch/algoliasearch.dart';
 import 'package:kenryo_tankyu/features/research_work/domain/models/models.dart';

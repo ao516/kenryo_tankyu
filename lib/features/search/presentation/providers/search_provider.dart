@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:kenryo_tankyu/core/constants/const.dart';
 import 'package:kenryo_tankyu/features/search/domain/models/models.dart';
 
@@ -6,11 +7,13 @@ final suggestCategoryProvider = StateProvider<Category>((ref) => Category.none);
 final suggestSubCategoryProvider = StateProvider<SubCategory>((ref) => SubCategory.none);
 
 final searchProvider =
-    StateNotifierProvider<SearchNotifier, Search>((ref) => SearchNotifier());
+    NotifierProvider<SearchNotifier, Search>(SearchNotifier.new);
 
-class SearchNotifier extends StateNotifier<Search> {
-  SearchNotifier() : super(const Search(category: Category.none, subCategory: SubCategory.none, eventName: EventName.undefined, course: Course.undefined,enterYear: EnterYear.undefined));
-
+class SearchNotifier extends Notifier<Search> {
+  @override
+  Search build() {
+    return const Search(category: Category.none, subCategory: SubCategory.none, eventName: EventName.undefined, course: Course.undefined,enterYear: EnterYear.undefined);
+  }
   void reloadSearch(Category value) {
     state = state.copyWith(category: value);
   }

@@ -49,7 +49,7 @@ class _MainAppState extends ConsumerState<MainApp> {
   @override
   Widget build(BuildContext context) {
     final routerConfig = ref.watch(routesProvider);
-    final themeMode = ref.watch(themeModeNotifierProvider).when(
+    final themeMode = ref.watch(themeModeProvider).when(
       data: (m) => m,
       loading: () => ThemeMode.system,
       error: (_, __) => ThemeMode.system,

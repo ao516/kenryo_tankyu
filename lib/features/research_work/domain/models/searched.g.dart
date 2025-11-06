@@ -6,8 +6,7 @@ part of 'searched.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$SearchedImpl _$$SearchedImplFromJson(Map<String, dynamic> json) =>
-    _$SearchedImpl(
+_Searched _$SearchedFromJson(Map<String, dynamic> json) => _Searched(
       documentID: (json['documentID'] as num?)?.toInt() ?? 00000000,
       isFavorite: json['isFavorite'] as bool? ?? false,
       category1:
@@ -36,8 +35,7 @@ _$SearchedImpl _$$SearchedImplFromJson(Map<String, dynamic> json) =>
       isCached: json['isCached'] as bool? ?? true,
     );
 
-Map<String, dynamic> _$$SearchedImplToJson(_$SearchedImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$SearchedToJson(_Searched instance) => <String, dynamic>{
       'documentID': instance.documentID,
       'isFavorite': instance.isFavorite,
       'category1': const CategoryEnumConverter().toJson(instance.category1),
