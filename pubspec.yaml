@@ -69,7 +69,6 @@ dependencies:
   go_router_builder: ^3.0.1
   algoliasearch: ^1.38.0
   algolia_helper_flutter: ^1.4.0
-  riverpod_generator: ^2.6.4
 
 dev_dependencies:
   flutter_test:
@@ -84,6 +83,7 @@ dev_dependencies:
   freezed: ^2.4.7
   build_runner: ^2.4.8
   json_serializable: ^6.7.1
+  riverpod_generator: ^2.6.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
