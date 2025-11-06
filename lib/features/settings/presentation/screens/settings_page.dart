@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kenryo_tankyu/core/constants/const.dart';
 import 'package:kenryo_tankyu/features/settings/data/repositories/device_settings_db.dart';
-import 'package:kenryo_tankyu/features/settings/data/repositories/settings_db.dart';
+import 'package:kenryo_tankyu/features/settings/presentation/providers/providers.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends ConsumerWidget {
@@ -15,6 +15,8 @@ class SettingsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notificationSetting = ref.watch(notificationSettingProvider);
+    final themeMode = ref.watch(themeModeNotifierProvider);
+
     return Scaffold(
       appBar: AppBar(title: const Text('設定')),
       body: SingleChildScrollView(
@@ -35,26 +37,33 @@ class SettingsPage extends ConsumerWidget {
             ListTile(
               title: const Text('テーマ設定'),
               leading: const Icon(Icons.light_mode),
-              trailing: DropdownButton<ThemeMode>(
-                value: ref.watch(themeModeProvider),
-                onChanged: (ThemeMode? value) {
-                  _saveThemeMode(value!);
-                  ref.read(themeModeProvider.notifier).state = value;
-                },
-                items: const [
-                  DropdownMenuItem(
-                    value: ThemeMode.system,
-                    child: Text('システムの設定'),
-                  ),
-                  DropdownMenuItem(
-                    value: ThemeMode.light,
-                    child: Text('ライト'),
-                  ),
-                  DropdownMenuItem(
-                    value: ThemeMode.dark,
-                    child: Text('ダーク'),
-                  ),
-                ],
+              trailing: themeMode.when(
+                data: (theme) => DropdownButton<ThemeMode>(
+                  value: theme,
+                  onChanged: (ThemeMode? value) {
+                    if (value != null) {
+                      ref
+                          .read(themeModeNotifierProvider.notifier)
+                          .setThemeMode(value);
+                    }
+                  },
+                  items: const [
+                    DropdownMenuItem(
+                      value: ThemeMode.system,
+                      child: Text('システムの設定'),
+                    ),
+                    DropdownMenuItem(
+                      value: ThemeMode.light,
+                      child: Text('ライト'),
+                    ),
+                    DropdownMenuItem(
+                      value: ThemeMode.dark,
+                      child: Text('ダーク'),
+                    ),
+                  ],
+                ),
+                loading: () => const CircularProgressIndicator(),
+                error: (err, stack) => const Text('エラー'),
               ),
             ),
             ListTile(
@@ -159,7 +168,6 @@ class SettingsPage extends ConsumerWidget {
                                 .where('email', isEqualTo: email)
                                 .limit(1);
                             try {
-                              await reauthenticateUser();
                               await FirebaseAuth.instance.currentUser?.delete();
                               await term.get().then((value) async {
                                 if (value.docs.isNotEmpty) {
@@ -197,20 +205,5 @@ class SettingsPage extends ConsumerWidget {
         ),
       ),
     );
-  }
-
-  Future<void> reauthenticateUser() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      final credential = EmailAuthProvider.credential(
-        email: user.email!,
-        password: 'your-password', // ユーザーのパスワードを取得する必要があります
-      );
-      await user.reauthenticateWithCredential(credential);
-    }
-  }
-
-  void _saveThemeMode(ThemeMode themeMode) {
-    ThemePreferences().saveThemeMode(themeMode);
   }
 }

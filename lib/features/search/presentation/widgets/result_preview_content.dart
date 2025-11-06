@@ -65,7 +65,7 @@ class ResultPreviewContent extends ConsumerWidget {
                   child: SizedBox(
                       width: 50,
                       height: 50,
-                      child: WorkImageChip(searched: searched,ref: ref)),
+                      child: WorkImageChip(searched: searched)),
                 ),
                 Expanded(
                   child: Column(
