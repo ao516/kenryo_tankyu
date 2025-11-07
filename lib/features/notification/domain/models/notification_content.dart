@@ -7,7 +7,7 @@ part 'notification_content.freezed.dart';
 part 'notification_content.g.dart';
 
 @freezed
-class NotificationContent with _$NotificationContent {
+abstract class NotificationContent with _$NotificationContent {
   const NotificationContent._();
 
   const factory NotificationContent({

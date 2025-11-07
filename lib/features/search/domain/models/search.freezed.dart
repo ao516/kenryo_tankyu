@@ -1,5 +1,5 @@
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -9,125 +9,81 @@ part of 'search.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-Search _$SearchFromJson(Map<String, dynamic> json) {
-  return _Search.fromJson(json);
-}
 
 /// @nodoc
 mixin _$Search {
   @CategoryEnumConverter()
-  Category get category => throw _privateConstructorUsedError;
+  Category get category;
   @SubCategoryEnumConverter()
-  SubCategory get subCategory => throw _privateConstructorUsedError;
+  SubCategory get subCategory;
   @EnterYearEnumConverter()
-  EnterYear get enterYear => throw _privateConstructorUsedError;
+  EnterYear get enterYear;
   @EventNameEnumConverter()
-  EventName get eventName => throw _privateConstructorUsedError;
+  EventName get eventName;
   @CourseEnumConverter()
-  Course get course => throw _privateConstructorUsedError;
+  Course get course;
   @SearchWordConverter()
-  List<String> get searchWord => throw _privateConstructorUsedError;
-  int get numberOfHits => throw _privateConstructorUsedError;
+  List<String> get searchWord;
+  int get numberOfHits;
   @DateTimeConverter()
-  DateTime? get savedAt => throw _privateConstructorUsedError;
-
-  /// Serializes this Search to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  DateTime? get savedAt;
 
   /// Create a copy of Search
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $SearchCopyWith<Search> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $SearchCopyWith<$Res> {
-  factory $SearchCopyWith(Search value, $Res Function(Search) then) =
-      _$SearchCopyWithImpl<$Res, Search>;
-  @useResult
-  $Res call(
-      {@CategoryEnumConverter() Category category,
-      @SubCategoryEnumConverter() SubCategory subCategory,
-      @EnterYearEnumConverter() EnterYear enterYear,
-      @EventNameEnumConverter() EventName eventName,
-      @CourseEnumConverter() Course course,
-      @SearchWordConverter() List<String> searchWord,
-      int numberOfHits,
-      @DateTimeConverter() DateTime? savedAt});
-}
-
-/// @nodoc
-class _$SearchCopyWithImpl<$Res, $Val extends Search>
-    implements $SearchCopyWith<$Res> {
-  _$SearchCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of Search
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $SearchCopyWith<Search> get copyWith =>
+      _$SearchCopyWithImpl<Search>(this as Search, _$identity);
+
+  /// Serializes this Search to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? category = null,
-    Object? subCategory = null,
-    Object? enterYear = null,
-    Object? eventName = null,
-    Object? course = null,
-    Object? searchWord = null,
-    Object? numberOfHits = null,
-    Object? savedAt = freezed,
-  }) {
-    return _then(_value.copyWith(
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as Category,
-      subCategory: null == subCategory
-          ? _value.subCategory
-          : subCategory // ignore: cast_nullable_to_non_nullable
-              as SubCategory,
-      enterYear: null == enterYear
-          ? _value.enterYear
-          : enterYear // ignore: cast_nullable_to_non_nullable
-              as EnterYear,
-      eventName: null == eventName
-          ? _value.eventName
-          : eventName // ignore: cast_nullable_to_non_nullable
-              as EventName,
-      course: null == course
-          ? _value.course
-          : course // ignore: cast_nullable_to_non_nullable
-              as Course,
-      searchWord: null == searchWord
-          ? _value.searchWord
-          : searchWord // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      numberOfHits: null == numberOfHits
-          ? _value.numberOfHits
-          : numberOfHits // ignore: cast_nullable_to_non_nullable
-              as int,
-      savedAt: freezed == savedAt
-          ? _value.savedAt
-          : savedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is Search &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.subCategory, subCategory) ||
+                other.subCategory == subCategory) &&
+            (identical(other.enterYear, enterYear) ||
+                other.enterYear == enterYear) &&
+            (identical(other.eventName, eventName) ||
+                other.eventName == eventName) &&
+            (identical(other.course, course) || other.course == course) &&
+            const DeepCollectionEquality()
+                .equals(other.searchWord, searchWord) &&
+            (identical(other.numberOfHits, numberOfHits) ||
+                other.numberOfHits == numberOfHits) &&
+            (identical(other.savedAt, savedAt) || other.savedAt == savedAt));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      category,
+      subCategory,
+      enterYear,
+      eventName,
+      course,
+      const DeepCollectionEquality().hash(searchWord),
+      numberOfHits,
+      savedAt);
+
+  @override
+  String toString() {
+    return 'Search(category: $category, subCategory: $subCategory, enterYear: $enterYear, eventName: $eventName, course: $course, searchWord: $searchWord, numberOfHits: $numberOfHits, savedAt: $savedAt)';
   }
 }
 
 /// @nodoc
-abstract class _$$SearchImplCopyWith<$Res> implements $SearchCopyWith<$Res> {
-  factory _$$SearchImplCopyWith(
-          _$SearchImpl value, $Res Function(_$SearchImpl) then) =
-      __$$SearchImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $SearchCopyWith<$Res> {
+  factory $SearchCopyWith(Search value, $Res Function(Search) _then) =
+      _$SearchCopyWithImpl;
   @useResult
   $Res call(
       {@CategoryEnumConverter() Category category,
@@ -141,12 +97,11 @@ abstract class _$$SearchImplCopyWith<$Res> implements $SearchCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$SearchImplCopyWithImpl<$Res>
-    extends _$SearchCopyWithImpl<$Res, _$SearchImpl>
-    implements _$$SearchImplCopyWith<$Res> {
-  __$$SearchImplCopyWithImpl(
-      _$SearchImpl _value, $Res Function(_$SearchImpl) _then)
-      : super(_value, _then);
+class _$SearchCopyWithImpl<$Res> implements $SearchCopyWith<$Res> {
+  _$SearchCopyWithImpl(this._self, this._then);
+
+  final Search _self;
+  final $Res Function(Search) _then;
 
   /// Create a copy of Search
   /// with the given fields replaced by the non-null parameter values.
@@ -162,47 +117,255 @@ class __$$SearchImplCopyWithImpl<$Res>
     Object? numberOfHits = null,
     Object? savedAt = freezed,
   }) {
-    return _then(_$SearchImpl(
+    return _then(_self.copyWith(
       category: null == category
-          ? _value.category
+          ? _self.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category,
       subCategory: null == subCategory
-          ? _value.subCategory
+          ? _self.subCategory
           : subCategory // ignore: cast_nullable_to_non_nullable
               as SubCategory,
       enterYear: null == enterYear
-          ? _value.enterYear
+          ? _self.enterYear
           : enterYear // ignore: cast_nullable_to_non_nullable
               as EnterYear,
       eventName: null == eventName
-          ? _value.eventName
+          ? _self.eventName
           : eventName // ignore: cast_nullable_to_non_nullable
               as EventName,
       course: null == course
-          ? _value.course
+          ? _self.course
           : course // ignore: cast_nullable_to_non_nullable
               as Course,
       searchWord: null == searchWord
-          ? _value._searchWord
+          ? _self.searchWord
           : searchWord // ignore: cast_nullable_to_non_nullable
               as List<String>,
       numberOfHits: null == numberOfHits
-          ? _value.numberOfHits
+          ? _self.numberOfHits
           : numberOfHits // ignore: cast_nullable_to_non_nullable
               as int,
       savedAt: freezed == savedAt
-          ? _value.savedAt
+          ? _self.savedAt
           : savedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ));
   }
 }
 
+/// Adds pattern-matching-related methods to [Search].
+extension SearchPatterns on Search {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_Search value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Search() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_Search value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Search():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_Search value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Search() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            @CategoryEnumConverter() Category category,
+            @SubCategoryEnumConverter() SubCategory subCategory,
+            @EnterYearEnumConverter() EnterYear enterYear,
+            @EventNameEnumConverter() EventName eventName,
+            @CourseEnumConverter() Course course,
+            @SearchWordConverter() List<String> searchWord,
+            int numberOfHits,
+            @DateTimeConverter() DateTime? savedAt)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _Search() when $default != null:
+        return $default(
+            _that.category,
+            _that.subCategory,
+            _that.enterYear,
+            _that.eventName,
+            _that.course,
+            _that.searchWord,
+            _that.numberOfHits,
+            _that.savedAt);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            @CategoryEnumConverter() Category category,
+            @SubCategoryEnumConverter() SubCategory subCategory,
+            @EnterYearEnumConverter() EnterYear enterYear,
+            @EventNameEnumConverter() EventName eventName,
+            @CourseEnumConverter() Course course,
+            @SearchWordConverter() List<String> searchWord,
+            int numberOfHits,
+            @DateTimeConverter() DateTime? savedAt)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Search():
+        return $default(
+            _that.category,
+            _that.subCategory,
+            _that.enterYear,
+            _that.eventName,
+            _that.course,
+            _that.searchWord,
+            _that.numberOfHits,
+            _that.savedAt);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            @CategoryEnumConverter() Category category,
+            @SubCategoryEnumConverter() SubCategory subCategory,
+            @EnterYearEnumConverter() EnterYear enterYear,
+            @EventNameEnumConverter() EventName eventName,
+            @CourseEnumConverter() Course course,
+            @SearchWordConverter() List<String> searchWord,
+            int numberOfHits,
+            @DateTimeConverter() DateTime? savedAt)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _Search() when $default != null:
+        return $default(
+            _that.category,
+            _that.subCategory,
+            _that.enterYear,
+            _that.eventName,
+            _that.course,
+            _that.searchWord,
+            _that.numberOfHits,
+            _that.savedAt);
+      case _:
+        return null;
+    }
+  }
+}
+
 /// @nodoc
 @JsonSerializable()
-class _$SearchImpl extends _Search {
-  const _$SearchImpl(
+class _Search extends Search {
+  const _Search(
       {@CategoryEnumConverter() required this.category,
       @SubCategoryEnumConverter() required this.subCategory,
       @EnterYearEnumConverter() required this.enterYear,
@@ -213,9 +376,7 @@ class _$SearchImpl extends _Search {
       @DateTimeConverter() this.savedAt})
       : _searchWord = searchWord,
         super._();
-
-  factory _$SearchImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SearchImplFromJson(json);
+  factory _Search.fromJson(Map<String, dynamic> json) => _$SearchFromJson(json);
 
   @override
   @CategoryEnumConverter()
@@ -249,16 +410,26 @@ class _$SearchImpl extends _Search {
   @DateTimeConverter()
   final DateTime? savedAt;
 
+  /// Create a copy of Search
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'Search(category: $category, subCategory: $subCategory, enterYear: $enterYear, eventName: $eventName, course: $course, searchWord: $searchWord, numberOfHits: $numberOfHits, savedAt: $savedAt)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$SearchCopyWith<_Search> get copyWith =>
+      __$SearchCopyWithImpl<_Search>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$SearchToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SearchImpl &&
+            other is _Search &&
             (identical(other.category, category) ||
                 other.category == category) &&
             (identical(other.subCategory, subCategory) ||
@@ -288,64 +459,85 @@ class _$SearchImpl extends _Search {
       numberOfHits,
       savedAt);
 
-  /// Create a copy of Search
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  @pragma('vm:prefer-inline')
-  _$$SearchImplCopyWith<_$SearchImpl> get copyWith =>
-      __$$SearchImplCopyWithImpl<_$SearchImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$SearchImplToJson(
-      this,
-    );
+  String toString() {
+    return 'Search(category: $category, subCategory: $subCategory, enterYear: $enterYear, eventName: $eventName, course: $course, searchWord: $searchWord, numberOfHits: $numberOfHits, savedAt: $savedAt)';
   }
 }
 
-abstract class _Search extends Search {
-  const factory _Search(
-      {@CategoryEnumConverter() required final Category category,
-      @SubCategoryEnumConverter() required final SubCategory subCategory,
-      @EnterYearEnumConverter() required final EnterYear enterYear,
-      @EventNameEnumConverter() required final EventName eventName,
-      @CourseEnumConverter() required final Course course,
-      @SearchWordConverter() final List<String> searchWord,
-      final int numberOfHits,
-      @DateTimeConverter() final DateTime? savedAt}) = _$SearchImpl;
-  const _Search._() : super._();
+/// @nodoc
+abstract mixin class _$SearchCopyWith<$Res> implements $SearchCopyWith<$Res> {
+  factory _$SearchCopyWith(_Search value, $Res Function(_Search) _then) =
+      __$SearchCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {@CategoryEnumConverter() Category category,
+      @SubCategoryEnumConverter() SubCategory subCategory,
+      @EnterYearEnumConverter() EnterYear enterYear,
+      @EventNameEnumConverter() EventName eventName,
+      @CourseEnumConverter() Course course,
+      @SearchWordConverter() List<String> searchWord,
+      int numberOfHits,
+      @DateTimeConverter() DateTime? savedAt});
+}
 
-  factory _Search.fromJson(Map<String, dynamic> json) = _$SearchImpl.fromJson;
+/// @nodoc
+class __$SearchCopyWithImpl<$Res> implements _$SearchCopyWith<$Res> {
+  __$SearchCopyWithImpl(this._self, this._then);
 
-  @override
-  @CategoryEnumConverter()
-  Category get category;
-  @override
-  @SubCategoryEnumConverter()
-  SubCategory get subCategory;
-  @override
-  @EnterYearEnumConverter()
-  EnterYear get enterYear;
-  @override
-  @EventNameEnumConverter()
-  EventName get eventName;
-  @override
-  @CourseEnumConverter()
-  Course get course;
-  @override
-  @SearchWordConverter()
-  List<String> get searchWord;
-  @override
-  int get numberOfHits;
-  @override
-  @DateTimeConverter()
-  DateTime? get savedAt;
+  final _Search _self;
+  final $Res Function(_Search) _then;
 
   /// Create a copy of Search
   /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SearchImplCopyWith<_$SearchImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? category = null,
+    Object? subCategory = null,
+    Object? enterYear = null,
+    Object? eventName = null,
+    Object? course = null,
+    Object? searchWord = null,
+    Object? numberOfHits = null,
+    Object? savedAt = freezed,
+  }) {
+    return _then(_Search(
+      category: null == category
+          ? _self.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as Category,
+      subCategory: null == subCategory
+          ? _self.subCategory
+          : subCategory // ignore: cast_nullable_to_non_nullable
+              as SubCategory,
+      enterYear: null == enterYear
+          ? _self.enterYear
+          : enterYear // ignore: cast_nullable_to_non_nullable
+              as EnterYear,
+      eventName: null == eventName
+          ? _self.eventName
+          : eventName // ignore: cast_nullable_to_non_nullable
+              as EventName,
+      course: null == course
+          ? _self.course
+          : course // ignore: cast_nullable_to_non_nullable
+              as Course,
+      searchWord: null == searchWord
+          ? _self._searchWord
+          : searchWord // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      numberOfHits: null == numberOfHits
+          ? _self.numberOfHits
+          : numberOfHits // ignore: cast_nullable_to_non_nullable
+              as int,
+      savedAt: freezed == savedAt
+          ? _self.savedAt
+          : savedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
 }
+
+// dart format on

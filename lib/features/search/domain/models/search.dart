@@ -18,7 +18,7 @@ part 'search.g.dart';
 //⑦flutter pub run build_runner build --delete-conflicting-outputs
 
 @freezed
-class Search with _$Search {
+abstract class Search with _$Search {
 
 
   @JsonSerializable(explicitToJson: true)

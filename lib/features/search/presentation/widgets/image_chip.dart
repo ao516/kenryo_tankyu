@@ -10,7 +10,7 @@ class WorkImageChip extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themeModeNotifierProvider);
+    final themeMode = ref.watch(themeModeProvider);
     return themeMode.when(
       data: (theme) => searched.category2 != Category.none
           ? _twoCategoryChip(theme)

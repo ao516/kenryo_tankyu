@@ -7,7 +7,7 @@ part 'auth.freezed.dart';
 part 'auth.g.dart';
 
 @freezed
-class Auth with _$Auth {
+abstract class Auth with _$Auth {
   const factory Auth({
     @AffiliationConverter() Affiliation? affiliation,
     String? email,

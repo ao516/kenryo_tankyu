@@ -6,7 +6,7 @@ part of 'auth.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AuthImpl _$$AuthImplFromJson(Map<String, dynamic> json) => _$AuthImpl(
+_Auth _$AuthFromJson(Map<String, dynamic> json) => _Auth(
       affiliation: _$JsonConverterFromJson<String, Affiliation>(
           json['affiliation'], const AffiliationConverter().fromJson),
       email: json['email'] as String?,
@@ -16,8 +16,7 @@ _$AuthImpl _$$AuthImplFromJson(Map<String, dynamic> json) => _$AuthImpl(
       limit: (json['limit'] as num?)?.toInt() ?? 5,
     );
 
-Map<String, dynamic> _$$AuthImplToJson(_$AuthImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$AuthToJson(_Auth instance) => <String, dynamic>{
       'affiliation': _$JsonConverterToJson<String, Affiliation>(
           instance.affiliation, const AffiliationConverter().toJson),
       'email': instance.email,

@@ -4,9 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kenryo_tankyu/features/notification/data/datasources/notification_db.dart';
 import 'package:kenryo_tankyu/features/notification/domain/models/notification_content.dart';
 
-class NotificationNotifier extends StateNotifier<List<NotificationContent>> {
-  NotificationNotifier() : super([]) {
+class NotificationNotifier extends Notifier<List<NotificationContent>> {
+  @override
+  List<NotificationContent> build() {
     _fetchNotifications();
+    return <NotificationContent>[];
   }
 
   Future<void> _fetchNotifications() async {
@@ -36,6 +38,6 @@ class NotificationNotifier extends StateNotifier<List<NotificationContent>> {
   }
 }
 
-final notificationProvider = StateNotifierProvider<NotificationNotifier, List<NotificationContent>>(
-  (ref) => NotificationNotifier(),
+final notificationProvider = NotifierProvider<NotificationNotifier, List<NotificationContent>>(
+  NotificationNotifier.new,
 );

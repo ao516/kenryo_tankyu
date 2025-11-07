@@ -6,96 +6,217 @@ part of 'theme_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sharedPreferencesHash() => r'1cb46d6bb5f6c7badabd3ab1dcb5d1552aa4aa09';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [sharedPreferences].
 @ProviderFor(sharedPreferences)
-final sharedPreferencesProvider =
-    AutoDisposeFutureProvider<SharedPreferences>.internal(
-  sharedPreferences,
-  name: r'sharedPreferencesProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$sharedPreferencesHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const sharedPreferencesProvider = SharedPreferencesProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SharedPreferencesRef = AutoDisposeFutureProviderRef<SharedPreferences>;
-String _$settingsRepositoryHash() =>
-    r'3bcbc822ea68dd7be7677144ccd57b35a144c4cf';
+final class SharedPreferencesProvider extends $FunctionalProvider<
+        AsyncValue<SharedPreferences>,
+        SharedPreferences,
+        FutureOr<SharedPreferences>>
+    with
+        $FutureModifier<SharedPreferences>,
+        $FutureProvider<SharedPreferences> {
+  const SharedPreferencesProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'sharedPreferencesProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
 
-/// See also [settingsRepository].
+  @override
+  String debugGetCreateSourceHash() => _$sharedPreferencesHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<SharedPreferences> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<SharedPreferences> create(Ref ref) {
+    return sharedPreferences(ref);
+  }
+}
+
+String _$sharedPreferencesHash() => r'106b441400813a2b4bba3261097e11e5688efb98';
+
 @ProviderFor(settingsRepository)
-final settingsRepositoryProvider =
-    AutoDisposeProvider<SettingsRepository>.internal(
-  settingsRepository,
-  name: r'settingsRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$settingsRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const settingsRepositoryProvider = SettingsRepositoryProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SettingsRepositoryRef = AutoDisposeProviderRef<SettingsRepository>;
-String _$getThemeModeUsecaseHash() =>
-    r'738b265afd3e02901996d2c3ecaddd0f1a084736';
+final class SettingsRepositoryProvider extends $FunctionalProvider<
+    SettingsRepository,
+    SettingsRepository,
+    SettingsRepository> with $Provider<SettingsRepository> {
+  const SettingsRepositoryProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'settingsRepositoryProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
 
-/// See also [getThemeModeUsecase].
+  @override
+  String debugGetCreateSourceHash() => _$settingsRepositoryHash();
+
+  @$internal
+  @override
+  $ProviderElement<SettingsRepository> $createElement(
+          $ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  SettingsRepository create(Ref ref) {
+    return settingsRepository(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SettingsRepository value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SettingsRepository>(value),
+    );
+  }
+}
+
+String _$settingsRepositoryHash() =>
+    r'816cf780eb83de6c389dacb364f26002db93e447';
+
 @ProviderFor(getThemeModeUsecase)
-final getThemeModeUsecaseProvider =
-    AutoDisposeProvider<GetThemeModeUsecase>.internal(
-  getThemeModeUsecase,
-  name: r'getThemeModeUsecaseProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$getThemeModeUsecaseHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const getThemeModeUsecaseProvider = GetThemeModeUsecaseProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef GetThemeModeUsecaseRef = AutoDisposeProviderRef<GetThemeModeUsecase>;
+final class GetThemeModeUsecaseProvider extends $FunctionalProvider<
+    GetThemeModeUsecase,
+    GetThemeModeUsecase,
+    GetThemeModeUsecase> with $Provider<GetThemeModeUsecase> {
+  const GetThemeModeUsecaseProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'getThemeModeUsecaseProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$getThemeModeUsecaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<GetThemeModeUsecase> $createElement(
+          $ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  GetThemeModeUsecase create(Ref ref) {
+    return getThemeModeUsecase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(GetThemeModeUsecase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<GetThemeModeUsecase>(value),
+    );
+  }
+}
+
+String _$getThemeModeUsecaseHash() =>
+    r'2ec13e381b5b6e1a4e5809b6a999464649f88d00';
+
+@ProviderFor(setThemeModeUsecase)
+const setThemeModeUsecaseProvider = SetThemeModeUsecaseProvider._();
+
+final class SetThemeModeUsecaseProvider extends $FunctionalProvider<
+    SetThemeModeUsecase,
+    SetThemeModeUsecase,
+    SetThemeModeUsecase> with $Provider<SetThemeModeUsecase> {
+  const SetThemeModeUsecaseProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'setThemeModeUsecaseProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$setThemeModeUsecaseHash();
+
+  @$internal
+  @override
+  $ProviderElement<SetThemeModeUsecase> $createElement(
+          $ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  SetThemeModeUsecase create(Ref ref) {
+    return setThemeModeUsecase(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SetThemeModeUsecase value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SetThemeModeUsecase>(value),
+    );
+  }
+}
+
 String _$setThemeModeUsecaseHash() =>
     r'898f540b7e5166b6c5d377b1531971d2061cead0';
 
-/// See also [setThemeModeUsecase].
-@ProviderFor(setThemeModeUsecase)
-final setThemeModeUsecaseProvider =
-    AutoDisposeProvider<SetThemeModeUsecase>.internal(
-  setThemeModeUsecase,
-  name: r'setThemeModeUsecaseProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$setThemeModeUsecaseHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+@ProviderFor(ThemeModeNotifier)
+const themeModeProvider = ThemeModeNotifierProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef SetThemeModeUsecaseRef = AutoDisposeProviderRef<SetThemeModeUsecase>;
+final class ThemeModeNotifierProvider
+    extends $AsyncNotifierProvider<ThemeModeNotifier, ThemeMode> {
+  const ThemeModeNotifierProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'themeModeProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$themeModeNotifierHash();
+
+  @$internal
+  @override
+  ThemeModeNotifier create() => ThemeModeNotifier();
+}
+
 String _$themeModeNotifierHash() => r'6cd8389fc3505090091520fa0cf105af0f088463';
 
-/// See also [ThemeModeNotifier].
-@ProviderFor(ThemeModeNotifier)
-final themeModeNotifierProvider =
-    AutoDisposeAsyncNotifierProvider<ThemeModeNotifier, ThemeMode>.internal(
-  ThemeModeNotifier.new,
-  name: r'themeModeNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$themeModeNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$ThemeModeNotifier = AutoDisposeAsyncNotifier<ThemeMode>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$ThemeModeNotifier extends $AsyncNotifier<ThemeMode> {
+  FutureOr<ThemeMode> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<ThemeMode>, ThemeMode>;
+    final element = ref.element as $ClassProviderElement<
+        AnyNotifier<AsyncValue<ThemeMode>, ThemeMode>,
+        AsyncValue<ThemeMode>,
+        Object?,
+        Object?>;
+    element.handleValue(ref, created);
+  }
+}

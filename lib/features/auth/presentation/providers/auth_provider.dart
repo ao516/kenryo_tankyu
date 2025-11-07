@@ -8,12 +8,14 @@ final authStateChangesProvider = StreamProvider<User?>((ref) {
   return changes;
 });
 
-final authProvider = StateNotifierProvider.autoDispose<AuthNotifier, Auth>((ref) {
-  return AuthNotifier();
-});
+final authProvider = NotifierProvider.autoDispose<AuthNotifier, Auth>(
+  AuthNotifier.new,
+);
 
-class AuthNotifier extends StateNotifier<Auth> {
-  AuthNotifier() : super(const Auth());
+class AuthNotifier extends Notifier<Auth> {
+  Auth build(){
+    return const Auth();
+  }
 
   void changeVerifyEmail() {
     state = state.copyWith(confirmVerifyEmail: !state.confirmVerifyEmail);

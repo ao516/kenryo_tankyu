@@ -3,13 +3,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 
 //通知設定のProvider
-final notificationSettingProvider = StateNotifierProvider<NotificationSettingNotifier, bool>((ref) {
-  return NotificationSettingNotifier();
-});
+final notificationSettingProvider = NotifierProvider<NotificationSettingNotifier, bool>(
+  NotificationSettingNotifier.new,
+);
 
-class NotificationSettingNotifier extends StateNotifier<bool> {
-  NotificationSettingNotifier() : super(false) {
+class NotificationSettingNotifier extends Notifier<bool> {
+  @override
+  bool build() {
     _load();
+    return false;
   }
 
   Future<void> _load() async {

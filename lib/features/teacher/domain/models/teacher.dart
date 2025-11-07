@@ -7,7 +7,7 @@ part 'teacher.g.dart';
 
 @freezed
 @freezed
-class Teacher with _$Teacher {
+abstract class Teacher with _$Teacher {
   const factory Teacher({
     required String id,
     required String name,
