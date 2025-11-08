@@ -52,7 +52,7 @@ class _ChangeInfoFromUserState extends State<ChangeInfoFromUser> {
             );
           });
         },
-        value: selected?.displayName,
+        initialValue: selected?.displayName,
         hint: const Text('選択してください'), 
         items: [
           for (final item in ChangeInfoFromUserType.values)
