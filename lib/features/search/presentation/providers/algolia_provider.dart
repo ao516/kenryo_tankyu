@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'dart:convert';
 
-// Using algoliasearch package; responses are handled as Maps (JSON-like hits).
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -33,21 +32,14 @@ final algoliaSearchProvider =
 
   try {
     final SearchResponse response = await Application.algolia.searchIndex(request: queryHits);
+    debugPrint('レスポンス: ${response.toString()}');
     final List<Hit> hits = response.hits;
     if (hits.isEmpty) {
       //検索してもヒットしなかった場合
       return null;
     } else {
-      // ヒットしたデータがユーザーのお気に入りに登録されているかをローカルDBから取得
-      final List<int> documentIDs = hits
-          .map((e) => int.parse(e.objectID)).toList();
-      final List<int>? favoriteList = await SearchedHistoryController.instance
-          .getSomeFavoriteState(documentIDs);
-      // Algoliaから取得したデータをSearched型に変換し、favoriteListに基づいてお気に入り状態を設定
       return hits.map((object) {
-        final isFavorite =
-            favoriteList?.contains(int.parse(object['objectID'])) ?? false;
-        return Searched.fromAlgolia(object, isFavorite);
+        return Searched.fromAlgolia(object, false);
       }).toList();
     }
   } catch (error, stackTrace) {
@@ -58,6 +50,8 @@ final algoliaSearchProvider =
 
 // 検索条件に応じたfilter文字列を返す関数
 String _filter(Search searchState) {
+  debugPrint('初期状態');
+  debugPrint(searchState.toString());
   String str = '';
   searchState.subCategory.name != 'none'
       ? str +=
