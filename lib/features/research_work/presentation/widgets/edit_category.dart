@@ -41,8 +41,8 @@ class _EditCategoryState extends State<EditCategory> {
   Widget _buildRadioListTile( Searched searched) {
     return RadioGroup(
       groupValue: selectedRadio,
-      onChanged: (RadioValue? value) => {
-        setState(() => selectedRadio = value),
+      onChanged: (RadioValue? value) {
+        setState(() => selectedRadio = value);
       },
       child: Column(
         children: [
