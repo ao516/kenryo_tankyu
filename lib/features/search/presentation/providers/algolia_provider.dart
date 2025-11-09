@@ -32,7 +32,6 @@ final algoliaSearchProvider =
 
   try {
     final SearchResponse response = await Application.algolia.searchIndex(request: queryHits);
-    debugPrint('レスポンス: ${response.toString()}');
     final List<Hit> hits = response.hits;
     if (hits.isEmpty) {
       //検索してもヒットしなかった場合
@@ -50,8 +49,6 @@ final algoliaSearchProvider =
 
 // 検索条件に応じたfilter文字列を返す関数
 String _filter(Search searchState) {
-  debugPrint('初期状態');
-  debugPrint(searchState.toString());
   String str = '';
   searchState.subCategory.name != 'none'
       ? str +=
