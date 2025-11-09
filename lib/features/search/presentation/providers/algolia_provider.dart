@@ -71,36 +71,37 @@ String _filter(Search searchState) {
 }
 
 final sortedListProvider =
-    StateNotifierProvider.autoDispose<SortedListNotifier, List<Searched>>(
-        (ref) {
-  // dataProviderの結果を初期値として並び替えリストを管理
-  final data = ref.watch(algoliaSearchProvider).asData?.value ?? [];
-  return SortedListNotifier(data);
+    NotifierProvider.autoDispose<SortedListNotifier, List<Searched>>(() {
+  return SortedListNotifier();
 });
 
-class SortedListNotifier extends StateNotifier<List<Searched>> {
-  SortedListNotifier(super.state);
+class SortedListNotifier extends Notifier<List<Searched>> {
+  @override
+  List<Searched> build() {
+    final data = ref.watch(algoliaSearchProvider).asData?.value ?? [];
+    return data;
+  }
 
   void sortList(SortType sortType) {
+    final List<Searched> newList = [...state]; // コピーを作る
     switch (sortType) {
       case SortType.newOrder:
-        state = [...state]..sort((a, b) =>
+        newList.sort((a, b) =>
             b.enterYear.displayName.compareTo(a.enterYear.displayName));
         debugPrint('新しい順で並び替えます');
         break;
       case SortType.oldOrder:
-        state = [...state]..sort((a, b) =>
+        newList.sort((a, b) =>
             a.enterYear.displayName.compareTo(b.enterYear.displayName));
         debugPrint('古い順で並び替えます');
         break;
       case SortType.likeOrder:
-        state = [...state]
-          ..sort((a, b) => b.vagueLikes.compareTo(a.vagueLikes));
+        newList.sort((a, b) => b.vagueLikes.compareTo(a.vagueLikes));
         debugPrint('いいね順で並び替えます');
         break;
     }
-    state = state;
-  }
+    state = newList;
+    }
 }
 
 final randomAlgoliaSearchProvider =
