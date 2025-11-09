@@ -13,7 +13,7 @@ class EditCategory extends StatefulWidget {
 }
 
 class _EditCategoryState extends State<EditCategory> {
-  RadioValue selectedRadio = RadioValue.category1;
+  RadioValue? selectedRadio = RadioValue.category1;
   Category selectedCategory = Category.none;
   SubCategory selectedSubCategory = SubCategory.other;
 
@@ -26,7 +26,7 @@ class _EditCategoryState extends State<EditCategory> {
           'どちらのカテゴリを修正しますか',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        _buildRadioList(searched),
+        _buildRadioListTile(searched),
         const SizedBox(height: 8),
         _buildCategoryDropdown(),
         const SizedBox(height: 8),
@@ -37,32 +37,25 @@ class _EditCategoryState extends State<EditCategory> {
     );
   }
 
-  Widget _buildRadioList(Searched searched) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: 2,
-      itemBuilder: (context, index) {
-        return _buildRadioListTile(index, searched);
-      },
-    );
-  }
 
-  Widget _buildRadioListTile(int index, Searched searched) {
-    final category = index == 0 ? searched.category1 : searched.category2;
-    final subCategory =
-        index == 0 ? searched.subCategory1 : searched.subCategory2;
-    final radioValue = index == 0 ? RadioValue.category1 : RadioValue.category2;
-
-    return RadioListTile<RadioValue>(
-      contentPadding: EdgeInsets.zero,
-      title: Text('${category.displayName}\n>${subCategory.displayName}'),
-      value: radioValue,
+  Widget _buildRadioListTile( Searched searched) {
+    return RadioGroup(
       groupValue: selectedRadio,
       onChanged: (RadioValue? value) {
-        setState(() {
-          selectedRadio = value!;
-        });
+        setState(() => selectedRadio = value);
       },
+      child: Column(
+        children: [
+          RadioListTile(
+              title:
+                  Text('${searched.category1.displayName} - ${searched.subCategory1.displayName}'),
+              value: RadioValue.category1),
+          RadioListTile(
+              title:
+                  Text('${searched.category2.displayName} - ${searched.subCategory2.displayName}'),
+              value: RadioValue.category2),
+        ],
+      ),
     );
   }
 

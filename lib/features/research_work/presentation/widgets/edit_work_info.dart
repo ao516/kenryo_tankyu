@@ -66,7 +66,7 @@ class _EditWorkInfoState extends State<EditWorkInfo> {
             border: OutlineInputBorder(),
             isDense: true,
           ),
-          value: _selectedCourse,
+          initialValue: _selectedCourse,
           items: Course.values
               .map<DropdownMenuItem<Course>>((Course value) =>
                   DropdownMenuItem(
@@ -85,7 +85,7 @@ class _EditWorkInfoState extends State<EditWorkInfo> {
             border: OutlineInputBorder(),
             isDense: true,
           ),
-          value: _selectedYear,
+          initialValue: _selectedYear,
           items: EnterYear.values
               .map<DropdownMenuItem<EnterYear>>((EnterYear value) =>
                   DropdownMenuItem(

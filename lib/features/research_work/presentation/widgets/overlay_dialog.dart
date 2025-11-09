@@ -12,7 +12,7 @@ class OverlayDialog extends ModalRoute<void> {
   @override
   bool get barrierDismissible => true;
   @override
-  Color get barrierColor => Colors.black.withOpacity(0.5);
+  Color get barrierColor => Colors.black.withValues(alpha: 0.2);
   @override
   String get barrierLabel => 'Custom Dialog';
   @override
@@ -41,7 +41,7 @@ class OverlayDialog extends ModalRoute<void> {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: Colors.black.withValues(alpha: .2),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),

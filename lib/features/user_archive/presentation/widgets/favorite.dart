@@ -11,22 +11,19 @@ final ableChangeFavoriteProvider =
     StateProvider.autoDispose<bool>((ref) => true);
 
 ///documentIDごとにfavoriteかどうかを記録するProvider。
-final userIsFavoriteStateProvider = NotifierProvider.family
-    .autoDispose<ChangeFavoriteNotifier, bool, int>((documentID) {
-  final notifier = ChangeFavoriteNotifier();
-  notifier.initialize(documentID: documentID);
-  return notifier;
-});
+final userIsFavoriteStateProvider = AsyncNotifierProvider.family<ChangeFavoriteNotifier, bool, int>(
+  ChangeFavoriteNotifier.new,
+);
 
-class ChangeFavoriteNotifier extends Notifier<bool> {
-  bool build() {
-    return state;
-  }
+class ChangeFavoriteNotifier extends AsyncNotifier<bool> {
+  ChangeFavoriteNotifier(this.param);
+  final int param;
 
-  Future<void> initialize({required int documentID}) async {
-    final bool favoriteState =
-        await SearchedHistoryController.instance.getFavoriteState(documentID);
-    state = favoriteState;
+  @override
+  Future<bool> build() async {
+    final initialState = await SearchedHistoryController.instance
+        .getFavoriteState(this.param);
+    return initialState;
   }
 
   Future<void> changeIsFavorite(int documentID, bool nowFavoriteState) async {
@@ -49,7 +46,7 @@ class ChangeFavoriteNotifier extends Notifier<bool> {
         'vagueLikes': FieldValue.increment(-1)
       });
     }
-    state = newFavoriteState;
+    state = AsyncData(newFavoriteState);
   }
 }
 
@@ -79,7 +76,7 @@ class _FavoriteForResultPageState extends ConsumerState<FavoriteForResultPage> {
     final ableChangeFavoriteNotifier =
         ref.read(ableChangeFavoriteProvider.notifier);
     final isFavorite =
-        ref.watch(userIsFavoriteStateProvider(searched.documentID));
+        ref.watch(userIsFavoriteStateProvider(searched.documentID)).asData?.value ?? false;
 
     //強制リロードをした時に、likesの値を更新している。initStateだとリロード時に反映されないため。
     ref.listen<AsyncValue<Searched>>(
@@ -152,7 +149,7 @@ class FavoriteForResultListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isFavorite =
-        ref.watch(userIsFavoriteStateProvider(searched.documentID));
+        ref.watch(userIsFavoriteStateProvider(searched.documentID)).asData?.value ?? false;
 
     return Column(children: [
       Icon(
@@ -180,7 +177,7 @@ class FavoriteForHistory extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isFavorite =
-        ref.watch(userIsFavoriteStateProvider(searched.documentID));
+        ref.watch(userIsFavoriteStateProvider(searched.documentID)).asData?.value ?? false;
     return IconButton(
       icon: isFavorite
           ? const Icon(Icons.favorite, color: Colors.red)

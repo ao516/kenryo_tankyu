@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'dart:convert';
 
-// Using algoliasearch package; responses are handled as Maps (JSON-like hits).
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -38,16 +37,8 @@ final algoliaSearchProvider =
       //検索してもヒットしなかった場合
       return null;
     } else {
-      // ヒットしたデータがユーザーのお気に入りに登録されているかをローカルDBから取得
-      final List<int> documentIDs = hits
-          .map((e) => int.parse(e.objectID)).toList();
-      final List<int>? favoriteList = await SearchedHistoryController.instance
-          .getSomeFavoriteState(documentIDs);
-      // Algoliaから取得したデータをSearched型に変換し、favoriteListに基づいてお気に入り状態を設定
       return hits.map((object) {
-        final isFavorite =
-            favoriteList?.contains(int.parse(object['objectID'])) ?? false;
-        return Searched.fromAlgolia(object, isFavorite);
+        return Searched.fromAlgolia(object, false);
       }).toList();
     }
   } catch (error, stackTrace) {
@@ -77,36 +68,37 @@ String _filter(Search searchState) {
 }
 
 final sortedListProvider =
-    StateNotifierProvider.autoDispose<SortedListNotifier, List<Searched>>(
-        (ref) {
-  // dataProviderの結果を初期値として並び替えリストを管理
-  final data = ref.watch(algoliaSearchProvider).asData?.value ?? [];
-  return SortedListNotifier(data);
+    NotifierProvider.autoDispose<SortedListNotifier, List<Searched>>(() {
+  return SortedListNotifier();
 });
 
-class SortedListNotifier extends StateNotifier<List<Searched>> {
-  SortedListNotifier(super.state);
+class SortedListNotifier extends Notifier<List<Searched>> {
+  @override
+  List<Searched> build() {
+    final data = ref.watch(algoliaSearchProvider).asData?.value ?? [];
+    return data;
+  }
 
   void sortList(SortType sortType) {
+    final List<Searched> newList = [...state]; // コピーを作る
     switch (sortType) {
       case SortType.newOrder:
-        state = [...state]..sort((a, b) =>
+        newList.sort((a, b) =>
             b.enterYear.displayName.compareTo(a.enterYear.displayName));
         debugPrint('新しい順で並び替えます');
         break;
       case SortType.oldOrder:
-        state = [...state]..sort((a, b) =>
+        newList.sort((a, b) =>
             a.enterYear.displayName.compareTo(b.enterYear.displayName));
         debugPrint('古い順で並び替えます');
         break;
       case SortType.likeOrder:
-        state = [...state]
-          ..sort((a, b) => b.vagueLikes.compareTo(a.vagueLikes));
+        newList.sort((a, b) => b.vagueLikes.compareTo(a.vagueLikes));
         debugPrint('いいね順で並び替えます');
         break;
     }
-    state = state;
-  }
+    state = newList;
+    }
 }
 
 final randomAlgoliaSearchProvider =
